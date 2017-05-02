@@ -8,6 +8,6 @@ shambhala_cc_binary(
         "hello.cpp",
     ],
     deps = [
-        "//src/lib:hello",
+        "//shambhala:hello",
     ],
 )

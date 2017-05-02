@@ -8,7 +8,7 @@
 ** Includes
 *****************************************************************************/
 
-#include "shambhala/hello.hpp"
+#include "hello.hpp"
 
 /*****************************************************************************
 ** Includes
@@ -22,7 +22,8 @@
 
 namespace shambahla {
 
-    void hello_dudes() {
+    bool hello_dudes() {
         std::cout << "Foo" << std::endl;
+        return false;
     }
 };

@@ -13,12 +13,11 @@
 /*****************************************************************************
 ** Namespaces
 *****************************************************************************/
+#include <iostream>
 
 namespace shambhala {
 
-    void hello_dudes() {
-
-    }
+    bool hello_dudes();
 };
 
 #endif //SHAMBHALA_HELLO_HPP

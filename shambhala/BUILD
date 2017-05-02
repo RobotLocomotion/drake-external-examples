@@ -13,7 +13,7 @@ shambhala_cc_library(
         "hello.cpp",
     ],
     hdrs = [
-        "shambhala/hello.hpp",
+        "hello.hpp",
     ],
     deps = [
         #        "@eigen//:eigen",
