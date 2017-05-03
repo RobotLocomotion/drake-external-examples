@@ -17,7 +17,7 @@
 
 namespace shambhala {
 
-    bool hello_dudes();
+    void hello_dudes();
 };
 
 #endif //SHAMBHALA_HELLO_HPP

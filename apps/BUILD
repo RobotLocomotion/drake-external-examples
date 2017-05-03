@@ -2,8 +2,8 @@
 # This file contains rules for Bazel;
 load("//tools:shambhala.bzl", "shambhala_cc_binary")
 
-shambhala_cc_binary(
-    name = "hello",
+cc_binary(
+    name = "hello-dudes",
     srcs = [
         "hello.cpp",
     ],

@@ -8,7 +8,7 @@
 ** Includes
 *****************************************************************************/
 
-#include "hello.hpp"
+#include "shambhala/hello.hpp"
 
 /*****************************************************************************
 ** Includes
@@ -20,10 +20,9 @@
 ** Namespaces
 *****************************************************************************/
 
-namespace shambahla {
+namespace shambhala {
 
-    bool hello_dudes() {
-        std::cout << "Foo" << std::endl;
-        return false;
+    void hello_dudes() {
+        std::cout << "Hello Dudes" << std::endl;
     }
 };

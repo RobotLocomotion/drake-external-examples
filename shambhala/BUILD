@@ -7,14 +7,11 @@ package(default_visibility = ["//visibility:public"])
 
 # A library of things that EVERYONE should want and MUST EAT.
 # Be appropriately hesitant when adding new things here.
-shambhala_cc_library(
+cc_library(
     name = "hello",
-    srcs = [
-        "hello.cpp",
-    ],
-    hdrs = [
-        "hello.hpp",
-    ],
+    srcs = ["hello.cpp"],
+    hdrs = ["hello.hpp"],
+    visibility = ["//apps:__pkg__"],
     deps = [
         #        "@eigen//:eigen",
         #        "@spdlog//:spdlog",

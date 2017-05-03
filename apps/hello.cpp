@@ -8,9 +8,9 @@
 ** Includes
 *****************************************************************************/
 
-#include <iostream>
-
 #include "shambhala/hello.hpp"
+
+#include <iostream>
 
 /*****************************************************************************
 ** Namespaces
@@ -20,11 +20,6 @@
 ** Main program
 *****************************************************************************/
 int main(int argc, char** argv) {
-    std::cout << "dude" << std::endl;
-    if (shambhala::hello_dudes() ) {
-        std::cout << "True" << std::endl;
-    } else {
-        std::cout << "False" << std::endl;
-    }
+    shambhala::hello_dudes();
     return 0;
 }
