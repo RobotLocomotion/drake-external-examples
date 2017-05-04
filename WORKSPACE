@@ -69,6 +69,14 @@ load("//tools:github.bzl", "github_archive")
 #    build_file = "tools/pycodestyle.BUILD",
 #)
 #
+github_archive(
+    name = "drake",
+    repository = "RobotLocomotion/drake",
+    commit = "90f71bf4990ac2b9f9216868c991278c0d7869b4",
+#    sha256 = "e9fc1ca3fd85648f45c0d2e33591b608a17d8b9b78e22c5f898e831351bacb03",
+    build_file = "tools/drake.BUILD",
+)
+
 bitbucket_archive(
     name = "eigen",
     repository = "eigen/eigen",
