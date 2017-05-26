@@ -16,11 +16,10 @@
 
 workspace(name = "bazel_drake_external")
 
-load("//tools:bitbucket.bzl", "bitbucket_archive")
 load("//tools:github.bzl", "github_archive")
 
 ##############################################################################
-# The Drakeverse
+# The Drake-verse
 ##############################################################################
 
 github_archive(
@@ -29,6 +28,14 @@ github_archive(
     commit = "90f71bf4990ac2b9f9216868c991278c0d7869b4",
     sha256 = "62feb7694279dd58794283e20ed45ffef9871c2f1d8cb3961c1e72823f034f3a",
 )
+
+##############################################################################
+# Drake Dependencies
+##############################################################################
+
+# Now we can make use of Drake's bzl files
+# TODO : push some of these useful, but generic bzl files out to another repo
+load("@drake//tools:bitbucket.bzl", "bitbucket_archive")
 
 github_archive(
     name = "fmt",

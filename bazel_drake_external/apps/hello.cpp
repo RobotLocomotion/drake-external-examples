@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "Eigen/Core"
 #include "drake/automotive/curve2.h"
 
 #include "shambhala/hello.hpp"

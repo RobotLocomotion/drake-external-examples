@@ -8,6 +8,7 @@ cc_binary(
         "hello.cpp",
     ],
     deps = [
+        "@eigen",
         "@drake//drake/automotive:curve2",
         "//shambhala:hello",
     ],
