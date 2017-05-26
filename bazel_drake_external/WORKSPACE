@@ -14,7 +14,7 @@
 #     sha256 = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
 # )
 
-workspace(name = "bazel_drake_sources")
+workspace(name = "bazel_drake_external")
 
 load("//tools:bitbucket.bzl", "bitbucket_archive")
 load("//tools:github.bzl", "github_archive")
