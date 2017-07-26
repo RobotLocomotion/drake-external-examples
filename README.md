@@ -10,9 +10,9 @@ More practically, this repository exemplifies various ways to open a pathway to 
 
 Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
 
-* Circle : exemplifies how to put a project depending on a Drake installation on Circle CI
-* Travis : examplifies how to put a project depending on a Drake installation on Travis via docker image builds
-* Jenkins : provides complete coverage of shambhala for all subprojects and officially supported platforms
+* circle_ci : exemplifies how to put a project depending on a Drake installation on Circle CI
+* travis_ci : examplifies how to put a project depending on a Drake installation on Travis via docker image builds
+* jenkins : provides complete coverage of shambhala for all subprojects and officially supported platforms
 
 | | **Circle** | **Travis** | **Jenkins** |
 |:---:|:---:|:---:|
@@ -21,5 +21,5 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 | `drake_cmake_external` | - | - | x |
 | `drake_cmake_installed` | x | x | x |
 
-Note, the Circle and Travis jobs only build and test `drake_cmake_installed` since it is the exemplary case
-for a lightweight, open source build on a public CI server.
+Note, the Circle CI and Travis CI jobs only build and test `drake_cmake_installed` since it is the exemplary case
+for a lightweight, open-source build on a public CI server.
