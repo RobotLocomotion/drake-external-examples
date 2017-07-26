@@ -10,9 +10,9 @@ More practically, this repository exemplifies various ways to open a pathway to 
 
 Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
 
-* circle_ci : exemplifies how to put a project depending on a Drake installation on Circle CI
-* travis_ci : examplifies how to put a project depending on a Drake installation on Travis CI
-* jenkins : provides complete coverage of shambhala for all subprojects and officially supported platforms
+* `circle_ci` : exemplifies how to put a project depending on a Drake installation on Circle CI
+* `travis_ci` : examplifies how to put a project depending on a Drake installation on Travis CI
+* `jenkins` : provides complete coverage of shambhala for all subprojects and officially supported platforms
 
 | | **Circle CI** | **Travis CI** | **Jenkins** |
 |:---:|:---:|:---:|
