@@ -30,5 +30,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-add_subdirectory(simple_continuous_time_system)
-add_subdirectory(double_pendulum)
+add_executable(double_pendulum_demo double_pendulum_demo.cc frame_cache.cc sdf_helpers.cc)
+target_link_libraries(double_pendulum_demo drake::drake)
+
+install(TARGETS double_pendulum_demo DESTINATION "${CMAKE_INSTALL_BINDIR}")
+
+#add_test(NAME double_pendulum_demo COMMAND simple_continuous_time_system)
