@@ -36,5 +36,4 @@ export CXX=g++-5
 export FC=gfortran-5
 export PATH="/opt/cmake/bin${PATH:+:${PATH}}"
 
-./scripts/continuous_integration/common/drake_bazel_external
 ./scripts/continuous_integration/common/drake_cmake_installed
