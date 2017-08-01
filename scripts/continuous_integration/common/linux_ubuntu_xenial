@@ -37,8 +37,7 @@ yes | ./scripts/setup/linux/ubuntu/xenial/install_prereqs
 
 pushd /opt
 
-# 'latest' or a date, e.g. '20170719' will work for version
-readonly drake_version='latest'
+readonly drake_version='20170719'
 readonly drake_tarball="drake-${drake_version}-xenial.tar.gz"
 readonly drake_url="https://s3.amazonaws.com/drake-packages/drake/nightly/${drake_tarball}"
 #readonly drake_url="https://d2mbb5ninhlpdu.cloudfront.net/drake/nightly/${drake_tarball}"

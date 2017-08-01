@@ -8,11 +8,8 @@ Download the binaries and install into /opt. This will ensure that CMake is able
 to auto-discover the `drake-config.cmake` module. 
 
 ```
-# A nightly build
-# curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-20170719-xenial.tar.gz
-# Alternatively, the latest (usually last night's build)
-curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
-sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
+curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-20170719-xenial.tar.gz
+sudo tar -xvzf drake-20170719-xenial.tar.gz -C /opt
 mkdir build
 cd build
 cmake ..
