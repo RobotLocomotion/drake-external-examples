@@ -40,4 +40,4 @@ list(APPEND CMAKE_PREFIX_PATH /opt/drake)
 
 find_package(drake CONFIG REQUIRED)
 
-add_subdirectory(apps)
+add_subdirectory(src)

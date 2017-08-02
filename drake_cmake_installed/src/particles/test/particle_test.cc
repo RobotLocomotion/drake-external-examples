@@ -1,4 +1,4 @@
-#include "drake/examples/particles/particle.h"
+#include "../particle.h"
 
 #include <memory>
 

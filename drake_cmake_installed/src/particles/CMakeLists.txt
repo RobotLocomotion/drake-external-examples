@@ -44,4 +44,14 @@ install(
 add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
 target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake)
 
-#add_test(NAME simple_continuous_time_system COMMAND simple_continuous_time_system)
+find_package(GTest)
+
+if(GTEST_FOUND)
+    add_executable(test_particle test/particle_test.cc)
+    target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
+    add_executable(test_utilities test/utilities_test.cc)
+    target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
+
+    add_test(NAME particle_test COMMAND test_particle)
+    add_test(NAME utilities_test COMMAND test_utilities)
+endif()
