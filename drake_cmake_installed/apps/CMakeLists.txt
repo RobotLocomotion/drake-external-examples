@@ -30,9 +30,4 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
-target_link_libraries(simple_continuous_time_system drake::drake)
-
-install(TARGETS simple_continuous_time_system DESTINATION "${CMAKE_INSTALL_BINDIR}")
-
-add_test(NAME simple_continuous_time_system COMMAND simple_continuous_time_system)
+add_subdirectory(simple_continuous_time_system)
