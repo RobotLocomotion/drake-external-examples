@@ -30,8 +30,10 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+find_package(SDFormat)
+
 add_executable(double_pendulum_demo double_pendulum_demo.cc frame_cache.cc sdf_helpers.cc)
-target_link_libraries(double_pendulum_demo drake::drake)
+target_link_libraries(double_pendulum_demo drake::drake ${SDFormat_LIBRARIES})
 
 install(TARGETS double_pendulum_demo DESTINATION "${CMAKE_INSTALL_BINDIR}")
 
