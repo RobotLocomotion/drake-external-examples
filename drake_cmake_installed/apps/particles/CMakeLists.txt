@@ -30,5 +30,18 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-add_subdirectory(particles)
-add_subdirectory(simple_continuous_time_system)
+add_library(particles SHARED particle.cc utilities.cc)
+target_link_libraries(particles drake::drake)
+
+install(
+    TARGETS particles
+    RUNTIME DESTINATION bin
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+)
+
+add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
+target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake)
+
+#add_test(NAME simple_continuous_time_system COMMAND simple_continuous_time_system)
