@@ -34,7 +34,7 @@ def github_archive(
         name,
         repository = None,
         commit = None,
-        sha256 = None,
+        sha256 = "0" * 64,  # fallback to trigger a checksum misatch error that will print the real sha256 to screen
         build_file = None,
         local_repository_override = None,
         **kwargs):
@@ -48,9 +48,10 @@ def github_archive(
     also a git submodule in CMake, this should be kept in sync with the git
     submodule commit used there.)  This can also be a tag.
 
-    The required sha256= is the checksum of the downloaded archive.  When
-    unsure, you can omit this argument (or comment it out) and then the
-    checksum-mismatch error message message will offer a suggestion.
+    The required sha256= is the checksum of the downloaded archive. If you are
+    unsure, leave this unset as the default will trigger the checksum-mismatch error
+    and the resulting message will offer a suggestion. If set to None, it will skip matching
+    attempts on the checksum (useful if the commit string is a moving branch).
 
     The optional build_file= is the BUILD file label to use for building this
     external.  When omitted, the BUILD file(s) within the archive will be used.
@@ -63,10 +64,6 @@ def github_archive(
         fail("Missing repository=")
     if commit == None:
         fail("Missing commit=")
-    if sha256 == None:
-        # This is mostly-required, but we fallback to a wrong-default value to
-        # allow the first attempt to fail and print the correct sha256.
-        sha256 = "0" * 64
 
     urls = [
         "https://github.com/%s/archive/%s.tar.gz" % (repository, commit)
