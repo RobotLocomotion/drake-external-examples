@@ -29,7 +29,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set -eu
+set -euo pipefail
 
 if [[ "${EUID}" -eq 0 ]]; then
   echo 'This script must NOT be run as root' >&2
@@ -59,11 +59,20 @@ boost
 cmake
 gcc
 glib
+libyaml
 numpy
 pkg-config
 python
+scipy
 tinyxml
 vtk@8.0
 zlib
+EOF
+)
+
+pip2 install --upgrade $(tr '\n' ' ' <<EOF
+lxml
+pip
+PyYAML
 EOF
 )

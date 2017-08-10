@@ -29,8 +29,7 @@
 
 FROM ubuntu:14.04
 COPY ./install_prereqs /tmp/install_prereqs
-RUN apt-get update \
-  && yes | /tmp/install_prereqs \
+RUN yes | /tmp/install_prereqs \
   && rm -rf /var/lib/apt/lists/* \
   && rm -f /tmp/install_prereqs
 ENV PATH /opt/cmake/bin:$PATH
