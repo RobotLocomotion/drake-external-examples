@@ -29,43 +29,52 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set -eu
+set -euo pipefail
 
 if [[ "${EUID}" -ne 0 ]]; then
   echo 'This script must be run as root' >&2
   exit 1
 fi
 
-apt-get update
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get update -qq
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 curl
 software-properties-common
 EOF
 )
 
-add-apt-repository 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
+add-apt-repository -s 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
 curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
-apt-get update
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get update -qq
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 cmake
 g++
 gfortran
 git
 libboost-dev
+libexpat1
+libfreetype6
 libglib2.0-dev
 libglu1-mesa-dev
+libjpeg8
 libpng-dev
+libqt4-opengl
+libtiff5
 libtinyxml-dev
 libtool
+libxml2
 libxt6
 make
 mesa-common-dev
 openjdk-8-jdk
 pkg-config
 python-dev
+python-lxml
 python-numpy
+python-scipy
+python-yaml
 zlib1g-dev
 EOF
 )
