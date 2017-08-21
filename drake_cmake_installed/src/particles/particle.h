@@ -3,8 +3,7 @@
 #include "drake/common/drake_copyable.h"
 #include "drake/systems/framework/leaf_system.h"
 
-namespace drake {
-namespace examples {
+namespace shambhala {
 namespace particles {
 
 /// A linear 1DOF particle system.
@@ -26,7 +25,7 @@ namespace particles {
 /// - double
 ///
 template <typename T>
-class Particle : public systems::LeafSystem<T> {
+class Particle : public drake::systems::LeafSystem<T> {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle)
 
@@ -34,13 +33,12 @@ class Particle : public systems::LeafSystem<T> {
   Particle();
 
  protected:
-  void CopyStateOut(const systems::Context<T>& context,
-                    systems::BasicVector<T>* output) const;
+  void CopyStateOut(const drake::systems::Context<T>& context,
+                    drake::systems::BasicVector<T>* output) const;
 
-  void DoCalcTimeDerivatives(const systems::Context<T>& context,
-      systems::ContinuousState<T>* derivatives) const override;
+  void DoCalcTimeDerivatives(const drake::systems::Context<T>& context,
+                             drake::systems::ContinuousState<T>* derivatives) const override;
 };
 
 }  // namespace particles
-}  // namespace examples
-}  // namespace drake
+}  // namespace shambhala
