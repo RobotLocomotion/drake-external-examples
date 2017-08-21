@@ -24,5 +24,7 @@ make
 
 # Examples
 
+Further instructions can be found in the README files in the respective application subdirectories.
+
 * Simple Continuous Time System
 * Particle Demo
