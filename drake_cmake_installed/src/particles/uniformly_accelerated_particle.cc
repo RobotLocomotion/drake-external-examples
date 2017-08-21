@@ -90,7 +90,7 @@ UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
       throw std::runtime_error(std::string("could not find '") + kParticleSdfPath + std::string("'"));
   }
   parsers::sdf::AddModelInstancesFromSdfFileToWorld(
-      kParticleSdfPath,// FindResourceOrThrow(kParticleSdfPath),
+      kParticleSdfPath,
       multibody::joints::kRollPitchYaw,
       tree_.get());
   // Compile tree one more time just to be sure.
