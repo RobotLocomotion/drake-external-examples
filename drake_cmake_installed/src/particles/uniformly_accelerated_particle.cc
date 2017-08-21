@@ -5,19 +5,20 @@
 #include <cstdlib>
 #include <limits>
 #include <memory>
+#include <sys/stat.h>
 
 #include "particle.h"
 #include "utilities.h"
 
-#include "drake/common/find_resource.h"
-#include "drake/common/text_logging_gflags.h"
-#include "drake/lcm/drake_lcm.h"
-#include "drake/multibody/parsers/sdf_parser.h"
-#include "drake/multibody/rigid_body_plant/drake_visualizer.h"
-#include "drake/systems/analysis/simulator.h"
-#include "drake/systems/framework/diagram.h"
-#include "drake/systems/framework/diagram_builder.h"
-#include "drake/systems/primitives/constant_vector_source.h"
+#include <drake/common/find_resource.h>
+#include <drake/common/text_logging_gflags.h>
+#include <drake/lcm/drake_lcm.h>
+#include <drake/multibody/parsers/sdf_parser.h>
+#include <drake/multibody/rigid_body_plant/drake_visualizer.h>
+#include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/diagram.h>
+#include <drake/systems/framework/diagram_builder.h>
+#include <drake/systems/primitives/constant_vector_source.h>
 
 DEFINE_double(initial_position, 0.0,
               "Particle initial x position");
@@ -36,8 +37,15 @@ namespace particles {
 namespace {
 
 /// Fixed path to particle SDF model (for visualization purposes only).
-static const char* const kParticleSdfPath =
-  "drake/examples/particles/models/particle.sdf";
+static const char* const kParticleSdfPath = "particle.sdf";
+
+/// Check if the specified file exists.
+/// @param[in] name of the file
+/// @return existence (true) or otherwise (false)
+bool file_exists(const std::string& name) {
+  struct stat buffer;
+  return (stat (name.c_str(), &buffer) == 0);
+}
 
 /// A sample diagram for visualizing a 1DOF particle to which a
 /// a constant acceleration is applied.
@@ -78,8 +86,11 @@ template <typename T>
 UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
     const T& acceleration, lcm::DrakeLcmInterface* lcm) {
   // Parse particle sdf into rigid body tree.
+  if (!file_exists(kParticleSdfPath)) {
+      throw std::runtime_error(std::string("could not find '") + kParticleSdfPath + std::string("'"));
+  }
   parsers::sdf::AddModelInstancesFromSdfFileToWorld(
-      FindResourceOrThrow(kParticleSdfPath),
+      kParticleSdfPath,// FindResourceOrThrow(kParticleSdfPath),
       multibody::joints::kRollPitchYaw,
       tree_.get());
   // Compile tree one more time just to be sure.

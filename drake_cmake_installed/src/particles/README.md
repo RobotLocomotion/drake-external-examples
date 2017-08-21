@@ -4,22 +4,24 @@
 
 ### Description
 
-This is a demo that creates a very simple system of a 1-DOF particle, moving at a constant acceleration.  All relevant quantities can be set through the command line: its initial position and velocity, as well its acceleration (in SI units). Additionally, simulation time and realtime rate are also exposed as command line arguments.
+This is a demo that creates a very simple system of a 1-DOF particle, moving at a constant acceleration.
+All relevant quantities can be set through the command line: its initial position and velocity, as
+well its acceleration (in SI units). Additionally, simulation time and realtime rate are also exposed
+as command line arguments.
 
 ![demo diagram](docs/uniformly_accelerated_particle_diagram.png)
 
 ### How do I build it?
 
-To build this demo, from Drake's repository root path just run:
-
-```
-bazel build drake/examples/particles/uniformly_accelerated_particle_demo
-```
+Follow the instructions in the README for this project.
 
 ### How do I run it?
 
-To run this demo, from Drake's repository root just run:
-
 ```
-bazel run drake/examples/particles:uniformly_accelerated_particle_demo -- [-initial_position 0.0] [-initial_velocity 0.0] [-acceleration 1.0] [-simulation_time +inf] [-realtime_rate 1.0]
+# Switch to the build directory
+cd build/src/particles
+# Start the visualiser
+/opt/drake/bin/drake_visualizer &
+# Run the demo
+./uniformly_accelerated_particle_demo [-initial_position 0.0] [-initial_velocity 0.0] [-acceleration 1.0] [-simulation_time +inf] [-realtime_rate 1.0]
 ```

@@ -13,8 +13,7 @@ to auto-discover the `drake-config.cmake` module.
 # Alternatively, the latest (usually last night's build)
 curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
 sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 make
 ```
