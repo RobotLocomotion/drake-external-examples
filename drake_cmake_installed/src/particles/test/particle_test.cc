@@ -8,8 +8,7 @@
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/vector_base.h"
 
-namespace drake {
-namespace examples {
+namespace shambhala {
 namespace particles {
 namespace {
 
@@ -30,13 +29,13 @@ class ParticleTest : public ::testing::Test {
   }
 
   /// System (aka Device Under Test) being tested.
-  std::unique_ptr<systems::System<T>> dut_;
+  std::unique_ptr<drake::systems::System<T>> dut_;
   /// Context for the given @p dut_.
-  std::unique_ptr<systems::Context<T>> context_;
+  std::unique_ptr<drake::systems::Context<T>> context_;
   /// Outputs of the given @p dut_.
-  std::unique_ptr<systems::SystemOutput<T>> output_;
+  std::unique_ptr<drake::systems::SystemOutput<T>> output_;
   /// Derivatives of the given @p dut_.
-  std::unique_ptr<systems::ContinuousState<T>> derivatives_;
+  std::unique_ptr<drake::systems::ContinuousState<T>> derivatives_;
 };
 
 TYPED_TEST_CASE_P(ParticleTest);
@@ -45,7 +44,7 @@ TYPED_TEST_CASE_P(ParticleTest);
 /// state (position and velocity).
 TYPED_TEST_P(ParticleTest, OutputTest) {
   // Initialize state.
-  systems::VectorBase<TypeParam>* continuous_state_vector =
+  drake::systems::VectorBase<TypeParam>* continuous_state_vector =
     this->context_->get_mutable_continuous_state_vector();
   continuous_state_vector->SetAtIndex(
       0, static_cast<TypeParam>(10.0));  // x0 = 10 m.
@@ -53,7 +52,7 @@ TYPED_TEST_P(ParticleTest, OutputTest) {
       1, static_cast<TypeParam>(1.0));  // x1 = 1 m/s.
   // Compute outputs.
   this->dut_->CalcOutput(*this->context_, this->output_.get());
-  systems::BasicVector<TypeParam>* output_vector =
+  drake::systems::BasicVector<TypeParam>* output_vector =
     this->output_->GetMutableVectorData(0);
   // Check results.
   EXPECT_EQ(output_vector->GetAtIndex(0),
@@ -66,15 +65,15 @@ TYPED_TEST_P(ParticleTest, OutputTest) {
 /// consistent with its state and input (velocity and acceleration).
 TYPED_TEST_P(ParticleTest, DerivativesTest) {
   // Set input.
-  const systems::InputPortDescriptor<TypeParam>& input_descriptor =
+  const drake::systems::InputPortDescriptor<TypeParam>& input_descriptor =
       this->dut_->get_input_port(0);
-  auto input = std::make_unique<systems::BasicVector<TypeParam>>(
+  auto input = std::make_unique<drake::systems::BasicVector<TypeParam>>(
       input_descriptor.size());
   input->SetZero();
   input->SetAtIndex(0, static_cast<TypeParam>(1.0));  // u0 = 1 m/s^2
   this->context_->FixInputPort(0, std::move(input));
   // Set state.
-  systems::VectorBase<TypeParam>* continuous_state_vector =
+  drake::systems::VectorBase<TypeParam>* continuous_state_vector =
     this->context_->get_mutable_continuous_state_vector();
   continuous_state_vector->SetAtIndex(
       0, static_cast<TypeParam>(0.0));  // x0 = 0 m
@@ -82,7 +81,7 @@ TYPED_TEST_P(ParticleTest, DerivativesTest) {
       1, static_cast<TypeParam>(2.0));  // x1 = 2 m/s
   // Compute derivatives.
   this->dut_->CalcTimeDerivatives(*this->context_, this->derivatives_.get());
-  const systems::VectorBase<TypeParam>& derivatives_vector =
+  const drake::systems::VectorBase<TypeParam>& derivatives_vector =
       this->derivatives_->get_vector();
   // Check results.
   EXPECT_EQ(derivatives_vector.GetAtIndex(0),
@@ -97,5 +96,4 @@ INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, ParticleTest, double);
 
 }  // namespace
 }  // namespace particles
-}  // namespace examples
-}  // namespace drake
+}  // namespace shambhala

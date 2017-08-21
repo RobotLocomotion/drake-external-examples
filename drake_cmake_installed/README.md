@@ -8,15 +8,32 @@ Download the binaries and install into /opt. This will ensure that CMake is able
 to auto-discover the `drake-config.cmake` module. 
 
 ```
+# Install PreRequisites
 <TODO: install pre-requisite debs list>
-# A nightly build
+
+# Install Drake
 # curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-20170719-xenial.tar.gz
 # Alternatively, the latest (usually last night's build)
 curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
 sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
+
+# Install GTest
+sudo apt-get install libgtest-dev
+cd /usr/src/gtest
+sudo mkdir build && cd build && sudo cmake .. && sudo make
+sudo cp *.a /usr/lib
+
+# Build Everything
 mkdir build && cd build
 cmake ..
-make
+make -j5
+
+# Run a demo
+/opt/drake/bin/drake_visualizer &
+(cd src/particles && exec ./uniformly_accelerated_particle_demo)         
+
+# Run Tests
+make test
 ```
 
 # Examples

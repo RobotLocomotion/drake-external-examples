@@ -8,8 +8,7 @@
 #include "drake/systems/framework/system.h"
 #include "drake/systems/framework/vector_base.h"
 
-namespace drake {
-namespace examples {
+namespace shambhala {
 namespace particles {
 namespace {
 
@@ -25,20 +24,20 @@ class SingleDOFEulerJointTest : public ::testing::Test {
   /// the Device Under Test.
   void SetUp() override {
     // Only the first generalized coordinate gets through.
-    MatrixX<T> translating_matrix(6, 1);
+    drake::MatrixX<T> translating_matrix(6, 1);
     translating_matrix.setZero();
     translating_matrix(0, 0) = 1.0;
-    this->dut_ = MakeDegenerateEulerJoint(translating_matrix);
+    this->dut_ = shambhala::particles::MakeDegenerateEulerJoint(translating_matrix);
     this->context_ = this->dut_->CreateDefaultContext();
     this->output_ = this->dut_->AllocateOutput(*this->context_);
   }
 
   /// System (aka Device Under Test) being tested.
-  std::unique_ptr<systems::System<T>> dut_;
+  std::unique_ptr<drake::systems::System<T>> dut_;
   /// Context for the given @p dut_.
-  std::unique_ptr<systems::Context<T>> context_;
+  std::unique_ptr<drake::systems::Context<T>> context_;
   /// Outputs of the given @p dut_.
-  std::unique_ptr<systems::SystemOutput<T>> output_;
+  std::unique_ptr<drake::systems::SystemOutput<T>> output_;
 };
 
 TYPED_TEST_CASE_P(SingleDOFEulerJointTest);
@@ -47,9 +46,9 @@ TYPED_TEST_CASE_P(SingleDOFEulerJointTest);
 /// output is the right mapping of its inputs.
 TYPED_TEST_P(SingleDOFEulerJointTest, OutputTest) {
   // Set input.
-  const systems::InputPortDescriptor<TypeParam>& input_descriptor =
+  const drake::systems::InputPortDescriptor<TypeParam>& input_descriptor =
       this->dut_->get_input_port(0);
-  auto input = std::make_unique<systems::BasicVector<TypeParam>>(
+  auto input = std::make_unique<drake::systems::BasicVector<TypeParam>>(
       input_descriptor.size());
   input->SetZero();
   input->SetAtIndex(0, static_cast<TypeParam>(1.0));  // q0 = 1.0
@@ -57,7 +56,7 @@ TYPED_TEST_P(SingleDOFEulerJointTest, OutputTest) {
   this->context_->FixInputPort(0, std::move(input));
   // Compute outputs.
   this->dut_->CalcOutput(*this->context_, this->output_.get());
-  const systems::BasicVector<TypeParam>* output =
+  const drake::systems::BasicVector<TypeParam>* output =
       this->output_->get_vector_data(0);
   // Check results.
   EXPECT_EQ(output->GetAtIndex(0),
@@ -80,7 +79,7 @@ INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, SingleDOFEulerJointTest, double);
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, WrongOutputDOFTest) {
   // Scalar type is fixed as it makes no difference.
   ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(MatrixX<double>(4, 4));
+      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(4, 4));
     }, std::runtime_error);
 }
 
@@ -90,7 +89,7 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, WrongOutputDOFTest) {
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooManyInputDOFTest) {
   // Scalar type is fixed as it makes no difference.
   ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(MatrixX<double>(6, 8));
+      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 8));
     }, std::runtime_error);
 }
 
@@ -100,11 +99,10 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooManyInputDOFTest) {
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooFewInputDOFTest) {
   // Scalar type is fixed as it makes no difference.
   ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(MatrixX<double>(6, 0));
+      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 0));
     }, std::runtime_error);
 }
 
 }  // namespace
 }  // namespace particles
-}  // namespace examples
-}  // namespace drake
+}  // namespace shambhala
