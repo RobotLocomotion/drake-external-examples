@@ -23,8 +23,8 @@ make
 
 Further instructions can be found in the README files in the respective application subdirectories.
 
-* Simple Continuous Time System
-* Particle Demo
+* [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
+* [Particle Demo](src/particles/README.md)
 
 # Deploying a Project on CI
 
