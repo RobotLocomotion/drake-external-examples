@@ -19,6 +19,7 @@
 #include <drake/systems/framework/diagram.h>
 #include <drake/systems/framework/diagram_builder.h>
 #include <drake/systems/primitives/constant_vector_source.h>
+#include <sdf/sdf.hh>
 
 DEFINE_double(initial_position, 0.0,
               "Particle initial x position");
@@ -89,6 +90,7 @@ UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
   if (!file_exists(kParticleSdfPath)) {
       throw std::runtime_error(std::string("could not find '") + kParticleSdfPath + std::string("'"));
   }
+  // using the custom sdf parser from Drake
   parsers::sdf::AddModelInstancesFromSdfFileToWorld(
       kParticleSdfPath,
       multibody::joints::kRollPitchYaw,

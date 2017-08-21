@@ -25,3 +25,9 @@ cd build/src/particles
 # Run the demo
 ./uniformly_accelerated_particle_demo [-initial_position 0.0] [-initial_velocity 0.0] [-acceleration 1.0] [-simulation_time +inf] [-realtime_rate 1.0]
 ```
+
+### Caveats
+
+Feel free to emulate the system framework part of this demo program, but be aware that this is using the
+soon-to-be deprecated rigid body and custom sdf parser which will be replaced by the multi-body api and
+the officially upgraded sdf parser from OSRC.
