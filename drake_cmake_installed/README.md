@@ -2,16 +2,15 @@
 
 This uses the CMake `find_package(drake)` mechanism to find an installed instance of Drake.
 
-# Build on Ubuntu 16.04 (Xenial)
+# Instructions
 
-Download the binaries and install into /opt. This will ensure that CMake is able
-to auto-discover the `drake-config.cmake` module. 
+These instructions are only supported for Ubuntu 16.04 (Xenial).
 
 ```
 # Install PreRequisites
 <TODO: install pre-requisite debs list>
 
-# Install Drake
+# Install Drake to /opt/drake
 # curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-20170719-xenial.tar.gz
 # Alternatively, the latest (usually last night's build)
 curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
