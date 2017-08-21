@@ -29,21 +29,21 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set -eu
+set -euo pipefail
 
 if [[ "${EUID}" -ne 0 ]]; then
   echo 'This script must be run as root' >&2
   exit 1
 fi
 
-apt-get update
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get update -qq
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 curl
 software-properties-common
 EOF
 )
 
-add-apt-repository 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
+add-apt-repository -s 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
 curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
 add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -51,8 +51,8 @@ add-apt-repository ppa:ubuntu-toolchain-r/test
 add-apt-repository ppa:webupd8team/java
 echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections
 
-apt-get update
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get update -qq
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 g++
 g++-5
@@ -60,27 +60,37 @@ gfortran
 gfortran-5
 git
 libboost-dev
+libexpat1
+libfreetype6
 libglib2.0-dev
 libglu1-mesa-dev
+libjpeg8
 libpng-dev
+libqt4-opengl
+libtiff5
 libtinyxml-dev
 libtool
+libxml2
 libxt6
 make
 mesa-common-dev
 oracle-java8-installer
 pkg-config
 python-dev
+python-lxml
 python-numpy
+python-scipy
+python-yaml
 zlib1g-dev
 EOF
 )
 
 pushd /tmp
 
-readonly cmake_version='3.9.0'
+readonly cmake_version='3.9.1'
 
 curl -O "https://cmake.org/files/v3.9/cmake-${cmake_version}-Linux-x86_64.tar.gz"
+echo "ecbaf72981ccd09d9dade6d580cf1213eef15ef95a675dd9d4f0d693f134644f  cmake-${cmake_version}-Linux-x86_64.tar.gz" | sha256sum -c
 tar -xzf "cmake-${cmake_version}-Linux-x86_64.tar.gz"
 mv "cmake-${cmake_version}-Linux-x86_64" /opt/cmake
 rm "cmake-${cmake_version}-Linux-x86_64.tar.gz"
