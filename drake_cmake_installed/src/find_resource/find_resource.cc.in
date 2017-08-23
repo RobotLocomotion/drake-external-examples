@@ -3,7 +3,6 @@
 ///
 
 #include <cstdlib>
-#include <iostream>
 
 #include <gtest/gtest.h>
 
@@ -15,8 +14,7 @@ namespace {
 
 GTEST_TEST(FindResource, Available)
 {
-    setenv("DRAKE_RESOURCE_ROOT", "@drake_DIR@/../../../share/drake", 1);
-    auto result = drake::FindResourceOrThrow("drake/manipulation/models/iiwa_description/urdf/iiwa14_primitive_collision.urdf");
+    auto result = drake::FindResourceOrThrow("drake/manipulation/models/iiwa_description/urdf/iiwa14_primitive_collision.urdf", "@drake_DIR@/../../../share/drake");
     // it will throw if it does not find the resource correctly
     SUCCEED();
 }
