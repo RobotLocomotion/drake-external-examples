@@ -29,5 +29,5 @@ cd build/src/particles
 ### Caveats
 
 Feel free to emulate the system framework part of this demo program, but be aware that this is using the
-soon-to-be deprecated rigid body and custom sdf parser which will be replaced by the multi-body API and
+soon-to-be deprecated rigid body and custom SDF parser which will be replaced by the multi-body API and
 the officially upgraded SDF parser from OSRC.
