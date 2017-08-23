@@ -50,11 +50,11 @@ target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake
 find_package(GTest)
 
 if(GTEST_FOUND)
-    add_executable(test_particle test/particle_test.cc)
+    add_executable(test_particle test/test_particle.cc)
     target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
-    add_executable(test_utilities test/utilities_test.cc)
+    add_executable(test_utilities test/test_utilities.cc)
     target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
 
-    add_test(NAME particle_test COMMAND test_particle)
-    add_test(NAME utilities_test COMMAND test_utilities)
+    add_test(NAME test_particle COMMAND test_particle)
+    add_test(NAME test_utilities COMMAND test_utilities)
 endif()
