@@ -31,9 +31,9 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 find_package(GTest)
-
 if(GTEST_FOUND)
-    add_executable(test_find_resource find_resource.cc)
+    configure_file(find_resource.cc.in ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
+    add_executable(test_find_resource ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
     target_link_libraries(test_find_resource GTest::GTest GTest::Main drake::drake)
 
     add_test(NAME find_resource_test COMMAND test_find_resource)
