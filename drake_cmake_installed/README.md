@@ -25,7 +25,7 @@ sudo cp *.a /usr/lib
 # Build Everything
 mkdir build && cd build
 cmake ..
-make -j5
+make
 
 # Run a demo
 /opt/drake/bin/drake_visualizer &
