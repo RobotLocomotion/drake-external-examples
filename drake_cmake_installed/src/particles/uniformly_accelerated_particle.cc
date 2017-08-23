@@ -10,14 +10,14 @@
 #include "particle.h"
 #include "utilities.h"
 
-#include "drake/common/text_logging_gflags.h"
-#include "drake/lcm/drake_lcm.h"
-#include "drake/multibody/parsers/sdf_parser.h"
-#include "drake/multibody/rigid_body_plant/drake_visualizer.h"
-#include "drake/systems/framework/diagram.h"
-#include "drake/systems/framework/diagram_builder.h"
-#include "drake/systems/primitives/constant_vector_source.h"
-#include "drake/systems/analysis/simulator.h"
+#include <drake/common/text_logging_gflags.h>
+#include <drake/lcm/drake_lcm.h>
+#include <drake/multibody/parsers/sdf_parser.h>
+#include <drake/multibody/rigid_body_plant/drake_visualizer.h>
+#include <drake/systems/framework/diagram.h>
+#include <drake/systems/framework/diagram_builder.h>
+#include <drake/systems/primitives/constant_vector_source.h>
+#include <drake/systems/analysis/simulator.h>
 
 DEFINE_double(initial_position, 0.0,
               "Particle initial x position");

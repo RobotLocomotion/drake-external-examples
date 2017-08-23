@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "drake/common/eigen_types.h"
-#include "drake/systems/primitives/matrix_gain.h"
+#include <drake/common/eigen_types.h>
+#include <drake/systems/primitives/matrix_gain.h>
 
 namespace shambhala {
 namespace particles {

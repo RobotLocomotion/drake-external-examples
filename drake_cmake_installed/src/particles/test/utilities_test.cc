@@ -4,9 +4,9 @@
 
 #include <gtest/gtest.h>
 
-#include "drake/systems/framework/basic_vector.h"
-#include "drake/systems/framework/system.h"
-#include "drake/systems/framework/vector_base.h"
+#include <drake/systems/framework/basic_vector.h>
+#include <drake/systems/framework/system.h>
+#include <drake/systems/framework/vector_base.h>
 
 namespace shambhala {
 namespace particles {
