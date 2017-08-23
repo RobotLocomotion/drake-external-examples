@@ -37,11 +37,11 @@ add_library(particles SHARED particle.cc utilities.cc)
 target_link_libraries(particles drake::drake)
 
 install(
-    TARGETS particles
-    RUNTIME DESTINATION bin
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+  TARGETS particles
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 )
 
 add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
@@ -50,11 +50,11 @@ target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake
 find_package(GTest)
 
 if(GTEST_FOUND)
-    add_executable(test_particle test/test_particle.cc)
-    target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
-    add_executable(test_utilities test/test_utilities.cc)
-    target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
+  add_executable(test_particle test/test_particle.cc)
+  target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
+  add_executable(test_utilities test/test_utilities.cc)
+  target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
 
-    add_test(NAME test_particle COMMAND test_particle)
-    add_test(NAME test_utilities COMMAND test_utilities)
+  add_test(NAME test_particle COMMAND test_particle)
+  add_test(NAME test_utilities COMMAND test_utilities)
 endif()
