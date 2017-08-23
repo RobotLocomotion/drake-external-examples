@@ -33,7 +33,7 @@
 # send over the sdf file so the particle example can be run 'in place'.
 configure_file(models/particle.sdf ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
-add_library(particles SHARED particle.cc utilities.cc)
+add_library(particles particle.cc utilities.cc)
 target_link_libraries(particles drake::drake)
 
 install(
