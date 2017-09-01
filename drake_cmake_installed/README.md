@@ -16,12 +16,6 @@ These instructions are only supported for Ubuntu 16.04 (Xenial).
 curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
 sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 
-# Install GTest
-sudo apt-get install libgtest-dev
-cd /usr/src/gtest
-sudo mkdir build && cd build && sudo cmake .. && sudo make
-sudo cp *.a /usr/lib
-
 # Build Everything
 mkdir build && cd build
 cmake ..
@@ -31,7 +25,13 @@ make
 /opt/drake/bin/drake_visualizer &
 (cd src/particles && exec ./uniformly_accelerated_particle_demo)         
 
-# Run Tests
+# (Optionally) Install GTest
+sudo apt-get install libgtest-dev
+cd /usr/src/gtest
+mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
+sudo cp *.a /usr/lib
+
+# (Optionally) Run Tests
 make test
 ```
 
