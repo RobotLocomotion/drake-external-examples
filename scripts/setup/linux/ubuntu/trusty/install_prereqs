@@ -54,6 +54,7 @@ echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | 
 apt-get update -qq
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
+ca-certificates
 g++
 g++-5
 gfortran
@@ -74,6 +75,7 @@ libxml2
 libxt6
 make
 mesa-common-dev
+openssh-client
 oracle-java8-installer
 pkg-config
 python-dev

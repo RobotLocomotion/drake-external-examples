@@ -49,6 +49,7 @@ curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
 apt-get update -qq
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
+ca-certificates
 cmake
 g++
 gfortran
@@ -69,6 +70,7 @@ libxt6
 make
 mesa-common-dev
 openjdk-8-jdk
+openssh-client
 pkg-config
 python-dev
 python-lxml
