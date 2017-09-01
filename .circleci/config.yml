@@ -33,7 +33,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:16.04
+      - image: robotlocomotion/circleci:xenial
 
     working_directory: ~/drake-shambhala
 
