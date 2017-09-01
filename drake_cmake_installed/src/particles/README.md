@@ -4,7 +4,7 @@
 
 ### Description
 
-This is a demo that creates a very simple system of a 1-DOF particle, moving at a constant acceleration.
+This is a demo that creates a very simple system of a 1DOF particle, moving at a constant acceleration.
 All relevant quantities can be set through the command line: its initial position and velocity, as
 well its acceleration (in SI units). Additionally, simulation time and realtime rate are also exposed
 as command line arguments.
@@ -29,5 +29,5 @@ cd build/src/particles
 ### Caveats
 
 Feel free to emulate the system framework part of this demo program, but be aware that this is using the
-soon-to-be deprecated rigid body and custom SDF parser which will be replaced by the multi-body API and
+soon-to-be-deprecated rigid body and custom SDF parser which will be replaced by the multi-body API and
 the officially upgraded SDF parser from OSRC.
