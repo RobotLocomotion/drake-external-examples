@@ -29,7 +29,6 @@ make
 # You could also explicitly pull gtest into the CMake build directly:
 #     https://github.com/google/googletest/tree/master/googletest
 sudo apt-get install libgtest-dev
-cd /usr/src/gtest
 mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
 sudo cp *.a /usr/lib
 
