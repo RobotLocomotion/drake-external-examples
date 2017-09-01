@@ -30,14 +30,23 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.5.1)
-project(drake_cmake_installed)
+# send over the sdf file so the particle example can be run 'in place'.
+configure_file(models/particle.sdf ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
-include(CTest)
-include(GNUInstallDirs)
+add_library(particles particle.cc utilities.cc)
+target_link_libraries(particles drake::drake)
 
-list(APPEND CMAKE_PREFIX_PATH /opt/drake)
+add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
+target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake)
 
-find_package(drake CONFIG REQUIRED)
+find_package(GTest)
 
-add_subdirectory(src)
+if(GTEST_FOUND)
+  add_executable(test_particle test/test_particle.cc)
+  target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
+  add_executable(test_utilities test/test_utilities.cc)
+  target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
+
+  add_test(NAME test_particle COMMAND test_particle)
+  add_test(NAME test_utilities COMMAND test_utilities)
+endif()

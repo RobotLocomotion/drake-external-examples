@@ -30,14 +30,5 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.5.1)
-project(drake_cmake_installed)
-
-include(CTest)
-include(GNUInstallDirs)
-
-list(APPEND CMAKE_PREFIX_PATH /opt/drake)
-
-find_package(drake CONFIG REQUIRED)
-
-add_subdirectory(src)
+add_subdirectory(particles)
+add_subdirectory(simple_continuous_time_system)
