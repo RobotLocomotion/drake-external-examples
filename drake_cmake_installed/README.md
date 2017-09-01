@@ -16,7 +16,16 @@ These instructions are only supported for Ubuntu 16.04 (Xenial).
 curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
 sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 
-# Build Everything
+# (Optionally) Install GTest
+# You could also explicitly pull gtest into the CMake build directly:
+#     https://github.com/google/googletest/tree/master/googletest
+sudo apt-get install libgtest-dev
+ls
+mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
+sudo cp *.a /usr/local/lib
+
+# Clone & Build Everything
+git clone https://github.com/RobotLocomotion/drake-shambhala.git
 mkdir build && cd build
 cmake ..
 make
@@ -24,13 +33,6 @@ make
 # Run a demo
 /opt/drake/bin/drake_visualizer &
 (cd src/particles && exec ./uniformly_accelerated_particle_demo)         
-
-# (Optionally) Install GTest
-# You could also explicitly pull gtest into the CMake build directly:
-#     https://github.com/google/googletest/tree/master/googletest
-sudo apt-get install libgtest-dev
-mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
-sudo cp *.a /usr/lib
 
 # (Optionally) Run Tests
 make test
