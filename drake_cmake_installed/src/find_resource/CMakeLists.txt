@@ -30,14 +30,11 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.5.1)
-project(drake_cmake_installed)
+find_package(GTest)
+if(GTEST_FOUND)
+    configure_file(find_resource.cc.in ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
+    add_executable(test_find_resource ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
+    target_link_libraries(test_find_resource GTest::GTest GTest::Main drake::drake)
 
-include(CTest)
-include(GNUInstallDirs)
-
-list(APPEND CMAKE_PREFIX_PATH /opt/drake)
-
-find_package(drake CONFIG REQUIRED)
-
-add_subdirectory(src)
+    add_test(NAME find_resource_test COMMAND test_find_resource)
+endif()
