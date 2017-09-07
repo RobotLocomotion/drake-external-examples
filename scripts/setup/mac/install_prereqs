@@ -58,8 +58,10 @@ bazel
 boost
 cmake
 gcc
+glew
 glib
 libyaml
+lz4
 numpy
 pkg-config
 python
