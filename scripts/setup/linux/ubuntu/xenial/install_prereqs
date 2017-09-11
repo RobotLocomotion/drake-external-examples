@@ -59,9 +59,16 @@ libexpat1
 libfreetype6
 libglib2.0-dev
 libglu1-mesa-dev
+libhdf5-10
 libjpeg8
+libjsoncpp1
+liblz4-dev
+libnetcdf-c++4
+libnetcdf11
+libogg0
 libpng-dev
 libqt4-opengl
+libtheora0
 libtiff5
 libtinyxml-dev
 libtool
