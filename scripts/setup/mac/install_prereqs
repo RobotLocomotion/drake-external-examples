@@ -57,9 +57,9 @@ brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
 cmake
-gcc
 glew
 glib
+ipopt
 libyaml
 lz4
 numpy
