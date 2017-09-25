@@ -51,8 +51,8 @@ apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
 cmake
+coinor-libipopt-dev
 g++
-gfortran
 git
 libboost-dev
 libexpat1
@@ -62,6 +62,7 @@ libglu1-mesa-dev
 libhdf5-10
 libjpeg8
 libjsoncpp1
+liblapack-dev
 liblz4-dev
 libnetcdf-c++4
 libnetcdf11
