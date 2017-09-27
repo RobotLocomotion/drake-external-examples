@@ -11,9 +11,9 @@ These instructions are only supported for Ubuntu 16.04 (Xenial).
 <TODO: install pre-requisite debs list>
 
 # Install Drake to /opt/drake
-# curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-20170719-xenial.tar.gz
+# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20170719-xenial.tar.gz
 # Alternatively, the latest (usually last night's build)
-curl -O https://s3.amazonaws.com/drake-packages/drake/nightly/drake-latest-xenial.tar.gz
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
 sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 
 # (Optionally) Install GTest
