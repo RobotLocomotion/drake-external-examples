@@ -2,6 +2,7 @@
 /// @brief  A simple 1DOF, constantly accelerated particle example.
 ///
 
+#include <csignal>
 #include <cstdlib>
 #include <limits>
 #include <memory>
@@ -18,6 +19,11 @@
 
 #include "particle.h"
 #include "utilities.h"
+
+void signalHandler( int signum ) {
+  std::cerr << "Interrupt signal (" << signum << ") received." << std::endl;
+  exit(0);
+}
 
 DEFINE_double(initial_position, 0.0,
               "Particle initial x position");
@@ -135,6 +141,7 @@ UniformlyAcceleratedParticle<T>::CreateContext(
 /// Main function for demo.
 ///
 int main(int argc, char* argv[]) {
+  std::signal(SIGTERM, signalHandler);
   gflags::SetUsageMessage("A very simple demonstration, "
                           "make sure drake-visualizer is running!");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
