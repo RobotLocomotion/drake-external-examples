@@ -84,3 +84,16 @@ github_archive(
     sha256 = "d798a6ca19165f0a18a43938859359269f5a07fd8e0eb83ab8674739c9e8f361",  # noqa
     build_file = "tools/spdlog.BUILD",
 )
+
+################################################################################
+# Example Integration Dependencies
+################################################################################
+
+# This archive was generated using the script:
+# /scripts/setup/linux/ubuntu/xenial/package_pcl.sh
+# TODO(eric.cousineau): Replace this with http_archive once we have somewhere to upload it.
+new_local_repository(
+    name = "pcl",
+    path = "/tmp/tmp.wbxv6adY3U/install/pcl",
+    build_file = "tools/pcl.BUILD",
+)

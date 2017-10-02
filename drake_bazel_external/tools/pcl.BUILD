@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2017, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,28 +30,19 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-licenses(["notice"])  # BSD-3-Clause
+licenses(["notice", "unencumbered"])  # BSD-3-Clause AND MIT AND Public-Domain
 
-cc_test(
-    name = "simple_continuous_time_system",
-    size = "small",
-    srcs = ["simple_continuous_time_system.cc"],
-    deps = [
-        "@drake//drake/systems/analysis:simulator",
-        "@drake//drake/systems/framework:context",
-        "@drake//drake/systems/framework:continuous_state",
-        "@drake//drake/systems/framework:leaf_system",
-        "@drake//drake/systems/framework:vector",
-    ],
-)
+package(default_visibility = ["//visibility:public"])
 
-cc_test(
-    name = "simple_pcl_test",
-    size = "small",
-    srcs = ["simple_pcl_test.cc"],
-    deps = [
-        "@drake//drake/systems/primitives:random_source",
-        "@pcl",
-    ],
-    tags = ["pcl"],
+cc_library(
+    name = "pcl",
+    hdrs = glob([
+        "include/pcl-1.7/pcl/**/*.h",
+        "include/pcl-1.7/pcl/**/*.hpp",
+    ]),
+    srcs = glob([
+        "lib/libpcl_*.so*",
+    ]),
+    defines = ["BSD"],
+    includes = ["include/pcl-1.7"],
 )
