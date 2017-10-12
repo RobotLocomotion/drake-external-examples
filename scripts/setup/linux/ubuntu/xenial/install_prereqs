@@ -54,7 +54,7 @@ cmake
 coinor-libipopt-dev
 g++
 git
-libboost-dev
+libboost-all-dev
 libexpat1
 libfreetype6
 libglib2.0-dev

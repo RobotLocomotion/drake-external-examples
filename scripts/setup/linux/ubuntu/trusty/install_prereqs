@@ -60,7 +60,7 @@ g++-5
 gfortran
 gfortran-5
 git
-libboost-dev
+libboost-all-dev
 libexpat1
 libfreetype6
 libglib2.0-dev
