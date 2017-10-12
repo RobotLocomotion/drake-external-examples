@@ -76,6 +76,7 @@ libqt4-opengl
 libtheora0
 libtiff5
 libtinyxml-dev
+libtinyxml2-dev
 libtool
 libxml2
 libxt6
