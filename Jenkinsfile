@@ -32,19 +32,17 @@
  *****************************************************************************/
 
 node('linux_xenial_unprovisioned') {
-
-  stage('checkout') {
-    checkout scm
+  try {
+    stage('checkout') {
+      checkout scm
+    }
+    stage('setup') {
+      sh './scripts/continuous_integration/jenkins/setup'
+    }
+    stage('build and test') {
+      sh './scripts/continuous_integration/jenkins/build_test'
+    }
+  } finally {
+    cleanWs(notFailBuild: true)
   }
-
-  stage('setup') {
-    sh './scripts/continuous_integration/jenkins/setup'
-  }
-
-  stage('build and test') {
-    sh './scripts/continuous_integration/jenkins/build_test'
-  }
-
-  cleanWs(notFailBuild: true)
-
 }
