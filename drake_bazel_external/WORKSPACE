@@ -42,11 +42,14 @@ load("//tools:github.bzl", "github_archive")
 github_archive(
     name = "drake",
     repository = "RobotLocomotion/drake",
-    commit = "master",
-    sha256 = None
-    # alternatively for a specific tag
-    # commit = "65c4366ea2b63278a286b1e22b8d464d50fbe365",
-    # sha256 = "899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca",
+
+    # For the latest
+    # commit = "master",
+    # sha256 = None
+
+    # For a specific tag
+    commit = "7a850460c630ec13464e98e53825495493e0bc1e",
+    sha256 = "2cde1ae5dd12a1f532e4138bc06d53c707b5a8e55cefb8d3713b04fcd1bae3ca",
 )
 
 ################################################################################
