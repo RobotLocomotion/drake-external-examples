@@ -35,6 +35,14 @@ bazel version
 
 pushd drake_bazel_external
 
-bazel test ...
+# Remove PCL-based tests unless we're on Xenial.
+tags="-pcl"
+if which lsb_release; then
+    distro=$(lsb_release -c | cut -f 2)
+    if [[ ${distro} == "xenial" ]]; then
+        tags=""
+    fi
+fi
+bazel test --test_tag_filters="${tags}" ...
 
 popd
