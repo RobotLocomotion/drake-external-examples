@@ -14,7 +14,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 * `jenkins` : provides complete coverage of shambhala for all subprojects and officially supported platforms
 
 | **Subproject** | **Circle CI** | **Jenkins** |
-|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|
 | `drake_bazel_external` | - | o |
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | o |
