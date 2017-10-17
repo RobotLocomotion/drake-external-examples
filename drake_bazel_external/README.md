@@ -2,7 +2,7 @@
 
 This pulls in drake via the Bazel external mechanism.
 
-## UnSupported (Yet)
+## Not Supported (Yet)
 
 While it is possible to replicate Drake's WORKSPACE and bazel macros
 to reconstruct the build, the process is brittle and subject
