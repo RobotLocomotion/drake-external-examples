@@ -32,15 +32,17 @@
 
 licenses(["notice"])  # BSD-3-Clause
 
-cc_test(
-    name = "simple_continuous_time_system",
-    size = "small",
-    srcs = ["simple_continuous_time_system.cc"],
-    deps = [
-        "@drake//drake/systems/analysis:simulator",
-        "@drake//drake/systems/framework:context",
-        "@drake//drake/systems/framework:continuous_state",
-        "@drake//drake/systems/framework:leaf_system",
-        "@drake//drake/systems/framework:vector",
-    ],
-)
+# TODO: pending supporting build logic from Drake, refer to drake_bazel_external/README.md
+
+#cc_test(
+#    name = "simple_continuous_time_system",
+#    size = "small",
+#    srcs = ["simple_continuous_time_system.cc"],
+#    deps = [
+#        "@drake//drake/systems/analysis:simulator",
+#        "@drake//drake/systems/framework:context",
+#        "@drake//drake/systems/framework:continuous_state",
+#        "@drake//drake/systems/framework:leaf_system",
+#        "@drake//drake/systems/framework:vector",
+#    ],
+#)
