@@ -35,6 +35,7 @@ bazel version
 
 pushd drake_bazel_external
 
-bazel test ...
+# TODO uncomment once drake_bazel_external has a supported implementation
+# bazel test ...
 
 popd
