@@ -46,7 +46,7 @@ else()
 endif()
 
 set(BAZEL_ENV CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER})
-set(BAZEL_ARGS --compilation_mode=${BAZEL_COMPILATION_MODE} --config=unsupported_crosstool --cxxopt=-std=c++1y)
+set(BAZEL_ARGS --compilation_mode=${BAZEL_COMPILATION_MODE} --config=unsupported_crosstool --cxxopt=-std=c++1y --host_cxxopt=-std=c++1y)
 
 if(CMAKE_VERBOSE_MAKEFILE)
   set(BAZEL_ARGS --subcommands ${BAZEL_ARGS})

@@ -11,15 +11,14 @@ More practically, this repository exemplifies various ways to open a pathway to 
 Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
 
 * `circle_ci` : exemplifies how to put a project depending on a Drake installation on Circle CI
-* `travis_ci` : examplifies how to put a project depending on a Drake installation on Travis CI
 * `jenkins` : provides complete coverage of shambhala for all subprojects and officially supported platforms
 
-| **Subproject** | **Circle CI** | **Travis CI** | **Jenkins** |
-|:---:|:---:|:---:|:---:|
-| `drake_bazel_external` | - | - | o |
-| `drake_cmake_external` | - | - | o |
-| `drake_cmake_installed` | o | o | o |
-||[![CircleCI](https://img.shields.io/circleci/project/github/RobotLocomotion/drake-shambhala/master.svg)](https://circleci.com/gh/RobotLocomotion/drake-shambhala)|[![Travis CI](https://img.shields.io/travis/RobotLocomotion/drake-shambhala/master.svg)](https://travis-ci.org/RobotLocomotion/drake-shambhala)|[![Jenkins](https://img.shields.io/jenkins/s/https/drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/job/master.svg)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/)|
+| **Subproject** | **Circle CI** | **Jenkins** |
+|:---:|:---:|:---:|
+| `drake_bazel_external` | - | o |
+| `drake_cmake_external` | - | o |
+| `drake_cmake_installed` | o | o |
+||[![CircleCI](https://img.shields.io/circleci/project/github/RobotLocomotion/drake-shambhala/master.svg)](https://circleci.com/gh/RobotLocomotion/drake-shambhala)|[![Jenkins](https://img.shields.io/jenkins/s/https/drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/job/master.svg)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/)|
 
-Note, the Circle CI and Travis CI jobs only build and test `drake_cmake_installed` since it is the exemplary case
+Note, the Circle CI jobs only build and test `drake_cmake_installed` since it is the exemplary case
 for a lightweight, open-source build on a public CI server.
