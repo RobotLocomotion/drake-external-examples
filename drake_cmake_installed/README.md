@@ -27,7 +27,7 @@ sudo cp *.a /usr/local/lib
 # Clone & Build Everything
 git clone https://github.com/RobotLocomotion/drake-shambhala.git
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_INSTALL_PREFIX=/opt/drake ..
 make
 
 # Run a demo
