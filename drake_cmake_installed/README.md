@@ -7,14 +7,11 @@ This uses the CMake `find_package(drake)` mechanism to find an installed instanc
 These instructions are only supported for Ubuntu 16.04 (Xenial).
 
 ```
+###############################################################
 # Install Prerequisites
-<TODO: install pre-requisite debs list>
-
-# Install Drake to /opt/drake
-# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20170719-xenial.tar.gz
-# Alternatively, the latest (usually last night's build)
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
-sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
+###############################################################
+# Various system dependencies
+sudo ../scripts/setup/linux/ubuntu/xenial/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:
@@ -24,13 +21,38 @@ ls
 mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
 sudo cp *.a /usr/local/lib
 
-# Clone & Build Everything
+###############################################################
+# Install Drake to /opt/drake
+###############################################################
+
+# 1) A specific version (date-stamped)
+# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20170719-xenial.tar.gz
+
+# 2) The latest (usually last night's build)
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
+sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
+
+# 3) Manual Installation
+# git clone https://github.com/RobotLocomotion/drake.git
+# (cd drake && bazel run //:install /opt/drake)         
+
+# 4) Manual Installation w/ Licensed Gurobi
+# Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
+# git clone https://github.com/RobotLocomotion/drake.git
+# (cd drake && bazel run --config gurobi //:install /opt/drake)         
+
+###############################################################
+# Build Everything
+###############################################################
 git clone https://github.com/RobotLocomotion/drake-shambhala.git
 mkdir build && cd build
-cmake ..
+cmake -Ddrake_DIR=/opt/drake/lib/cmake/drake ..
 make
 
-# Run a demo
+###############################################################
+# Execute
+###############################################################
+# A demo
 /opt/drake/bin/drake_visualizer &
 (cd src/particles && exec ./uniformly_accelerated_particle_demo)         
 
