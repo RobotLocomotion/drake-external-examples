@@ -36,7 +36,7 @@ project(drake_cmake_installed)
 include(CTest)
 include(GNUInstallDirs)
 
-list(APPEND CMAKE_PREFIX_PATH /opt/drake)
+#list(APPEND CMAKE_PREFIX_PATH /opt/drake)
 
 find_package(drake CONFIG REQUIRED)
 
