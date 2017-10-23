@@ -32,6 +32,13 @@
  *****************************************************************************/
 
 node('linux_xenial_unprovisioned') {
+  def triggers = []
+  if (env.BRANCH_NAME == 'master') {
+    triggers << cron('H H(5-6) * * *')
+  }
+  properties ([
+    pipelineTriggers(triggers)
+  ])
   try {
     stage('checkout') {
       checkout scm
