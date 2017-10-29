@@ -50,6 +50,7 @@ apt-get update -qq
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
+chrpath
 cmake
 coinor-libipopt-dev
 g++
