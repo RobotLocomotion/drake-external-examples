@@ -94,6 +94,7 @@ python-numpy
 python-protobuf
 python-scipy
 python-yaml
+qt5-default
 zlib1g-dev
 EOF
 )
