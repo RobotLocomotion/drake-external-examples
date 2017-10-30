@@ -41,14 +41,12 @@
 
 #include <cmath>
 
-#include "drake/common/drake_assert.h"
-#include "drake/systems/analysis/simulator.h"
-#include "drake/systems/framework/basic_vector.h"
-#include "drake/systems/framework/context.h"
-#include "drake/systems/framework/continuous_state.h"
-#include "drake/systems/framework/leaf_system.h"
+#include <drake/common/drake_assert.h>
+#include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/vector_system.h>
 
 namespace shambhala {
+namespace systems {
 
 /**
  * Simple Continuous Time System
@@ -56,52 +54,56 @@ namespace shambhala {
  * xdot = -x + x^3
  * y = x
  */
-class SimpleContinuousTimeSystem : public drake::systems::LeafSystem<double> {
+class SimpleContinuousTimeSystem : public drake::systems::VectorSystem<double> {
  public:
-  SimpleContinuousTimeSystem() {
-    constexpr int kSize = 1;  // The dimension of both output (y) and state (x).
-    this->DeclareVectorOutputPort(drake::systems::BasicVector<double>(kSize),
-                                  &SimpleContinuousTimeSystem::CopyStateOut);
-    this->DeclareContinuousState(kSize);
+  SimpleContinuousTimeSystem()
+      : drake::systems::VectorSystem<double>(0,    // Zero inputs.
+                                             1) {  // One output.
+    this->DeclareContinuousState(1);               // One state variable.
   }
 
  private:
   // xdot = -x + x^3
-  void DoCalcTimeDerivatives(
+  virtual void DoCalcVectorTimeDerivatives(
       const drake::systems::Context<double>& context,
-      drake::systems::ContinuousState<double>* derivatives) const override {
-    const double x = context.get_continuous_state_vector().GetAtIndex(0);
-    const double xdot = -x + std::pow(x, 3.0);
-    derivatives->get_mutable_vector()->SetAtIndex(0, xdot);
+      const Eigen::VectorBlock<const Eigen::VectorXd>& input,
+      const Eigen::VectorBlock<const Eigen::VectorXd>& state,
+      Eigen::VectorBlock<Eigen::VectorXd>* derivatives) const {
+    drake::unused(context, input);
+    (*derivatives)(0) = -state(0) + std::pow(state(0), 3.0);
   }
 
   // y = x
-  void CopyStateOut(const drake::systems::Context<double>& context,
-                    drake::systems::BasicVector<double>* output) const {
-    const double x = context.get_continuous_state_vector().GetAtIndex(0);
-    output->SetAtIndex(0, x);
+  virtual void DoCalcVectorOutput(
+      const drake::systems::Context<double>& context,
+      const Eigen::VectorBlock<const Eigen::VectorXd>& input,
+      const Eigen::VectorBlock<const Eigen::VectorXd>& state,
+      Eigen::VectorBlock<Eigen::VectorXd>* output) const {
+    drake::unused(context, input);
+    *output = state;
   }
 };
 
+}  // namespace systems
 }  // namespace shambhala
 
 int main() {
   // Create the simple system.
-  shambhala::SimpleContinuousTimeSystem system;
+  shambhala::systems::SimpleContinuousTimeSystem system;
 
   // Create the simulator.
   drake::systems::Simulator<double> simulator(system);
 
   // Set the initial conditions x(0).
-  drake::systems::ContinuousState<double>& xc =
-      *simulator.get_mutable_context()->get_mutable_continuous_state();
-  xc[0] = 0.9;
+  drake::systems::ContinuousState<double>& state =
+      simulator.get_mutable_context().get_mutable_continuous_state();
+  state[0] = 0.9;
 
   // Simulate for 10 seconds.
   simulator.StepTo(10);
 
   // Make sure the simulation converges to the stable fixed point at x=0.
-  DRAKE_DEMAND(xc[0] < 1.0e-4);
+  DRAKE_DEMAND(state[0] < 1.0e-4);
 
   // TODO(russt): Make a plot of the resulting trajectory.
 
