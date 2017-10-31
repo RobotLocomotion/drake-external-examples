@@ -58,6 +58,7 @@ diffstat
 g++
 git
 libboost-all-dev
+libccd-dev
 libexpat1
 libfreetype6-dev
 libglib2.0-dev
