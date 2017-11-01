@@ -43,14 +43,19 @@ software-properties-common
 EOF
 )
 
+add-apt-repository -s 'deb [arch=amd64] http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main'
+curl -L https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+
 add-apt-repository -s 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
-curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
+curl -L https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
 apt-get update -qq
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
 chrpath
+clang-3.9
+clang-format-3.9
 cmake
 coinor-libclp-dev
 coinor-libipopt-dev
@@ -80,9 +85,9 @@ libtiff5-dev
 libtinyxml-dev
 libtinyxml2-dev
 libtool
-libyaml-cpp-dev
 libxml2-dev
 libxt-dev
+libyaml-cpp-dev
 make
 mesa-common-dev
 openjdk-8-jdk
