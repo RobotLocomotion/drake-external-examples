@@ -56,6 +56,7 @@ brew upgrade
 brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
+clang-format
 cmake
 diffstat
 glew
