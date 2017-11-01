@@ -61,6 +61,7 @@ diffstat
 glew
 glib
 ipopt
+libccd
 libyaml
 lz4
 nlopt
