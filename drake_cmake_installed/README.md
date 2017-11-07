@@ -45,6 +45,7 @@ sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 # Build Everything
 ###############################################################
 git clone https://github.com/RobotLocomotion/drake-shambhala.git
+cd drake-shambhala/drake_cmake_installed
 mkdir build && cd build
 cmake -Ddrake_DIR=/opt/drake/lib/cmake/drake ..
 make
@@ -66,9 +67,4 @@ Further instructions can be found in the README files in the respective applicat
 
 * [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
 * [Particle Demo](src/particles/README.md)
-
-# Deploying a Project on CI
-
-## Travis CI
-
-## Circle CI
+* [Find Resources](src/find_resource/README.md)
