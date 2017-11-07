@@ -2,7 +2,7 @@
 
 ## Description
 
-Simply tests the Drake find resource api from outside of Drake (i.e. finds and loads resources that are part of the Drake install).
+Simply tests the Drake find resource API from outside of Drake i.e., finds and loads resources that are part of the Drake install.
 
 ## How do I build it?
 

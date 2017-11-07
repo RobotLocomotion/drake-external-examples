@@ -15,4 +15,4 @@ cd build/src/simple_continuous_time_system
 ./simple_continuous_time_system
 ```
 
-Note that there is no interaction nor output fromt his program. It is merely intended to exercise the code.
+Note that there is no interaction nor output from this program. It is merely intended to exercise the code.
