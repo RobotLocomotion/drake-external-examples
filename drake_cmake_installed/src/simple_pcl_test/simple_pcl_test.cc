@@ -48,11 +48,13 @@
 
 // TODO(eric.cousineau): Figure out how to make Bazel permit angle brackets.
 #include "drake/systems/primitives/random_source.h"
+// Test Eigen header presence.
+#include "drake/solvers/mathematical_program.h"
 
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
 
-typedef drake::systems::RandomState<std::uniform_real_distribution<double>>
+typedef drake::systems::internal::RandomState<std::uniform_real_distribution<double>>
     RandomStateT;
 
 int main (int argc, char** argv) {
@@ -62,7 +64,7 @@ int main (int argc, char** argv) {
   const int num_points = 100000;
   const float radius = 1;
 
-  RandomStateT rand;
+  RandomStateT rand = RandomStateT(drake::systems::internal::generate_unique_seed());
   auto rand_pt = [&rand, radius](float pt[3]) {
     for (int i = 0; i < 3; ++i) {
       pt[i] = (rand.GetNextValue() * 2 - 1) * radius;
