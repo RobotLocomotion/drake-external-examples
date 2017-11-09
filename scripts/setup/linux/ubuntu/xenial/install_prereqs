@@ -73,6 +73,7 @@ libnetcdf-cxx-legacy-dev
 libnetcdf-dev
 libnlopt-dev
 libogg-dev
+libpcl-dev
 libpng-dev
 libprotobuf-dev
 libqt5opengl5-dev
