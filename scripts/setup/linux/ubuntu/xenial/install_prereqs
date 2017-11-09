@@ -73,7 +73,6 @@ libnetcdf-cxx-legacy-dev
 libnetcdf-dev
 libnlopt-dev
 libogg-dev
-libpcl-dev
 libpng-dev
 libprotobuf-dev
 libqt5opengl5-dev
@@ -103,3 +102,6 @@ qt5-default
 zlib1g-dev
 EOF
 )
+
+# Install pcl for simple_pcl_example.
+apt-get install --no-install-recommends libpcl-dev
