@@ -63,8 +63,12 @@ make test
 
 # Examples
 
-Further instructions can be found in the README files in the respective application subdirectories.
+Drake specific Examples:
 
 * [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
 * [Particle Demo](src/particles/README.md)
 * [Find Resources](src/find_resource/README.md)
+
+Compatibility Examples:
+
+* [PCL](src/pcl/README.md)

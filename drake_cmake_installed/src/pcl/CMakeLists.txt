@@ -1,7 +1,8 @@
 # -*- mode: cmake -*-
 # vi: set ft=cmake :
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+##############################################################################
+# Copyright (c) 2017, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,8 +30,9 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##############################################################################
 
-add_subdirectory(find_resource)
-add_subdirectory(particles)
-add_subdirectory(simple_continuous_time_system)
-add_subdirectory(pcl)
+find_package(PCL REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+add_executable(simple_pcl_example simple_pcl_example.cc)
+target_link_libraries(simple_pcl_test drake::drake ${PCL_LIBRARIES})
