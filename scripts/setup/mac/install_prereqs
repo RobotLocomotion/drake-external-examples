@@ -53,6 +53,7 @@ brew tap robotlocomotion/director
 brew update
 brew upgrade
 
+# Install development & drake dependencies
 brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
@@ -78,6 +79,9 @@ yaml-cpp
 zlib
 EOF
 )
+
+# Install non-drake dependencies for various compatibility examples
+brew install pcl
 
 pip2 install --upgrade $(tr '\n' ' ' <<EOF
 lxml
