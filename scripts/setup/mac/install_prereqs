@@ -57,6 +57,7 @@ brew tap robotlocomotion/director
 brew update
 brew upgrade
 
+# Install development & drake dependencies
 brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
@@ -80,9 +81,13 @@ yaml-cpp
 EOF
 )
 
+
 if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
   echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
 fi
+
+# Install non-drake dependencies for various compatibility examples
+brew install pcl
 
 pip2 install --upgrade $(tr '\n' ' ' <<EOF
 lxml
