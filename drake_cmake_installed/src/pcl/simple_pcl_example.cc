@@ -42,14 +42,14 @@
 #include <iostream>
 #include <random>
 
+#include <drake/systems/primitives/random_source.h>
+// Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff support is not utilised)
+#include <drake/solvers/mathematical_program.h>
+
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
 
-// TODO(eric.cousineau): Figure out how to make Bazel permit angle brackets.
-#include "drake/systems/primitives/random_source.h"
-// Test Eigen header presence.
-#include "drake/solvers/mathematical_program.h"
 
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
