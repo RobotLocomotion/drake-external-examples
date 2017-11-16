@@ -106,4 +106,4 @@ EOF
 )
 
 # Install non-drake dependencies for various compatibility examples
-apt-get install --no-install-recommends libpcl-dev
+apt-get install --no-install-recommends libpcl-dev libproj-dev
