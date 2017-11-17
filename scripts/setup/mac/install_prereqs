@@ -43,10 +43,14 @@ fi
 
 if ! command -v brew &>/dev/null; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  mkdir -p "${HOME}/Library/Python/2.7/lib/python/site-packages"
-  echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> "${HOME}/Library/Python/2.7/lib/python/site-packages/homebrew.pth"
 fi
 
+if [[ ! -f /usr/include/expat.h || ! -f /usr/include/zlib.h ]]; then
+  echo 'Command Line Tools for Xcode are NOT installed' >&2
+  exit 3
+fi
+
+brew tap dreal-deps/coinor
 brew tap homebrew/science
 brew tap robotlocomotion/director
 
@@ -57,14 +61,12 @@ brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
 clang-format
+clp
 cmake
-diffstat
-glew
 glib
 ipopt
 libccd
 libyaml
-lz4
 nlopt
 numpy
 pkg-config
@@ -75,9 +77,12 @@ tinyxml
 tinyxml2
 vtk@8.0
 yaml-cpp
-zlib
 EOF
 )
+
+if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
+  echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
+fi
 
 pip2 install --upgrade $(tr '\n' ' ' <<EOF
 lxml
