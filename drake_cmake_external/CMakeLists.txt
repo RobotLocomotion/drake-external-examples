@@ -33,29 +33,20 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(drake_cmake_external)
 
-find_program(BAZEL_EXECUTABLE bazel)
-
-if(NOT BAZEL_EXECUTABLE)
-  message(FATAL_ERROR "Could NOT find bazel executable")
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING
+    "Choose the type of build, options are None Debug Release RelWithDebInfo MinSizeRel"
+    FORCE
+  )
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY
+    STRINGS None Debug Release RelWithDebInfo MinSizeRel
+  )
 endif()
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  set(BAZEL_COMPILATION_MODE dbg)
-else()
-  set(BAZEL_COMPILATION_MODE opt)
-endif()
-
-set(BAZEL_ENV CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER})
-set(BAZEL_ARGS --compilation_mode=${BAZEL_COMPILATION_MODE} --config=unsupported_crosstool --cxxopt=-std=c++1y --host_cxxopt=-std=c++1y)
-
-if(CMAKE_VERBOSE_MAKEFILE)
-  set(BAZEL_ARGS --subcommands ${BAZEL_ARGS})
-endif()
-
-set(BAZEL_TARGETS //:install)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/install" CACHE STRING "Install prefix" FORCE)
+  set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/install" CACHE STRING
+    "Install path prefix, prepended onto install directories" FORCE
+  )
 endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
@@ -64,18 +55,20 @@ include(ExternalProject)
 
 ExternalProject_Add(drake
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
-  # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to get the url hash
+  # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to get the URL_HASH
   # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
   # URL_HASH SHA256=899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca
   TLS_VERIFY 1
-  SOURCE_DIR "${PROJECT_BINARY_DIR}/drake"
-  CONFIGURE_COMMAND :
-  BUILD_COMMAND ${BAZEL_ENV} "${BAZEL_EXECUTABLE}" build ${BAZEL_ARGS} ${BAZEL_TARGETS}
-  BUILD_IN_SOURCE 1
+  CMAKE_ARGS
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+    -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+    -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
+  BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS 1
-  INSTALL_COMMAND ${BAZEL_ENV} "${BAZEL_EXECUTABLE}" run ${BAZEL_ARGS} ${BAZEL_TARGETS} -- "${CMAKE_INSTALL_PREFIX}"
-  USES_TERMINAL_BUILD 1
-  USES_TERMINAL_INSTALL 1
+  INSTALL_COMMAND :
 )
 
 ExternalProject_Add(drake_shambhala
