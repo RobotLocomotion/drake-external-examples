@@ -43,9 +43,6 @@ software-properties-common
 EOF
 )
 
-add-apt-repository -s 'deb [arch=amd64] http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main'
-curl -L https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-
 add-apt-repository -s 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8'
 curl -L https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
@@ -54,17 +51,16 @@ apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
 chrpath
-clang-3.9
-clang-format-3.9
+clang-format-4.0
 cmake
 coinor-libclp-dev
 coinor-libipopt-dev
-diffstat
 g++
 git
 libboost-all-dev
+libbz2-dev
 libccd-dev
-libexpat1
+libexpat1-dev
 libfreetype6-dev
 libglib2.0-dev
 libglu1-mesa-dev
@@ -79,7 +75,8 @@ libnlopt-dev
 libogg-dev
 libpng-dev
 libprotobuf-dev
-libqt4-opengl
+libqt5opengl5-dev
+libqt5x11extras5-dev
 libtheora-dev
 libtiff5-dev
 libtinyxml-dev
@@ -95,6 +92,7 @@ openssh-client
 pkg-config
 protobuf-compiler
 python-dev
+python-gtk2
 python-lxml
 python-numpy
 python-protobuf
