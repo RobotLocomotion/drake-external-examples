@@ -6,10 +6,12 @@ of a project that depends on both Drake and PCL.
 This has been tested and is currently officially supported on Ubuntu
 Xenial (16.04).
 
-## How to Create a Drake-PCL Project?
+## Drake-PCL Caveats
 
-To ensure Drake and PCL combine compatibly the only caveat is that you
-discover the projects in the following order:
+### Eigen
+
+Drake's version of Eigen is compatible with PCL's (system) but not vice
+versa. Make sure you discover them in the correct order.
 
 ```
 find_package(drake CONFIG REQUIRED)
@@ -18,7 +20,23 @@ find_package(pcl CONFIG REQUIRED)
 
 so that a version of Eigen that is compatible to both projects is discovered
 and used. Note that `CONFIG` and `REQUIRED` are merely good practice if you
-are looking for the installed cmake modules).
+are looking for the installed cmake modules). If you do not do this, then you
+will receive a static assertion failure from Drake:
+
+```
+Drake requires Eigen >= v3.3.3.
+static_assert(EIGEN_VERSION_AT_LEAST(3, 3, 3),
+```
+
+### VTK
+
+The system built version of PCL with VTK6 has a dependency issue (this is strictly a
+PCL/VTK6 problem). Either exclude vtkproj4 or use the version of VTK6 shipped by ROS
+which includes a bugfix.
+
+```
+list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
+ ```
 
 ## Simple PCL Example
 

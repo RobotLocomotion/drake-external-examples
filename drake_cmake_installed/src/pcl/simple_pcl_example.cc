@@ -43,6 +43,8 @@
 #include <random>
 
 #include <drake/systems/primitives/random_source.h>
+#include <drake/common/autodiff.h>
+
 // Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff support is not utilised)
 #include <drake/solvers/mathematical_program.h>
 
