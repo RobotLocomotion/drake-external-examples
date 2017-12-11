@@ -47,6 +47,8 @@ add-apt-repository -s 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt 
 curl -L https://bazel.build/bazel-release.pub.gpg | apt-key add -
 
 apt-get update -qq
+
+# Install development & drake dependencies
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
@@ -102,3 +104,6 @@ qt5-default
 zlib1g-dev
 EOF
 )
+
+# Install non-drake dependencies for various compatibility examples
+apt-get install --no-install-recommends libpcl-dev libproj-dev
