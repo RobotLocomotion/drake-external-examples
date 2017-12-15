@@ -34,12 +34,12 @@ sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 
 # 3) Manual Installation
 # git clone https://github.com/RobotLocomotion/drake.git
-# (cd drake && bazel run //:install /opt/drake)         
+# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=/opt/drake ../drake && make)
 
 # 4) Manual Installation w/ Licensed Gurobi
 # Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 # git clone https://github.com/RobotLocomotion/drake.git
-# (cd drake && bazel run --config gurobi //:install /opt/drake)         
+# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=/opt/drake -DWITH_GUROBI=ON ../drake && make)
 
 ###############################################################
 # Build Everything
