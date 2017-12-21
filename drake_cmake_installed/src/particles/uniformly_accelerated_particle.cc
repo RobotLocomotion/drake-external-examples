@@ -38,6 +38,8 @@
 #include <memory>
 #include <sys/stat.h>
 
+#include <gflags/gflags.h>
+
 #include <drake/common/text_logging_gflags.h>
 #include <drake/lcm/drake_lcm.h>
 #include <drake/multibody/parsers/sdf_parser.h>

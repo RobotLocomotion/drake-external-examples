@@ -36,16 +36,21 @@ configure_file(models/particle.sdf ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 add_library(particles particle.cc utilities.cc)
 target_link_libraries(particles drake::drake)
 
-add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
-target_link_libraries(uniformly_accelerated_particle_demo particles drake::drake)
+find_package(gflags CONFIG REQUIRED)
 
-find_package(GTest)
+add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
+target_link_libraries(uniformly_accelerated_particle_demo particles
+  drake::drake drake::drake-common-text-logging-gflags gflags::gflags)
+
+find_package(GTest MODULE)
 
 if(GTEST_FOUND)
   add_executable(test_particle test/test_particle.cc)
-  target_link_libraries(test_particle GTest::GTest GTest::Main particles drake::drake)
+  target_link_libraries(test_particle
+    GTest::GTest GTest::Main particles drake::drake)
   add_executable(test_utilities test/test_utilities.cc)
-  target_link_libraries(test_utilities GTest::GTest GTest::Main particles drake::drake)
+  target_link_libraries(test_utilities
+    GTest::GTest GTest::Main particles drake::drake)
 
   add_test(NAME test_particle COMMAND test_particle)
   add_test(NAME test_utilities COMMAND test_utilities)
