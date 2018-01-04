@@ -67,6 +67,7 @@ libbz2-dev
 libccd-dev
 libexpat1-dev
 libfreetype6-dev
+libgflags-dev
 libglib2.0-dev
 libglu1-mesa-dev
 libhdf5-dev
@@ -79,7 +80,7 @@ libnetcdf-cxx-legacy-dev
 libnetcdf-dev
 libnlopt-dev
 libogg-dev
-libpng-dev
+libpng12-dev
 libprotobuf-dev
 libqt5opengl5-dev
 libqt5x11extras5-dev
@@ -92,7 +93,6 @@ libxml2-dev
 libxt-dev
 libyaml-cpp-dev
 make
-mesa-common-dev
 openjdk-8-jdk
 openssh-client
 patchelf
