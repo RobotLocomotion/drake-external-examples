@@ -50,9 +50,9 @@ if [[ ! -f /usr/include/expat.h || ! -f /usr/include/zlib.h ]]; then
   exit 3
 fi
 
+brew tap dreal-deps/coinor
 brew tap dreal-deps/ibex
 brew tap dreal/dreal
-brew tap homebrew/science
 brew tap robotlocomotion/director
 
 brew update
@@ -63,9 +63,9 @@ brew install $(tr '\n' ' ' <<EOF
 bazel
 boost
 clang-format
-clp
 cmake
 dreal
+gflags
 glib
 ipopt
 libccd

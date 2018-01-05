@@ -33,6 +33,8 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(drake_cmake_installed)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
+
 include(CTest)
 include(GNUInstallDirs)
 
