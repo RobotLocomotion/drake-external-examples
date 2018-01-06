@@ -32,7 +32,7 @@
 /**
  * @file apps/simple_pcl_test.cc
  *
- * Simple PCL Example
+ * Simple PCL Example, sitting alongside a Drake camera simulation.
  *
  * This is meant to test building / linking / executing with PCL.
  * This example just builds a random point cloud and downsamples it, printing
@@ -41,35 +41,38 @@
 
 #include <iostream>
 #include <random>
+#include <memory>
 
-#include <drake/systems/primitives/random_source.h>
 #include <drake/common/autodiff.h>
-
-// Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff support is not utilised)
+#include <drake/multibody/rigid_body_plant/rigid_body_plant.h>
+#include <drake/multibody/rigid_body_tree.h>
+#include <drake/multibody/rigid_body_tree_construction.h>
+// Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff
+// support is not utilised).
 #include <drake/solvers/mathematical_program.h>
+#include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/diagram_builder.h>
+#include <drake/systems/sensors/rgbd_camera.h>
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
 
-
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
 
-typedef drake::systems::internal::RandomState<std::uniform_real_distribution<double>>
-    RandomStateT;
-
-int main (int argc, char** argv) {
+void test_pcl() {
   PointCloudT::Ptr cloud(new PointCloudT());
   PointCloudT::Ptr cloud_filtered(new PointCloudT());
 
   const int num_points = 100000;
   const float radius = 1;
 
-  RandomStateT rand = RandomStateT(drake::systems::internal::generate_unique_seed());
-  auto rand_pt = [&rand, radius](float pt[3]) {
+  std::uniform_real_distribution<double> distribution;
+  std::default_random_engine generator;
+  auto rand_pt = [&](float pt[3]) {
     for (int i = 0; i < 3; ++i) {
-      pt[i] = (rand.GetNextValue() * 2 - 1) * radius;
+      pt[i] = (distribution(generator) * 2 - 1) * radius;
     }
   };
 
@@ -89,6 +92,40 @@ int main (int argc, char** argv) {
 
   std::cout << "PointCloud after filtering: "
       << cloud_filtered->size() << std::endl;
+}
 
+void test_drake_camera() {
+  // Creates a simple discrete RGB-D camera simulation.
+  drake::systems::DiagramBuilder<double> builder;
+
+  auto tree = std::make_unique<RigidBodyTree<double>>();
+  drake::multibody::AddFlatTerrainToWorld(tree.get());
+  auto plant = builder.AddSystem<drake::systems::RigidBodyPlant<double>>(
+      move(tree));
+
+  auto rgbd_camera =
+      builder.AddSystem<drake::systems::sensors::RgbdCameraDiscrete>(
+          std::make_unique<drake::systems::sensors::RgbdCamera>(
+              "rgbd_camera", plant->get_rigid_body_tree(),
+              Eigen::Vector3d(-1., 0., 1.),
+              Eigen::Vector3d(0., M_PI_4, 0.),
+              0.5, 5.,
+              M_PI_4, false),
+      0.03);
+
+  builder.Connect(
+      plant->get_output_port(0),
+      rgbd_camera->state_input_port());
+  auto diagram = builder.Build();
+  auto simulator = std::make_unique<drake::systems::Simulator<double>>(
+      *diagram);
+  simulator->StepTo(0.1);
+
+  std::cout << "Finished camera simulation." << std::endl;
+}
+
+int main() {
+  test_pcl();
+  test_drake_camera();
   return 0;
 }

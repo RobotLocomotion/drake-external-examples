@@ -35,7 +35,11 @@
 # Important Caveat: This must come after any call to
 #   find_package(drake)
 # so that Drake's version of the bundled Eigen will be used.
-find_package(PCL CONFIG REQUIRED)
+# Also Important: At present, Drake is bundled into one monolithic component
+# which consumes VTK-8.0, which will most likely conflict with PCL's version.
+# Because of this, you cannot use PCL components that consume VTK, such as
+# `visualization`.
+find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
 # Work around https://bugs.launchpad.net/ubuntu/+source/vtk6/+bug/1573234
 # by removing the missing vtkproj4 library from the list of needed files.
 # It's not actually needed for this example.
