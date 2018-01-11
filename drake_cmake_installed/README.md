@@ -26,7 +26,7 @@ sudo cp *.a /usr/local/lib
 ###############################################################
 
 # 1) A specific version (date-stamped)
-# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20170719-xenial.tar.gz
+# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20171015-xenial.tar.gz
 
 # 2) The latest (usually last night's build)
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
