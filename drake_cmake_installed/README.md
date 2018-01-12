@@ -6,7 +6,7 @@ This uses the CMake `find_package(drake)` mechanism to find an installed instanc
 
 These instructions are only supported for Ubuntu 16.04 (Xenial).
 
-```
+```shell
 ###############################################################
 # Install Prerequisites
 ###############################################################
