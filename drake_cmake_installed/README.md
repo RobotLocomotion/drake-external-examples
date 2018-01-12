@@ -72,3 +72,35 @@ Drake specific Examples:
 Compatibility Examples:
 
 * [PCL](src/pcl/README.md)
+
+# Developer Testing
+
+If you are a Drake Developer making build or API changes that may affect the
+downstream interface, please test this locally on your system.
+
+These build instructions are adapted from those above, but will use an existing
+source tree of Drake (but *not* installing it to `/opt/drake`),
+build this project, and then run all available tests:
+
+```shell
+# Build development version of Drake, ensuring no old artifacts are present.
+cd drake  # Where you are developing.
+rm -rf ../drake-build && mkdir ../drake-build && cd ../drake-build
+cmake ../drake  # Configure Gurobi, Mosek, etc, if needed.
+# Build locally.
+make -j4
+# Record the build's install directory.
+drake_install=${PWD}/install
+
+# Build Drake Shambhala using development version of Drake.
+cd ..
+# Clone `drake-shambhala` if you have not already.
+git clone https://github.com/RobotLocomotion/drake-shambhala
+cd drake-shambhala/drake_cmake_installed
+# Follow "Install Prerequisites" in the instructions linked above if you
+# have not already.
+mkdir build && cd build
+cmake -Ddrake_DIR=${drake_install}/lib/cmake/drake ..
+make -j4
+make -j4 test
+```
