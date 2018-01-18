@@ -31,6 +31,4 @@
 
 set -eux
 
-echo 'test --jobs=1' > ~/.bazelrc
-
 ./scripts/continuous_integration/common/linux_ubuntu_xenial

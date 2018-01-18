@@ -44,4 +44,5 @@ cc_binary(
 sh_test(
     name = "simple_continuous_time_system_test",
     srcs = [":simple_continuous_time_system"],
+    size = "small",
 )
