@@ -15,6 +15,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 
 | **Subproject** | **Circle CI** | **Jenkins** |
 |:---:|:---:|:---:|
+| `drake_bazel_external` | - | o |
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | o |
 ||[![CircleCI](https://img.shields.io/circleci/project/github/RobotLocomotion/drake-shambhala/master.svg)](https://circleci.com/gh/RobotLocomotion/drake-shambhala)|[![Jenkins](https://img.shields.io/jenkins/s/https/drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/job/master.svg)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/)|

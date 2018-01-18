@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2017, Massachusetts Institute of Technology
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -31,6 +31,10 @@
 
 set -eux
 
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_cmake_installed
+bazel version
+
+pushd drake_bazel_external
+
+bazel test ...
+
+popd
