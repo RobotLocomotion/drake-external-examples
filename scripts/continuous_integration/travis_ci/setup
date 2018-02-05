@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2017, Massachusetts Institute of Technology
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -31,6 +31,13 @@
 
 set -eux
 
-export DEBIAN_FRONTEND='noninteractive'
+# https://github.com/travis-ci/travis-ci/issues/8552
+brew update
 
-yes | ./scripts/setup/linux/ubuntu/xenial/install_prereqs
+# https://github.com/travis-ci/travis-ci/issues/8826
+brew cask uninstall oclint
+
+# https://github.com/travis-ci/travis-ci/issues/6688
+/usr/local/opt/python/libexec/bin/pip uninstall -y scipy numpy
+
+./scripts/continuous_integration/common/mac
