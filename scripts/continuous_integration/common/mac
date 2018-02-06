@@ -32,16 +32,3 @@
 set -eux
 
 ./scripts/setup/mac/install_prereqs
-
-pushd /opt
-
-# 'latest' or a date, e.g. '20170719' will work for version
-readonly drake_version='latest'
-readonly drake_tarball="drake-${drake_version}-mac.tar.gz"
-readonly drake_url="https://drake-packages.csail.mit.edu/drake/nightly/${drake_tarball}"
-
-curl -O "${drake_url}
-tar -xzf "${drake_tarball}"
-rm -f "${drake_tarball}"
-
-popd
