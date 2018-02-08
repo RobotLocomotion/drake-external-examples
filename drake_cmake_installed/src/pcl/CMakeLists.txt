@@ -39,7 +39,7 @@
 # which consumes VTK-8.0, which will most likely conflict with PCL's version.
 # Because of this, you cannot use PCL components that consume VTK, such as
 # `visualization`.
-find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
+find_package(PCL CONFIG REQUIRED COMPONENTS common filters visualization)
 # Work around https://bugs.launchpad.net/ubuntu/+source/vtk6/+bug/1573234
 # by removing the missing vtkproj4 library from the list of needed files.
 # It's not actually needed for this example.
