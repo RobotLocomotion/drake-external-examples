@@ -35,31 +35,39 @@
 
 #include <cstdlib>
 
-#include <gtest/gtest.h>
+#include <stdexcept>
+#include <string>
 
+#include <drake/common/drake_assert.h>
 #include <drake/common/find_resource.h>
 
+using std::string;
+
+// Since GTest is not available, make a simple rewrite.
+#define ASSERT_THROWS(expr, ExceptionType) \
+  try { \
+    (expr); \
+    DRAKE_DEMAND(false && "Should have thrown " #ExceptionType); \
+  } catch (const ExceptionType&) {}
+
 namespace shambhala {
-namespace find_resource {
 namespace {
 
-GTEST_TEST(FindResource, Available)
-{
-  drake::AddResourceSearchPath("@drake_DIR@/../../../share/drake");
-  auto result = drake::FindResourceOrThrow("drake/manipulation/models/iiwa_description/urdf/iiwa14_primitive_collision.urdf");
-  // it will throw if it does not find the resource correctly
-  SUCCEED();
+int main(int, char**) {
+  drake::FindResourceOrThrow(
+      "drake/manipulation/models/iiwa_description/urdf/"
+      "iiwa14_primitive_collision.urdf");
+
+  ASSERT_THROWS(
+      drake::FindResourceOrThrow("nobody_home.urdf"),
+      std::runtime_error);
+
+  return 0;
 }
 
-    /// Makes sure that find_resource throws when given a unavailable resource.
-GTEST_TEST(FindResource, NotAvailable)
-{
-  ASSERT_THROW(
-    {drake::FindResourceOrThrow("nobody_home.urdf");},
-    std::runtime_error
-  );
-}
-
-}
-}  // namespace find_resource
+}  // namespace
 }  // namespace shambhala
+
+int main(int argc, char** argv) {
+  return shambhala::main(argc, argv);
+}
