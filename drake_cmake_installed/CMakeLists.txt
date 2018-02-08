@@ -40,4 +40,15 @@ include(GNUInstallDirs)
 
 find_package(drake CONFIG REQUIRED)
 
+set(_python_version 2.7)
+find_package(PythonInterp ${_python_version} MODULE REQUIRED)
+set(_drake_sitepackages
+    "${drake_DIR}/../../python${_python_version}/site-packages")
+get_filename_component(_drake_sitepackages "${_drake_sitepackages}" ABSOLUTE)
+# TODO(eric.cousineau): Make this a `pydrake` package, than can be depended on,
+# and have downstream Python tests depend on this? Add this to Drake, so that
+# it's `drake::pydrake`.
+# TODO(eric.cousineau): Have a test inherit CMake's environment variables?
+set(ENV{PYTHONPATH} "${_drake_sitepackages}:$ENV{PYTHONPATH}")
+
 add_subdirectory(src)
