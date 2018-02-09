@@ -33,33 +33,30 @@
 /// @brief  A simple find_resource test for locating installed drake resources.
 ///
 
-#include <cstdlib>
+#include <stdexcept>
 
-#include <gtest/gtest.h>
-
+#include <drake/common/drake_assert.h>
 #include <drake/common/find_resource.h>
 
 namespace shambhala {
-namespace find_resource {
 namespace {
 
-GTEST_TEST(FindResource, Available)
-{
-  drake::AddResourceSearchPath("@drake_DIR@/../../../share/drake");
-  auto result = drake::FindResourceOrThrow("drake/manipulation/models/iiwa_description/urdf/iiwa14_primitive_collision.urdf");
-  // it will throw if it does not find the resource correctly
-  SUCCEED();
+int main() {
+  drake::FindResourceOrThrow(
+      "drake/manipulation/models/iiwa_description/urdf/"
+      "iiwa14_primitive_collision.urdf");
+
+  try {
+    drake::FindResourceOrThrow("nobody_home.urdf");
+    DRAKE_DEMAND(false && "Should have thrown.");
+  } catch (const std::runtime_error&) {}
+
+  return 0;
 }
 
-    /// Makes sure that find_resource throws when given a unavailable resource.
-GTEST_TEST(FindResource, NotAvailable)
-{
-  ASSERT_THROW(
-    {drake::FindResourceOrThrow("nobody_home.urdf");},
-    std::runtime_error
-  );
-}
-
-}
-}  // namespace find_resource
+}  // namespace
 }  // namespace shambhala
+
+int main() {
+  return shambhala::main();
+}
