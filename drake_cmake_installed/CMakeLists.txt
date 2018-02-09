@@ -40,4 +40,12 @@ include(GNUInstallDirs)
 
 find_package(drake CONFIG REQUIRED)
 
+find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
+# TODO(eric.cousineau): Update when RobotLocomotion/drake#8014 is resolved.
+set(_drake_sitepackages
+    "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages")
+get_filename_component(_drake_sitepackages "${_drake_sitepackages}" ABSOLUTE)
+# TODO(eric.cousineau): Have a test inherit CMake's environment variables?
+set(ENV{PYTHONPATH} "${_drake_sitepackages}:$ENV{PYTHONPATH}")
+
 add_subdirectory(src)
