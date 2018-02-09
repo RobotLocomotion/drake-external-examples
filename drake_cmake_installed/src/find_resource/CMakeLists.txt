@@ -31,6 +31,7 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 find_package(GTest)
+
 if(GTEST_FOUND)
   configure_file(find_resource.cc.in ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
   add_executable(test_find_resource ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
@@ -38,3 +39,13 @@ if(GTEST_FOUND)
 
   add_test(NAME test_find_resource COMMAND test_find_resource)
 endif()
+
+add_test(
+    NAME test_find_resource_py
+    COMMAND
+        "${PYTHON_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/test_find_resource.py")
+set_tests_properties(
+    test_find_resource_py
+    PROPERTIES
+        ENVIRONMENT "PYTHONPATH=$ENV{PYTHONPATH}")
