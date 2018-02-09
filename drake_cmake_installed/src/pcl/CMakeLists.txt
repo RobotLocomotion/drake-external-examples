@@ -52,3 +52,6 @@ add_test(NAME test_simple_pcl_example COMMAND simple_pcl_example)
 
 add_executable(test_drake_camera test_drake_camera.cc)
 target_link_libraries(test_drake_camera drake::drake ${PCL_LIBRARIES})
+if(RUN_X11_TESTS)
+    add_test(NAME test_drake_camera COMMAND test_drake_camera)
+endif()
