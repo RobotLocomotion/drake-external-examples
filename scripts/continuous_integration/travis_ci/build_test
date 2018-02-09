@@ -31,4 +31,5 @@
 
 set -eux
 
-./scripts/continuous_integration/common/drake_cmake_installed
+./scripts/continuous_integration/common/drake_cmake_installed \
+    -DRUN_X11_TESTS=ON

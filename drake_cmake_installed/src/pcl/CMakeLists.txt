@@ -35,7 +35,11 @@
 # Important Caveat: This must come after any call to
 #   find_package(drake)
 # so that Drake's version of the bundled Eigen will be used.
-find_package(PCL CONFIG REQUIRED)
+# Also Important: At present, Drake is bundled into one monolithic component
+# which consumes VTK-8.0, which will most likely conflict with PCL's version.
+# Because of this, you cannot use PCL components that consume VTK, such as
+# `visualization`.
+find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
 # Work around https://bugs.launchpad.net/ubuntu/+source/vtk6/+bug/1573234
 # by removing the missing vtkproj4 library from the list of needed files.
 # It's not actually needed for this example.
@@ -44,3 +48,10 @@ list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
 include_directories(${PCL_INCLUDE_DIRS})
 add_executable(simple_pcl_example simple_pcl_example.cc)
 target_link_libraries(simple_pcl_example drake::drake ${PCL_LIBRARIES})
+add_test(NAME test_simple_pcl_example COMMAND simple_pcl_example)
+
+add_executable(test_drake_camera test_drake_camera.cc)
+target_link_libraries(test_drake_camera drake::drake ${PCL_LIBRARIES})
+if(RUN_X11_TESTS)
+    add_test(NAME test_drake_camera COMMAND test_drake_camera)
+endif()

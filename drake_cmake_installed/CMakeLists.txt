@@ -33,6 +33,10 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(drake_cmake_installed)
 
+# N.B. This is a temporary flag. It only really applies to Linux, as Mac
+# does not need X11.
+option(RUN_X11_TESTS "Run tests that require X11" OFF)
+
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 include(CTest)

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2017, Toyota Research Institute.
+ * Copyright (c) 2018, Toyota Research Institute.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,56 +32,55 @@
 /**
  * @file
  *
- * Simple PCL Example, sitting alongside a Drake camera simulation.
- *
- * This is meant to test building / linking / executing with PCL.
- * This example just builds a random point cloud and downsamples it, printing
- * the size before and after.
+ * Test a Drake camera simulation that has been linked with PCL.
  */
 
 #include <iostream>
-#include <random>
+#include <memory>
 
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/filters/voxel_grid.h>
-
-typedef pcl::PointXYZ PointT;
-typedef pcl::PointCloud<PointT> PointCloudT;
+// Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff
+// support is not utilised).
+#include <drake/common/autodiff.h>
+#include <drake/multibody/rigid_body_plant/rigid_body_plant.h>
+#include <drake/multibody/rigid_body_tree.h>
+#include <drake/multibody/rigid_body_tree_construction.h>
+#include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/diagram_builder.h>
+#include <drake/systems/sensors/rgbd_camera.h>
 
 namespace shambhala {
 
 int main() {
-  PointCloudT::Ptr cloud(new PointCloudT());
-  PointCloudT::Ptr cloud_filtered(new PointCloudT());
+  // Creates a simple discrete RGB-D camera simulation.
+  drake::systems::DiagramBuilder<double> builder;
 
-  const int num_points = 100000;
-  const float radius = 1;
+  auto tree = std::make_unique<RigidBodyTree<double>>();
+  drake::multibody::AddFlatTerrainToWorld(tree.get());
+  auto plant = builder.AddSystem<drake::systems::RigidBodyPlant<double>>(
+      move(tree));
 
-  std::uniform_real_distribution<double> distribution;
-  std::default_random_engine generator;
-  auto rand_pt = [&](float pt[3]) {
-    for (int i = 0; i < 3; ++i) {
-      pt[i] = (distribution(generator) * 2 - 1) * radius;
-    }
-  };
+  auto rgbd_camera =
+      builder.AddSystem<drake::systems::sensors::RgbdCameraDiscrete>(
+          std::make_unique<drake::systems::sensors::RgbdCamera>(
+              "rgbd_camera", plant->get_rigid_body_tree(),
+              Eigen::Vector3d(-1., 0., 1.),
+              Eigen::Vector3d(0., M_PI_4, 0.),
+              0.5, 5.,
+              M_PI_4, false),
+      0.03);
 
-  cloud->resize(num_points);
-  for (int i = 0; i < num_points; ++i) {
-    auto& pt = cloud->points[i];
-    rand_pt(pt.data);
-  }
+  builder.Connect(
+      plant->get_output_port(0),
+      rgbd_camera->state_input_port());
+  auto diagram = builder.Build();
+  auto simulator = std::make_unique<drake::systems::Simulator<double>>(
+      *diagram);
+  simulator->StepTo(0.1);
 
-  std::cout << "PointCloud before filtering: " << cloud->size() << std::endl;
+  // TODO(eric.cousineau): Add in example of converting depth image to PCL
+  // point cloud.
 
-  // Create the filtering object.
-  pcl::VoxelGrid<PointT> filter;
-  filter.setInputCloud(cloud);
-  filter.setLeafSize(0.01f, 0.01f, 0.01f);
-  filter.filter(*cloud_filtered);
-
-  std::cout << "PointCloud after filtering: "
-      << cloud_filtered->size() << std::endl;
+  std::cout << "Finished camera simulation." << std::endl;
   return 0;
 }
 

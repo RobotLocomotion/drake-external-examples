@@ -38,7 +38,7 @@ pushd drake_cmake_installed
 mkdir build
 pushd build
 
-cmake -Ddrake_DIR=/opt/drake/lib/cmake/drake ..
+cmake -Ddrake_DIR=/opt/drake/lib/cmake/drake "$@" ..
 make
 ctest -V .
 
