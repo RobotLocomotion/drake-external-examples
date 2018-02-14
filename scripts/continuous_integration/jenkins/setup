@@ -31,4 +31,6 @@
 
 set -eux
 
+env
+
 sudo ./scripts/continuous_integration/common/linux_ubuntu_xenial
