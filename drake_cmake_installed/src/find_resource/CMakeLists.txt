@@ -30,15 +30,9 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-find_package(GTest)
-
-if(GTEST_FOUND)
-  configure_file(find_resource.cc.in ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
-  add_executable(test_find_resource ${CMAKE_CURRENT_BINARY_DIR}/find_resource.cc)
-  target_link_libraries(test_find_resource GTest::GTest GTest::Main drake::drake)
-
-  add_test(NAME test_find_resource COMMAND test_find_resource)
-endif()
+add_executable(test_find_resource find_resource.cc)
+target_link_libraries(test_find_resource drake::drake)
+add_test(NAME test_find_resource COMMAND test_find_resource)
 
 add_test(
     NAME test_find_resource_py
