@@ -43,8 +43,8 @@ find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
 # It's not actually needed for this example.
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
 
-include_directories(${PCL_INCLUDE_DIRS})
 add_executable(simple_pcl_example simple_pcl_example.cc)
+target_include_directories(simple_pcl_example PRIVATE ${PCL_INCLUDE_DIRS})
 target_link_libraries(simple_pcl_example drake::drake ${PCL_LIBRARIES})
 add_test(NAME test_simple_pcl_example COMMAND simple_pcl_example)
 
