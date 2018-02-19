@@ -40,7 +40,6 @@ option(RUN_X11_TESTS "Run tests that require X11" OFF)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 include(CTest)
-include(GNUInstallDirs)
 
 find_package(drake CONFIG REQUIRED)
 
