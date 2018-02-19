@@ -1,7 +1,7 @@
 # PCL Examples
 
 These examples are designed to illustrate and exercise build and execution
-of a project that depends on both Drake and PCL. 
+of a project that depends on both Drake and PCL.
 
 This has been tested and is currently officially supported on Ubuntu
 Xenial (16.04).
