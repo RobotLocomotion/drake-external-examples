@@ -41,8 +41,14 @@
 
 #include <cmath>
 
+#include <Eigen/Core>
+
+#include <drake/common/autodiff.h>  // IWYU pragma: keep
 #include <drake/common/drake_assert.h>
+#include <drake/common/unused.h>
 #include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/context.h>
+#include <drake/systems/framework/continuous_state.h>
 #include <drake/systems/framework/vector_system.h>
 
 namespace shambhala {
