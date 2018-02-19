@@ -34,7 +34,6 @@ cmake_minimum_required(VERSION 3.5.1)
 project(drake_shambhala)
 
 include(CTest)
-include(GNUInstallDirs)
 
 find_package(drake CONFIG REQUIRED)
 

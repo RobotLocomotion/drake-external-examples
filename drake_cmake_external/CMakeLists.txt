@@ -85,4 +85,5 @@ ExternalProject_Add(drake_shambhala
     -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake_shambhala"
   BUILD_ALWAYS 1
+  INSTALL_COMMAND :
 )
