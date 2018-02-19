@@ -30,7 +30,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# send over the sdf file so the particle example can be run 'in place'.
+# Send over the SDF file so the particle example can be run "in place."
 configure_file(models/particle.sdf ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 add_library(particles particle.cc utilities.cc)
@@ -38,20 +38,25 @@ target_link_libraries(particles drake::drake)
 
 find_package(GFlags MODULE REQUIRED COMPONENTS shared)
 
-add_executable(uniformly_accelerated_particle_demo uniformly_accelerated_particle.cc)
+add_executable(uniformly_accelerated_particle_demo
+  uniformly_accelerated_particle.cc
+)
 target_link_libraries(uniformly_accelerated_particle_demo particles
-  drake::drake drake::drake-common-text-logging-gflags gflags_shared)
+  drake::drake drake::drake-common-text-logging-gflags gflags_shared
+)
 
 find_package(GTest MODULE)
 
 if(GTEST_FOUND)
   add_executable(test_particle test/test_particle.cc)
   target_link_libraries(test_particle
-    GTest::GTest GTest::Main particles drake::drake)
+    particles drake::drake GTest::GTest GTest::Main
+  )
+  add_test(NAME test_particle COMMAND test_particle)
+
   add_executable(test_utilities test/test_utilities.cc)
   target_link_libraries(test_utilities
-    GTest::GTest GTest::Main particles drake::drake)
-
-  add_test(NAME test_particle COMMAND test_particle)
+    particles drake::drake GTest::GTest GTest::Main
+  )
   add_test(NAME test_utilities COMMAND test_utilities)
 endif()

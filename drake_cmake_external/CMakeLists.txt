@@ -55,7 +55,8 @@ include(ExternalProject)
 
 ExternalProject_Add(drake
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
-  # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to get the URL_HASH
+  # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to
+  # get the URL_HASH.
   # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
   # URL_HASH SHA256=899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca
   TLS_VERIFY 1

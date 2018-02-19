@@ -34,12 +34,9 @@ add_executable(test_find_resource find_resource.cc)
 target_link_libraries(test_find_resource drake::drake)
 add_test(NAME test_find_resource COMMAND test_find_resource)
 
-add_test(
-    NAME test_find_resource_py
-    COMMAND
-        "${PYTHON_EXECUTABLE}"
-        "${CMAKE_CURRENT_SOURCE_DIR}/test_find_resource.py")
-set_tests_properties(
-    test_find_resource_py
-    PROPERTIES
-        ENVIRONMENT "PYTHONPATH=$ENV{PYTHONPATH}")
+add_test(NAME test_find_resource_py COMMAND
+  "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_find_resource.py"
+)
+set_tests_properties(test_find_resource_py PROPERTIES
+  ENVIRONMENT "PYTHONPATH=$ENV{PYTHONPATH}"
+)
