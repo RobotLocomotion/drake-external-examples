@@ -29,15 +29,18 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
+// clang-format off
+#include "particle.h"  // IWYU pragma: associated
+// clang-format on
+
 #include <memory>
 
 #include <gtest/gtest.h>
 
-#include <drake/systems/framework/basic_vector.h>
+#include <drake/systems/framework/input_port_descriptor.h>
+#include <drake/systems/framework/output_port_value.h>
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
-
-#include "../particle.h"
 
 namespace shambhala {
 namespace particles {

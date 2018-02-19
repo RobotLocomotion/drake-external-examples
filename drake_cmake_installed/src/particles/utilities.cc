@@ -31,6 +31,8 @@
 
 #include "utilities.h"
 
+#include <drake/common/drake_throw.h>
+
 namespace shambhala {
 namespace particles {
 

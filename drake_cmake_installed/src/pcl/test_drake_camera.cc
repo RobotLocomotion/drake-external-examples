@@ -35,12 +35,15 @@
  * Test a Drake camera simulation that has been linked with PCL.
  */
 
+#include <cmath>
 #include <iostream>
 #include <memory>
 
+#include <Eigen/Core>
+
 // Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff
 // support is not utilised).
-#include <drake/common/autodiff.h>
+#include <drake/common/autodiff.h>  // IWYU pragma: keep
 #include <drake/multibody/rigid_body_plant/rigid_body_plant.h>
 #include <drake/multibody/rigid_body_tree.h>
 #include <drake/multibody/rigid_body_tree_construction.h>

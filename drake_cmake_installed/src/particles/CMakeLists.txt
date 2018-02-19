@@ -49,12 +49,18 @@ find_package(GTest MODULE)
 
 if(GTEST_FOUND)
   add_executable(test_particle test/test_particle.cc)
+  target_include_directories(test_particle PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+  )
   target_link_libraries(test_particle
     particles drake::drake GTest::GTest GTest::Main
   )
   add_test(NAME test_particle COMMAND test_particle)
 
   add_executable(test_utilities test/test_utilities.cc)
+  target_include_directories(test_utilities PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+  )
   target_link_libraries(test_utilities
     particles drake::drake GTest::GTest GTest::Main
   )

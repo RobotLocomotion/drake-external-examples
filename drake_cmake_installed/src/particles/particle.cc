@@ -31,6 +31,9 @@
 
 #include "particle.h"
 
+#include <drake/systems/framework/framework_common.h>
+#include <drake/systems/framework/vector_base.h>
+
 namespace shambhala {
 namespace particles {
 
