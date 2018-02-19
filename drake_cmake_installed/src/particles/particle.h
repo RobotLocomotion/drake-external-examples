@@ -67,8 +67,9 @@ class Particle : public drake::systems::LeafSystem<T> {
   void CopyStateOut(const drake::systems::Context<T>& context,
                     drake::systems::BasicVector<T>* output) const;
 
-  void DoCalcTimeDerivatives(const drake::systems::Context<T>& context,
-                             drake::systems::ContinuousState<T>* derivatives) const override;
+  void DoCalcTimeDerivatives(
+      const drake::systems::Context<T>& context,
+      drake::systems::ContinuousState<T>* derivatives) const override;
 };
 
 }  // namespace particles

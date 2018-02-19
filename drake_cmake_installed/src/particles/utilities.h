@@ -66,7 +66,7 @@ namespace particles {
 /// @p T are provided:
 /// - double
 ///
-template<typename T>
+template <typename T>
 std::unique_ptr<typename drake::systems::MatrixGain<T>>
 MakeDegenerateEulerJoint(const drake::MatrixX<T>& translator);
 

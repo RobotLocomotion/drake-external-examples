@@ -42,9 +42,9 @@
 #include <iostream>
 #include <random>
 
+#include <pcl/filters/voxel_grid.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/voxel_grid.h>
 
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
@@ -80,13 +80,11 @@ int main() {
   filter.setLeafSize(0.01f, 0.01f, 0.01f);
   filter.filter(*cloud_filtered);
 
-  std::cout << "PointCloud after filtering: "
-      << cloud_filtered->size() << std::endl;
+  std::cout << "PointCloud after filtering: " << cloud_filtered->size()
+            << std::endl;
   return 0;
 }
 
 }  // namespace shambhala
 
-int main() {
-  return shambhala::main();
-}
+int main() { return shambhala::main(); }
