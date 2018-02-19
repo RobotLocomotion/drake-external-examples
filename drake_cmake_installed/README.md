@@ -55,7 +55,7 @@ make
 ###############################################################
 # A demo
 /opt/drake/bin/drake_visualizer &
-(cd src/particles && exec ./uniformly_accelerated_particle_demo)         
+(cd src/particles && exec ./uniformly_accelerated_particle_demo)
 
 # (Optionally) Run Tests
 make test
