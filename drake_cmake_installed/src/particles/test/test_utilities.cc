@@ -29,8 +29,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#include "../utilities.h"
-
 #include <memory>
 
 #include <gtest/gtest.h>
@@ -38,6 +36,8 @@
 #include <drake/systems/framework/basic_vector.h>
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
+
+#include "../utilities.h"
 
 namespace shambhala {
 namespace particles {
@@ -58,7 +58,8 @@ class SingleDOFEulerJointTest : public ::testing::Test {
     drake::MatrixX<T> translating_matrix(6, 1);
     translating_matrix.setZero();
     translating_matrix(0, 0) = 1.0;
-    this->dut_ = shambhala::particles::MakeDegenerateEulerJoint(translating_matrix);
+    this->dut_ =
+        shambhala::particles::MakeDegenerateEulerJoint(translating_matrix);
     this->context_ = this->dut_->CreateDefaultContext();
     this->output_ = this->dut_->AllocateOutput(*this->context_);
   }
@@ -83,7 +84,8 @@ TYPED_TEST_P(SingleDOFEulerJointTest, OutputTest) {
       input_descriptor.size());
   input->SetZero();
   input->SetAtIndex(0, static_cast<TypeParam>(1.0));  // q0 = 1.0
-  input->SetAtIndex(input->size()/2, static_cast<TypeParam>(5.0));  // v0 = 5.0
+  input->SetAtIndex(input->size() / 2,
+                    static_cast<TypeParam>(5.0));  // v0 = 5.0
   this->context_->FixInputPort(0, std::move(input));
   // Compute outputs.
   this->dut_->CalcOutput(*this->context_, this->output_.get());
@@ -109,9 +111,11 @@ INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, SingleDOFEulerJointTest, double);
 /// (rows != 6).
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, WrongOutputDOFTest) {
   // Scalar type is fixed as it makes no difference.
-  ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(4, 4));
-    }, std::runtime_error);
+  ASSERT_THROW(
+      {
+        auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(4, 4));
+      },
+      std::runtime_error);
 }
 
 /// Makes sure that MakeDegenerateEulerJoint throws when the given
@@ -119,9 +123,11 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, WrongOutputDOFTest) {
 /// (cols >= 6).
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooManyInputDOFTest) {
   // Scalar type is fixed as it makes no difference.
-  ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 8));
-    }, std::runtime_error);
+  ASSERT_THROW(
+      {
+        auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 8));
+      },
+      std::runtime_error);
 }
 
 /// Makes sure that MakeDegenerateEulerJoint throws when the given
@@ -129,9 +135,11 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooManyInputDOFTest) {
 /// input (cols < 1).
 GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooFewInputDOFTest) {
   // Scalar type is fixed as it makes no difference.
-  ASSERT_THROW({
-      auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 0));
-    }, std::runtime_error);
+  ASSERT_THROW(
+      {
+        auto bad_joint = MakeDegenerateEulerJoint(drake::MatrixX<double>(6, 0));
+      },
+      std::runtime_error);
 }
 
 }  // namespace

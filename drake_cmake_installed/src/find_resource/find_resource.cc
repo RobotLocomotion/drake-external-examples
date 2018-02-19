@@ -58,6 +58,4 @@ int main() {
 }  // namespace
 }  // namespace shambhala
 
-int main() {
-  return shambhala::main();
-}
+int main() { return shambhala::main(); }

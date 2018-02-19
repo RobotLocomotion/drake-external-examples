@@ -34,7 +34,7 @@
 namespace shambhala {
 namespace particles {
 
-template<typename T>
+template <typename T>
 std::unique_ptr<typename drake::systems::MatrixGain<T>>
 MakeDegenerateEulerJoint(const drake::MatrixX<T>& translator) {
   // Get translation matrix dimensions.
@@ -52,7 +52,8 @@ MakeDegenerateEulerJoint(const drake::MatrixX<T>& translator) {
   full_translator.topLeftCorner(input_dof, output_dof) = translator;
   full_translator.bottomRightCorner(input_dof, output_dof) = translator;
   // Return matrix gain representing the joint.
-  return std::make_unique<typename drake::systems::MatrixGain<T>>(full_translator);
+  return std::make_unique<typename drake::systems::MatrixGain<T>>(
+      full_translator);
 }
 
 template std::unique_ptr<drake::systems::MatrixGain<double>>

@@ -46,9 +46,8 @@ Particle<T>::Particle() {
 }
 
 template <typename T>
-void Particle<T>::CopyStateOut(
-    const drake::systems::Context<T>& context,
-    drake::systems::BasicVector<T>* output) const {
+void Particle<T>::CopyStateOut(const drake::systems::Context<T>& context,
+                               drake::systems::BasicVector<T>* output) const {
   // Get current state from context.
   const drake::systems::VectorBase<T>& continuous_state_vector =
       context.get_continuous_state_vector();
@@ -62,10 +61,10 @@ void Particle<T>::DoCalcTimeDerivatives(
     drake::systems::ContinuousState<T>* derivatives) const {
   // Get current state from context.
   const drake::systems::VectorBase<T>& continuous_state_vector =
-    context.get_continuous_state_vector();
+      context.get_continuous_state_vector();
   // Obtain the structure we need to write into.
   drake::systems::VectorBase<T>& derivatives_vector =
-    derivatives->get_mutable_vector();
+      derivatives->get_mutable_vector();
   // Get current input acceleration value.
   const drake::systems::BasicVector<T>* input_vector =
       this->EvalVectorInput(context, 0);

@@ -29,8 +29,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-#include "../particle.h"
-
 #include <memory>
 
 #include <gtest/gtest.h>
@@ -38,6 +36,8 @@
 #include <drake/systems/framework/basic_vector.h>
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
+
+#include "../particle.h"
 
 namespace shambhala {
 namespace particles {
@@ -76,7 +76,7 @@ TYPED_TEST_CASE_P(ParticleTest);
 TYPED_TEST_P(ParticleTest, OutputTest) {
   // Initialize state.
   drake::systems::VectorBase<TypeParam>& continuous_state_vector =
-    this->context_->get_mutable_continuous_state_vector();
+      this->context_->get_mutable_continuous_state_vector();
   continuous_state_vector.SetAtIndex(
       0, static_cast<TypeParam>(10.0));  // x0 = 10 m.
   continuous_state_vector.SetAtIndex(
@@ -84,7 +84,7 @@ TYPED_TEST_P(ParticleTest, OutputTest) {
   // Compute outputs.
   this->dut_->CalcOutput(*this->context_, this->output_.get());
   drake::systems::BasicVector<TypeParam>* output_vector =
-    this->output_->GetMutableVectorData(0);
+      this->output_->GetMutableVectorData(0);
   // Check results.
   EXPECT_EQ(output_vector->GetAtIndex(0),
             static_cast<TypeParam>(10.0));  // y0 == x0
@@ -105,9 +105,9 @@ TYPED_TEST_P(ParticleTest, DerivativesTest) {
   this->context_->FixInputPort(0, std::move(input));
   // Set state.
   drake::systems::VectorBase<TypeParam>& continuous_state_vector =
-    this->context_->get_mutable_continuous_state_vector();
-  continuous_state_vector.SetAtIndex(
-      0, static_cast<TypeParam>(0.0));  // x0 = 0 m
+      this->context_->get_mutable_continuous_state_vector();
+  continuous_state_vector.SetAtIndex(0,
+                                     static_cast<TypeParam>(0.0));  // x0 = 0 m
   continuous_state_vector.SetAtIndex(
       1, static_cast<TypeParam>(2.0));  // x1 = 2 m/s
   // Compute derivatives.

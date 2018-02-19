@@ -56,25 +56,21 @@ int main() {
 
   auto tree = std::make_unique<RigidBodyTree<double>>();
   drake::multibody::AddFlatTerrainToWorld(tree.get());
-  auto plant = builder.AddSystem<drake::systems::RigidBodyPlant<double>>(
-      move(tree));
+  auto plant =
+      builder.AddSystem<drake::systems::RigidBodyPlant<double>>(move(tree));
 
   auto rgbd_camera =
       builder.AddSystem<drake::systems::sensors::RgbdCameraDiscrete>(
           std::make_unique<drake::systems::sensors::RgbdCamera>(
               "rgbd_camera", plant->get_rigid_body_tree(),
-              Eigen::Vector3d(-1., 0., 1.),
-              Eigen::Vector3d(0., M_PI_4, 0.),
-              0.5, 5.,
-              M_PI_4, false),
-      0.03);
+              Eigen::Vector3d(-1., 0., 1.), Eigen::Vector3d(0., M_PI_4, 0.),
+              0.5, 5., M_PI_4, false),
+          0.03);
 
-  builder.Connect(
-      plant->get_output_port(0),
-      rgbd_camera->state_input_port());
+  builder.Connect(plant->get_output_port(0), rgbd_camera->state_input_port());
   auto diagram = builder.Build();
-  auto simulator = std::make_unique<drake::systems::Simulator<double>>(
-      *diagram);
+  auto simulator =
+      std::make_unique<drake::systems::Simulator<double>>(*diagram);
   simulator->StepTo(0.1);
 
   // TODO(eric.cousineau): Add in example of converting depth image to PCL
@@ -86,6 +82,4 @@ int main() {
 
 }  // namespace shambhala
 
-int main() {
-  return shambhala::main();
-}
+int main() { return shambhala::main(); }
