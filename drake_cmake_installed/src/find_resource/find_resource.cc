@@ -50,7 +50,8 @@ int main() {
     drake::FindResourceOrThrow("nobody_home.urdf");
     std::cerr << "Should have thrown" << std::endl;
     return 1;
-  } catch (const std::runtime_error&) {}
+  } catch (const std::runtime_error&) {
+  }
 
   return 0;
 }

@@ -38,6 +38,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include <utility>
 
 #include <Eigen/Core>
 
@@ -59,8 +60,8 @@ int main() {
 
   auto tree = std::make_unique<RigidBodyTree<double>>();
   drake::multibody::AddFlatTerrainToWorld(tree.get());
-  auto plant =
-      builder.AddSystem<drake::systems::RigidBodyPlant<double>>(move(tree));
+  auto plant = builder.AddSystem<drake::systems::RigidBodyPlant<double>>(
+      std::move(tree));
 
   auto rgbd_camera =
       builder.AddSystem<drake::systems::sensors::RgbdCameraDiscrete>(
