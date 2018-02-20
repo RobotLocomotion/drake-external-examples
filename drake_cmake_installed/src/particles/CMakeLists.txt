@@ -31,38 +31,37 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 # Send over the SDF file so the particle example can be run "in place."
-configure_file(models/particle.sdf ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(models/particle.sdf "${CMAKE_CURRENT_BINARY_DIR}" COPYONLY)
 
 add_library(particles particle.cc utilities.cc)
 target_link_libraries(particles drake::drake)
 
 find_package(GFlags MODULE REQUIRED COMPONENTS shared)
 
-add_executable(uniformly_accelerated_particle_demo
-  uniformly_accelerated_particle.cc
-)
-target_link_libraries(uniformly_accelerated_particle_demo particles
+add_executable(uniformly_accelerated_particle uniformly_accelerated_particle.cc)
+target_link_libraries(uniformly_accelerated_particle particles
   drake::drake drake::drake-common-text-logging-gflags gflags_shared
 )
 
 find_package(GTest MODULE)
 
+# TODO(EricCousineau-TRI, jamiesnape): Rewrite these tests to not use GTest.
 if(GTEST_FOUND)
-  add_executable(test_particle test/test_particle.cc)
-  target_include_directories(test_particle PRIVATE
+  add_executable(particle_test particle_test.cc)
+  target_include_directories(particle_test PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
   )
-  target_link_libraries(test_particle
+  target_link_libraries(particle_test
     particles drake::drake GTest::GTest GTest::Main
   )
-  add_test(NAME test_particle COMMAND test_particle)
+  add_test(NAME particle_test COMMAND particle_test)
 
-  add_executable(test_utilities test/test_utilities.cc)
-  target_include_directories(test_utilities PRIVATE
+  add_executable(utilities_test utilities_test.cc)
+  target_include_directories(utilities_test PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
   )
-  target_link_libraries(test_utilities
+  target_link_libraries(utilities_test
     particles drake::drake GTest::GTest GTest::Main
   )
-  add_test(NAME test_utilities COMMAND test_utilities)
+  add_test(NAME utilities_test COMMAND utilities_test)
 endif()

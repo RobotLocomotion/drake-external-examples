@@ -29,9 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-// clang-format off
 #include "particle.h"  // IWYU pragma: associated
-// clang-format on
 
 #include <memory>
 

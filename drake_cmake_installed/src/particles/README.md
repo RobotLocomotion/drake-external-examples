@@ -23,7 +23,7 @@ cd build/src/particles
 # Start the visualiser
 /opt/drake/bin/drake_visualizer &
 # Run the demo
-./uniformly_accelerated_particle_demo [-initial_position 0.0] [-initial_velocity 0.0] [-acceleration 1.0] [-simulation_time +inf] [-realtime_rate 1.0]
+./uniformly_accelerated_particle [-initial_position 0.0] [-initial_velocity 0.0] [-acceleration 1.0] [-simulation_time +inf] [-realtime_rate 1.0]
 ```
 
 ### Caveats
