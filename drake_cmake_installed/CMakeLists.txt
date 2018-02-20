@@ -50,7 +50,25 @@ find_package(drake CONFIG REQUIRED)
 
 include(ExternalProject)
 
+include(${drake_DIR}/DrakeExternalForksInfo.cmake)
+# TODO(eric.cousineau): Figure out a way to invalidate / redownload this
+# project as build-phase step according to the version.
+ExternalProject_Add(pybind11
+  URL https://github.com/${DRAKE_PYBIND11_REPOSITORY}/archive/${DRAKE_PYBIND11_COMMIT}.tar.gz
+  URL_HASH SHA256=${DRAKE_PYBIND11_SHA256}
+  TLS_VERIFY 1
+  CMAKE_ARGS
+    -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+    -DPYBIND11_TEST=OFF
+    -DPYBIND11_INSTALL=ON
+  BINARY_DIR "${PROJECT_BINARY_DIR}/pybind11"
+  BUILD_ALWAYS 1
+  BUILD_COMMAND :  # No need for building.
+)
+
 ExternalProject_Add(src
+  DEPENDS
+    pybind11
   SOURCE_DIR "${PROJECT_SOURCE_DIR}/src"
   CMAKE_ARGS
     -Ddrake_DIR=${drake_DIR}
