@@ -37,19 +37,40 @@ project(drake_cmake_installed)
 # does not need X11.
 option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/install" CACHE STRING
+    "Install path prefix, prepended onto install directories" FORCE
+  )
+endif()
 
 include(CTest)
 include(GNUInstallDirs)
 
 find_package(drake CONFIG REQUIRED)
 
-find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
-# TODO(eric.cousineau): Update when RobotLocomotion/drake#8014 is resolved.
-set(_drake_sitepackages
-    "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages")
-get_filename_component(_drake_sitepackages "${_drake_sitepackages}" ABSOLUTE)
-# TODO(eric.cousineau): Have a test inherit CMake's environment variables?
-set(ENV{PYTHONPATH} "${_drake_sitepackages}:$ENV{PYTHONPATH}")
+include(ExternalProject)
 
-add_subdirectory(src)
+ExternalProject_Add(src
+  SOURCE_DIR "${PROJECT_SOURCE_DIR}/src"
+  CMAKE_ARGS
+    -Ddrake_DIR=${drake_DIR}
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+    -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+    -DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}
+    -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+    -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+    -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
+    -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
+  BINARY_DIR "${PROJECT_BINARY_DIR}/src"
+  BUILD_ALWAYS 1
+)
+
+# Expose CTest targets at top-level.
+add_test(
+  NAME test_src
+  COMMAND
+    "ctest"
+  WORKING_DIRECTORY
+    "${PROJECT_BINARY_DIR}/src"
+)

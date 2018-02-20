@@ -34,6 +34,8 @@ add_executable(test_find_resource find_resource.cc)
 target_link_libraries(test_find_resource drake::drake)
 add_test(NAME test_find_resource COMMAND test_find_resource)
 
+include(${drake_DIR}/DrakePythonInfo.cmake)
+
 add_test(
     NAME test_find_resource_py
     COMMAND
