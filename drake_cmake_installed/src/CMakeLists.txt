@@ -30,7 +30,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+cmake_minimum_required(VERSION 3.5.1)
+project(src)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../cmake/modules")
+
+include(CTest)
+include(GNUInstallDirs)
+
+find_package(drake CONFIG REQUIRED)
+
 add_subdirectory(find_resource)
 add_subdirectory(particles)
 add_subdirectory(pcl)
+add_subdirectory(simple_bindings)
 add_subdirectory(simple_continuous_time_system)
