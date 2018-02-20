@@ -12,7 +12,7 @@ Follow the instructions in the [README](../../README.md) for this project.
 
 ```
 # Switch to the build directory
-cd build/src/find_resource
-# Run the tests
-./test_find_resource
+cd build/src/find_resource_example
+# Run the example
+./test_find_resource_example
 ```

@@ -44,14 +44,14 @@ find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
 # It's not actually needed for this example.
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
 
+add_executable(drake_camera_example drake_camera_example.cc)
+target_link_libraries(drake_camera_example drake::drake ${PCL_LIBRARIES})
+
+if(RUN_X11_TESTS)
+  add_test(NAME drake_camera_example COMMAND drake_camera_example)
+endif()
+
 add_executable(simple_pcl_example simple_pcl_example.cc)
 target_include_directories(simple_pcl_example PRIVATE ${PCL_INCLUDE_DIRS})
 target_link_libraries(simple_pcl_example drake::drake ${PCL_LIBRARIES})
-add_test(NAME test_simple_pcl_example COMMAND simple_pcl_example)
-
-add_executable(test_drake_camera test_drake_camera.cc)
-target_link_libraries(test_drake_camera drake::drake ${PCL_LIBRARIES})
-
-if(RUN_X11_TESTS)
-  add_test(NAME test_drake_camera COMMAND test_drake_camera)
-endif()
+add_test(NAME simple_pcl_example COMMAND simple_pcl_example)

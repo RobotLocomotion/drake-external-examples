@@ -30,13 +30,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-add_executable(test_find_resource find_resource.cc)
-target_link_libraries(test_find_resource drake::drake)
-add_test(NAME test_find_resource COMMAND test_find_resource)
+add_executable(find_resource_example find_resource_example.cc)
+target_link_libraries(find_resource_example drake::drake)
+add_test(NAME find_resource_example COMMAND find_resource_example)
 
-add_test(NAME test_find_resource_py COMMAND
-  "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_find_resource.py"
+add_test(NAME find_resource_example_py COMMAND
+  "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/find_resource_example.py"
 )
-set_tests_properties(test_find_resource_py PROPERTIES
+set_tests_properties(find_resource_example_py PROPERTIES
   ENVIRONMENT "PYTHONPATH=$ENV{PYTHONPATH}"
 )
