@@ -42,13 +42,8 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 include(CTest)
 
 find_package(drake CONFIG REQUIRED)
-find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
 
-# TODO(eric.cousineau): Update when RobotLocomotion/drake#8014 is resolved.
-set(DRAKE_SITE_PACKAGES
-  "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
-)
-get_filename_component(DRAKE_SITE_PACKAGES "${DRAKE_SITE_PACKAGES}" ABSOLUTE)
-set(ENV{PYTHONPATH} "${DRAKE_SITE_PACKAGES}:$ENV{PYTHONPATH}")
+find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
+set(PYTHONPATH "${drake_PYTHON_DIRS}:$ENV{PYTHONPATH}")
 
 add_subdirectory(src)
