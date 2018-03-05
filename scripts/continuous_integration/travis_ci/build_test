@@ -31,5 +31,7 @@
 
 set -eux
 
+export PATH="/usr/local/opt/python@2/libexec/bin:/usr/local/opt/python@2/bin:$PATH"
+
 ./scripts/continuous_integration/common/drake_cmake_installed \
     -DRUN_X11_TESTS=ON
