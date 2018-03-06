@@ -38,5 +38,5 @@ add_test(NAME find_resource_example_py COMMAND
   "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/find_resource_example.py"
 )
 set_tests_properties(find_resource_example_py PROPERTIES
-  ENVIRONMENT "PYTHONPATH=$ENV{PYTHONPATH}"
+  ENVIRONMENT "PYTHONPATH=${PYTHONPATH}"
 )
