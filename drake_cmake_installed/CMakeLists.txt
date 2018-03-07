@@ -41,9 +41,11 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 include(CTest)
 
-find_package(drake CONFIG REQUIRED)
-
+# This must be specified before `drake`, so that `pybind11` does not find
+# another version.
 find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
+
+find_package(drake CONFIG REQUIRED)
 set(PYTHONPATH "${drake_PYTHON_DIRS}:$ENV{PYTHONPATH}")
 
 add_subdirectory(src)
