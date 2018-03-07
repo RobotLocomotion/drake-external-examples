@@ -30,6 +30,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# This is the superproject for `drake_shambhala`. We call
+# `ExternalProject_Add` here, and add `drake_shambhala` afterwards (also as a
+# external project) which depends on these external projects, so that it can
+# effectively build the external projects during the configuration stage.
+
 cmake_minimum_required(VERSION 3.5.1)
 project(drake_cmake_external)
 
