@@ -1,7 +1,7 @@
 # -*- mode: cmake -*-
 # vi: set ft=cmake :
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,24 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-add_subdirectory(find_resource)
-add_subdirectory(particles)
-add_subdirectory(pcl)
-add_subdirectory(simple_bindings)
-add_subdirectory(simple_continuous_time_system)
+find_package(pybind11 CONFIG REQUIRED)
+
+# N.B. Since we create our own CMake for `pybind11`, our definitions for
+# `pybind11::module` and `pybind11::pybind11` do not work the same as it would
+# for pybind11's documented usage of the interface target libraries:
+# http://pybind11.readthedocs.io/en/stable/compiling.html#advanced-interface-library-target
+# For this reason, we use `pybind11` as it's a simpler for now.
+pybind11_add_module(example_module MODULE example_module.cc)
+# N.B. Because `pybind11_add_module` does not use
+# `pybind11::module` and `pybind11_INCLUDE_DIRS` from `cps2cmake` should be
+# empty, we must explicitly link it to `pybind11::module`.
+target_link_libraries(example_module PUBLIC drake::drake pybind11::module)
+# Revert visibilty preset set by `pybind11_add_module` (workaround for
+# RobotLocomotion/drake#8540).
+set_target_properties(example_module PROPERTIES CXX_VISIBILITY_PRESET default)
+
+add_test(NAME example_module_test COMMAND
+    "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/example_module_test.py")
+set_tests_properties(example_module_test PROPERTIES
+    # Using `pybind11/tests/test_cmake_build/installed_target` as an example.
+    ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:example_module>:${PYTHONPATH}")
