@@ -47,7 +47,7 @@ sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
 git clone https://github.com/RobotLocomotion/drake-shambhala.git
 cd drake-shambhala
 mkdir drake_cmake_installed-build && cd drake_cmake_installed-build
-cmake -Ddrake_DIR=/opt/drake/lib/cmake/drake ../drake_cmake_installed
+cmake -DCMAKE_PREFIX_PATH=/opt/drake ../drake_cmake_installed
 make
 
 ###############################################################
@@ -100,7 +100,7 @@ cd drake-shambhala
 # Follow "Install Prerequisites" in the instructions linked above if you
 # have not already.
 mkdir drake_cmake_installed-build && cd drake_cmake_installed-build
-cmake -Ddrake_DIR=${drake_install}/lib/cmake/drake ../drake_cmake_installed
+cmake -DCMAKE_PREFIX_PATH=/opt/drake ../drake_cmake_installed
 make
 ctest
 ```
