@@ -34,10 +34,14 @@ set -eux
 # https://github.com/travis-ci/travis-ci/issues/8552
 brew update
 
+# https://github.com/Homebrew/homebrew-core/issues/26358
+brew upgrade python || true
+
 # https://github.com/travis-ci/travis-ci/issues/8826
 brew cask uninstall oclint
 
 # https://github.com/travis-ci/travis-ci/issues/6688
-/usr/local/opt/python/libexec/bin/pip uninstall -y scipy numpy
+/usr/local/opt/python/libexec/bin/pip uninstall -y scipy || true
+/usr/local/opt/python/libexec/bin/pip uninstall -y numpy || true
 
 ./scripts/continuous_integration/common/mac
