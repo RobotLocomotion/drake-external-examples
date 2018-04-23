@@ -34,6 +34,9 @@ set -eux
 # https://github.com/travis-ci/travis-ci/issues/8552
 brew update
 
+# https://github.com/Homebrew/homebrew-core/issues/26358
+brew upgrade python || true
+
 # https://github.com/travis-ci/travis-ci/issues/8826
 brew cask uninstall oclint
 
