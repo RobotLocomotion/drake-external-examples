@@ -54,14 +54,14 @@ py_binary(
 # such as `cc_test` and `py_test`.
 sh_test(
     name = "simple_continuous_time_system_test",
-    srcs = [":simple_continuous_time_system"],
     size = "small",
+    srcs = [":simple_continuous_time_system"],
 )
 
 sh_test(
     name = "simple_logging_example_test",
+    size = "small",
     srcs = ["exec.sh"],
     args = ["$(location :simple_logging_example)"],
     data = [":simple_logging_example"],
-    size = "small",
 )
