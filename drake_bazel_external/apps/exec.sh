@@ -1,5 +1,4 @@
-# -*- mode: python -*-
-# vi: set ft=python :
+#!/bin/bash
 
 # Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
@@ -30,38 +29,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Compile a sample application.
-cc_binary(
-    name = "simple_continuous_time_system",
-    srcs = ["simple_continuous_time_system.cc"],
-    deps = [
-        "@drake//systems/analysis",
-        "@drake//systems/framework",
-    ],
-)
-
-# Make a simple Python application.
-py_binary(
-    name = "simple_logging_example",
-    srcs = ["simple_logging_example.py"],
-    deps = [
-        "@drake//bindings/pydrake",
-    ],
-)
-
-# Run the applications to make sure they complete successfully.
-# N.B. For actual development, you should prefer language-specific test rules,
-# such as `cc_test` and `py_test`.
-sh_test(
-    name = "simple_continuous_time_system_test",
-    srcs = [":simple_continuous_time_system"],
-    size = "small",
-)
-
-sh_test(
-    name = "simple_logging_example_test",
-    srcs = ["exec.sh"],
-    args = ["$(location :simple_logging_example)"],
-    data = [":simple_logging_example"],
-    size = "small",
-)
+# Proxy script for things such as passing a `py_binary` to a `sh_test`, since
+# we cannot list the Python binary in `srcs` for the test.
+exec "$@"

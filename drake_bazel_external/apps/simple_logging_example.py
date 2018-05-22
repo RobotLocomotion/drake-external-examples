@@ -1,6 +1,3 @@
-# -*- mode: python -*-
-# vi: set ft=python :
-
 # Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
@@ -30,38 +27,38 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Compile a sample application.
-cc_binary(
-    name = "simple_continuous_time_system",
-    srcs = ["simple_continuous_time_system.cc"],
-    deps = [
-        "@drake//systems/analysis",
-        "@drake//systems/framework",
-    ],
+"""
+Provides an example of using pydrake from a Bazel external.
+"""
+
+from __future__ import print_function
+
+import numpy as np
+
+from pydrake.systems.analysis import Simulator
+from pydrake.systems.framework import (
+    DiagramBuilder,
+)
+from pydrake.systems.primitives import (
+    ConstantVectorSource,
+    SignalLogger,
 )
 
-# Make a simple Python application.
-py_binary(
-    name = "simple_logging_example",
-    srcs = ["simple_logging_example.py"],
-    deps = [
-        "@drake//bindings/pydrake",
-    ],
-)
 
-# Run the applications to make sure they complete successfully.
-# N.B. For actual development, you should prefer language-specific test rules,
-# such as `cc_test` and `py_test`.
-sh_test(
-    name = "simple_continuous_time_system_test",
-    srcs = [":simple_continuous_time_system"],
-    size = "small",
-)
+def main():
+    builder = DiagramBuilder()
+    source = builder.AddSystem(ConstantVectorSource([10.]))
+    logger = builder.AddSystem(SignalLogger(1))
+    builder.Connect(source.get_output_port(0), logger.get_input_port(0))
+    diagram = builder.Build()
 
-sh_test(
-    name = "simple_logging_example_test",
-    srcs = ["exec.sh"],
-    args = ["$(location :simple_logging_example)"],
-    data = [":simple_logging_example"],
-    size = "small",
-)
+    simulator = Simulator(diagram)
+    simulator.StepTo(1)
+
+    x = logger.data()
+    print("Output values: {}".format(x))
+    assert np.allclose(x, 10.)
+
+
+if __name__ == "__main__":
+    main()
