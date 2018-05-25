@@ -1,7 +1,7 @@
 # -*- mode: cmake -*-
 # vi: set ft=cmake :
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-add_subdirectory(find_resource)
-add_subdirectory(particles)
-add_subdirectory(pcl)
-add_subdirectory(simple_bindings)
-add_subdirectory(simple_continuous_time_system)
+find_package(pybind11 CONFIG REQUIRED)
+
+pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
+target_link_libraries(simple_bindings PUBLIC drake::drake pybind11::module)
+
+add_test(NAME simple_bindings_test COMMAND
+    "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
+set_tests_properties(simple_bindings_test PROPERTIES
+    # Using `pybind11/tests/test_cmake_build/installed_target` as an example.
+    ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${PYTHONPATH}")
