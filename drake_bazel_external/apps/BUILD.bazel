@@ -30,6 +30,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+load(
+    "@drake//tools/skylark:pybind.bzl",
+    "pybind_py_library",
+)
+
 # Compile a sample application.
 cc_binary(
     name = "simple_continuous_time_system",
@@ -64,4 +69,48 @@ sh_test(
     srcs = ["exec.sh"],
     args = ["$(location :simple_logging_example)"],
     data = [":simple_logging_example"],
+)
+
+# For custom bindings, you *must* link against `drake_shared_library` for *all*
+# C++ libraries; not doing so will lead to ODR (One Definition Rule) linking
+# issues.
+cc_library(
+    name = "simple_adder",
+    srcs = [
+        # While the `*-inl.h` pattern is not required, this does ensure that we
+        # test separate compilation and linking.
+        "simple_adder.cc",
+        "simple_adder-inl.h",
+    ],
+    hdrs = [
+        "simple_adder.h",
+    ],
+    deps = [
+        # N.B. Per the above comment, this does NOT link to static libraries
+        # (e.g. "@drake//systems/analysis").
+        "@drake//:drake_shared_library",
+    ],
+)
+
+# Show that the C++ functionality works as-is.
+cc_test(
+    name = "simple_adder_test",
+    srcs = ["simple_adder_test.cc"],
+    deps = [":simple_adder"],
+)
+
+pybind_py_library(
+    name = "simple_adder_py",
+    cc_so_name = "simple_adder",
+    cc_srcs = ["simple_adder_py.cc"],
+    cc_deps = [":simple_adder"],
+    py_deps = ["@drake//bindings/pydrake"],
+    py_imports = ["."],
+)
+
+# Mimic the C++ test in Python to show the bindings.
+py_test(
+    name = "simple_adder_py_test",
+    srcs = ["simple_adder_py_test.py"],
+    deps = [":simple_adder_py"],
 )
