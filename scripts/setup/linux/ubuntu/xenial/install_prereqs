@@ -91,6 +91,7 @@ protobuf-compiler
 python-dev
 python-gtk2
 python-protobuf
+ruby
 zlib1g-dev
 EOF
 )
