@@ -37,10 +37,16 @@
 
 #include <pybind11/pybind11.h>
 
+#include "drake/bindings/pydrake/systems/systems_pybind.h"
+#include "drake/bindings/pydrake/util/cpp_template_pybind.h"
+
 #include "simple_adder.h"
 
 namespace py = pybind11;
 
+using drake::pydrake::DefineTemplateClassWithDefault;
+using drake::pydrake::GetPyParam;
+using drake::pydrake::pysystems::CommonScalarPack;
 using drake::systems::LeafSystem;
 
 namespace shambhala {
@@ -51,8 +57,14 @@ PYBIND11_MODULE(simple_adder, m) {
 
   py::module::import("pydrake.systems.framework");
 
-  py::class_<SimpleAdder<double>, LeafSystem<double>>(m, "SimpleAdder")
+  auto bind_common_scalar_types = [m](auto dummy) {
+    using T = decltype(dummy);
+
+    DefineTemplateClassWithDefault<SimpleAdder<T>, LeafSystem<T>>(
+        m, "SimpleAdder", GetPyParam<T>())
       .def(py::init<double>(), py::arg("add"));
+  };
+  type_visit(bind_common_scalar_types, CommonScalarPack{});
 }
 
 }  // namespace
