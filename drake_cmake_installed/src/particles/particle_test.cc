@@ -35,7 +35,7 @@
 
 #include <gtest/gtest.h>
 
-#include <drake/systems/framework/input_port_descriptor.h>
+#include <drake/systems/framework/input_port.h>
 #include <drake/systems/framework/output_port_value.h>
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
@@ -97,7 +97,7 @@ TYPED_TEST_P(ParticleTest, OutputTest) {
 /// consistent with its state and input (velocity and acceleration).
 TYPED_TEST_P(ParticleTest, DerivativesTest) {
   // Set input.
-  const drake::systems::InputPortDescriptor<TypeParam>& input_descriptor =
+  const drake::systems::InputPort<TypeParam>& input_descriptor =
       this->dut_->get_input_port(0);
   auto input = std::make_unique<drake::systems::BasicVector<TypeParam>>(
       input_descriptor.size());

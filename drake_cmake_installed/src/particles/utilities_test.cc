@@ -38,7 +38,7 @@
 
 #include <drake/systems/framework/basic_vector.h>
 #include <drake/systems/framework/context.h>
-#include <drake/systems/framework/input_port_descriptor.h>
+#include <drake/systems/framework/input_port.h>
 #include <drake/systems/framework/output_port_value.h>
 #include <drake/systems/framework/system.h>
 
@@ -81,7 +81,7 @@ TYPED_TEST_CASE_P(SingleDOFEulerJointTest);
 /// output is the right mapping of its inputs.
 TYPED_TEST_P(SingleDOFEulerJointTest, OutputTest) {
   // Set input.
-  const drake::systems::InputPortDescriptor<TypeParam>& input_descriptor =
+  const drake::systems::InputPort<TypeParam>& input_descriptor =
       this->dut_->get_input_port(0);
   auto input = std::make_unique<drake::systems::BasicVector<TypeParam>>(
       input_descriptor.size());
