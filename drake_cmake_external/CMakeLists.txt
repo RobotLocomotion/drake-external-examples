@@ -30,6 +30,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# TODO(eric.cousineau): Link to documentation on superproject example pending
+# resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
+
 cmake_minimum_required(VERSION 3.5.1)
 project(drake_cmake_external)
 
