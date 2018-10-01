@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Massachusetts Institute of Technology.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,38 +27,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -euxo pipefail
-
-if [[ "${EUID}" -eq 0 ]]; then
-  echo 'This script must NOT be run as root' >&2
-  exit 1
-fi
-
-if [[ ! -d /opt/drake ]]; then
-  sudo mkdir -p /opt/drake
-  sudo chmod g+rwx /opt/drake
-  sudo chown "${USER}" /opt/drake
-  sudo chgrp admin /opt/drake
-fi
-
-# Install Drake dependencies.
-curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac.tar.gz
-trap 'rm -f drake.tar.gz' EXIT
-tar -xf drake.tar.gz -C /opt
-
-/opt/drake/share/drake/setup/install_prereqs
-
-# Install additional dependencies for development.
-brew install $(tr '\n' ' ' <<EOF
-bazel
-clang-format
-pkg-config
-EOF
-)
-
-if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
-  echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
-fi
-
-# Install additional dependencies for various compatibility examples.
-brew install pcl
+FROM ubuntu:18.04
+COPY ./install_prereqs /tmp/install_prereqs
+RUN yes | /tmp/install_prereqs \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -f /tmp/install_prereqs
