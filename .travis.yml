@@ -29,7 +29,7 @@
 
 ---
 os: osx
-osx_image: xcode9
+osx_image: xcode10
 
 language: cpp
 compiler: clang

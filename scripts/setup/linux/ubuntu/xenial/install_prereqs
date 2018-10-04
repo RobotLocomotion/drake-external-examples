@@ -36,9 +36,16 @@ if [[ "${EUID}" -ne 0 ]]; then
   exit 1
 fi
 
+apt-get update
+apt-get install --no-install-recommends lsb-release
+
+if [[ "$(lsb_release -sc)" != 'xenial' ]]; then
+  echo 'This script requires Ubuntu 16.04 (Xenial Xerus)' >&2
+  exit 2
+fi
+
 # Install Drake dependencies.
-apt update
-apt install --no-install-recommends wget
+apt-get install --no-install-recommends wget
 
 wget -O drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
 trap 'rm -f drake.tar.gz' EXIT
@@ -50,17 +57,20 @@ tar -xf drake.tar.gz -C /opt
 wget -O - https://bazel.build/bazel-release.pub.gpg | apt-key add
 echo 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
 
-apt update
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get update
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 bazel
 ca-certificates
-clang-format-4.0
+clang-format-6.0
 cmake
 coinor-libclp-dev
 coinor-libipopt-dev
+default-jdk
+file
 git
 libblas-dev
 libbz2-dev
+libclang-6.0-dev
 libexpat1-dev
 libfreetype6-dev
 libglib2.0-dev
@@ -84,20 +94,20 @@ libtool
 libxml2-dev
 libxt-dev
 libyaml-cpp-dev
-openjdk-8-jdk
 patchelf
 pkg-config
 protobuf-compiler
 python-dev
 python-gtk2
 python-protobuf
+python3
 ruby
 zlib1g-dev
 EOF
 )
 
 # Install additional dependencies for various compatibility examples.
-apt install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
 libpcl-dev
 libproj-dev
 EOF
