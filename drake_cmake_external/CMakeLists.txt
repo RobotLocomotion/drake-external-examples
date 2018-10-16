@@ -56,6 +56,8 @@ list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
 include(ExternalProject)
 
+# TODO(eric.cousineau): Ensure that we propagate `PYTHON_EXECUTABLE` to Drake,
+# using the correct default when appropriate.
 ExternalProject_Add(drake
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
   # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to
