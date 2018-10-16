@@ -42,8 +42,6 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 include(CTest)
 
 find_package(drake CONFIG REQUIRED)
-
-find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
 set(PYTHONPATH "${drake_PYTHON_DIRS}:$ENV{PYTHONPATH}")
 
 add_subdirectory(src)
