@@ -43,7 +43,7 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
-find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
+find_package(PythonInterp MODULE REQUIRED)
 set(PYTHONPATH "${drake_PYTHON_DIRS}:$ENV{PYTHONPATH}")
 
 add_subdirectory(src)
