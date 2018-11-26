@@ -53,4 +53,7 @@ brew upgrade python || true
 brew uninstall --force mercurial
 brew install mercurial
 
+# Work around issues with nlopt numpy dependency
+brew install nlopt numpy || true
+
 ./scripts/continuous_integration/common/mac
