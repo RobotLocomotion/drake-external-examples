@@ -34,9 +34,6 @@ set -eux
 # https://github.com/travis-ci/travis-ci/issues/8552
 brew update
 
-# https://github.com/travis-ci/travis-ci/issues/8826
-brew cask uninstall oclint
-
 # Clean up any numpy/scipy residuals
 # https://github.com/travis-ci/travis-ci/issues/6688
 # https://github.com/RobotLocomotion/drake-shambhala/pull/102#issuecomment-383708589
