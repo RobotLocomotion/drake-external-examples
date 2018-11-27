@@ -37,20 +37,14 @@ brew update
 # Clean up any numpy/scipy residuals
 # https://github.com/travis-ci/travis-ci/issues/6688
 # https://github.com/RobotLocomotion/drake-shambhala/pull/102#issuecomment-383708589
-rm -f /usr/local/bin/f2py
-rm -rf /usr/local/lib/python2.7/site-packages/numpy-*-py2.7.egg-info
-rm -rf /usr/local/lib/python2.7/site-packages/numpy/
-rm -rf /usr/local/lib/python2.7/site-packages/scipy-*-py2.7.egg-info
-rm -rf /usr/local/lib/python2.7/site-packages/scipy/
+brew uninstall --force --ignore-dependencies numpy scipy
+brew install numpy scipy
 
 # https://github.com/Homebrew/homebrew-core/issues/26358
 brew upgrade python || true
 
 # https://github.com/Homebrew/homebrew-core/issues/24978
-brew uninstall --force mercurial
+brew uninstall --force --ignore-dependencies mercurial
 brew install mercurial
-
-# Work around issues with nlopt numpy dependency
-brew install nlopt numpy || true
 
 ./scripts/continuous_integration/common/mac
