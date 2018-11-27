@@ -31,26 +31,10 @@
 
 set -eux
 
-# https://github.com/travis-ci/travis-ci/issues/8552
-brew update
-
-# https://github.com/travis-ci/travis-ci/issues/8826
-brew cask uninstall oclint
-
-# Clean up any numpy/scipy residuals
+# Clean up any numpy residuals
 # https://github.com/travis-ci/travis-ci/issues/6688
-# https://github.com/RobotLocomotion/drake-shambhala/pull/102#issuecomment-383708589
-rm -f /usr/local/bin/f2py
-rm -rf /usr/local/lib/python2.7/site-packages/numpy-*-py2.7.egg-info
-rm -rf /usr/local/lib/python2.7/site-packages/numpy/
-rm -rf /usr/local/lib/python2.7/site-packages/scipy-*-py2.7.egg-info
-rm -rf /usr/local/lib/python2.7/site-packages/scipy/
-
-# https://github.com/Homebrew/homebrew-core/issues/26358
-brew upgrade python || true
-
-# https://github.com/Homebrew/homebrew-core/issues/24978
-brew uninstall --force mercurial
-brew install mercurial
+brew update
+brew uninstall --force --ignore-dependencies numpy
+brew install numpy
 
 ./scripts/continuous_integration/common/mac
