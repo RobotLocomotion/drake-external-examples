@@ -72,7 +72,7 @@ def main():
         adder_T = SimpleAdder_[T](100.)
         context = adder_T.CreateDefaultContext()
         context.FixInputPort(0, BasicVector_[T]([10.]))
-        output = adder_T.AllocateOutput(context)
+        output = adder_T.AllocateOutput()
         adder_T.CalcOutput(context, output)
         # N.B. At present, you cannot get a reference to existing AutoDiffXd
         # or Expression numpy arrays, so we will explictly copy the vector:
