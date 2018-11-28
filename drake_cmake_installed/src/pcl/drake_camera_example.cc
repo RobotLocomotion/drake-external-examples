@@ -45,6 +45,8 @@
 // Test Eigen header presence (fails if Drake's Eigen w/ additional Autodiff
 // support is not utilised).
 #include <drake/common/autodiff.h>  // IWYU pragma: keep
+#include <drake/common/find_resource.h>
+#include <drake/multibody/parsers/sdf_parser.h>
 #include <drake/multibody/rigid_body_plant/rigid_body_plant.h>
 #include <drake/multibody/rigid_body_tree.h>
 #include <drake/multibody/rigid_body_tree_construction.h>
@@ -58,20 +60,31 @@ int main() {
   // Creates a simple discrete RGB-D camera simulation.
   drake::systems::DiagramBuilder<double> builder;
 
+  // TODO(eric.cousineau): Switch to MultibodyPlant once the corresponding
+  // `RgbdCamera` is no longer in `dev`.
   auto tree = std::make_unique<RigidBodyTree<double>>();
+  // TODO(eric.cousineau): Once RobotLocomotion/drake#10105 is resolved, switch
+  // back to a zero-DOF tree.
+  drake::parsers::sdf::AddModelInstancesFromSdfFileToWorld(
+      drake::FindResourceOrThrow(
+          "drake/examples/double_pendulum/models/double_pendulum.sdf"),
+      drake::multibody::joints::FloatingBaseType::kQuaternion,
+      tree.get());
   drake::multibody::AddFlatTerrainToWorld(tree.get());
   auto plant = builder.AddSystem<drake::systems::RigidBodyPlant<double>>(
       std::move(tree));
+  plant->set_name("plant");
 
+  const double period = 0.03;
   auto rgbd_camera =
       builder.AddSystem<drake::systems::sensors::RgbdCameraDiscrete>(
           std::make_unique<drake::systems::sensors::RgbdCamera>(
               "rgbd_camera", plant->get_rigid_body_tree(),
               Eigen::Vector3d(-1., 0., 1.), Eigen::Vector3d(0., M_PI_4, 0.),
               0.5, 5., M_PI_4, false),
-          0.03);
+          period);
 
-  builder.Connect(plant->get_output_port(0), rgbd_camera->state_input_port());
+  builder.Connect(plant->state_output_port(), rgbd_camera->state_input_port());
   auto diagram = builder.Build();
   auto simulator =
       std::make_unique<drake::systems::Simulator<double>>(*diagram);
