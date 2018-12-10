@@ -31,4 +31,10 @@
 
 set -eux
 
-sudo ./scripts/continuous_integration/common/linux_ubuntu_xenial
+sudo ./scripts/continuous_integration/common/linux_ubuntu_bionic
+
+cat > "${HOME}/.bazelrc" << EOF
+startup --output_user_root=${WORKSPACE}/_bazel_${USER}
+test --color=yes
+test --keep_going
+EOF
