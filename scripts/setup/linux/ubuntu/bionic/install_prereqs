@@ -45,8 +45,11 @@ if [[ "$(lsb_release -sc)" != 'bionic' ]]; then
 fi
 
 # Install Drake dependencies.
-apt-get update
-apt-get install --no-install-recommends wget
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
+ca-certificates
+wget
+EOF
+)
 
 wget -O drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-bionic.tar.gz
 trap 'rm -f drake.tar.gz' EXIT
@@ -55,8 +58,14 @@ tar -xf drake.tar.gz -C /opt
 /opt/drake/share/drake/setup/install_prereqs
 
 # Install additional dependencies for development.
+apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
+apt-transport-https
+gnupg
+EOF
+)
+
 wget -O - https://bazel.build/bazel-release.pub.gpg | apt-key add
-echo 'deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
+echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
 
 apt-get update
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
@@ -68,6 +77,7 @@ coinor-libclp-dev
 coinor-libipopt-dev
 default-jdk
 file
+gfortran
 git
 libblas-dev
 libbz2-dev
@@ -95,6 +105,7 @@ libtool
 libxml2-dev
 libxt-dev
 libyaml-cpp-dev
+locales
 patchelf
 pkg-config
 protobuf-compiler
@@ -106,6 +117,8 @@ ruby
 zlib1g-dev
 EOF
 )
+
+locale-gen en_US.UTF-8
 
 # Install additional dependencies for various compatibility examples.
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF

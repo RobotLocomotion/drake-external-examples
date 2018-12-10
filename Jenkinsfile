@@ -31,34 +31,44 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-node('drake_shambhala_linux_xenial_unprovisioned') {
-  def triggers = []
-  if (env.BRANCH_NAME == 'master') {
-    triggers << cron('H H(5-6) * * *')
-  }
-  properties ([
-    pipelineTriggers(triggers)
-  ])
-  try {
-    stage('checkout') {
-      checkout scm
+node('drake-shambhala-linux-bionic-unprovisioned') {
+  timeout(600) {
+    ansiColor('xterm') {
+      def triggers = []
+      if (env.BRANCH_NAME == 'master') {
+        triggers << cron('H H(7-8) * * *')
+      }
+      properties ([
+        pipelineTriggers(triggers)
+      ])
+      try {
+        dir('src') {
+          stage('checkout') {
+            checkout scm
+          }
+          stage('setup') {
+            sh './scripts/continuous_integration/jenkins/setup'
+          }
+          stage('build and test') {
+            sh './scripts/continuous_integration/jenkins/build_test'
+          }
+        }
+      } catch (e) {
+        if (env.BRANCH_NAME == 'master') {
+          emailext (
+            subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: "See <${env.BUILD_URL}display/redirect?page=changes>",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            to: '$DEFAULT_RECIPIENTS',
+          )
+        }
+        throw e
+      } finally {
+        deleteDir()
+        dir("${env.WORKSPACE}@tmp") {
+          deleteDir()
+        }
+      }
     }
-    stage('setup') {
-      sh './scripts/continuous_integration/jenkins/setup'
-    }
-    stage('build and test') {
-      sh './scripts/continuous_integration/jenkins/build_test'
-    }
-  } catch (e) {
-    if (env.BRANCH_NAME == 'master') {
-      emailext (
-        subject: "Build failed in Jenkins: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-        body: "See <${env.BUILD_URL}display/redirect?page=changes>",
-        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-      )
-    }
-    throw e
-  } finally {
-    cleanWs(notFailBuild: true)
   }
 }
