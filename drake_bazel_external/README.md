@@ -28,3 +28,21 @@ above command prints out; however, be aware that your working directories may
 cause differences.  This is important when using tools like
 `drake::FindResource` / `pydrake.common.FindResource`.
 You may generally want to stick to using `bazel run` when able.
+
+## Python Versions
+
+By default, Python 2 is the Python interpreter that Drake will use when built
+with Bazel. To see what Python versions are supported, see
+[Supported Configurations](https://drake.mit.edu/developers.html#supported-configurations).
+
+You can specify your Python interpreter for this project by creating / modifying
+`user.bazelrc` (inclued via `.bazelrc`) to specify `--python_path=...` and `--action_env=DRAKE_PYTHON_BIN_PATH=...`.
+
+An example of using Python 3 on Bionic:
+
+    build --python_path=/usr/bin/python3
+    build --action_env=DRAKE_PYTHON_BIN_PATH=/usr/bin/python3
+
+*Note*: If your are making a project to support multiple Python versions, it is
+suggested to use Bazel's `--config` mechanism. In Drake,
+[`--config=python3` is used](https://drake.mit.edu/bazel.html#python-versions).
