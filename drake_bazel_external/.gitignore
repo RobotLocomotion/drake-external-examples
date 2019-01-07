@@ -28,3 +28,4 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 /bazel-*
+/user.bazelrc
