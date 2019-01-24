@@ -50,20 +50,10 @@ tar -xf drake.tar.gz -C /opt
 
 /opt/drake/share/drake/setup/install_prereqs
 
-brew tap bazelbuild/tap
+# Install additional dependencies for development and compatibility examples.
+brew bundle --file="${BASH_SOURCE%/*}/Brewfile"
 brew tap-pin bazelbuild/tap
-
-# Install additional dependencies for development.
-brew install $(tr '\n' ' ' <<EOF
-bazelbuild/tap/bazel
-clang-format
-pkg-config
-EOF
-)
 
 if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
   echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
 fi
-
-# Install additional dependencies for various compatibility examples.
-brew install pcl
