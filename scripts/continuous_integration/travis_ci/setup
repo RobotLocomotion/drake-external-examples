@@ -38,3 +38,7 @@ brew uninstall --force --ignore-dependencies numpy
 brew install numpy
 
 ./scripts/continuous_integration/common/mac
+
+brew cleanup -s
+rm -f "${HOME}/Library/Caches/Homebrew/.cleaned"
+rm -f "${HOME}/Library/Caches/Homebrew/*.json"
