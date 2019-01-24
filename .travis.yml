@@ -34,5 +34,10 @@ osx_image: xcode10
 language: cpp
 compiler: clang
 
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+    - $HOME/Library/Caches/pip
+
 install: ./scripts/continuous_integration/travis_ci/setup
 script: ./scripts/continuous_integration/travis_ci/build_test

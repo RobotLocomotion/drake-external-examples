@@ -1,0 +1,9 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+tap 'bazelbuild/tap'
+
+brew 'bazelbuild/tap/bazel'
+brew 'llvm@6'
+brew 'pcl'
+brew 'pkg-config'
