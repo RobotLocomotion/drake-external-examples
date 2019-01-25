@@ -105,8 +105,8 @@ pybind_py_library(
     cc_srcs = ["simple_adder_py.cc"],
     cc_deps = [
         ":simple_adder",
+        "@drake//bindings/pydrake/common:cpp_template_pybind",
         "@drake//bindings/pydrake/systems:systems_pybind",
-        "@drake//bindings/pydrake/util:cpp_template_pybind",
     ],
     py_deps = ["@drake//bindings/pydrake"],
     py_imports = ["."],
