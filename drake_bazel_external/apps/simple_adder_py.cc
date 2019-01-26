@@ -37,8 +37,8 @@
 
 #include <pybind11/pybind11.h>
 
+#include "drake/bindings/pydrake/common/cpp_template_pybind.h"
 #include "drake/bindings/pydrake/systems/systems_pybind.h"
-#include "drake/bindings/pydrake/util/cpp_template_pybind.h"
 
 #include "simple_adder.h"
 
