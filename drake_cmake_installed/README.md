@@ -92,10 +92,10 @@ make
 # Record the build's install directory.
 drake_install=${PWD}/install
 
-# Build Drake Shambhala using development version of Drake.
+# Build this project using a development version of Drake.
 cd ..
-# Clone `drake-shambhala` if you have not already.
-git clone https://github.com/RobotLocomotion/drake-shambhala
+# Clone this repository if you have not already.
+git clone https://github.com/RobotLocomotion/drake-shambhala.git
 cd drake-shambhala
 # Follow "Install Prerequisites" in the instructions linked above if you
 # have not already.
