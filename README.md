@@ -12,7 +12,7 @@ own project:
 Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
 
 * `circle_ci` : exemplifies how to put a project depending on a Drake installation on Circle CI
-* `jenkins` : provides complete coverage of shambhala for all subprojects and officially supported platforms
+* `jenkins` : provides complete coverage of all example projects
 * `travis_ci` : examplifies how to put a project depending on a Drake installation on Travis CI
 
 | **Subproject** | **Circle CI** | **Jenkins** | **Travis CI** |
