@@ -1,12 +1,13 @@
-# Shambhala
+# Drake External Examples
 
-Shambhala is a hidden kingdom (**Drake**) where Buddhist values and traditions rule. The
-utopian realm is also home to the Great Warrior Gesar (**Russ Tedrake**), who leads hordes of the
-righteous (**Drake Developers**) who will eventually ride into the human world to combat our demons (**intractable problems**).
+Examples of how to use [Drake](https://github.com/RobotLocomotion/drake) in your
+own project:
 
-More practically, this repository exemplifies various ways to open a pathway to using [Drake](https://github.com/RobotLocomotion/drake) in your own project.
+* [`drake_bazel_external`](./drake_bazel_external)
+* [`drake_cmake_external`](./drake_cmake_external)
+* [`drake_cmake_installed`](./drake_cmake_installed)
 
-# Continuous Integration
+## Continuous Integration
 
 Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
 
