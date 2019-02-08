@@ -34,7 +34,7 @@
 #include <drake/systems/framework/framework_common.h>
 #include <drake/systems/framework/vector_base.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 
 template <typename T>
@@ -80,4 +80,4 @@ void Particle<T>::DoCalcTimeDerivatives(
 template class Particle<double>;
 
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

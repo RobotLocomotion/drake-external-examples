@@ -77,9 +77,9 @@ ExternalProject_Add(drake
   INSTALL_COMMAND :
 )
 
-ExternalProject_Add(drake_shambhala
+ExternalProject_Add(drake_external_examples
   DEPENDS drake
-  SOURCE_DIR "${PROJECT_SOURCE_DIR}/drake_shambhala"
+  SOURCE_DIR "${PROJECT_SOURCE_DIR}/drake_external_examples"
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
@@ -89,7 +89,7 @@ ExternalProject_Add(drake_shambhala
     -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
     -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
-  BINARY_DIR "${PROJECT_BINARY_DIR}/drake_shambhala"
+  BINARY_DIR "${PROJECT_BINARY_DIR}/drake_external_examples"
   BUILD_ALWAYS 1
   INSTALL_COMMAND :
 )

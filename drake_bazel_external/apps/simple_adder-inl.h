@@ -40,7 +40,7 @@
 
 #include "simple_adder.h"
 
-namespace shambhala {
+namespace drake_external_examples {
 
 using drake::systems::BasicVector;
 using drake::systems::Context;
@@ -63,4 +63,4 @@ void SimpleAdder<T>::CalcOutput(
   y.array() = u.array() + add_;
 }
 
-}  // namespace shambhala
+}  // namespace drake_external_examples

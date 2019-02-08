@@ -54,7 +54,7 @@
 #include <drake/systems/framework/diagram_builder.h>
 #include <drake/systems/sensors/rgbd_camera.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 
 int main() {
   // Creates a simple discrete RGB-D camera simulation.
@@ -97,6 +97,6 @@ int main() {
   return 0;
 }
 
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
-int main() { return shambhala::main(); }
+int main() { return drake_external_examples::main(); }
