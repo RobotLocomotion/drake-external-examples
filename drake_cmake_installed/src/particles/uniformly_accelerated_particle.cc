@@ -68,7 +68,7 @@ DEFINE_double(realtime_rate, 1.0,
 DEFINE_double(simulation_time, std::numeric_limits<double>::infinity(),
               "How long to simulate the particle");
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 
 /// Fixed path to particle SDF model (for visualization purposes only).
@@ -143,7 +143,7 @@ UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
   translating_matrix.setZero();
   translating_matrix(0, 0) = 1.0;
   auto particle_joint = builder.template AddSystem(
-      shambhala::particles::MakeDegenerateEulerJoint(translating_matrix));
+      drake_external_examples::particles::MakeDegenerateEulerJoint(translating_matrix));
   // Adding visualizer client.
   auto visualizer =
       builder.template AddSystem<drake::systems::DrakeVisualizer>(*tree_, lcm);
@@ -197,8 +197,8 @@ int main(int argc, char* argv[]) {
 }
 
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
 int main(int argc, char** argv) {
-  return shambhala::particles::main(argc, argv);
+  return drake_external_examples::particles::main(argc, argv);
 }

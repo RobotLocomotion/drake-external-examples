@@ -37,7 +37,7 @@
 #include <drake/systems/framework/continuous_state.h>
 #include <drake/systems/framework/leaf_system.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 
 /// A linear 1DOF particle system.
@@ -76,4 +76,4 @@ class Particle : public drake::systems::LeafSystem<T> {
 };
 
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

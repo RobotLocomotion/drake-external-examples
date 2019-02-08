@@ -40,7 +40,7 @@
 
 #include <drake/systems/framework/leaf_system.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 
 /// Adds a constant to an input.
 template <typename T>
@@ -56,4 +56,4 @@ class SimpleAdder : public drake::systems::LeafSystem<T> {
   const T add_{};
 };
 
-}  // namespace shambhala
+}  // namespace drake_external_examples

@@ -40,7 +40,7 @@
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 namespace {
 
@@ -128,4 +128,4 @@ INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, ParticleTest, double);
 
 }  // namespace
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

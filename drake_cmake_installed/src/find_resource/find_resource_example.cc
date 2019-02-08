@@ -38,7 +38,7 @@
 
 #include <drake/common/find_resource.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace {
 
 int main() {
@@ -57,6 +57,6 @@ int main() {
 }
 
 }  // namespace
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
-int main() { return shambhala::main(); }
+int main() { return drake_external_examples::main(); }
