@@ -49,7 +49,7 @@ using drake::pydrake::GetPyParam;
 using drake::pydrake::pysystems::CommonScalarPack;
 using drake::systems::LeafSystem;
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace {
 
 PYBIND11_MODULE(simple_adder, m) {
@@ -68,4 +68,4 @@ PYBIND11_MODULE(simple_adder, m) {
 }
 
 }  // namespace
-}  // namespace shambhala
+}  // namespace drake_external_examples

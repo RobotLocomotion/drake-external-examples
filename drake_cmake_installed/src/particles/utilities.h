@@ -36,7 +36,7 @@
 #include <drake/common/eigen_types.h>
 #include <drake/systems/primitives/matrix_gain.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 
 /// Makes an NDOF to 6DOF poses mapping system.
@@ -71,4 +71,4 @@ std::unique_ptr<typename drake::systems::MatrixGain<T>>
 MakeDegenerateEulerJoint(const drake::MatrixX<T>& translator);
 
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

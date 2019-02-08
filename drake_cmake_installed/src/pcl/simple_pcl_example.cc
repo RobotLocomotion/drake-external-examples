@@ -50,7 +50,7 @@
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
 
-namespace shambhala {
+namespace drake_external_examples {
 
 int main() {
   PointCloudT::Ptr cloud(new PointCloudT());
@@ -86,6 +86,6 @@ int main() {
   return 0;
 }
 
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
-int main() { return shambhala::main(); }
+int main() { return drake_external_examples::main(); }

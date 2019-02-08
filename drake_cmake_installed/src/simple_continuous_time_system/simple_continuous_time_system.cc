@@ -51,7 +51,7 @@
 #include <drake/systems/framework/continuous_state.h>
 #include <drake/systems/framework/vector_system.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace systems {
 
 /**
@@ -91,11 +91,11 @@ class SimpleContinuousTimeSystem : public drake::systems::VectorSystem<double> {
 };
 
 }  // namespace systems
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
 int main() {
   // Create the simple system.
-  shambhala::systems::SimpleContinuousTimeSystem system;
+  drake_external_examples::systems::SimpleContinuousTimeSystem system;
 
   // Create the simulator.
   drake::systems::Simulator<double> simulator(system);

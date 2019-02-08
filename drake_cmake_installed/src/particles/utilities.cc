@@ -33,7 +33,7 @@
 
 #include <drake/common/drake_throw.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 
 template <typename T>
@@ -62,4 +62,4 @@ template std::unique_ptr<drake::systems::MatrixGain<double>>
 MakeDegenerateEulerJoint<double>(const drake::MatrixX<double>& translator);
 
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

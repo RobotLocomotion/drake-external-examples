@@ -42,7 +42,7 @@
 #include <drake/systems/framework/output_port_value.h>
 #include <drake/systems/framework/system.h>
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace particles {
 namespace {
 
@@ -62,7 +62,7 @@ class SingleDOFEulerJointTest : public ::testing::Test {
     translating_matrix.setZero();
     translating_matrix(0, 0) = 1.0;
     this->dut_ =
-        shambhala::particles::MakeDegenerateEulerJoint(translating_matrix);
+        drake_external_examples::particles::MakeDegenerateEulerJoint(translating_matrix);
     this->context_ = this->dut_->CreateDefaultContext();
     this->output_ = this->dut_->AllocateOutput(*this->context_);
   }
@@ -147,4 +147,4 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooFewInputDOFTest) {
 
 }  // namespace
 }  // namespace particles
-}  // namespace shambhala
+}  // namespace drake_external_examples

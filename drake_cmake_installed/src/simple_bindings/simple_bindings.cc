@@ -46,7 +46,7 @@ using drake::systems::Context;
 using drake::systems::LeafSystem;
 using drake::systems::kVectorValued;
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace {
 
 /// Adds a constant to an input.
@@ -82,4 +82,4 @@ PYBIND11_MODULE(simple_bindings, m) {
 }
 
 }  // namespace
-}  // namespace shambhala
+}  // namespace drake_external_examples

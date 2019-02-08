@@ -50,7 +50,7 @@ using drake::systems::DiagramBuilder;
 using drake::systems::ConstantVectorSource;
 using drake::systems::SignalLogger;
 
-namespace shambhala {
+namespace drake_external_examples {
 namespace {
 
 int DoMain() {
@@ -75,8 +75,8 @@ int DoMain() {
 }
 
 }  // namespace
-}  // namespace shambhala
+}  // namespace drake_external_examples
 
 int main() {
-  return shambhala::DoMain();
+  return drake_external_examples::DoMain();
 }
