@@ -35,7 +35,7 @@ jobs:
     docker:
       - image: robotlocomotion/circleci:xenial
 
-    working_directory: ~/drake-shambhala
+    working_directory: ~/drake-external-examples
 
     steps:
       - checkout
