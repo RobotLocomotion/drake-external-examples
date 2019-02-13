@@ -20,7 +20,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 | `drake_bazel_external` | - | o | - |
 | `drake_cmake_external` | - | o | - |
 | `drake_cmake_installed` | o | o | o |
-||[![CircleCI](https://img.shields.io/circleci/project/github/RobotLocomotion/drake-shambhala/master.svg)](https://circleci.com/gh/RobotLocomotion/drake-shambhala)|[![Jenkins](https://img.shields.io/jenkins/s/https/drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/job/master.svg)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-shambhala/)|[![Travis CI](https://img.shields.io/travis/com/RobotLocomotion/drake-shambhala/master.svg)](https://travis-ci.com/RobotLocomotion/drake-shambhala)
+||[![CircleCI](https://img.shields.io/circleci/project/github/RobotLocomotion/drake-external-examples/master.svg)](https://circleci.com/gh/RobotLocomotion/drake-external-examples)|[![Jenkins](https://img.shields.io/jenkins/s/https/drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/master.svg)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/)|[![Travis CI](https://img.shields.io/travis/com/RobotLocomotion/drake-external-examples/master.svg)](https://travis-ci.com/RobotLocomotion/drake-external-examples)
 
 Note, the Circle CI and Travis CI jobs only build and test `drake_cmake_installed`
 since it is the exemplary case for a lightweight, open-source build on a public
