@@ -27,8 +27,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:18.04
-RUN apt-get update -qq \
+FROM ubuntu:bionic
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && apt-get update -qq \
   && apt-get install -qy --no-install-recommends \
     ca-certificates \
     git \
