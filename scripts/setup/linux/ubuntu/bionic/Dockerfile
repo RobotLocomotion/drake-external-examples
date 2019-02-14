@@ -27,8 +27,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:18.04
+FROM ubuntu:bionic
 COPY ./install_prereqs /tmp/install_prereqs
-RUN yes | /tmp/install_prereqs \
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && yes | /tmp/install_prereqs \
   && rm -rf /var/lib/apt/lists/* \
   && rm -f /tmp/install_prereqs
