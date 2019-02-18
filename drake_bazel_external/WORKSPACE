@@ -40,10 +40,27 @@ DRAKE_CHECKSUM = ""
 # displays the suggested new value for the CHECKSUM.
 # DRAKE_CHECKSUM = "0" * 64
 
-# Download Drake.
+# Or to temporarily build against a local checkout of Drake, at the bash prompt
+# set an environment variable before building:
+#  export MYPROJECT_LOCAL_DRAKE_PATH=/home/user/stuff/drake
+
+# Load an environment variable.
+load("//:environ.bzl", "environ_repository")
+environ_repository(name = "environ", vars = ["MYPROJECT_LOCAL_DRAKE_PATH"])
+load("@environ//:environ.bzl", "MYPROJECT_LOCAL_DRAKE_PATH")
+
+# The WORKSPACE file does not permit `if` statements, so we handle the local
+# option by toying with the repository names.  The selected repository is named
+# "@drake", the other is named "@drake_ignored".
+(_http_drake_repo_name, _local_drake_repo_name) = (
+    "drake_ignored" if MYPROJECT_LOCAL_DRAKE_PATH else "drake",
+    "drake" if MYPROJECT_LOCAL_DRAKE_PATH else "drake_ignored",
+)
+
+# Maybe download Drake.
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-    name = "drake",
+    name = _http_drake_repo_name,
     urls = [x.format(DRAKE_COMMIT) for x in [
         "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
     ]],
@@ -51,12 +68,12 @@ http_archive(
     strip_prefix = "drake-{}".format(DRAKE_COMMIT),
 )
 
-# To use a local checkout of Drake instead of the github.com download described
-# above, replace the http_archive stanza with something like the following:
-#   local_repository(
-#       name = "drake",
-#       path = "/path/to/git/drake",
-#   )
+# Maybe use a local checkout of Drake.
+print("Using MYPROJECT_LOCAL_DRAKE_PATH={}".format(MYPROJECT_LOCAL_DRAKE_PATH)) if MYPROJECT_LOCAL_DRAKE_PATH else None  # noqa
+local_repository(
+    name = _local_drake_repo_name,
+    path = MYPROJECT_LOCAL_DRAKE_PATH,
+)
 
 # Reference external software libraries and tools per Drake's defaults.  Some
 # software will come from the host system (Ubuntu or macOS); other software
