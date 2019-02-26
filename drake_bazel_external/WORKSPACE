@@ -30,6 +30,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+workspace(name = "drake_external_examples")
+
 DRAKE_COMMIT = "master"
 DRAKE_CHECKSUM = ""
 
@@ -40,10 +42,21 @@ DRAKE_CHECKSUM = ""
 # displays the suggested new value for the CHECKSUM.
 # DRAKE_CHECKSUM = "0" * 64
 
-# Download Drake.
+# Or to temporarily build against a local checkout of Drake, at the bash prompt
+# set an environment variable before building:
+#  export EXAMPLES_LOCAL_DRAKE_PATH=/home/user/stuff/drake
+
+# Load an environment variable.
+load("//:environ.bzl", "environ_repository")
+environ_repository(name = "environ", vars = ["EXAMPLES_LOCAL_DRAKE_PATH"])
+load("@environ//:environ.bzl", EXAMPLES_LOCAL_DRAKE_PATH = "EXAMPLES_LOCAL_DRAKE_PATH")
+
+# This declares the `@drake` repository as an http_archive from github,
+# iff EXAMPLES_LOCAL_DRAKE_PATH is unset.  When it is set, this declares a
+# `@drake_ignored` package which is never referenced, and thus is ignored.
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-    name = "drake",
+    name = "drake" if not EXAMPLES_LOCAL_DRAKE_PATH else "drake_ignored",
     urls = [x.format(DRAKE_COMMIT) for x in [
         "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
     ]],
@@ -51,12 +64,14 @@ http_archive(
     strip_prefix = "drake-{}".format(DRAKE_COMMIT),
 )
 
-# To use a local checkout of Drake instead of the github.com download described
-# above, replace the http_archive stanza with something like the following:
-#   local_repository(
-#       name = "drake",
-#       path = "/path/to/git/drake",
-#   )
+# This declares the `@drake` repository as a local directory,
+# iff EXAMPLES_LOCAL_DRAKE_PATH is set.  When it is unset, this declares a
+# `@drake_ignored` package which is never referenced, and thus is ignored.
+local_repository(
+    name = "drake" if EXAMPLES_LOCAL_DRAKE_PATH else "drake_ignored",
+    path = EXAMPLES_LOCAL_DRAKE_PATH,
+)
+print("Using EXAMPLES_LOCAL_DRAKE_PATH={}".format(EXAMPLES_LOCAL_DRAKE_PATH)) if EXAMPLES_LOCAL_DRAKE_PATH else None  # noqa
 
 # Reference external software libraries and tools per Drake's defaults.  Some
 # software will come from the host system (Ubuntu or macOS); other software
