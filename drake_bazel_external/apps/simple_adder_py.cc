@@ -38,15 +38,15 @@
 #include <pybind11/pybind11.h>
 
 #include "drake/bindings/pydrake/common/cpp_template_pybind.h"
-#include "drake/bindings/pydrake/systems/systems_pybind.h"
+#include "drake/bindings/pydrake/common/default_scalars_pybind.h"
 
 #include "simple_adder.h"
 
 namespace py = pybind11;
 
+using drake::pydrake::CommonScalarPack;
 using drake::pydrake::DefineTemplateClassWithDefault;
 using drake::pydrake::GetPyParam;
-using drake::pydrake::pysystems::CommonScalarPack;
 using drake::systems::LeafSystem;
 
 namespace drake_external_examples {

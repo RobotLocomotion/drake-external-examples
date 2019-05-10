@@ -106,7 +106,7 @@ pybind_py_library(
     cc_deps = [
         ":simple_adder",
         "@drake//bindings/pydrake/common:cpp_template_pybind",
-        "@drake//bindings/pydrake/systems:systems_pybind",
+        "@drake//bindings/pydrake/common:default_scalars_pybind",
     ],
     py_deps = ["@drake//bindings/pydrake"],
     py_imports = ["."],
