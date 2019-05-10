@@ -52,7 +52,6 @@ tar -xf drake.tar.gz -C /opt
 
 # Install additional dependencies for development and compatibility examples.
 brew bundle --file="${BASH_SOURCE%/*}/Brewfile"
-brew tap-pin bazelbuild/tap
 
 if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
   echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
