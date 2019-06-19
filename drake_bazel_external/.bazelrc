@@ -27,6 +27,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Continue to use Python 2 by default in Bazel 0.25 and above.
+build --incompatible_py3_is_default=false
+
 # Continue to obtain the python runtime from the --python_version flag rather
 # than a toolchain in Bazel 0.27 and above.
 build --incompatible_use_python_toolchains=false
