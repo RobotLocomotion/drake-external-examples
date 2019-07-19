@@ -54,10 +54,34 @@ endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
+if(PYTHON_EXECUTABLE)
+  find_package(PythonInterp MODULE REQUIRED)
+else()
+  set(DEFAULT_PYTHON_VERSION 3)
+  if(UNIX AND NOT APPLE)
+    find_program(LSB_RELEASE_EXECUTABLE NAMES lsb_release)
+    if(LSB_RELEASE_EXECUTABLE)
+      execute_process(COMMAND "${LSB_RELEASE_EXECUTABLE}" --codename --short
+        OUTPUT_VARIABLE LSB_RELEASE_OUTPUT_VARIABLE
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+      )
+      if(LSB_RELEASE_OUTPUT_VARIABLE STREQUAL xenial)
+        set(DEFAULT_PYTHON_VERSION 2)
+      endif()
+    endif()
+  endif()
+  set(WITH_PYTHON_VERSION ${DEFAULT_PYTHON_VERSION} CACHE STRING
+    "Choose the version of Python to use, options are 2 3"
+  )
+  set_property(CACHE WITH_PYTHON_VERSION PROPERTY STRINGS "2;3")
+  if(APPLE AND WITH_PYTHON_VERSION EQUAL 2)
+    find_program(PYTHON_EXECUTABLE NAMES python2)
+  endif()
+  find_package(PythonInterp ${WITH_PYTHON_VERSION} EXACT MODULE REQUIRED)
+endif()
+
 include(ExternalProject)
 
-# TODO(eric.cousineau): Ensure that we propagate `PYTHON_EXECUTABLE` to Drake,
-# using the correct default when appropriate.
 ExternalProject_Add(drake
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
   # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to
@@ -72,6 +96,7 @@ ExternalProject_Add(drake
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
+    -DPYTHON_EXECUTABLE:FILEPATH=${PYTHON_EXECUTABLE}
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON
   INSTALL_COMMAND :

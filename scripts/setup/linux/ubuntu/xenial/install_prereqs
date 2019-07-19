@@ -91,7 +91,6 @@ libjpeg8-dev
 libjsoncpp-dev
 liblapack-dev
 liblz4-dev
-libnetcdf-cxx-legacy-dev
 libnetcdf-dev
 libnlopt-dev
 libogg-dev
@@ -106,6 +105,7 @@ libxml2-dev
 libxt-dev
 libyaml-cpp-dev
 locales
+patch
 patchelf
 pkg-config
 protobuf-compiler
