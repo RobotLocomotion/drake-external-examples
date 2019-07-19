@@ -28,22 +28,22 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 # Continue to use Python 2 by default in Bazel 0.25 and above.
-build --incompatible_py3_is_default=false
+build --incompatible_py3_is_default=no
 
 # Continue to obtain the python runtime from the --python_version flag rather
 # than a toolchain in Bazel 0.27 and above.
-build --incompatible_use_python_toolchains=false
+build --incompatible_use_python_toolchains=no
 
 # Default to an optimized build.
-build -c opt
+build --compilation_mode=opt
 
 # Default build options.
-build --force_pic
+build --force_pic=yes
 build --strip=never
 
 # Default test options.
-test --test_output=errors
-test --test_summary=terse
+build --test_output=errors
+build --test_summary=terse
 
 # Use C++14.
 build --cxxopt=-std=c++14
