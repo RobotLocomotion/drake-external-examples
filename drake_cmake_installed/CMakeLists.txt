@@ -41,10 +41,37 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 include(CTest)
 
-find_package(drake CONFIG REQUIRED)
-find_package(PythonInterp 2.7 EXACT MODULE REQUIRED)
+if(PYTHON_EXECUTABLE)
+  find_package(PythonInterp MODULE REQUIRED)
+else()
+  set(DEFAULT_PYTHON_VERSION 3)
+  if(UNIX AND NOT APPLE)
+    find_program(LSB_RELEASE_EXECUTABLE NAMES lsb_release)
+    if(LSB_RELEASE_EXECUTABLE)
+      execute_process(COMMAND "${LSB_RELEASE_EXECUTABLE}" --codename --short
+        OUTPUT_VARIABLE LSB_RELEASE_OUTPUT_VARIABLE
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+      )
+      if(LSB_RELEASE_OUTPUT_VARIABLE STREQUAL xenial)
+        set(DEFAULT_PYTHON_VERSION 2)
+      endif()
+    endif()
+  endif()
+  set(WITH_PYTHON_VERSION ${DEFAULT_PYTHON_VERSION} CACHE STRING
+    "Choose the version of Python to use, options are 2 3"
+  )
+  set_property(CACHE WITH_PYTHON_VERSION PROPERTY STRINGS "2;3")
+  if(APPLE AND WITH_PYTHON_VERSION EQUAL 2)
+    find_program(PYTHON_EXECUTABLE NAMES python2)
+  endif()
+  find_package(PythonInterp ${WITH_PYTHON_VERSION} EXACT MODULE REQUIRED)
+endif()
 
-set(PYTHONPATH
-  "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages:$ENV{PYTHONPATH}")
+find_package(drake CONFIG REQUIRED)
+
+get_filename_component(PYTHONPATH
+  "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
+  REALPATH
+)
 
 add_subdirectory(src)
