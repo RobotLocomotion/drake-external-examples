@@ -45,7 +45,6 @@
 #include <drake/common/drake_copyable.h>
 #include <drake/common/eigen_types.h>
 #include <drake/common/text_logging_gflags.h>
-#include <drake/lcm/drake_lcm.h>
 #include <drake/multibody/joints/floating_base_types.h>
 #include <drake/multibody/parsers/sdf_parser.h>
 #include <drake/multibody/rigid_body_plant/drake_visualizer.h>
@@ -55,6 +54,7 @@
 #include <drake/systems/framework/diagram.h>
 #include <drake/systems/framework/diagram_builder.h>
 #include <drake/systems/framework/vector_base.h>
+#include <drake/systems/lcm/lcm_interface_system.h>
 #include <drake/systems/primitives/constant_vector_source.h>
 
 #include "particle.h"
@@ -84,22 +84,16 @@ bool file_exists(const std::string& name) {
 
 /// A sample diagram for visualizing a 1DOF particle to which a
 /// a constant acceleration is applied.
-///
-/// @tparam T must be a valid Eigen ScalarType.
-///
-template <typename T>
-class UniformlyAcceleratedParticle : public drake::systems::Diagram<T> {
+class UniformlyAcceleratedParticle : public drake::systems::Diagram<double> {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(UniformlyAcceleratedParticle)
 
   /// A constructor that wires up the whole diagram,
   /// taking a constant acceleration to be applied to
-  /// the particle and an LCM interface for visualization.
+  /// the particle.
   ///
   /// @param[in] acceleration in m/s^2 units.
-  /// @param[in] lcm interface to be used for messaging.
-  explicit UniformlyAcceleratedParticle(const T& acceleration,
-                                        drake::lcm::DrakeLcmInterface* lcm);
+  explicit UniformlyAcceleratedParticle(double acceleration);
 
   /// Creates a context using AllocateContext() and sets
   /// state variables according to the initial conditions supplied.
@@ -107,18 +101,18 @@ class UniformlyAcceleratedParticle : public drake::systems::Diagram<T> {
   /// @param[in] position in m units.
   /// @param[in] velocity in m/s units.
   /// @return a newly created Context.
-  std::unique_ptr<drake::systems::Context<T>> CreateContext(
-      const T& position, const T& velocity) const;
+  std::unique_ptr<drake::systems::Context<double>> CreateContext(
+      double position, double velocity) const;
 
  private:
   /// RigidBodyTree particle representation
   /// (for visualizations purposes only).
-  std::unique_ptr<RigidBodyTree<T>> tree_{std::make_unique<RigidBodyTree<T>>()};
+  std::unique_ptr<RigidBodyTree<double>> tree_{
+    std::make_unique<RigidBodyTree<double>>()};
 };
 
-template <typename T>
-UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
-    const T& acceleration, drake::lcm::DrakeLcmInterface* lcm) {
+UniformlyAcceleratedParticle::UniformlyAcceleratedParticle(
+    const double acceleration) {
   // Parse particle sdf into rigid body tree.
   if (!file_exists(kParticleSdfPath)) {
     throw std::runtime_error(std::string("could not find '") +
@@ -130,23 +124,24 @@ UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
   // Compile tree one more time just to be sure.
   tree_->compile();
   // Building diagram.
-  drake::systems::DiagramBuilder<T> builder;
+  drake::systems::DiagramBuilder<double> builder;
   // Adding constant acceleration source.
   auto constant_acceleration_vector_source =
-      builder.template AddSystem<drake::systems::ConstantVectorSource<T>>(
+      builder.AddSystem<drake::systems::ConstantVectorSource<double>>(
           acceleration);
   // Adding particle.
-  auto particle = builder.template AddSystem<Particle<T>>();
+  auto particle = builder.AddSystem<Particle<double>>();
   // Adding particle joint.
-  drake::MatrixX<T> translating_matrix(6, 1);
+  drake::MatrixX<double> translating_matrix(6, 1);
   // Only first generalized coordinate gets through.
   translating_matrix.setZero();
   translating_matrix(0, 0) = 1.0;
-  auto particle_joint = builder.template AddSystem(
+  auto particle_joint = builder.AddSystem(
       drake_external_examples::particles::MakeDegenerateEulerJoint(translating_matrix));
   // Adding visualizer client.
+  auto lcm = builder.AddSystem<drake::systems::lcm::LcmInterfaceSystem>();
   auto visualizer =
-      builder.template AddSystem<drake::systems::DrakeVisualizer>(*tree_, lcm);
+      builder.AddSystem<drake::systems::DrakeVisualizer>(*tree_, lcm);
   // Wiring all blocks together.
   builder.Connect(*constant_acceleration_vector_source, *particle);
   builder.Connect(*particle, *particle_joint);
@@ -154,14 +149,13 @@ UniformlyAcceleratedParticle<T>::UniformlyAcceleratedParticle(
   builder.BuildInto(this);
 }
 
-template <typename T>
-std::unique_ptr<drake::systems::Context<T>>
-UniformlyAcceleratedParticle<T>::CreateContext(const T& position,
-                                               const T& velocity) const {
+std::unique_ptr<drake::systems::Context<double>>
+UniformlyAcceleratedParticle::CreateContext(const double position,
+                                            const double velocity) const {
   // Allocate context.
   auto context = this->AllocateContext();
   // Set continuous state.
-  drake::systems::VectorBase<T>& cstate =
+  drake::systems::VectorBase<double>& cstate =
       context->get_mutable_continuous_state_vector();
   cstate.SetAtIndex(0, position);
   cstate.SetAtIndex(1, velocity);
@@ -177,12 +171,9 @@ int main(int argc, char* argv[]) {
       "make sure drake-visualizer is running!");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   drake::logging::HandleSpdlogGflags();
-  // Instantiate interface and start receiving.
-  auto interface = std::make_unique<drake::lcm::DrakeLcm>();
-  interface->StartReceiveThread();
   // Instantiate example system.
-  auto system = std::make_unique<UniformlyAcceleratedParticle<double>>(
-      FLAGS_acceleration, interface.get());
+  auto system = std::make_unique<UniformlyAcceleratedParticle>(
+      FLAGS_acceleration);
   // Get context with initial conditions.
   auto context =
       system->CreateContext(FLAGS_initial_position, FLAGS_initial_velocity);
@@ -192,7 +183,7 @@ int main(int argc, char* argv[]) {
   simulator->set_target_realtime_rate(FLAGS_realtime_rate);
   simulator->Initialize();
   // Run simulation.
-  simulator->StepTo(FLAGS_simulation_time);
+  simulator->AdvanceTo(FLAGS_simulation_time);
   return 0;
 }
 
