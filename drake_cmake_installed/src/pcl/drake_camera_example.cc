@@ -88,7 +88,7 @@ int main() {
   auto diagram = builder.Build();
   auto simulator =
       std::make_unique<drake::systems::Simulator<double>>(*diagram);
-  simulator->StepTo(0.1);
+  simulator->AdvanceTo(0.1);
 
   // TODO(eric.cousineau): Add in example of converting depth image to PCL
   // point cloud.
