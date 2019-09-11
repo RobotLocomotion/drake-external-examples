@@ -64,7 +64,7 @@ int DoMain() {
   auto diagram = builder.Build();
 
   Simulator<double> simulator(*diagram);
-  simulator.StepTo(1);
+  simulator.AdvanceTo(1);
 
   auto x = logger->data();
   Eigen::VectorXd x_expected = Eigen::Vector2d(110., 110.);

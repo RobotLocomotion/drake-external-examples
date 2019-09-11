@@ -61,7 +61,7 @@ def main():
     diagram = builder.Build()
 
     simulator = Simulator(diagram)
-    simulator.StepTo(1)
+    simulator.AdvanceTo(1)
 
     x = logger.data()
     print("Output values: {}".format(x))
