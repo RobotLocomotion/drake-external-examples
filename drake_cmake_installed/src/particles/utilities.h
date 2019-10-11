@@ -64,6 +64,7 @@ namespace particles {
 /// @note
 /// Instantiated templates for the following scalar types
 /// @p T are provided:
+///
 /// - double
 ///
 template <typename T>

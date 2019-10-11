@@ -43,25 +43,20 @@ target_link_libraries(uniformly_accelerated_particle particles
   drake::drake drake::drake-common-text-logging-gflags gflags_shared
 )
 
-find_package(GTest MODULE)
+add_executable(particle_test particle_test.cc)
+target_include_directories(particle_test PRIVATE
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+target_link_libraries(particle_test
+  particles drake::drake gtest
+)
+add_test(NAME particle_test COMMAND particle_test)
 
-# TODO(EricCousineau-TRI, jamiesnape): Rewrite these tests to not use GTest.
-if(GTEST_FOUND)
-  add_executable(particle_test particle_test.cc)
-  target_include_directories(particle_test PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-  )
-  target_link_libraries(particle_test
-    particles drake::drake GTest::GTest GTest::Main
-  )
-  add_test(NAME particle_test COMMAND particle_test)
-
-  add_executable(utilities_test utilities_test.cc)
-  target_include_directories(utilities_test PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-  )
-  target_link_libraries(utilities_test
-    particles drake::drake GTest::GTest GTest::Main
-  )
-  add_test(NAME utilities_test COMMAND utilities_test)
-endif()
+add_executable(utilities_test utilities_test.cc)
+target_include_directories(utilities_test PRIVATE
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+target_link_libraries(utilities_test
+  particles drake::drake gtest
+)
+add_test(NAME utilities_test COMMAND utilities_test)
