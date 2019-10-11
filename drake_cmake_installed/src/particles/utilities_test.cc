@@ -36,11 +36,10 @@
 
 #include <gtest/gtest.h>
 
-#include <drake/systems/framework/basic_vector.h>
-#include <drake/systems/framework/context.h>
 #include <drake/systems/framework/input_port.h>
-#include <drake/systems/framework/output_port_value.h>
+#include <drake/systems/framework/system_output.h>
 #include <drake/systems/framework/system.h>
+#include <drake/systems/framework/vector_base.h>
 
 namespace drake_external_examples {
 namespace particles {
@@ -61,10 +60,9 @@ class SingleDOFEulerJointTest : public ::testing::Test {
     drake::MatrixX<T> translating_matrix(6, 1);
     translating_matrix.setZero();
     translating_matrix(0, 0) = 1.0;
-    this->dut_ =
-        drake_external_examples::particles::MakeDegenerateEulerJoint(translating_matrix);
+    this->dut_ = MakeDegenerateEulerJoint(translating_matrix);
     this->context_ = this->dut_->CreateDefaultContext();
-    this->output_ = this->dut_->AllocateOutput(*this->context_);
+    this->output_ = this->dut_->AllocateOutput();
   }
 
   /// System (aka Device Under Test) being tested.
@@ -75,7 +73,7 @@ class SingleDOFEulerJointTest : public ::testing::Test {
   std::unique_ptr<drake::systems::SystemOutput<T>> output_;
 };
 
-TYPED_TEST_CASE_P(SingleDOFEulerJointTest);
+TYPED_TEST_SUITE_P(SingleDOFEulerJointTest);
 
 /// Makes sure that MakeDegenerateEulerJoint joint
 /// output is the right mapping of its inputs.
@@ -105,9 +103,9 @@ TYPED_TEST_P(SingleDOFEulerJointTest, OutputTest) {
             static_cast<TypeParam>(0.0));  // v3 == 0.0
 }
 
-REGISTER_TYPED_TEST_CASE_P(SingleDOFEulerJointTest, OutputTest);
+REGISTER_TYPED_TEST_SUITE_P(SingleDOFEulerJointTest, OutputTest);
 
-INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, SingleDOFEulerJointTest, double);
+INSTANTIATE_TYPED_TEST_SUITE_P(WithDoubles, SingleDOFEulerJointTest, double);
 
 /// Makes sure that MakeDegenerateEulerJoint throws when the given
 /// translating matrix doesn't imply a 6 degrees of freedom output
@@ -148,3 +146,8 @@ GTEST_TEST(DegenerateEulerJointDimensionalityChecks, TooFewInputDOFTest) {
 }  // namespace
 }  // namespace particles
 }  // namespace drake_external_examples
+
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
