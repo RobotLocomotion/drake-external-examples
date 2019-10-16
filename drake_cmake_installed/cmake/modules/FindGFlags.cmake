@@ -34,7 +34,7 @@ function(_gflags_find_library _NAME)
   string(TOUPPER ${_NAME} _NAME_UPPER)
 
   set(_LIBRARY_VAR GFLAGS_${_NAME_UPPER}_LIBRARY)
-  set(_TARGET gflags_${_NAME})
+  set(_TARGET gflags::gflags_${_NAME})
 
   if(_NAME MATCHES static$)
     set(_SHARED_STATIC STATIC)
@@ -107,9 +107,11 @@ find_package(PkgConfig QUIET)
 set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
 pkg_check_modules(PC_GFLAGS QUIET gflags)
 
-if(GFLAGS_VERSION_STRING)
-  set(GFLAGS_VERSION_STRING "${PC_GFLAGS_VERSION}")
+if(PC_GFLAGS_VERSION)
+  set(GFLAGS_VERSION "${PC_GFLAGS_VERSION}")
+  set(GFLAGS_VERSION_STRING "${GFLAGS_VERSION}")
 else()
+  set(GFLAGS_VERSION)
   set(GFLAGS_VERSION_STRING)
 endif()
 
@@ -122,13 +124,13 @@ foreach(_GFLAGS_COMPONENT ${GFlags_FIND_COMPONENTS})
 endforeach()
 
 if(GFLAGS_NOTHREADS_SHARED_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_nothreads_shared)
+  set(GFLAGS_LIBRARY gflags::gflags_nothreads_shared)
 elseif(GFLAGS_NOTHREADS_STATIC_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_nothreads_static)
+  set(GFLAGS_LIBRARY gflags::gflags_nothreads_static)
 elseif(GFLAGS_SHARED_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_shared)
+  set(GFLAGS_LIBRARY gflags::gflags_shared)
 elseif(GFLAGS_STATIC_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_static)
+  set(GFLAGS_LIBRARY gflags::gflags_static)
 else()
   set(GFLAGS_LIBRARY)
 endif()
@@ -137,7 +139,7 @@ include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(GFlags
   REQUIRED_VARS GFLAGS_INCLUDE_DIR GFLAGS_LIBRARY
-  VERSION_VAR GFLAGS_VERSION_STRING
+  VERSION_VAR GFLAGS_VERSION
   HANDLE_COMPONENTS
 )
 
