@@ -40,7 +40,7 @@ find_package(GFlags MODULE REQUIRED COMPONENTS shared)
 
 add_executable(uniformly_accelerated_particle uniformly_accelerated_particle.cc)
 target_link_libraries(uniformly_accelerated_particle particles
-  drake::drake drake::drake-common-text-logging-gflags gflags_shared
+  drake::drake drake::drake-common-text-logging-gflags gflags::gflags_shared
 )
 
 add_executable(particle_test particle_test.cc)
