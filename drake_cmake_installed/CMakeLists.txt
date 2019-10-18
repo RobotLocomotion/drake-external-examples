@@ -37,8 +37,6 @@ project(drake_cmake_installed)
 # does not need X11.
 option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
-
 include(CTest)
 
 if(PYTHON_EXECUTABLE)
@@ -73,6 +71,8 @@ get_filename_component(PYTHONPATH
   "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
   REALPATH
 )
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 14)
