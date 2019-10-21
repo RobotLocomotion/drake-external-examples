@@ -36,7 +36,7 @@
 #include <gtest/gtest.h>
 
 #include <drake/systems/framework/input_port.h>
-#include <drake/systems/framework/output_port_value.h>
+#include <drake/systems/framework/system_output.h>
 #include <drake/systems/framework/system.h>
 #include <drake/systems/framework/vector_base.h>
 
@@ -56,7 +56,7 @@ class ParticleTest : public ::testing::Test {
   void SetUp() override {
     this->dut_ = std::make_unique<Particle<T>>();
     this->context_ = this->dut_->CreateDefaultContext();
-    this->output_ = this->dut_->AllocateOutput(*context_);
+    this->output_ = this->dut_->AllocateOutput();
     this->derivatives_ = this->dut_->AllocateTimeDerivatives();
   }
 
@@ -70,7 +70,7 @@ class ParticleTest : public ::testing::Test {
   std::unique_ptr<drake::systems::ContinuousState<T>> derivatives_;
 };
 
-TYPED_TEST_CASE_P(ParticleTest);
+TYPED_TEST_SUITE_P(ParticleTest);
 
 /// Makes sure a Particle output is consistent with its
 /// state (position and velocity).
@@ -107,8 +107,8 @@ TYPED_TEST_P(ParticleTest, DerivativesTest) {
   // Set state.
   drake::systems::VectorBase<TypeParam>& continuous_state_vector =
       this->context_->get_mutable_continuous_state_vector();
-  continuous_state_vector.SetAtIndex(0,
-                                     static_cast<TypeParam>(0.0));  // x0 = 0 m
+  continuous_state_vector.SetAtIndex(
+      0, static_cast<TypeParam>(0.0));  // x0 = 0 m
   continuous_state_vector.SetAtIndex(
       1, static_cast<TypeParam>(2.0));  // x1 = 2 m/s
   // Compute derivatives.
@@ -122,10 +122,15 @@ TYPED_TEST_P(ParticleTest, DerivativesTest) {
             static_cast<TypeParam>(1.0));  // x1dot == u0
 }
 
-REGISTER_TYPED_TEST_CASE_P(ParticleTest, OutputTest, DerivativesTest);
+REGISTER_TYPED_TEST_SUITE_P(ParticleTest, OutputTest, DerivativesTest);
 
-INSTANTIATE_TYPED_TEST_CASE_P(WithDoubles, ParticleTest, double);
+INSTANTIATE_TYPED_TEST_SUITE_P(WithDoubles, ParticleTest, double);
 
 }  // namespace
 }  // namespace particles
 }  // namespace drake_external_examples
+
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}

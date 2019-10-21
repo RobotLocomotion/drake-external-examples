@@ -34,7 +34,7 @@ function(_gflags_find_library _NAME)
   string(TOUPPER ${_NAME} _NAME_UPPER)
 
   set(_LIBRARY_VAR GFLAGS_${_NAME_UPPER}_LIBRARY)
-  set(_TARGET gflags_${_NAME})
+  set(_TARGET gflags::gflags_${_NAME})
 
   if(_NAME MATCHES static$)
     set(_SHARED_STATIC STATIC)
@@ -62,36 +62,38 @@ function(_gflags_find_library _NAME)
     set(GFlags_${_NAME}_FOUND ON PARENT_SCOPE)
     mark_as_advanced(${_LIBRARY_VAR})
 
-    add_library(${_TARGET} ${_SHARED_STATIC} IMPORTED)
-    set_target_properties(${_TARGET} PROPERTIES
-      IMPORTED_LOCATION "${${_LIBRARY_VAR}}"
-      INTERFACE_INCLUDE_DIRECTORIES "${GFLAGS_INCLUDE_DIRS}"
-    )
-
-    if(_NAME MATCHES static$)
+    if(NOT TARGET ${_TARGET})
+      add_library(${_TARGET} ${_SHARED_STATIC} IMPORTED)
       set_target_properties(${_TARGET} PROPERTIES
-        IMPORTED_LINK_INTERFACE_LANGUAGES CXX
-        INTERFACE_COMPILE_DEFINITIONS GFLAGS_IS_A_DLL=0
+        IMPORTED_LOCATION "${${_LIBRARY_VAR}}"
+        INTERFACE_INCLUDE_DIRECTORIES "${GFLAGS_INCLUDE_DIRS}"
       )
-    else()
-      if(WIN32)
+
+      if(_NAME MATCHES static$)
         set_target_properties(${_TARGET} PROPERTIES
-          INTERFACE_COMPILE_DEFINITIONS GFLAGS_IS_A_DLL=1
-        )
-      else()
-        set_target_properties(${_TARGET} PROPERTIES
+          IMPORTED_LINK_INTERFACE_LANGUAGES CXX
           INTERFACE_COMPILE_DEFINITIONS GFLAGS_IS_A_DLL=0
         )
+      else()
+        if(WIN32)
+          set_target_properties(${_TARGET} PROPERTIES
+            INTERFACE_COMPILE_DEFINITIONS GFLAGS_IS_A_DLL=1
+          )
+        else()
+          set_target_properties(${_TARGET} PROPERTIES
+            INTERFACE_COMPILE_DEFINITIONS GFLAGS_IS_A_DLL=0
+          )
+        endif()
       endif()
-    endif()
 
-    if(_NAME STREQUAL static)
-      find_package(Threads QUIET)
+      if(_NAME STREQUAL static)
+        find_package(Threads QUIET)
 
-      if(Threads_FOUND)
-        set_target_properties(${_TARGET} PROPERTIES
-          INTERFACE_LINK_LIBRARIES $<LINK_ONLY:Threads::Threads>
-        )
+        if(Threads_FOUND)
+          set_target_properties(${_TARGET} PROPERTIES
+            INTERFACE_LINK_LIBRARIES $<LINK_ONLY:Threads::Threads>
+          )
+        endif()
       endif()
     endif()
   endif()
@@ -107,9 +109,11 @@ find_package(PkgConfig QUIET)
 set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
 pkg_check_modules(PC_GFLAGS QUIET gflags)
 
-if(GFLAGS_VERSION_STRING)
-  set(GFLAGS_VERSION_STRING "${PC_GFLAGS_VERSION}")
+if(PC_GFLAGS_VERSION)
+  set(GFLAGS_VERSION "${PC_GFLAGS_VERSION}")
+  set(GFLAGS_VERSION_STRING "${GFLAGS_VERSION}")
 else()
+  set(GFLAGS_VERSION)
   set(GFLAGS_VERSION_STRING)
 endif()
 
@@ -122,13 +126,13 @@ foreach(_GFLAGS_COMPONENT ${GFlags_FIND_COMPONENTS})
 endforeach()
 
 if(GFLAGS_NOTHREADS_SHARED_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_nothreads_shared)
+  set(GFLAGS_LIBRARY gflags::gflags_nothreads_shared)
 elseif(GFLAGS_NOTHREADS_STATIC_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_nothreads_static)
+  set(GFLAGS_LIBRARY gflags::gflags_nothreads_static)
 elseif(GFLAGS_SHARED_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_shared)
+  set(GFLAGS_LIBRARY gflags::gflags_shared)
 elseif(GFLAGS_STATIC_LIBRARY)
-  set(GFLAGS_LIBRARY gflags_static)
+  set(GFLAGS_LIBRARY gflags::gflags_static)
 else()
   set(GFLAGS_LIBRARY)
 endif()
@@ -137,7 +141,7 @@ include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(GFlags
   REQUIRED_VARS GFLAGS_INCLUDE_DIR GFLAGS_LIBRARY
-  VERSION_VAR GFLAGS_VERSION_STRING
+  VERSION_VAR GFLAGS_VERSION
   HANDLE_COMPONENTS
 )
 

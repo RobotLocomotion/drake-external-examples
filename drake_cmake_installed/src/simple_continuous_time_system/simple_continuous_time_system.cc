@@ -29,64 +29,50 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-/**
- * @file apps/simple_continuous_time_system.cc
- *
- * Simple Continuous Time System Example
- *
- * This is meant to be a sort of "hello world" example for the drake::system
- * classes. It defines a very simple continuous time system, simulates it from
- * a given initial condition, and plots the result.
- */
+// Simple Continuous Time System Example
+//
+// This is meant to be a sort of "hello world" example for the drake::system
+// classes. It defines a very simple continuous time system and simulates it
+// from a given initial condition.
 
 #include <cmath>
 
-#include <Eigen/Core>
-
-#include <drake/common/autodiff.h>  // IWYU pragma: keep
 #include <drake/common/drake_assert.h>
-#include <drake/common/unused.h>
 #include <drake/systems/analysis/simulator.h>
+#include <drake/systems/framework/basic_vector.h>
 #include <drake/systems/framework/context.h>
 #include <drake/systems/framework/continuous_state.h>
-#include <drake/systems/framework/vector_system.h>
+#include <drake/systems/framework/leaf_system.h>
 
 namespace drake_external_examples {
 namespace systems {
 
-/**
- * Simple Continuous Time System
- *
- * xdot = -x + x^3
- * y = x
- */
-class SimpleContinuousTimeSystem : public drake::systems::VectorSystem<double> {
+// Simple Continuous Time System
+//   xdot = -x + x³
+//   y = x
+class SimpleContinuousTimeSystem : public drake::systems::LeafSystem<double> {
  public:
-  SimpleContinuousTimeSystem()
-      : drake::systems::VectorSystem<double>(0,    // Zero inputs.
-                                             1) {  // One output.
-    this->DeclareContinuousState(1);               // One state variable.
+  SimpleContinuousTimeSystem() {
+    DeclareVectorOutputPort("y", drake::systems::BasicVector<double>(1),
+                            &SimpleContinuousTimeSystem::CopyStateOut);
+    DeclareContinuousState(1);  // One state variable.
   }
 
  private:
-  // xdot = -x + x^3
-  virtual void DoCalcVectorTimeDerivatives(
+  // xdot = -x + x³
+  void DoCalcTimeDerivatives(
       const drake::systems::Context<double>& context,
-      const Eigen::VectorBlock<const Eigen::VectorXd>& input,
-      const Eigen::VectorBlock<const Eigen::VectorXd>& state,
-      Eigen::VectorBlock<Eigen::VectorXd>* derivatives) const {
-    drake::unused(context, input);
-    (*derivatives)(0) = -state(0) + std::pow(state(0), 3.0);
+      drake::systems::ContinuousState<double>* derivatives) const override {
+    const double x = context.get_continuous_state()[0];
+    const double xdot = -x + std::pow(x, 3.0);
+    (*derivatives)[0] = xdot;
   }
 
   // y = x
-  virtual void DoCalcVectorOutput(
-      const drake::systems::Context<double>& context,
-      const Eigen::VectorBlock<const Eigen::VectorXd>& input,
-      const Eigen::VectorBlock<const Eigen::VectorXd>& state,
-      Eigen::VectorBlock<Eigen::VectorXd>* output) const {
-    drake::unused(context, input);
-    *output = state;
+  void CopyStateOut(const drake::systems::Context<double>& context,
+                    drake::systems::BasicVector<double>* output) const {
+    const double x = context.get_continuous_state()[0];
+    (*output)[0] = x;
   }
 };
 
@@ -108,10 +94,8 @@ int main() {
   // Simulate for 10 seconds.
   simulator.AdvanceTo(10);
 
-  // Make sure the simulation converges to the stable fixed point at x=0.
+  // Make sure the simulation converges to the stable fixed point at x = 0.
   DRAKE_DEMAND(state[0] < 1.0e-4);
-
-  // TODO(russt): Make a plot of the resulting trajectory.
 
   return 0;
 }
