@@ -30,13 +30,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Important Caveat: This must come after any call to
-#   find_package(drake)
-# so that Drake's version of the bundled Eigen will be used.
-# Also Important: At present, Drake is bundled into one monolithic component
-# which consumes VTK-8.0, which will most likely conflict with PCL's version.
-# Because of this, you cannot use PCL components that consume VTK, such as
-# `visualization`.
+# Important caveats:
+#
+# * This must come after any call to
+#     find_package(drake)
+#   so that Drake's version of the bundled Eigen will be used.
+#
+# * At present, Drake is bundled into one monolithic component that consumes its
+#   own build of VTK, which will most likely conflict with the version to which
+#   PCL is linked. Because of this, you cannot use PCL components that consume
+#   VTK, such as "visualization".
+#
+# * On macOS, CMAKE_MODULE_PATH must be set (as in this project) to use the
+#   FindFLANN module in ${PROJECT_SOURCE_DIR}/cmake rather than the one bundled
+#   with PCL to work around a linker issue.
 find_package(PCL CONFIG REQUIRED COMPONENTS common filters)
 
 # Work around https://bugs.launchpad.net/ubuntu/+source/vtk6/+bug/1573234
