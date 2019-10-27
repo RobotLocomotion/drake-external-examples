@@ -36,7 +36,7 @@ configure_file(models/particle.sdf "${CMAKE_CURRENT_BINARY_DIR}" COPYONLY)
 add_library(particles particle.cc particle.h utilities.cc utilities.h)
 target_link_libraries(particles drake::drake)
 
-find_package(GFlags MODULE REQUIRED COMPONENTS shared)
+find_package(gflags CONFIG REQUIRED COMPONENTS shared)
 
 add_executable(uniformly_accelerated_particle uniformly_accelerated_particle.cc)
 target_link_libraries(uniformly_accelerated_particle particles
