@@ -10,7 +10,7 @@ For an introduction to Bazel, refer to
 First, install the required Ubuntu packages:
 
 ```
-sudo ../scripts/setup/linux/ubuntu/xenial/install_prereqs
+sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs
 ```
 
 Then, to build and test all apps:
@@ -31,18 +31,6 @@ You may generally want to stick to using `bazel run` when able.
 
 ## Python Versions
 
-By default, Python 2 is the Python interpreter that Drake will use when built
+By default, Python 3 is the Python interpreter that Drake will use when built
 with Bazel. To see which Python versions are supported, see the
 [supported configurations](https://drake.mit.edu/developers.html#supported-configurations).
-
-You can specify your Python interpreter for this project by creating / modifying
-`user.bazelrc` (included via `.bazelrc`) to specify `--python_path=...` and `--action_env=DRAKE_PYTHON_BIN_PATH=...`.
-
-An example of using Python 3 on Ubuntu Bionic:
-
-    build --python_path=/usr/bin/python3
-    build --action_env=DRAKE_PYTHON_BIN_PATH=/usr/bin/python3
-
-*Note*: If your project needs to support multiple Python versions, it is
-suggested to use Bazel's `--config` mechanism. In Drake,
-[`--config=python3` is used](https://drake.mit.edu/bazel.html#python-versions).

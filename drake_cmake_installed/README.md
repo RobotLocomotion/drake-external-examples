@@ -4,14 +4,14 @@ This uses the CMake `find_package(drake)` mechanism to find an installed instanc
 
 # Instructions
 
-These instructions are only supported for Ubuntu 16.04 (Xenial).
+These instructions are only supported for Ubuntu 18.04 (Bionic).
 
 ```shell
 ###############################################################
 # Install Prerequisites
 ###############################################################
 # Various system dependencies
-sudo ../scripts/setup/linux/ubuntu/xenial/install_prereqs
+sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:
@@ -26,11 +26,11 @@ sudo cp *.a /usr/local/lib
 ###############################################################
 
 # 1) A specific version (date-stamped)
-# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20171015-xenial.tar.gz
+# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20191015-bionic.tar.gz
 
 # 2) The latest (usually last night's build)
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-xenial.tar.gz
-sudo tar -xvzf drake-latest-xenial.tar.gz -C /opt
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-bionic.tar.gz
+sudo tar -xvzf drake-latest-bionic.tar.gz -C /opt
 
 # 3) Manual Installation
 # git clone https://github.com/RobotLocomotion/drake.git
