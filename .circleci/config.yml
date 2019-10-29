@@ -33,7 +33,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: robotlocomotion/circleci:xenial
+      - image: robotlocomotion/circleci:bionic
 
     working_directory: ~/drake-external-examples
 

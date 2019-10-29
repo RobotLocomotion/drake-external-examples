@@ -3,8 +3,8 @@
 These examples are designed to illustrate and exercise build and execution
 of a project that depends on both Drake and PCL.
 
-This has been tested and is currently officially supported on Ubuntu
-Xenial (16.04).
+This has only been tested on Ubuntu Xenail (16.04) which is no longer
+supported by Drake. This has not yet been tested on Ubuntu Bionic (18.04).
 
 ## Drake-PCL Caveats
 
@@ -36,7 +36,7 @@ which includes a bugfix.
 
 ```
 list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
- ```
+```
 
 ## Simple PCL Example
 
