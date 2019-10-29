@@ -120,6 +120,14 @@ zlib1g-dev
 EOF
 )
 
+# TODO(jamiesnape): Remove this block when the bazel apt repository is fixed.
+if dpkg --compare-versions "$(dpkg-query --showformat='${Version}' --show bazel)" lt 1.1; then
+  wget https://releases.bazel.build/1.1.0/release/bazel_1.1.0-linux-x86_64.deb
+  trap 'rm -f bazel_1.1.0-linux-x86_64.deb drake.tar.gz' EXIT
+  echo '138b47ffd54924e3c0264c65d31d3927803fb9025db4d5b18107df79ee3bda95  bazel_1.1.0-linux-x86_64.deb' | shasum -a 256 -c -
+  dpkg -i bazel_1.1.0-linux-x86_64.deb
+fi
+
 locale-gen en_US.UTF-8
 
 # Install additional dependencies for various compatibility examples.
