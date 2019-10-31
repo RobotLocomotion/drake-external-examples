@@ -110,9 +110,6 @@ patch
 patchelf
 pkg-config
 protobuf-compiler
-python-dev
-python-gtk2
-python-protobuf
 python3-dev
 python3-protobuf
 ruby
