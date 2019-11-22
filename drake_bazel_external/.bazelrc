@@ -27,16 +27,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Continue to use Python 2 by default in Bazel 0.25 and above.
-build --incompatible_py3_is_default=no
-
 # Continue to obtain the python runtime from the --python_version flag rather
 # than a toolchain in Bazel 0.27 and above.
 build --incompatible_use_python_toolchains=no
-
-# Continue to use --whole-archive for cc_binary rules that have linkshared = 1
-# and either linkstatic = 1 or -static in linkopts in Bazel 1.0 and above.
-build --incompatible_remove_legacy_whole_archive=no
 
 # Default to an optimized build.
 build --compilation_mode=opt
