@@ -1,4 +1,4 @@
-# Copyright (c) 2018, Toyota Research Institute.
+# Copyright (c) 2018-2019, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,37 +27,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Continue to use Python 2 by default in Bazel 0.25 and above.
-build --incompatible_py3_is_default=no
-
-# Continue to obtain the python runtime from the --python_version flag rather
-# than a toolchain in Bazel 0.27 and above.
-build --incompatible_use_python_toolchains=no
-
-# Continue to use --whole-archive for cc_binary rules that have linkshared = 1
-# and either linkstatic = 1 or -static in linkopts in Bazel 1.0 and above.
-build --incompatible_remove_legacy_whole_archive=no
-
 # Default to an optimized build.
 build --compilation_mode=opt
-
-# Default build options.
-build --force_pic=yes
-build --strip=never
 
 # Default test options.
 build --test_output=errors
 build --test_summary=terse
-
-# Use C++17.
-build --cxxopt=-std=c++17
-build --host_cxxopt=-std=c++17
-
-# https://github.com/bazelbuild/bazel/issues/1164
-build --action_env=CCACHE_DISABLE=1
-
-# TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
-# customizations somehow.
 
 # Try to import user-specific configuration local to workspace.
 try-import %workspace%/user.bazelrc
