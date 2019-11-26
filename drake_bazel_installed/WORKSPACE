@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (c) 2018, Toyota Research Institute.
+# Copyright (c) 2019, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -32,49 +32,31 @@
 
 workspace(name = "drake_external_examples")
 
-DRAKE_COMMIT = "master"
-DRAKE_CHECKSUM = ""
+# Choose which nightly build of Drake to use.
+DRAKE_RELEASE = "latest"  # Can also use YYYYMMDD, e.g., "20191026".
+DRAKE_CHECKSUM = ""       # When using YYYYMMDD, best to add a checksum here.
 
-# Or choose a specific revision of Drake to use.
-# DRAKE_COMMIT = "be4f658487f739ba04ec079de46f9459b719636d"
-# DRAKE_CHECKSUM = "31ec8f87df3ceb6516de3c33a14c5d59ac5c003b4faf93ac526877d2e150b394"
-# Before changing the COMMIT, temporarily uncomment the next line so that Bazel
-# displays the suggested new value for the CHECKSUM.
-# DRAKE_CHECKSUM = "0" * 64
+# To use a local unpacked Drake binary release instead of a nightly build, set
+# this variable to the correct path, e.g., "/opt/drake".
+INSTALLED_DRAKE_DIR = None
 
-# Or to temporarily build against a local checkout of Drake, at the bash prompt
-# set an environment variable before building:
-#  export EXAMPLES_LOCAL_DRAKE_PATH=/home/user/stuff/drake
+# This is only relevant when INSTALLED_DRAKE_DIR is set.
+new_local_repository(
+    name = "drake_binary",
+    path = INSTALLED_DRAKE_DIR,
+    build_file_content = "#",
+) if INSTALLED_DRAKE_DIR else None
 
-# Load an environment variable.
-load("//:environ.bzl", "environ_repository")
-environ_repository(name = "environ", vars = ["EXAMPLES_LOCAL_DRAKE_PATH"])
-load("@environ//:environ.bzl", EXAMPLES_LOCAL_DRAKE_PATH = "EXAMPLES_LOCAL_DRAKE_PATH")
-
-# This declares the `@drake` repository as an http_archive from github,
-# iff EXAMPLES_LOCAL_DRAKE_PATH is unset.  When it is set, this declares a
-# `@drake_ignored` package which is never referenced, and thus is ignored.
+# This is only relevant when INSTALLED_DRAKE_DIR is unset.
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-    name = "drake" if not EXAMPLES_LOCAL_DRAKE_PATH else "drake_ignored",
-    urls = [x.format(DRAKE_COMMIT) for x in [
-        "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
-    ]],
-    sha256 = DRAKE_CHECKSUM,
-    strip_prefix = "drake-{}".format(DRAKE_COMMIT),
-)
+    name = "drake_binary",
+    url = "https://drake-packages.csail.mit.edu/drake/nightly/drake-{}-bionic.tar.gz".format(DRAKE_RELEASE),
+    build_file_content = "#",
+) if not INSTALLED_DRAKE_DIR else None
 
-# This declares the `@drake` repository as a local directory,
-# iff EXAMPLES_LOCAL_DRAKE_PATH is set.  When it is unset, this declares a
-# `@drake_ignored` package which is never referenced, and thus is ignored.
-local_repository(
-    name = "drake" if EXAMPLES_LOCAL_DRAKE_PATH else "drake_ignored",
-    path = EXAMPLES_LOCAL_DRAKE_PATH,
-)
-print("Using EXAMPLES_LOCAL_DRAKE_PATH={}".format(EXAMPLES_LOCAL_DRAKE_PATH)) if EXAMPLES_LOCAL_DRAKE_PATH else None  # noqa
+# Load and run the repository rule that knows how to provide the @drake
+# repository based on a Drake binary release.
+load("@drake_binary//:share/drake/repo.bzl", "drake_repository")
 
-# Reference external software libraries and tools per Drake's defaults.  Some
-# software will come from the host system (Ubuntu or macOS); other software
-# will be downloaded in source or binary form from github or other sites.
-load("@drake//tools/workspace:default.bzl", "add_default_repositories")
-add_default_repositories()
+drake_repository(name = "drake")
