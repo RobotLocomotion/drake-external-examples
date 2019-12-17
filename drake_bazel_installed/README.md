@@ -1,6 +1,7 @@
-# Bazel Project with Drake as an External
+# Bazel Project with Drake as a Precompiled External
 
-This pulls in Drake via the Bazel workspace mechanism.
+This pulls in a downloaded or installed binary build of Drake via the Bazel
+workspace mechanism.
 
 For an introduction to Bazel, refer to
 [Getting Started with Bazel](https://docs.bazel.build/versions/master/getting-started.html).
@@ -28,9 +29,3 @@ above command prints out; however, be aware that your working directories may
 cause differences.  This is important when using tools like
 `drake::FindResource` / `pydrake.common.FindResource`.
 You may generally want to stick to using `bazel run` when able.
-
-## Python Versions
-
-By default, Python 3 is the Python interpreter that Drake will use when built
-with Bazel. To see which Python versions are supported, see the
-[supported configurations](https://drake.mit.edu/developers.html#supported-configurations).
