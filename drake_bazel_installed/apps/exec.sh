@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,9 +29,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eux
-
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_bazel_installed
-./scripts/continuous_integration/common/drake_cmake_installed
+# Proxy script for things such as passing a `py_binary` to a `sh_test`, since
+# we cannot list the Python binary in `srcs` for the test.
+exec "$@"

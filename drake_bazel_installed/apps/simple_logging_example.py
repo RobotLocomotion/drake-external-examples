@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,9 +27,38 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eux
+"""
+Provides an example of using pydrake from a Bazel external.
+"""
 
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_bazel_installed
-./scripts/continuous_integration/common/drake_cmake_installed
+from __future__ import print_function
+
+import numpy as np
+
+from pydrake.systems.analysis import Simulator
+from pydrake.systems.framework import (
+    DiagramBuilder,
+)
+from pydrake.systems.primitives import (
+    ConstantVectorSource,
+    SignalLogger,
+)
+
+
+def main():
+    builder = DiagramBuilder()
+    source = builder.AddSystem(ConstantVectorSource([10.]))
+    logger = builder.AddSystem(SignalLogger(1))
+    builder.Connect(source.get_output_port(0), logger.get_input_port(0))
+    diagram = builder.Build()
+
+    simulator = Simulator(diagram)
+    simulator.AdvanceTo(1)
+
+    x = logger.data()
+    print("Output values: {}".format(x))
+    assert np.allclose(x, 10.)
+
+
+if __name__ == "__main__":
+    main()

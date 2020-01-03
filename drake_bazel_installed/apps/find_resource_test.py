@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2019, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,9 +27,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eux
+"""
+Provides an example (and test) of finding resources with Python from a Bazel
+project.
+"""
 
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_bazel_installed
-./scripts/continuous_integration/common/drake_cmake_installed
+from pydrake.common import FindResourceOrThrow, set_log_level
+
+# If you have trouble finding resources, you can enable trace logging to see
+# how `FindResource*` is searching.
+set_log_level("trace")
+
+FindResourceOrThrow("drake/examples/pendulum/Pendulum.urdf")

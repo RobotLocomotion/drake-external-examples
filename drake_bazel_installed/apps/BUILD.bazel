@@ -1,6 +1,7 @@
-#!/bin/bash
+# -*- mode: python -*-
+# vi: set ft=python :
 
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018-2019, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,9 +30,29 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eux
+# Make a simple Python application.
+py_binary(
+    name = "simple_logging_example",
+    srcs = ["simple_logging_example.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)
 
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_bazel_installed
-./scripts/continuous_integration/common/drake_cmake_installed
+# This ensures that downstream Bazel projects can use Drake's `find_resource`
+# functionality without needing to resort to environment variables.
+py_test(
+    name = "find_resource_test",
+    srcs = ["find_resource_test.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)
+
+sh_test(
+    name = "simple_logging_example_test",
+    size = "small",
+    srcs = ["exec.sh"],
+    args = ["$(location :simple_logging_example)"],
+    data = [":simple_logging_example"],
+)

@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2017, Massachusetts Institute of Technology.
+# Copyright (c) 2018, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,9 +27,26 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eux
+# Default to an optimized build.
+build --compilation_mode=opt
 
-./scripts/continuous_integration/common/drake_bazel_external
-./scripts/continuous_integration/common/drake_cmake_external
-./scripts/continuous_integration/common/drake_bazel_installed
-./scripts/continuous_integration/common/drake_cmake_installed
+# Default build options.
+build --force_pic=yes
+build --strip=never
+
+# Default test options.
+build --test_output=errors
+build --test_summary=terse
+
+# Use C++17.
+build --cxxopt=-std=c++17
+build --host_cxxopt=-std=c++17
+
+# https://github.com/bazelbuild/bazel/issues/1164
+build --action_env=CCACHE_DISABLE=1
+
+# TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
+# customizations somehow.
+
+# Try to import user-specific configuration local to workspace.
+try-import %workspace%/user.bazelrc
