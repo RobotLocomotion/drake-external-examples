@@ -1,7 +1,4 @@
-# -*- mode: python -*-
-# vi: set ft=python :
-
-# Copyright (c) 2018-2019, Toyota Research Institute.
+# Copyright (c) 2020, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,40 +27,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+"""
+Provides an example of importing all modules available in pydrake.
+"""
 
-# Make a simple Python application.
-py_binary(
-    name = "simple_logging_example",
-    srcs = ["simple_logging_example.py"],
-    deps = [
-        "@drake//bindings/pydrake",
-    ],
-)
-
-# This ensures that downstream Bazel projects can use Drake's `find_resource`
-# functionality without needing to resort to environment variables.
-py_test(
-    name = "find_resource_test",
-    srcs = ["find_resource_test.py"],
-    deps = [
-        "@drake//bindings/pydrake",
-    ],
-)
-
-sh_test(
-    name = "simple_logging_example_test",
-    size = "small",
-    srcs = ["exec.sh"],
-    args = ["$(location :simple_logging_example)"],
-    data = [":simple_logging_example"],
-)
-
-# This ensures that all pydrake modules are available via import.
-py_test(
-    name = "import_all_test",
-    srcs = ["import_all_test.py"],
-    deps = [
-        "@drake//bindings/pydrake",
-    ],
-)
+import pydrake.all
