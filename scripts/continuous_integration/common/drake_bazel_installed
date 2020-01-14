@@ -35,6 +35,6 @@ bazel version
 
 pushd drake_bazel_installed
 
-bazel test ...
+bazel test //...
 
 popd

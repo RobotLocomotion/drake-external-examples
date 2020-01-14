@@ -35,6 +35,6 @@ bazel version
 
 pushd drake_bazel_external
 
-bazel test --action_env=DRAKE_PYTHON_BIN_PATH=/usr/bin/python3 --python_path=/usr/bin/python3 ...
+bazel test //...
 
 popd
