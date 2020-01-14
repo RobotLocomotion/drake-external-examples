@@ -27,9 +27,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Continue to obtain the python runtime from the --python_version flag rather
-# than a toolchain in Bazel 0.27 and above.
-build --incompatible_use_python_toolchains=no
+# Disable native Python rules in Bazel versions before 3.0.
+build --incompatible_load_python_rules_from_bzl=yes
 
 # Default to an optimized build.
 build --compilation_mode=opt
