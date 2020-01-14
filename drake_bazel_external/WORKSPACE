@@ -73,8 +73,9 @@ local_repository(
 )
 print("Using EXAMPLES_LOCAL_DRAKE_PATH={}".format(EXAMPLES_LOCAL_DRAKE_PATH)) if EXAMPLES_LOCAL_DRAKE_PATH else None  # noqa
 
-# Reference external software libraries and tools per Drake's defaults.  Some
-# software will come from the host system (Ubuntu or macOS); other software
-# will be downloaded in source or binary form from github or other sites.
-load("@drake//tools/workspace:default.bzl", "add_default_repositories")
-add_default_repositories()
+# Reference external software libraries, tools, and toolchains per Drake's
+# defaults.  Some software will come from the host system (Ubuntu or macOS);
+# other software will be downloaded in source or binary form from GitHub or
+# other sites.
+load("@drake//tools/workspace:default.bzl", "add_default_workspace")
+add_default_workspace()
