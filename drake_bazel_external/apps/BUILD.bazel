@@ -126,3 +126,11 @@ py_test(
     srcs = ["simple_adder_py_test.py"],
     deps = [":simple_adder_py"],
 )
+
+py_test(
+    name = "import_all_test",
+    srcs = ["import_all_test.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)

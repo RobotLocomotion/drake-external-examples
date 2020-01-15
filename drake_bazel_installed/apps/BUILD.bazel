@@ -59,7 +59,6 @@ sh_test(
     data = [":simple_logging_example"],
 )
 
-# This ensures that all pydrake modules are available via import.
 py_test(
     name = "import_all_test",
     srcs = ["import_all_test.py"],

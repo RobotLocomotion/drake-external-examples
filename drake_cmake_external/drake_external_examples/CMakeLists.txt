@@ -35,6 +35,22 @@ project(drake_external_examples)
 
 include(CTest)
 
+if(PYTHON_EXECUTABLE)
+  find_package(PythonInterp MODULE REQUIRED)
+else()
+  set(DEFAULT_PYTHON_VERSION 3)
+  set(WITH_PYTHON_VERSION ${DEFAULT_PYTHON_VERSION} CACHE STRING
+    "Choose the version of Python to use, options are 3"
+  )
+  set_property(CACHE WITH_PYTHON_VERSION PROPERTY STRINGS "3")
+  find_package(PythonInterp ${WITH_PYTHON_VERSION} EXACT MODULE REQUIRED)
+endif()
+
 find_package(drake CONFIG REQUIRED)
+
+get_filename_component(PYTHONPATH
+  "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
+  REALPATH
+)
 
 add_subdirectory(apps)
