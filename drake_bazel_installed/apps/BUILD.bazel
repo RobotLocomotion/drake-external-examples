@@ -58,3 +58,11 @@ sh_test(
     args = ["$(location :simple_logging_example)"],
     data = [":simple_logging_example"],
 )
+
+py_test(
+    name = "import_all_test",
+    srcs = ["import_all_test.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)
