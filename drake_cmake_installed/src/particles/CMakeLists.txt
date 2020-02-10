@@ -41,7 +41,7 @@ find_package(gflags CONFIG REQUIRED)
 
 add_executable(uniformly_accelerated_particle uniformly_accelerated_particle.cc)
 target_link_libraries(uniformly_accelerated_particle particles
-  drake::drake drake::drake-common-text-logging-gflags gflags
+  drake::drake gflags
 )
 
 add_executable(particle_test particle_test.cc)
