@@ -44,7 +44,6 @@
 
 #include <drake/common/drake_copyable.h>
 #include <drake/common/eigen_types.h>
-#include <drake/common/text_logging_gflags.h>
 #include <drake/multibody/joints/floating_base_types.h>
 #include <drake/multibody/parsers/sdf_parser.h>
 #include <drake/multibody/rigid_body_plant/drake_visualizer.h>
@@ -170,7 +169,6 @@ int main(int argc, char* argv[]) {
       "A very simple demonstration, "
       "make sure drake-visualizer is running!");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-  drake::logging::HandleSpdlogGflags();
   // Instantiate example system.
   auto system = std::make_unique<UniformlyAcceleratedParticle>(
       FLAGS_acceleration);
