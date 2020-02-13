@@ -61,7 +61,7 @@ http_archive(
         "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
     ]],
     sha256 = DRAKE_CHECKSUM,
-    strip_prefix = "drake-{}".format(DRAKE_COMMIT),
+    strip_prefix = "drake-{}".format(DRAKE_COMMIT.lstrip("v")),
 )
 
 # This declares the `@drake` repository as a local directory,
