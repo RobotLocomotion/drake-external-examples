@@ -38,6 +38,10 @@ DRAKE_CHECKSUM = ""
 # Or choose a specific revision of Drake to use.
 # DRAKE_COMMIT = "be4f658487f739ba04ec079de46f9459b719636d"
 # DRAKE_CHECKSUM = "31ec8f87df3ceb6516de3c33a14c5d59ac5c003b4faf93ac526877d2e150b394"
+#
+# You can also use DRAKE_COMMIT to choose a Drake release; eg:
+# DRAKE_COMMIT = "v0.15.0"
+#
 # Before changing the COMMIT, temporarily uncomment the next line so that Bazel
 # displays the suggested new value for the CHECKSUM.
 # DRAKE_CHECKSUM = "0" * 64
@@ -61,7 +65,7 @@ http_archive(
         "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
     ]],
     sha256 = DRAKE_CHECKSUM,
-    strip_prefix = "drake-{}".format(DRAKE_COMMIT),
+    strip_prefix = "drake-{}".format(DRAKE_COMMIT.lstrip("v")),
 )
 
 # This declares the `@drake` repository as a local directory,
