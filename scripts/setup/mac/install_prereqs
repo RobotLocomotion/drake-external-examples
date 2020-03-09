@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Copyright (c) 2017, Massachusetts Institute of Technology.
 # All rights reserved.
@@ -51,8 +51,4 @@ tar -xf drake.tar.gz -C /opt
 /opt/drake/share/drake/setup/install_prereqs
 
 # Install additional dependencies for development and compatibility examples.
-brew bundle --file="${BASH_SOURCE%/*}/Brewfile"
-
-if [[ ! -f "${HOME}/.bazelrc" ]] || ! grep -q 'build --python_path=/usr/local/opt/python/libexec/bin/python' "${HOME}/.bazelrc"; then
-  echo 'build --python_path=/usr/local/opt/python/libexec/bin/python' >> "${HOME}/.bazelrc"
-fi
+brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
