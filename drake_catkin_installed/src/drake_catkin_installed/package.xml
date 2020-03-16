@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>drake_catkin_installed</name>
+  <version>0.0.0</version>
+  <description>Catkin project with an installed Drake</description>
+  <maintainer email="jamie.snape@kitware.com">Jamie Snape</maintainer>
+  <license>BSD</license>
+  <url type="website">https://drake.mit.edu</url>
+  <url type="bugtracker">
+    https://github.com/RobotLocomotion/drake-external-examples/issues
+  </url>
+  <url type="repository">
+    https://github.com/RobotLocomotion/drake-external-examples
+  </url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <test_depend>gtest</test_depend>
+  <doc_depend>doxygen</doc_depend>
+  <export>
+    <rosdoc config="rosdoc.yaml"/>
+  </export>
+</package>
