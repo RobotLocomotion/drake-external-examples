@@ -1,0 +1,9 @@
+/.catkin_tools/
+/.catkin_workspace
+/build_isolated/
+/build/
+/devel_isolated/
+/devel/
+/doc/
+/install/
+/logs/
