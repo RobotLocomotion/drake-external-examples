@@ -5,6 +5,7 @@ own project:
 
 * [`drake_bazel_external`](./drake_bazel_external)
 * [`drake_bazel_installed`](./drake_bazel_installed)
+* [`drake_catkin_installed`](./drake_catkin_installed)
 * [`drake_cmake_external`](./drake_cmake_external)
 * [`drake_cmake_installed`](./drake_cmake_installed)
 
@@ -19,6 +20,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 |:---:|:---:|:---:|
 | `drake_bazel_external` | - | o |
 | `drake_bazel_installed` | o | o |
+| `drake_catkin_installed` | o | o | 
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | o | 
 || ![GitHub Actions](https://img.shields.io/github/workflow/status/RobotLocomotion/drake-external-examples/ci/master) | [![Jenkins](https://img.shields.io/jenkins/build.svg?jobUrl=https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/master)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/) |

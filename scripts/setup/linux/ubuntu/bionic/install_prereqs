@@ -31,9 +31,23 @@
 
 set -euxo pipefail
 
-if [[ "${EUID}" -ne 0 ]]; then
+ros_melodic=0
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --ros-melodic)
+      ros_melodic=1
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+if [[ "${EUID:-}" -ne 0 ]]; then
   echo 'This script must be run as root' >&2
-  exit 1
+  exit 2
 fi
 
 apt-get update
@@ -41,7 +55,7 @@ apt-get install --no-install-recommends lsb-release
 
 if [[ "$(lsb_release -sc)" != 'bionic' ]]; then
   echo 'This script requires Ubuntu 18.04 (Bionic Beaver)' >&2
-  exit 2
+  exit 3
 fi
 
 # Install Drake dependencies.
@@ -64,7 +78,7 @@ gnupg
 EOF
 )
 
-wget -O - https://bazel.build/bazel-release.pub.gpg | apt-key add
+apt-key adv --fetch-keys https://bazel.build/bazel-release.pub.gpg
 echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
 
 apt-get update
@@ -118,15 +132,17 @@ zlib1g-dev
 EOF
 )
 
-# TODO(jamiesnape): Remove this block when the bazel apt repository is fixed.
-if dpkg --compare-versions "$(dpkg-query --showformat='${Version}' --show bazel)" lt 1.1; then
-  wget https://releases.bazel.build/1.1.0/release/bazel_1.1.0-linux-x86_64.deb
-  trap 'rm -f bazel_1.1.0-linux-x86_64.deb drake.tar.gz' EXIT
-  echo '138b47ffd54924e3c0264c65d31d3927803fb9025db4d5b18107df79ee3bda95  bazel_1.1.0-linux-x86_64.deb' | shasum -a 256 -c -
-  dpkg -i bazel_1.1.0-linux-x86_64.deb
-fi
-
 locale-gen en_US.UTF-8
+
+if [[ ${ros_melodic} -eq 1 ]]; then
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+  echo 'deb http://packages.ros.org/ros/ubuntu bionic main' > /etc/apt/sources.list.d/ros-latest.list
+
+  apt-get update
+  apt-get install --no-install-recommends ros-melodic-catkin
+else
+  apt-get install --no-install-recommends catkin
+fi
 
 # Install additional dependencies for various compatibility examples.
 apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
