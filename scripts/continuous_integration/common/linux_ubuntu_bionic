@@ -37,12 +37,3 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 export DEBIAN_FRONTEND='noninteractive'
 
 ./scripts/setup/linux/ubuntu/bionic/install_prereqs
-
-# TODO(jamiesnape): Some variation of this should probably be in the Drake
-# install tree rather than here.
-apt-get update
-apt-get install --no-install-recommends --yes apt-transport-https gnupg
-wget -O - https://bazel.build/bazel-release.pub.gpg | apt-key add
-echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
-apt-get update
-apt-get install --no-install-recommends --yes bazel
