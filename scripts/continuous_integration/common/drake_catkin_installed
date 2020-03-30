@@ -31,10 +31,12 @@
 
 set -euxo pipefail
 
-bazel version
+cmake --version
 
-pushd drake_bazel_installed
+pushd drake_catkin_installed
 
-bazel test //...
+catkin_make run_tests
+
+rm -rf build devel
 
 popd
