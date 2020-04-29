@@ -1,3 +1,6 @@
+# -*- mode: cmake -*-
+# vi: set ft=cmake :
+
 # Copyright (c) 2020, Massachusetts Institute of Technology.
 # All rights reserved.
 #
@@ -27,53 +30,58 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
----
-name: ci
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  schedule:
-    - cron: '0 8 * * *'
-jobs:
-  macos_catalina:
-    name: macos catalina
-    runs-on: macos-10.15
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/macos_catalina/setup
-        shell: zsh -efuo pipefail {0}
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/macos_catalina/build_test
-        shell: zsh -efuo pipefail {0}
-  ros_dashing:
-    name: ros dashing
-    runs-on: ubuntu-latest
-    container: ubuntu:bionic
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_dashing/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ros_dashing/build_test
-        shell: bash
-  ubuntu_bionic:
-    name: ubuntu bionic
-    runs-on: ubuntu-latest
-    container: ubuntu:bionic
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_bionic/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_bionic/build_test
-        shell: bash
+cmake_minimum_required(VERSION 3.10)
+project(drake_ament_cmake_installed)
+
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(ament_cmake CONFIG REQUIRED)
+find_package(drake CONFIG REQUIRED PATHS /opt/drake)
+
+add_library(${PROJECT_NAME}
+  include/${PROJECT_NAME}/particle.h
+  src/particle.cc
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(${PROJECT_NAME} drake::drake)
+
+install(DIRECTORY include/ DESTINATION include)
+
+install(FILES LICENSE
+  DESTINATION share/doc/${PROJECT_NAME}
+)
+
+install(TARGETS ${PROJECT_NAME}
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest CONFIG REQUIRED)
+  find_package(ament_lint_auto CONFIG REQUIRED)
+
+  ament_add_gtest(${PROJECT_NAME}_test test/particle_test.cc)
+  target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
+
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_export_include_directories(include)
+ament_export_interfaces(export_${PROJECT_NAME})
+ament_export_libraries(${PROJECT_NAME})
+
+ament_package()

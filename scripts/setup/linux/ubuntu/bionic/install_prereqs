@@ -31,10 +31,14 @@
 
 set -euxo pipefail
 
+ros_dashing=0
 ros_melodic=0
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
+    --ros-dashing)
+      ros_dashing=1
+      ;;
     --ros-melodic)
       ros_melodic=1
       ;;
@@ -142,6 +146,22 @@ if [[ ${ros_melodic} -eq 1 ]]; then
   apt-get install --no-install-recommends ros-melodic-catkin
 else
   apt-get install --no-install-recommends catkin
+fi
+
+if [[ ${ros_dashing} -eq 1 ]]; then
+  apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+  echo 'deb http://packages.ros.org/ros2/ubuntu bionic main' > /etc/apt/sources.list.d/ros2-latest.list
+
+  apt-get update
+  apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
+python3-colcon-common-extensions
+ros-dashing-ament-cmake
+ros-dashing-ament-cmake-gtest
+ros-dashing-ament-cmake-lint-cmake
+ros-dashing-ament-cmake-xmllint
+ros-dashing-ament-lint-auto
+EOF
+  )
 fi
 
 # Install additional dependencies for various compatibility examples.
