@@ -31,10 +31,14 @@
 
 set -euxo pipefail
 
+ros_dashing=0
 ros_melodic=0
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
+    --ros-dashing)
+      ros_dashing=1
+      ;;
     --ros-melodic)
       ros_melodic=1
       ;;
@@ -59,9 +63,9 @@ if [[ "$(lsb_release -sc)" != 'bionic' ]]; then
 fi
 
 # Install Drake dependencies.
-apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
-ca-certificates
-wget
+apt-get install --no-install-recommends $(cat <<EOF
+  ca-certificates
+  wget
 EOF
 )
 
@@ -72,9 +76,9 @@ tar -xf drake.tar.gz -C /opt
 /opt/drake/share/drake/setup/install_prereqs
 
 # Install additional dependencies for development.
-apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
-apt-transport-https
-gnupg
+apt-get install --no-install-recommends $(cat <<EOF
+  apt-transport-https
+  gnupg
 EOF
 )
 
@@ -82,53 +86,53 @@ apt-key adv --fetch-keys https://bazel.build/bazel-release.pub.gpg
 echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' > /etc/apt/sources.list.d/bazel.list
 
 apt-get update
-apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
-bazel
-ca-certificates
-clang-format
-cmake
-coinor-libclp-dev
-coinor-libipopt-dev
-default-jdk
-file
-gfortran
-git
-libblas-dev
-libbz2-dev
-libclang-dev
-libexpat1-dev
-libfreetype6-dev
-libgflags-dev
-libglib2.0-dev
-libglu1-mesa-dev
-libhdf5-dev
-libjpeg8-dev
-libjsoncpp-dev
-liblapack-dev
-liblz4-dev
-libnetcdf-dev
-libnlopt-dev
-libogg-dev
-libpng-dev
-libqt5opengl5-dev
-libqt5x11extras5-dev
-libsuitesparse-dev
-libtheora-dev
-libtiff5-dev
-libtinyxml-dev
-libtool
-libxml2-dev
-libxt-dev
-libyaml-cpp-dev
-locales
-patch
-patchelf
-pkg-config
-protobuf-compiler
-python3-dev
-python3-protobuf
-ruby
-zlib1g-dev
+apt-get install --no-install-recommends $(cat <<EOF
+  bazel
+  ca-certificates
+  clang-format
+  cmake
+  coinor-libclp-dev
+  coinor-libipopt-dev
+  default-jdk
+  file
+  gfortran
+  git
+  libblas-dev
+  libbz2-dev
+  libclang-dev
+  libexpat1-dev
+  libfreetype6-dev
+  libgflags-dev
+  libglib2.0-dev
+  libglu1-mesa-dev
+  libhdf5-dev
+  libjpeg8-dev
+  libjsoncpp-dev
+  liblapack-dev
+  liblz4-dev
+  libnetcdf-dev
+  libnlopt-dev
+  libogg-dev
+  libpng-dev
+  libqt5opengl5-dev
+  libqt5x11extras5-dev
+  libsuitesparse-dev
+  libtheora-dev
+  libtiff5-dev
+  libtinyxml-dev
+  libtool
+  libxml2-dev
+  libxt-dev
+  libyaml-cpp-dev
+  locales
+  patch
+  patchelf
+  pkg-config
+  protobuf-compiler
+  python3-dev
+  python3-protobuf
+  ruby
+  zlib1g-dev
 EOF
 )
 
@@ -144,9 +148,25 @@ else
   apt-get install --no-install-recommends catkin
 fi
 
+if [[ ${ros_dashing} -eq 1 ]]; then
+  apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+  echo 'deb http://packages.ros.org/ros2/ubuntu bionic main' > /etc/apt/sources.list.d/ros2-latest.list
+
+  apt-get update
+  apt-get install --no-install-recommends $(cat <<EOF
+  python3-colcon-common-extensions
+  ros-dashing-ament-cmake
+  ros-dashing-ament-cmake-gtest
+  ros-dashing-ament-cmake-lint-cmake
+  ros-dashing-ament-cmake-xmllint
+  ros-dashing-ament-lint-auto
+EOF
+  )
+fi
+
 # Install additional dependencies for various compatibility examples.
-apt-get install --no-install-recommends $(tr '\n' ' ' <<EOF
-libpcl-dev
-libproj-dev
+apt-get install --no-install-recommends $(cat <<EOF
+  libpcl-dev
+  libproj-dev
 EOF
 )
