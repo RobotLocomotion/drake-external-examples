@@ -31,4 +31,8 @@
 
 set -euxo pipefail
 
+# Installs a /usr/local/bin/bazel symlink that conflicts with that installed by
+# the bazel formula in Homebrew.
+npm -g uninstall @bazel/bazelisk || true
+
 ./scripts/continuous_integration/common/mac
