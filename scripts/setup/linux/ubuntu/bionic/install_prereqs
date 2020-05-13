@@ -89,7 +89,7 @@ apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
   ca-certificates
-  clang-format
+  clang-format-9
   cmake
   coinor-libclp-dev
   coinor-libipopt-dev
