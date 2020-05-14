@@ -1,7 +1,4 @@
-# -*- mode: python -*-
-# vi: set ft=python :
-
-# Copyright (c) 2019, Toyota Research Institute.
+# Copyright (c) 2020, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,11 +27,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-load("@drake//tools/skylark:py.bzl", "py_library")
+"""
+Simple example library in Bazel. Please see `example_library_usage_test.py` for
+how this import should be used.
+"""
 
-py_library(
-    name = "module_py",
-    srcs = ["__init__.py"],
-    imports = [".."],
-    visibility = [":__subpackages__"],
-)
+def example_function():
+    return "Hello world"

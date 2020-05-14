@@ -1,7 +1,4 @@
-# -*- mode: python -*-
-# vi: set ft=python :
-
-# Copyright (c) 2019, Toyota Research Institute.
+# Copyright (c) 2020, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,11 +27,26 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-load("@drake//tools/skylark:py.bzl", "py_library")
+"""
+Provides an example (and test) of using a custom library within a Bazel
+workspace using absolute imports from the workspace package, rather than
+directly from sub-packages under the workspace.
+"""
 
-py_library(
-    name = "module_py",
-    srcs = ["__init__.py"],
-    imports = [".."],
-    visibility = [":__subpackages__"],
-)
+# N.B. You should avoid import statements like `example_library` or
+# `apps.example_library`. For more information, see:
+# https://github.com/RobotLocomotion/drake/issues/13320
+# N.B. In this case, the package `drake_external_examples` comes from the
+# Bazel workspace name, `workspace(name = "drake_external_examples")` in
+# `WORKSPACE`.
+from drake_external_examples.apps.example_library import example_function
+
+
+def main():
+    value = example_function()
+    print(f"example_function(): {value}")
+    assert value == "Hello world"
+
+
+if __name__ == "__main__":
+    main()
