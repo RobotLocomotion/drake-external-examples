@@ -30,8 +30,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-load("@drake//tools/skylark:py.bzl", "py_binary", "py_test")
+load("@drake//tools/skylark:py.bzl", "py_binary", "py_test", "py_library")
 load("@drake//tools/skylark:pybind.bzl", "pybind_py_library")
+
+py_library(
+    name = "module_py",
+    srcs = ["__init__.py"],
+    deps = ["//:module_py"],
+    visibility = [":__subpackages__"],
+)
 
 # Compile a sample application.
 cc_binary(
@@ -134,3 +141,16 @@ py_test(
         "@drake//bindings/pydrake",
     ],
 )
+
+py_library(
+    name = "example_library_py",
+    srcs = [":example_library.py"],
+    deps = [":module_py"],
+)
+
+py_test(
+    name = "example_library_usage_test",
+    srcs = ["example_library_usage_test.py"],
+    deps = [":example_library_py"],
+)
+
