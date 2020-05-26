@@ -1,7 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+tap 'robotlocomotion/director'
+
 brew 'bazel'
-brew 'llvm@9'
+brew 'robotlocomotion/director/clang-format@9'
 brew 'pcl'
 brew 'pkg-config'
