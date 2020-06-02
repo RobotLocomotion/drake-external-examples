@@ -99,7 +99,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   git
   libblas-dev
   libbz2-dev
-  libclang-dev
+  libclang-9-dev
   libexpat1-dev
   libfreetype6-dev
   libgflags-dev
