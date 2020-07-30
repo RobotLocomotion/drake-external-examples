@@ -162,10 +162,3 @@ if [[ ${ros_dashing} -eq 1 ]]; then
 EOF
   )
 fi
-
-# Install additional dependencies for various compatibility examples.
-apt-get install --no-install-recommends $(cat <<EOF
-  libpcl-dev
-  libproj-dev
-EOF
-)

@@ -69,10 +69,6 @@ Drake specific Examples:
 * [Particle Demo](src/particles/README.md)
 * [Find Resources](src/find_resource/README.md)
 
-Compatibility Examples:
-
-* [PCL](src/pcl/README.md)
-
 # Developer Testing
 
 If you are a Drake Developer making build or API changes that may affect the

@@ -5,5 +5,4 @@ tap 'robotlocomotion/director'
 
 brew 'bazel'
 brew 'robotlocomotion/director/clang-format@9'
-brew 'pcl'
 brew 'pkg-config'
