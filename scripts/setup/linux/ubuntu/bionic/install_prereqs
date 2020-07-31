@@ -144,7 +144,7 @@ if [[ ${ros_melodic} -eq 1 ]]; then
   apt-get update
   apt-get install --no-install-recommends ros-melodic-catkin
 else
-  apt-get install --no-install-recommends catkin
+  apt-get install --no-install-recommends catkin python-pkg-resources
 fi
 
 if [[ ${ros_dashing} -eq 1 ]]; then
@@ -162,10 +162,3 @@ if [[ ${ros_dashing} -eq 1 ]]; then
 EOF
   )
 fi
-
-# Install additional dependencies for various compatibility examples.
-apt-get install --no-install-recommends $(cat <<EOF
-  libpcl-dev
-  libproj-dev
-EOF
-)

@@ -32,7 +32,6 @@
 
 add_subdirectory(find_resource)
 add_subdirectory(particles)
-add_subdirectory(pcl)
 add_subdirectory(simple_bindings)
 add_subdirectory(simple_continuous_time_system)
 
