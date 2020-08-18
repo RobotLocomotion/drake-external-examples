@@ -58,7 +58,7 @@ apt-get update
 apt-get install --no-install-recommends lsb-release
 
 if [[ "$(lsb_release -sc)" != 'focal' ]]; then
-  echo 'This script requires Ubuntu 18.04 (Bionic Beaver)' >&2
+  echo 'This script requires Ubuntu 20.04 (Bionic Fossa)' >&2
   exit 3
 fi
 
