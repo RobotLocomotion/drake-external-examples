@@ -29,26 +29,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eo pipefail
+set -euxo pipefail
 
-# AMENT_TRACE_SETUP_FILES and other variables are unbound.
-if [[ -f /opt/ros/dashing/setup.bash ]]; then
-  source /opt/ros/dashing/setup.bash
-fi
+echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
-if [[ -f /opt/ros/foxy/setup.bash ]]; then
-  source /opt/ros/foxy/setup.bash
-fi
+export DEBIAN_FRONTEND='noninteractive'
 
-set -xu
-
-cmake --version
-
-pushd drake_ament_cmake_installed
-
-colcon build
-colcon test
-
-rm -rf build install log
-
-popd
+./scripts/setup/linux/ubuntu/focal/install_prereqs --ros-foxy
