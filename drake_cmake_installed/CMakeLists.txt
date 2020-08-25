@@ -30,7 +30,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.2)
 project(drake_cmake_installed)
 
 # N.B. This is a temporary flag. It only really applies to Linux, as Mac
@@ -50,14 +50,14 @@ find_program(PYTHON_EXECUTABLE NAMES python3
   PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
   NO_DEFAULT_PATH
 )
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} EXACT MODULE REQUIRED)
+find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
-find_package(PythonLibs ${FIND_PYTHON_INTERP_VERSION} EXACT MODULE REQUIRED)
+find_package(PythonLibs ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 find_package(drake CONFIG REQUIRED)
 

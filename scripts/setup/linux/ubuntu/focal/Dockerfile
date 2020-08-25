@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Copyright (c) 2020, Massachusetts Institute of Technology.
 # All rights reserved.
 #
@@ -29,26 +27,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -eo pipefail
-
-# AMENT_TRACE_SETUP_FILES and other variables are unbound.
-if [[ -f /opt/ros/dashing/setup.bash ]]; then
-  source /opt/ros/dashing/setup.bash
-fi
-
-if [[ -f /opt/ros/foxy/setup.bash ]]; then
-  source /opt/ros/foxy/setup.bash
-fi
-
-set -xu
-
-cmake --version
-
-pushd drake_ament_cmake_installed
-
-colcon build
-colcon test
-
-rm -rf build install log
-
-popd
+FROM ubuntu:focal
+COPY ./install_prereqs /tmp/install_prereqs
+RUN export DEBIAN_FRONTEND=noninteractive \
+  && yes | /tmp/install_prereqs \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -f /tmp/install_prereqs

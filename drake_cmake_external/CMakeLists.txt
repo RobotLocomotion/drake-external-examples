@@ -33,7 +33,7 @@
 # TODO(eric.cousineau): Link to documentation on superproject example pending
 # resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
 
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.2)
 project(drake_cmake_external)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -65,7 +65,7 @@ find_program(PYTHON_EXECUTABLE NAMES python3
   PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
   NO_DEFAULT_PATH
 )
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} EXACT MODULE REQUIRED)
+find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 include(ExternalProject)
 

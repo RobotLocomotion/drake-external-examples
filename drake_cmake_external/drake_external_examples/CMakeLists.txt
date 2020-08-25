@@ -30,7 +30,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.2)
 project(drake_external_examples)
 
 include(CTest)
@@ -40,7 +40,7 @@ if(APPLE)
 else()
   set(FIND_PYTHON_INTERP_VERSION 3.6)
 endif()
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} EXACT MODULE REQUIRED)
+find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 find_package(drake CONFIG REQUIRED)
 
