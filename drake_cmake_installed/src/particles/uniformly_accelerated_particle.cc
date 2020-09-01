@@ -44,20 +44,17 @@
 
 #include <drake/common/drake_copyable.h>
 #include <drake/common/eigen_types.h>
-#include <drake/multibody/joints/floating_base_types.h>
-#include <drake/multibody/parsers/sdf_parser.h>
-#include <drake/multibody/rigid_body_plant/drake_visualizer.h>
-#include <drake/multibody/rigid_body_tree.h>
+#include <drake/geometry/geometry_visualization.h>
+#include <drake/geometry/scene_graph.h>
 #include <drake/systems/analysis/simulator.h>
 #include <drake/systems/framework/context.h>
 #include <drake/systems/framework/diagram.h>
 #include <drake/systems/framework/diagram_builder.h>
 #include <drake/systems/framework/vector_base.h>
-#include <drake/systems/lcm/lcm_interface_system.h>
 #include <drake/systems/primitives/constant_vector_source.h>
 
 #include "particle.h"
-#include "utilities.h"
+#include "particle_geometry.h"
 
 DEFINE_double(initial_position, 0.0, "Particle initial x position");
 DEFINE_double(initial_velocity, 0.0, "Particle initial x velocity");
@@ -69,9 +66,6 @@ DEFINE_double(simulation_time, std::numeric_limits<double>::infinity(),
 
 namespace drake_external_examples {
 namespace particles {
-
-/// Fixed path to particle SDF model (for visualization purposes only).
-static const char* const kParticleSdfPath = "particle.sdf";
 
 /// Check if the specified file exists.
 /// @param[in] name of the file
@@ -102,49 +96,23 @@ class UniformlyAcceleratedParticle : public drake::systems::Diagram<double> {
   /// @return a newly created Context.
   std::unique_ptr<drake::systems::Context<double>> CreateContext(
       double position, double velocity) const;
-
- private:
-  /// RigidBodyTree particle representation
-  /// (for visualizations purposes only).
-  std::unique_ptr<RigidBodyTree<double>> tree_{
-    std::make_unique<RigidBodyTree<double>>()};
 };
 
 UniformlyAcceleratedParticle::UniformlyAcceleratedParticle(
     const double acceleration) {
-  // Parse particle sdf into rigid body tree.
-  if (!file_exists(kParticleSdfPath)) {
-    throw std::runtime_error(std::string("could not find '") +
-                             kParticleSdfPath + std::string("'"));
-  }
-  // using the custom sdf parser from Drake
-  drake::parsers::sdf::AddModelInstancesFromSdfFileToWorld(
-      kParticleSdfPath, drake::multibody::joints::kRollPitchYaw, tree_.get());
-  // Compile tree one more time just to be sure.
-  tree_->compile();
   // Building diagram.
   drake::systems::DiagramBuilder<double> builder;
-  // Adding constant acceleration source.
-  auto constant_acceleration_vector_source =
-      builder.AddSystem<drake::systems::ConstantVectorSource<double>>(
-          acceleration);
   // Adding particle.
   auto particle = builder.AddSystem<Particle<double>>();
-  // Adding particle joint.
-  drake::MatrixX<double> translating_matrix(6, 1);
-  // Only first generalized coordinate gets through.
-  translating_matrix.setZero();
-  translating_matrix(0, 0) = 1.0;
-  auto particle_joint = builder.AddSystem(
-      drake_external_examples::particles::MakeDegenerateEulerJoint(translating_matrix));
-  // Adding visualizer client.
-  auto lcm = builder.AddSystem<drake::systems::lcm::LcmInterfaceSystem>();
-  auto visualizer =
-      builder.AddSystem<drake::systems::DrakeVisualizer>(*tree_, lcm);
-  // Wiring all blocks together.
+   // Adding constant acceleration source.
+  auto constant_acceleration_vector_source =
+      builder.AddSystem<drake::systems::ConstantVectorSource<double>>(acceleration);
   builder.Connect(*constant_acceleration_vector_source, *particle);
-  builder.Connect(*particle, *particle_joint);
-  builder.Connect(*particle_joint, *visualizer);
+  // Adding visualization.
+  auto scene_graph = builder.AddSystem<drake::geometry::SceneGraph>();
+  ParticleGeometry::AddToBuilder(
+      &builder, particle->get_output_port(0), scene_graph);
+  ConnectDrakeVisualizer(&builder, *scene_graph);
   builder.BuildInto(this);
 }
 

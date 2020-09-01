@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2017, Massachusetts Institute of Technology.
+ * Copyright (c) 2020, Massachusetts Institute of Technology.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,49 +31,53 @@
 
 #pragma once
 
-#include <drake/common/drake_copyable.h>
-#include <drake/systems/framework/basic_vector.h>
-#include <drake/systems/framework/context.h>
-#include <drake/systems/framework/continuous_state.h>
+#include <drake/geometry/scene_graph.h>
+#include <drake/systems/framework/diagram_builder.h>
 #include <drake/systems/framework/leaf_system.h>
 
 namespace drake_external_examples {
 namespace particles {
 
-/// A linear 1DOF particle system.
+/// Expresses a Particle system's visualization geometry to a SceneGraph.
 ///
-/// With very simple dynamics @f$ \ddot x = a @f$, this system can be
-/// described in terms of its:
+/// @system{ParticleGeometry,
+///    @input_port{state},
+///    @output_port{geometry_pose}
+/// }
 ///
-/// - Inputs:
-///   - linear acceleration (input index 0), in @f$ m/s^2 @f$ units.
-/// - States/Outputs:
-///   - linear position (state/output index 0), in @f$ m @f$ units.
-///   - linear velocity (state/output index 1), in @f$ m/s @f$ units.
+/// The visualization shows the particle as a sphere moving along the x axis.
 ///
-/// @tparam T must be a valid Eigen ScalarType.
-///
-/// @note
-/// Instantiated templates for the following scalar types
-/// @p T are provided:
-///
-/// - double
-///
-template <typename T>
-class Particle final : public drake::systems::LeafSystem<T> {
+/// This class has no public constructor; instead use the AddToBuilder() static
+/// method to create and add it to a DiagramBuilder directly.
+class ParticleGeometry final : public drake::systems::LeafSystem<double> {
  public:
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle)
+  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(ParticleGeometry);
 
-  Particle();
+  /// Creates, adds, and connects a ParticleGeometry system into the given
+  /// `builder`.  Both the `particle_state_port.get_system()` and `scene_graph`
+  /// systems must have been added to the given `builder` already.
+  ///
+  /// The particle_state_port is a 2D state vector [q, qdot].
+  ///
+  /// The `scene_graph` pointer is not retained by the %ParticleGeometry system.
+  /// The return value pointer is an alias of the new %ParticleGeometry system
+  /// that is owned by the `builder`.
+  static const ParticleGeometry* AddToBuilder(
+      drake::systems::DiagramBuilder<double>* builder,
+      const drake::systems::OutputPort<double>& particle_state_port,
+      drake::geometry::SceneGraph<double>* scene_graph);
 
- protected:
-  void CopyStateOut(const drake::systems::Context<T>& context,
-                    drake::systems::BasicVector<T>* output) const;
+ private:
+  explicit ParticleGeometry(drake::geometry::SceneGraph<double>*);
+  void OutputGeometryPose(const drake::systems::Context<double>&,
+                          drake::geometry::FramePoseVector<double>*) const;
 
-  void DoCalcTimeDerivatives(
-      const drake::systems::Context<T>& context,
-      drake::systems::ContinuousState<T>* derivatives) const override;
+  // Geometry source identifier for this system to interact with SceneGraph.
+  drake::geometry::SourceId source_id_;
+  // The identifier for the particle frame.
+  drake::geometry::FrameId frame_id_;
 };
 
 }  // namespace particles
 }  // namespace drake_external_examples
+
