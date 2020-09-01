@@ -33,7 +33,7 @@
 # Send over the SDF file so the particle example can be run "in place."
 configure_file(models/particle.sdf "${CMAKE_CURRENT_BINARY_DIR}" COPYONLY)
 
-add_library(particles particle.cc particle.h utilities.cc utilities.h)
+add_library(particles particle.cc particle.h particle_geometry.cc particle_geometry.h)
 target_link_libraries(particles drake::drake)
 
 set(GFLAGS_USE_TARGET_NAMESPACE OFF)
@@ -53,11 +53,3 @@ target_link_libraries(particle_test
 )
 add_test(NAME particle_test COMMAND particle_test)
 
-add_executable(utilities_test utilities_test.cc)
-target_include_directories(utilities_test PRIVATE
-  "${CMAKE_CURRENT_SOURCE_DIR}"
-)
-target_link_libraries(utilities_test
-  particles drake::drake gtest
-)
-add_test(NAME utilities_test COMMAND utilities_test)
