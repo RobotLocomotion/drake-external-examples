@@ -69,7 +69,7 @@ int DoMain() {
   auto x = logger->data();
   Eigen::VectorXd x_expected = Eigen::Vector2d(110., 110.);
   std::cout << "Output values: " << x << std::endl;
-  DRAKE_DEMAND(x.isApprox(x_expected));
+  DRAKE_DEMAND(x.isApprox(x_expected.transpose()));
 
   return 0;
 }
