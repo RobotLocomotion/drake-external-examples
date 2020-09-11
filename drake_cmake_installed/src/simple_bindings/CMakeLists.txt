@@ -34,6 +34,13 @@ find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
 target_link_libraries(simple_bindings PUBLIC drake::drake)
+# N.B. `pybind11_add_module` normally sets the default visibility to "hidden"
+# to avoid warnings. However, we generally take care in Drake to avoid mixing
+# hidden and public symbols, so we should we confidently re-enable this
+# setting.
+# For more information, see:
+# https://github.com/RobotLocomotion/drake/issues/14047
+set_target_properties(simple_bindings PROPERTIES CXX_VISIBILITY_PRESET "default")
 
 add_test(NAME simple_bindings_test COMMAND
     "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
