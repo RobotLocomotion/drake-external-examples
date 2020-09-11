@@ -33,7 +33,7 @@
 find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
-target_link_libraries(simple_bindings PUBLIC drake::drake pybind11::module)
+target_link_libraries(simple_bindings PUBLIC drake::drake)
 
 add_test(NAME simple_bindings_test COMMAND
     "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
