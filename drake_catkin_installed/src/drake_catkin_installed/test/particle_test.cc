@@ -35,6 +35,7 @@
 
 #include <gtest/gtest.h>
 
+#include <drake/common/eigen_types.h>
 #include <drake/systems/framework/input_port.h>
 #include <drake/systems/framework/system_output.h>
 #include <drake/systems/framework/system.h>
@@ -99,11 +100,9 @@ TYPED_TEST_P(ParticleTest, DerivativesTest) {
   // Set input.
   const drake::systems::InputPort<TypeParam>& input_port =
       this->dut_->get_input_port(0);
-  auto input = std::make_unique<drake::systems::BasicVector<TypeParam>>(
-      input_port.size());
-  input->SetZero();
-  input->SetAtIndex(0, static_cast<TypeParam>(1.0));  // u0 = 1 m/s^2
-  this->context_->FixInputPort(0, std::move(input));
+  drake::VectorX<TypeParam> u0(input_port.size());
+  u0 << 1.0;  // m/s^2
+  input_port.FixValue(this->context_.get(), u0);
   // Set state.
   drake::systems::VectorBase<TypeParam>& continuous_state_vector =
       this->context_->get_mutable_continuous_state_vector();
