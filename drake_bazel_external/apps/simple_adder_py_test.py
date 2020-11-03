@@ -40,10 +40,7 @@ import numpy as np
 from pydrake.autodiffutils import AutoDiffXd
 from pydrake.symbolic import Expression
 from pydrake.systems.analysis import Simulator
-from pydrake.systems.framework import (
-    BasicVector_,
-    DiagramBuilder,
-)
+from pydrake.systems.framework import DiagramBuilder
 from pydrake.systems.primitives import (
     ConstantVectorSource,
     SignalLogger,
@@ -71,7 +68,7 @@ def main():
     for T in (AutoDiffXd, Expression):
         adder_T = SimpleAdder_[T](100.)
         context = adder_T.CreateDefaultContext()
-        context.FixInputPort(0, BasicVector_[T]([10.]))
+        adder_T.get_input_port().FixValue(context, [10.])
         output = adder_T.AllocateOutput()
         adder_T.CalcOutput(context, output)
         # N.B. At present, you cannot get a reference to existing AutoDiffXd
