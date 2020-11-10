@@ -44,7 +44,7 @@
 
 #include <drake/common/drake_copyable.h>
 #include <drake/common/eigen_types.h>
-#include <drake/geometry/geometry_visualization.h>
+#include <drake/geometry/drake_visualizer.h>
 #include <drake/geometry/scene_graph.h>
 #include <drake/systems/analysis/simulator.h>
 #include <drake/systems/framework/context.h>
@@ -112,7 +112,7 @@ UniformlyAcceleratedParticle::UniformlyAcceleratedParticle(
   auto scene_graph = builder.AddSystem<drake::geometry::SceneGraph>();
   ParticleGeometry::AddToBuilder(
       &builder, particle->get_output_port(0), scene_graph);
-  ConnectDrakeVisualizer(&builder, *scene_graph);
+  drake::geometry::DrakeVisualizer::AddToBuilder(&builder, *scene_graph);
   builder.BuildInto(this);
 }
 
