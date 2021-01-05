@@ -26,3 +26,10 @@ To build and run the `drake_ament_cmake_installed` test executable:
 ```
 colcon test
 ```
+
+To run the `drake_example_pendulum` example, source the workspace and run the executable
+
+```
+source install/setup.bash
+drake_example_pendulum
+```
