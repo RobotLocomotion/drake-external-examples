@@ -35,4 +35,11 @@ set -euxo pipefail
 # the bazel formula in Homebrew.
 brew uninstall -f bazelisk
 
+# https://github.com/actions/virtual-environments/issues/2322
+rm -f /usr/local/bin/2to3
+
+# https://github.com/actions/virtual-environments/issues/2391
+brew unlink gcc@8
+brew unlink gcc@9
+
 ./scripts/continuous_integration/common/mac
