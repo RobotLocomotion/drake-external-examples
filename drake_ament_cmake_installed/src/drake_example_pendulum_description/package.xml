@@ -4,7 +4,8 @@
   <name>drake_example_pendulum_description</name>
   <version>0.1.0</version>
   <description>Example package to demonstrate using ROS resources in Drake</description>
-  <maintainer email="addisu@openrobotics.org">Addisu Z. Taddese</maintainer>
+  <author email="drake-users@mit.edu">Drake Users</author>
+  <maintainer email="drake-users@mit.edu">Drake Users</maintainer>
   <license>BSD</license>
   <url type="website">https://drake.mit.edu</url>
   <url type="bugtracker">https://github.com/RobotLocomotion/drake-external-examples/issues</url>

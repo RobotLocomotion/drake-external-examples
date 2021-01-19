@@ -3,8 +3,9 @@
 <package format="3">
   <name>drake_example_pendulum</name>
   <version>0.1.0</version>
-  <description>Ament CMake project with an installed Drake</description>
-  <maintainer email="addisu@openrobotics.org">Addisu Z. Taddese</maintainer>
+  <description>Example showing usage of resource from an external ROS package in Drake</description>
+  <author email="drake-users@mit.edu">Drake Users</author>
+  <maintainer email="drake-users@mit.edu">Drake Users</maintainer>
   <license>BSD</license>
   <url type="website">https://drake.mit.edu</url>
   <url type="bugtracker">https://github.com/RobotLocomotion/drake-external-examples/issues</url>

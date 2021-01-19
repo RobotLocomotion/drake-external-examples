@@ -1,7 +1,5 @@
-# -*- mode: cmake -*-
-# vi: set ft=cmake :
-
-# Copyright (c) 2020, Massachusetts Institute of Technology.
+# Copyright (c) 2021, Massachusetts Institute of Technology.
+# Copyright (c) 2021, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without

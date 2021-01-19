@@ -1,5 +1,6 @@
 /*****************************************************************************
  * Copyright (c) 2017-2021, Massachusetts Institute of Technology.
+ * Copyright (c) 2017-2021, Toyota Research Institute.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +46,7 @@ int main(int argc, char** argv) {
   auto parser = drake::multibody::Parser(&pendulum_plant, &scene_graph);
 
   // Populate from AMENT_PREFIX_PATH environment variable to find URDF files and
-  // their resources, such as meshes
+  // their resources, such as meshes.
   parser.package_map().PopulateFromEnvironment("AMENT_PREFIX_PATH");
   const std::string pendulum_desc_package =
       "drake_example_pendulum_description";
@@ -53,7 +54,7 @@ int main(int argc, char** argv) {
   if (!parser.package_map().Contains(pendulum_desc_package))
   {
     std::cerr << "The package: '" << pendulum_desc_package
-              << "' could not be found. Have you sourced your work space?"
+              << "' could not be found. Have you sourced your ROS workspace?"
               << std::endl;
     return -1;
   }
