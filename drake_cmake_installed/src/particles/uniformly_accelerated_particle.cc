@@ -112,7 +112,7 @@ UniformlyAcceleratedParticle::UniformlyAcceleratedParticle(
   auto scene_graph = builder.AddSystem<drake::geometry::SceneGraph>();
   ParticleGeometry::AddToBuilder(
       &builder, particle->get_output_port(0), scene_graph);
-  drake::geometry::DrakeVisualizer::AddToBuilder(&builder, *scene_graph);
+  drake::geometry::DrakeVisualizerd::AddToBuilder(&builder, *scene_graph);
   builder.BuildInto(this);
 }
 
