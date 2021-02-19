@@ -96,7 +96,7 @@ cd drake-external-examples
 # Follow "Install Prerequisites" in the instructions linked above if you
 # have not already.
 mkdir drake_cmake_installed-build && cd drake_cmake_installed-build
-cmake -DCMAKE_PREFIX_PATH=/opt/drake ../drake_cmake_installed
+cmake -DCMAKE_PREFIX_PATH=${drake_install} ../drake_cmake_installed
 make
 ctest
 ```
