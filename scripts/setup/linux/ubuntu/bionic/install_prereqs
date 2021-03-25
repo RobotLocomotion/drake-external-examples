@@ -139,6 +139,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   patchelf
   pkg-config
   python3-all-dev
+  python3-semantic-version
   zlib1g-dev
 EOF
 )
