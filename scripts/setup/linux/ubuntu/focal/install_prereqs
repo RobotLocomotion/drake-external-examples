@@ -128,6 +128,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   pkg-config
   python-is-python3
   python3-all-dev
+  python3-semantic-version
   zlib1g-dev
 EOF
 )
