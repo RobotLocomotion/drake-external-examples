@@ -55,3 +55,5 @@ echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
 # Install additional dependencies for development and compatibility examples.
 brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
+
+pip3.9 install --upgrade --requirement "$(dirname ${(%):-%x})/requirements.txt"
