@@ -15,7 +15,7 @@ sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:
-#     https://github.com/google/googletest/tree/master/googletest
+#     https://github.com/google/googletest/tree/HEAD/googletest
 sudo apt-get install libgtest-dev
 ls
 mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
