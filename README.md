@@ -25,7 +25,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 | `drake_catkin_installed` | o | o | 
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | o | 
-|| ![GitHub Actions](https://img.shields.io/github/workflow/status/RobotLocomotion/drake-external-examples/ci/master) | [![Jenkins](https://img.shields.io/jenkins/build.svg?jobUrl=https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/master)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/) |
+|| ![GitHub Actions](https://img.shields.io/github/workflow/status/RobotLocomotion/drake-external-examples/ci/main) | [![Jenkins](https://img.shields.io/jenkins/build.svg?jobUrl=https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/main)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/) |
 
 Note, the GitHub Actions jobs only build and test `drake_ament_cmake_installed`,
 `drake_bazel_installed`, `drake_catkin_installed`, and `drake_cmake_installed`
