@@ -32,12 +32,12 @@ name: ci
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 12 * * *'
 jobs:
   macos_catalina:
     name: macos catalina 10.15
