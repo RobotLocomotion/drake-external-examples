@@ -137,7 +137,7 @@ locale-gen en_US.UTF-8
 
 if [[ ${ros_foxy} -eq 1 ]]; then
   apt-key adv --fetch-keys \
-    https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+    https://raw.githubusercontent.com/ros/rosdistro/HEAD/ros.asc
   echo 'deb http://packages.ros.org/ros2/ubuntu focal main' \
     > /etc/apt/sources.list.d/ros2-latest.list
 

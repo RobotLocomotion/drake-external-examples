@@ -157,7 +157,7 @@ else
 fi
 
 if [[ ${ros_dashing} -eq 1 ]]; then
-  apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+  apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/HEAD/ros.asc
   echo 'deb http://packages.ros.org/ros2/ubuntu bionic main' > /etc/apt/sources.list.d/ros2-latest.list
 
   apt-get update
