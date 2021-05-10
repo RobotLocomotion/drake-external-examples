@@ -90,6 +90,19 @@ jobs:
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ubuntu_bionic/build_test
         shell: bash
+  ubuntu_bionic_apt:
+    name: ubuntu 18.04 bionic apt
+    runs-on: ubuntu-latest
+    container: ubuntu:bionic
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
+        shell: bash
+      - name: build and test
+        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
+        shell: bash
   ubuntu_focal:
     name: ubuntu 20.04 focal
     runs-on: ubuntu-latest
@@ -102,4 +115,17 @@ jobs:
         shell: bash
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ubuntu_focal/build_test
+        shell: bash
+  ubuntu_focal_apt:
+    name: ubuntu 20.04 focal apt
+    runs-on: ubuntu-latest
+    container: ubuntu:focal
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup
+        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
+        shell: bash
+      - name: build and test
+        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
         shell: bash
