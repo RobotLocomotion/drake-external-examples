@@ -183,7 +183,7 @@ else()
 endif()
 
 # Apple frameworks handling
-include (${CMAKE_CURRENT_LIST_DIR}/../CMakeFindFrameworks.cmake)
+include (CMakeFindFrameworks)
 cmake_find_frameworks (Python)
 
 # Save CMAKE_FIND_FRAMEWORK
@@ -739,7 +739,7 @@ if ("Development" IN_LIST ${_PYTHON_PREFIX}_FIND_COMPONENTS
   endif()
 
   # define public variables
-  include (${CMAKE_CURRENT_LIST_DIR}/../SelectLibraryConfigurations.cmake)
+  include (SelectLibraryConfigurations)
   select_library_configurations (${_PYTHON_PREFIX})
   if (${_PYTHON_PREFIX}_RUNTIME_LIBRARY_RELEASE)
     set (${_PYTHON_PREFIX}_RUNTIME_LIBRARY "${${_PYTHON_PREFIX}_RUNTIME_LIBRARY_RELEASE}")
@@ -791,7 +791,7 @@ if (${_PYTHON_PREFIX}_VERSION_MAJOR AND
   _python_display_failure ("Could NOT find ${_PYTHON_PREFIX}: Found unsuitable major version \"${${_PYTHON_PREFIX}_VERSION_MAJOR}\", but required major version is exact version \"${_${_PYTHON_PREFIX}_REQUIRED_VERSION_MAJOR}\"")
 endif()
 
-include (${CMAKE_CURRENT_LIST_DIR}/../FindPackageHandleStandardArgs.cmake)
+include (FindPackageHandleStandardArgs)
 find_package_handle_standard_args (${_PYTHON_PREFIX}
                                    REQUIRED_VARS ${_${_PYTHON_PREFIX}_REQUIRED_VARS}
                                    VERSION_VAR ${_PYTHON_PREFIX}_VERSION
