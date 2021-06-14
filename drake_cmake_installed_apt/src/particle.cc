@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2021, Massachusetts Institute of Technology.
+ * Copyright (c) 2017-2021, Massachusetts Institute of Technology.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,11 +40,13 @@ namespace particles {
 template <typename T>
 Particle<T>::Particle() {
   // A 1D input vector for acceleration.
-  this->DeclareInputPort(drake::systems::kVectorValued, 1);
+  this->DeclareInputPort(drake::systems::kUseDefaultName,
+                         drake::systems::kVectorValued, 1);
   // Adding one generalized position and one generalized velocity.
   this->DeclareContinuousState(1, 1, 0);
   // A 2D output vector for position and velocity.
-  this->DeclareVectorOutputPort(drake::systems::BasicVector<T>(2),
+  this->DeclareVectorOutputPort(drake::systems::kUseDefaultName,
+                                drake::systems::BasicVector<T>(2),
                                 &Particle::CopyStateOut);
 }
 
