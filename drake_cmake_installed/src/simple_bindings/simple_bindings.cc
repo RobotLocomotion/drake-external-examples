@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2018, Toyota Research Institute.
+ * Copyright (c) 2018-2021, Toyota Research Institute.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,9 +55,9 @@ class SimpleAdder : public LeafSystem<T> {
  public:
   explicit SimpleAdder(T add)
       : add_(add) {
-    this->DeclareInputPort(kVectorValued, 1);
+    this->DeclareInputPort("in", kVectorValued, 1);
     this->DeclareVectorOutputPort(
-        BasicVector<T>(1), &SimpleAdder::CalcOutput);
+        "out", BasicVector<T>(1), &SimpleAdder::CalcOutput);
   }
 
  private:
