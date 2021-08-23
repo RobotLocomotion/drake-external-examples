@@ -111,6 +111,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   liblapack-dev
   liblz4-dev
   liblzma-dev
+  libmsgpack-dev
   libmumps-seq-dev
   libnlopt-cxx-dev
   libopengl-dev
@@ -122,6 +123,8 @@ apt-get install --no-install-recommends $(cat <<EOF
   libx11-dev
   libxml2-dev
   locales
+  ocl-icd-opencl-dev
+  opencl-headers
   openssh-client
   patch
   patchelf
