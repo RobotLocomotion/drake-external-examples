@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2021, Massachusetts Institute of Technology.
+# Copyright (c) 2020, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,7 +27,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-set -euxo pipefail
+"""
+Provides an example of importing all modules available in pydrake.
+"""
 
-./scripts/continuous_integration/common/drake_cmake_installed_apt
-./scripts/continuous_integration/common/drake_bazel_installed_apt
+import pydrake.all

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (c) 2019, Toyota Research Institute.
+# Copyright (c) 2019-2021, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -39,29 +39,12 @@ http_archive(
     sha256 = "aa96a691d3a8177f3215b14b0edc9641787abaaa30363a080165d06ab65e1161",
 )
 
-# Choose which nightly build of Drake to use.
-DRAKE_RELEASE = "latest"  # Can also use YYYYMMDD here, e.g., "20191026".
-DRAKE_CHECKSUM = ""       # When using YYYYMMDD, best to add a checksum here.
-
-# To use a local unpacked Drake binary release instead of an http download, set
-# this variable to the correct path, e.g., "/opt/drake".
-INSTALLED_DRAKE_DIR = None
-
 # This is only relevant when INSTALLED_DRAKE_DIR is set.
 new_local_repository(
     name = "drake_artifacts",
-    path = INSTALLED_DRAKE_DIR,
+    path = "/opt/drake",
     build_file_content = "#",
-) if INSTALLED_DRAKE_DIR else None
-
-# This is only relevant when INSTALLED_DRAKE_DIR is unset.
-http_archive(
-    name = "drake_artifacts",
-    url = "https://drake-packages.csail.mit.edu/drake/nightly/drake-{}-bionic.tar.gz".format(DRAKE_RELEASE),
-    sha256 = DRAKE_CHECKSUM,
-    strip_prefix = "drake/",
-    build_file_content = "#",
-) if not INSTALLED_DRAKE_DIR else None
+)
 
 # Load and run the repository rule that knows how to provide the @drake
 # repository based on a Drake binary release.

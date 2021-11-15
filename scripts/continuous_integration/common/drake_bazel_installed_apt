@@ -31,5 +31,10 @@
 
 set -euxo pipefail
 
-./scripts/continuous_integration/common/drake_cmake_installed_apt
-./scripts/continuous_integration/common/drake_bazel_installed_apt
+bazel version
+
+pushd drake_bazel_installed_apt
+
+bazel test //...
+
+popd

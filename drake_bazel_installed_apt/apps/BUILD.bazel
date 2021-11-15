@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (c) 2019, Toyota Research Institute.
+# Copyright (c) 2018-2019, Toyota Research Institute.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,41 +30,39 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-workspace(name = "drake_external_examples")
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-http_archive(
-    name = "rules_python",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.0.1/rules_python-0.0.1.tar.gz",
-    sha256 = "aa96a691d3a8177f3215b14b0edc9641787abaaa30363a080165d06ab65e1161",
+# Make a simple Python application.
+py_binary(
+    name = "simple_logging_example",
+    srcs = ["simple_logging_example.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
 )
 
-# Choose which nightly build of Drake to use.
-DRAKE_RELEASE = "latest"  # Can also use YYYYMMDD here, e.g., "20191026".
-DRAKE_CHECKSUM = ""       # When using YYYYMMDD, best to add a checksum here.
+# This ensures that downstream Bazel projects can use Drake's `find_resource`
+# functionality without needing to resort to environment variables.
+py_test(
+    name = "find_resource_test",
+    srcs = ["find_resource_test.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)
 
-# To use a local unpacked Drake binary release instead of an http download, set
-# this variable to the correct path, e.g., "/opt/drake".
-INSTALLED_DRAKE_DIR = None
+sh_test(
+    name = "simple_logging_example_test",
+    size = "small",
+    srcs = ["exec.sh"],
+    args = ["$(location :simple_logging_example)"],
+    data = [":simple_logging_example"],
+)
 
-# This is only relevant when INSTALLED_DRAKE_DIR is set.
-new_local_repository(
-    name = "drake_artifacts",
-    path = INSTALLED_DRAKE_DIR,
-    build_file_content = "#",
-) if INSTALLED_DRAKE_DIR else None
-
-# This is only relevant when INSTALLED_DRAKE_DIR is unset.
-http_archive(
-    name = "drake_artifacts",
-    url = "https://drake-packages.csail.mit.edu/drake/nightly/drake-{}-bionic.tar.gz".format(DRAKE_RELEASE),
-    sha256 = DRAKE_CHECKSUM,
-    strip_prefix = "drake/",
-    build_file_content = "#",
-) if not INSTALLED_DRAKE_DIR else None
-
-# Load and run the repository rule that knows how to provide the @drake
-# repository based on a Drake binary release.
-load("@drake_artifacts//:share/drake/repo.bzl", "drake_repository")
-
-drake_repository(name = "drake")
+py_test(
+    name = "import_all_test",
+    srcs = ["import_all_test.py"],
+    deps = [
+        "@drake//bindings/pydrake",
+    ],
+)
