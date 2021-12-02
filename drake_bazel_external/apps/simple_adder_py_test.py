@@ -43,7 +43,7 @@ from pydrake.systems.analysis import Simulator
 from pydrake.systems.framework import DiagramBuilder
 from pydrake.systems.primitives import (
     ConstantVectorSource,
-    SignalLogger,
+    VectorLogSink,
 )
 
 
@@ -53,14 +53,14 @@ def main():
     source = builder.AddSystem(ConstantVectorSource([10.]))
     adder = builder.AddSystem(SimpleAdder(100.))
     builder.Connect(source.get_output_port(0), adder.get_input_port(0))
-    logger = builder.AddSystem(SignalLogger(1))
+    logger = builder.AddSystem(VectorLogSink(1))
     builder.Connect(adder.get_output_port(0), logger.get_input_port(0))
     diagram = builder.Build()
 
     simulator = Simulator(diagram)
     simulator.AdvanceTo(1)
 
-    x = logger.data()
+    x = logger.FindLog(simulator.get_context()).data()
     print("Output values: {}".format(x))
     assert np.allclose(x, 110.)
 
