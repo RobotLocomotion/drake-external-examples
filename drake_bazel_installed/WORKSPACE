@@ -44,6 +44,7 @@ py_repositories()
 # Choose which nightly build of Drake to use.
 DRAKE_RELEASE = "latest"  # Can also use YYYYMMDD here, e.g., "20191026".
 DRAKE_CHECKSUM = ""       # When using YYYYMMDD, best to add a checksum here.
+OS_CODENAME = "bionic"    # Permitted values are "bionic" or "focal" or "mac".
 
 # To use a local unpacked Drake binary release instead of an http download, set
 # this variable to the correct path, e.g., "/opt/drake".
@@ -59,7 +60,7 @@ new_local_repository(
 # This is only relevant when INSTALLED_DRAKE_DIR is unset.
 http_archive(
     name = "drake_artifacts",
-    url = "https://drake-packages.csail.mit.edu/drake/nightly/drake-{}-bionic.tar.gz".format(DRAKE_RELEASE),
+    url = "https://drake-packages.csail.mit.edu/drake/nightly/drake-{}-{}.tar.gz".format(DRAKE_RELEASE, OS_CODENAME),
     sha256 = DRAKE_CHECKSUM,
     strip_prefix = "drake/",
     build_file_content = "#",
