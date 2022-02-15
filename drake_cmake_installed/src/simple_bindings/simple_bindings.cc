@@ -62,7 +62,7 @@ class SimpleAdder : public LeafSystem<T> {
 
  private:
   void CalcOutput(const Context<T>& context, BasicVector<T>* output) const {
-    auto u = this->EvalEigenVectorInput(context, 0);
+    auto u = this->get_input_port(0).Eval(context);
     auto&& y = output->get_mutable_value();
     y.array() = u.array() + add_;
   }
