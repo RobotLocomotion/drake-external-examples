@@ -115,7 +115,7 @@ ExternalProject_Add(spdlog
 
 ExternalProject_Add(drake
   DEPENDS fmt spdlog
-  URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
+  URL https://github.com/mwoehlke-kitware/drake/archive/refs/heads/cmake-externals.zip
   # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to
   # get the URL_HASH.
   # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
