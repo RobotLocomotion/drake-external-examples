@@ -69,7 +69,52 @@ find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 include(ExternalProject)
 
+# This shows how to rebuild fmt from source as part of Drake's CMake build.
+# If you'd rather just use your operating system's fmt, then this stanza could
+# be removed (as well as removing -DWITH_USER_FMT:BOOLEAN=ON, below).
+# If you rebuild fmt from source, then you must also rebuild spdlog from source.
+ExternalProject_Add(fmt
+  URL https://github.com/fmtlib/fmt/archive/refs/tags/6.1.2.tar.gz
+  URL_HASH SHA256=1cafc80701b746085dddf41bd9193e6d35089e1c6ec1940e037fcb9c98f62365
+  TLS_VERIFY ON
+  CMAKE_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
+    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
+    -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
+    -DBUILD_SHARED_LIBS=ON
+    -DCMAKE_CXX_FLAGS:STRING=-fPIC
+    -DFMT_INC_DIR:PATH=include/fmt
+    -DFMT_TEST=OFF
+  BUILD_ALWAYS ON
+  INSTALL_COMMAND :
+)
+
+# This shows how to rebuild spdlog from source as part of Drake's CMake build.
+# If you'd rather just use your operating system's fmt, then this stanza could
+# be removed (as well as removing -DWITH_USER_SPDLOG:BOOLEAN=ON, below).
+# If you rebuild spdlog from source, then you must also rebuild fmt from source.
+ExternalProject_Add(spdlog
+  DEPENDS fmt
+  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.6.0.tar.gz
+  URL_HASH SHA256=0421667c9f2fc78e6548d44f7bc5921be0f03e612df384294c16cedb93d967f8
+  TLS_VERIFY ON
+  CMAKE_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
+    -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
+    -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
+    -DSPDLOG_BUILD_SHARED=ON
+    -DCMAKE_CXX_FLAGS:STRING=-fPIC
+    -DSPDLOG_FMT_EXTERNAL:BOOLEAN=ON
+)
+
 ExternalProject_Add(drake
+  DEPENDS fmt spdlog
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
   # Or from a commit (download and use "shashum -a 256 'xxx.tar.gz'" on it to
   # get the URL_HASH.
@@ -84,6 +129,8 @@ ExternalProject_Add(drake
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
     -DPYTHON_EXECUTABLE:FILEPATH=${PYTHON_EXECUTABLE}
+    -DWITH_USER_FMT:BOOLEAN=ON
+    -DWITH_USER_SPDLOG:BOOLEAN=ON
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON
   INSTALL_COMMAND :
