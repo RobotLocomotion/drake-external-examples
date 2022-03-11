@@ -44,7 +44,7 @@ py_repositories()
 # Choose which nightly build of Drake to use.
 DRAKE_RELEASE = "latest"  # Can also use YYYYMMDD here, e.g., "20191026".
 DRAKE_CHECKSUM = ""       # When using YYYYMMDD, best to add a checksum here.
-OS_CODENAME = "bionic"    # Permitted values are "bionic" or "focal" or "mac".
+OS_CODENAME = "focal"     # Permitted values are "focal" or "mac".
 
 # To use a local unpacked Drake binary release instead of an http download, set
 # this variable to the correct path, e.g., "/opt/drake".

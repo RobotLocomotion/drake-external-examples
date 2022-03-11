@@ -51,19 +51,6 @@ jobs:
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/macos_catalina/build_test
         shell: zsh -efuo pipefail {0}
-  ros_dashing:
-    name: ros 2 dashing
-    runs-on: ubuntu-latest
-    container: ubuntu:bionic
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_dashing/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ros_dashing/build_test
-        shell: bash
   ros_foxy:
     name: ros 2 foxy
     runs-on: ubuntu-latest
@@ -76,32 +63,6 @@ jobs:
         shell: bash
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ros_foxy/build_test
-        shell: bash
-  ubuntu_bionic:
-    name: ubuntu 18.04 bionic
-    runs-on: ubuntu-latest
-    container: ubuntu:bionic
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_bionic/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_bionic/build_test
-        shell: bash
-  ubuntu_bionic_apt:
-    name: ubuntu 18.04 bionic apt
-    runs-on: ubuntu-latest
-    container: ubuntu:bionic
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
         shell: bash
   ubuntu_focal:
     name: ubuntu 20.04 focal

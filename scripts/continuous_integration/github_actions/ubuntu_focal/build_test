@@ -31,5 +31,6 @@
 
 set -euxo pipefail
 
+./scripts/continuous_integration/common/drake_bazel_installed
 ./scripts/continuous_integration/common/drake_catkin_installed
 ./scripts/continuous_integration/common/drake_cmake_installed

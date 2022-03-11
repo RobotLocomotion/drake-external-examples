@@ -6,17 +6,17 @@ Drake [binary packages](https://drake.mit.edu/from_binary.html).
 
 ## Instructions
 
-If you wish use `catkin` from the Ubuntu package archive, without ROS Melodic,
+If you wish use `catkin` from the Ubuntu package archive, without ROS Noetic,
 install the required packages as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs
+sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs
 ```
 
-If you wish use `catkin` from ROS Melodic package archive, install the required
+If you wish use `catkin` from ROS Noetic package archive, install the required
 packages and configure your environment as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs --ros-melodic
-source /opt/ros/melodic/setup.bash
+sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs --ros-noetic
+source /opt/ros/noetic/setup.bash
 ```
 
 To build the `drake_catkin_installed` library:

@@ -31,7 +31,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-node('drake-external-examples-linux-bionic-unprovisioned') {
+node('drake-external-examples-linux-focal-unprovisioned') {
   timeout(600) {
     ansiColor('xterm') {
       def triggers = []
