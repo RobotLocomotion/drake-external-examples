@@ -31,7 +31,7 @@
 
 set -euxo pipefail
 
-sudo ./scripts/continuous_integration/common/linux_ubuntu_bionic
+sudo ./scripts/continuous_integration/common/linux_ubuntu_focal
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}
