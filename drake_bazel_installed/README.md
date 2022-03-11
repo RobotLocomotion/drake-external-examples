@@ -11,7 +11,7 @@ For an introduction to Bazel, refer to
 First, install the required Ubuntu packages:
 
 ```
-sudo ../scripts/setup/linux/ubuntu/bionic/install_prereqs
+sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs
 ```
 
 Then, to build and test all apps:
