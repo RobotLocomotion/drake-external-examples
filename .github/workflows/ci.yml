@@ -90,3 +90,13 @@ jobs:
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
         shell: bash
+  verify_setup_files:
+    name: Verify setup files in examples folders are up to date
+    runs-on: ubuntu-latest
+    container: ubuntu:focal
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: verify files
+        run: ./scripts/setup/utils/verify_setup_files.sh
+        shell: bash

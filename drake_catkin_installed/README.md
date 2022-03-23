@@ -9,13 +9,13 @@ Drake [binary packages](https://drake.mit.edu/from_binary.html).
 If you wish use `catkin` from the Ubuntu package archive, without ROS Noetic,
 install the required packages as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs
+sudo ./linux/ubuntu/focal/install_prereqs
 ```
 
 If you wish use `catkin` from ROS Noetic package archive, install the required
 packages and configure your environment as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs --ros-noetic
+sudo ./linux/ubuntu/focal/install_prereqs --ros-noetic
 source /opt/ros/noetic/setup.bash
 ```
 

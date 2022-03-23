@@ -11,7 +11,7 @@ These instructions are only supported for Ubuntu 20.04 (Focal).
 # Install Prerequisites
 ###############################################################
 # Various system dependencies
-sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs
+sudo ./linux/ubuntu/focal/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:

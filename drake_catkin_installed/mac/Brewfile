@@ -1,0 +1,12 @@
+# This file is a copy of the corresponding file in the scripts/setup/ folder.
+# For changes that should be under revision control, please modify the original
+# file instead of this copy.
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+tap 'robotlocomotion/director'
+
+brew 'bazel'
+brew 'robotlocomotion/director/clang-format@9'
+brew 'pkg-config'

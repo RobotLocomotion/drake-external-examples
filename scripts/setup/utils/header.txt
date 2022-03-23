@@ -1,0 +1,4 @@
+# This file is a copy of the corresponding file in the scripts/setup/ folder.
+# For changes that should be under revision control, please modify the original
+# file instead of this copy.
+
