@@ -19,8 +19,8 @@ for example_dir in $(ls -d $ROOT_DIR/drake_*); do
             target_file=$example_dir/$rel_file_path
 
             if [[ -f $target_file ]]; then
-                diff=$(diff $target_file <($SETUP_DIR/utils/append_header.sh $reference_file))
-                if [[ $diff ]]; then
+                diff $target_file <($SETUP_DIR/utils/append_header.sh $reference_file) && diff_status=$? || diff_status=$?
+                if [[ $diff_status -ne 0 ]]; then
                     echo File is not up to date: $target_file
                     echo Run update_setup_files.sh to fix the issue.
                     exit 1
