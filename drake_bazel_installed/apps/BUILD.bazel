@@ -51,6 +51,19 @@ py_test(
     ],
 )
 
+cc_test(
+    name = "find_resource_test_cc",
+    srcs = ["find_resource_test.cc"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+    data = [
+        # TODO(sloretz) want smaller scope visible target access to
+        # @drake//examples:pendulum/Pendulum.urdf
+        "@drake//bindings/pydrake",
+    ]
+)
+
 sh_test(
     name = "simple_logging_example_test",
     size = "small",
