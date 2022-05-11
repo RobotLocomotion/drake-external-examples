@@ -44,11 +44,25 @@ py_binary(
 # This ensures that downstream Bazel projects can use Drake's `find_resource`
 # functionality without needing to resort to environment variables.
 py_test(
-    name = "find_resource_test",
+    name = "find_resource_py_test",
+    main = "find_resource_test.py",
     srcs = ["find_resource_test.py"],
     deps = [
         "@drake//bindings/pydrake",
     ],
+)
+
+cc_test(
+    name = "find_resource_cc_test",
+    srcs = ["find_resource_test.cc"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+    data = [
+        # TODO(sloretz) want smaller scope visible target access to
+        # @drake//examples:pendulum/Pendulum.urdf
+        "@drake//bindings/pydrake",
+    ]
 )
 
 sh_test(
@@ -60,7 +74,8 @@ sh_test(
 )
 
 py_test(
-    name = "import_all_test",
+    name = "import_all_py_test",
+    main = "import_all_test.py",
     srcs = ["import_all_test.py"],
     deps = [
         "@drake//bindings/pydrake",
