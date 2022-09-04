@@ -32,10 +32,12 @@ Provides an example (and test) of finding resources with Python from a Bazel
 project.
 """
 
-from pydrake.common import FindResourceOrThrow, set_log_level
+import logging
 
-# If you have trouble finding resources, you can enable trace logging to see
+from pydrake.common import FindResourceOrThrow
+
+# If you have trouble finding resources, you can enable debug logging to see
 # how `FindResource*` is searching.
-set_log_level("trace")
+logging.getLogger("drake").setLevel(logging.DEBUG)
 
 FindResourceOrThrow("drake/examples/pendulum/Pendulum.urdf")
