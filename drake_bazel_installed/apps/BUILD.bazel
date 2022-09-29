@@ -41,6 +41,24 @@ py_binary(
     ],
 )
 
+# Check that Eigen is correctly imported.
+cc_test(
+    name = "eigen_test",
+    srcs = ["eigen_test.cc"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+)
+
+# Check that LCM messages are correctly imported.
+cc_test(
+    name = "lcm_test",
+    srcs = ["lcm_test.cc"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+)
+
 # This ensures that downstream Bazel projects can use Drake's `find_resource`
 # functionality without needing to resort to environment variables.
 py_test(
