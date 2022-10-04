@@ -84,12 +84,9 @@ apt-key adv --fetch-keys https://bazel.build/bazel-release.pub.gpg
 echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
   > /etc/apt/sources.list.d/bazel.list
 
-# TODO(drake#17763):  Bazel is pinned here because Bazel 5.3.0 broke the way
-# we do LCM builds.  This should be reverted when Bazel fixes the problem or
-# when Drake finds a workaround to it.
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
-  bazel-5.2.0
+  bazel
   clang-format-12
   cmake
   coinor-libclp-dev
@@ -138,8 +135,6 @@ apt-get install --no-install-recommends $(cat <<EOF
   zlib1g-dev
 EOF
 )
-# Symlink "bazel" to the pinned version.  TODO(drake#17763): Don't do this.
-ln -s /usr/bin/bazel-5.2.0 /usr/local/bin/bazel
 
 locale-gen en_US.UTF-8
 
