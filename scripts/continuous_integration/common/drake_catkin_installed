@@ -37,6 +37,7 @@ pushd drake_catkin_installed
 
 catkin_make run_tests
 
+chmod -R a+w build devel || true
 rm -rf build devel
 
 popd
