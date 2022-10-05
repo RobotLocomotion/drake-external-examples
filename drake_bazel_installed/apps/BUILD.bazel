@@ -41,6 +41,15 @@ py_binary(
     ],
 )
 
+# Check that third-party include paths work properly.
+cc_test(
+    name = "include_paths_test",
+    srcs = ["include_paths_test.cc"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+)
+
 # This ensures that downstream Bazel projects can use Drake's `find_resource`
 # functionality without needing to resort to environment variables.
 py_test(
