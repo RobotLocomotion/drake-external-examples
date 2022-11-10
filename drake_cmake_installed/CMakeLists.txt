@@ -38,6 +38,9 @@ project(drake_cmake_installed)
 option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
 include(CTest)
+
+find_package(drake CONFIG REQUIRED)
+
 set(FIND_PYTHON_INTERP_VERSION ${drake_PYTHON_VERSION})
 find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED EXACT)
 
@@ -52,8 +55,6 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 find_package(PythonLibs ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
-
-find_package(drake CONFIG REQUIRED)
 
 get_filename_component(PYTHONPATH
   "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
