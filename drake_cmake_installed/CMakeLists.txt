@@ -38,19 +38,13 @@ project(drake_cmake_installed)
 option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
 include(CTest)
+set(FIND_PYTHON_INTERP_VERSION ${drake_PYTHON_VERSION})
+find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED EXACT)
 
-if(APPLE)
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/local/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.10)
-else()
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.6)
-endif()
 find_program(PYTHON_EXECUTABLE NAMES python3
   PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
   NO_DEFAULT_PATH
 )
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
