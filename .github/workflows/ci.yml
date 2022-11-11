@@ -39,17 +39,17 @@ on:
   schedule:
     - cron: '0 12 * * *'
 jobs:
-  macos_bigsur:
-    name: macos bigsur 11
-    runs-on: macos-11
+  macos_monterey:
+    name: macos monterey 12
+    runs-on: macos-12
     steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/macos_bigsur/setup
+        run: ./scripts/continuous_integration/github_actions/macos_monterey/setup
         shell: zsh -efuo pipefail {0}
       - name: build and test
-        run: ./scripts/continuous_integration/github_actions/macos_bigsur/build_test
+        run: ./scripts/continuous_integration/github_actions/macos_monterey/build_test
         shell: zsh -efuo pipefail {0}
   ros_foxy:
     name: ros 2 foxy
