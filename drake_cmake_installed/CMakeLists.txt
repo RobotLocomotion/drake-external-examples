@@ -41,8 +41,7 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
-set(FIND_PYTHON_INTERP_VERSION ${drake_PYTHON_VERSION})
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED EXACT)
+find_package(PythonInterp ${drake_PYTHON_VERSION} MODULE REQUIRED EXACT)
 
 find_program(PYTHON_EXECUTABLE NAMES python3
   PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
@@ -54,7 +53,7 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
-find_package(PythonLibs ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
+find_package(PythonLibs ${drake_PYTHON_VERSION} MODULE REQUIRED EXACT)
 
 get_filename_component(PYTHONPATH
   "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
