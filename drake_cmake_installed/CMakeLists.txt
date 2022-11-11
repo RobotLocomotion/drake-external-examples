@@ -39,27 +39,21 @@ option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
 include(CTest)
 
-if(APPLE)
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/local/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.10)
-else()
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.6)
-endif()
+find_package(drake CONFIG REQUIRED)
+
+find_package(PythonInterp ${drake_PYTHON_VERSION} MODULE REQUIRED EXACT)
+
 find_program(PYTHON_EXECUTABLE NAMES python3
   PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
   NO_DEFAULT_PATH
 )
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
-find_package(PythonLibs ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
-
-find_package(drake CONFIG REQUIRED)
+find_package(PythonLibs ${drake_PYTHON_VERSION} MODULE REQUIRED EXACT)
 
 get_filename_component(PYTHONPATH
   "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
