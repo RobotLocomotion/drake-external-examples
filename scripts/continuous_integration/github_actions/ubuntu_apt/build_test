@@ -32,3 +32,6 @@
 set -euxo pipefail
 
 ./scripts/continuous_integration/common/drake_cmake_installed_apt
+# Test release type per #216.
+./scripts/continuous_integration/common/drake_cmake_installed_apt \
+    -DCMAKE_BUILD_TYPE=Release

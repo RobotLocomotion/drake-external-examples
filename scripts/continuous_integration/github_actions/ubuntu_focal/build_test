@@ -34,3 +34,6 @@ set -euxo pipefail
 ./scripts/continuous_integration/common/drake_bazel_installed
 ./scripts/continuous_integration/common/drake_catkin_installed
 ./scripts/continuous_integration/common/drake_cmake_installed
+# Test release type per #216.
+./scripts/continuous_integration/common/drake_cmake_installed \
+    -DCMAKE_BUILD_TYPE=Release
