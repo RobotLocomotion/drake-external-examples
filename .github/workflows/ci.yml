@@ -45,10 +45,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      # TODO(#248): When python@3.11 becomes the default for drake, it should be
-      # ok to delete the `sanitize brew` step.  On 2022-12-16 there were build
-      # failures being unable to `brew upgrade python@3.10` during setup due to
-      # symlinks in /usr/local/bin.
+      # TODO(#248): On 2022-12-16 there were build failures being unable to
+      # `brew upgrade python@3.10` during setup due to symlinks in
+      # /usr/local/bin.  On 2023-01-03 there were similar failures with the
+      # upgrade of 3.11.0 => 3.11.1.  When python@3.11 becomes the default for
+      # drake, it should be ok to delete the `sanitize brew` step.  An
+      # alternative may be to delete this section when the GHA ticket is solved:
+      # https://github.com/actions/setup-python/issues/577
       - name: sanitize brew
         run: |
           brew unlink python
@@ -68,8 +71,18 @@ jobs:
           rm -f /usr/local/bin/python3
           rm -f /usr/local/bin/python3-config
 
+          # New issues related to python@3.11 upgrades.
+          rm -f /usr/local/bin/2to3-3.11
+          rm -f /usr/local/bin/idle3.11
+          rm -f /usr/local/bin/pydoc3.11
+          rm -f /usr/local/bin/python3.11
+          rm -f /usr/local/bin/python3.11-config
+
+          # NOTE: the setup/* scripts eventually trigger `brew upgrade` which
+          # will include these packages, updating now to fail CI earlier.
           brew update
           brew upgrade python@3.10
+          brew upgrade python@3.11
       - name: setup
         run: ./scripts/continuous_integration/github_actions/macos_monterey/setup
         shell: zsh -efuo pipefail {0}
