@@ -83,6 +83,16 @@ jobs:
           brew update
           brew upgrade python@3.10
           brew upgrade python@3.11
+      # TODO(svenevs): On 2023-01-12 there were build failures stemming from an
+      # inability to install pyzmq.  It requires the `packaging` module for its
+      # installation setup, but is not installed.  It is unclear if this is an
+      # issue with an outdated `pip`, a mistake in `pyzmq`, or something else.
+      # It is likely to self-resolve when we update from python@3.10 to 3.11,
+      # or a new `pyzmq` release after 25.0.0 is produced.
+      - name: fix pip
+        run: |
+          pip3.10 install -U pip
+          pip3.10 install packaging
       - name: setup
         run: ./scripts/continuous_integration/github_actions/macos_monterey/setup
         shell: zsh -efuo pipefail {0}
