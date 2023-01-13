@@ -43,6 +43,10 @@ jobs:
     name: macos monterey 12
     runs-on: macos-12
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ github.token }}
       - name: checkout
         uses: actions/checkout@v2
       # TODO(#248): On 2022-12-16 there were build failures being unable to
