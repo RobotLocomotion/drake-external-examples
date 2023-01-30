@@ -22,7 +22,7 @@ mkdir ~/gtest && cd ~/gtest && cmake /usr/src/gtest && make
 sudo cp *.a /usr/local/lib
 
 ###############################################################
-# Install Drake to /opt/drake
+# Install Drake to $HOME/drake
 ###############################################################
 
 # 1) A specific version (date-stamped)
@@ -30,16 +30,16 @@ sudo cp *.a /usr/local/lib
 
 # 2) The latest (usually last night's build)
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-focal.tar.gz
-sudo tar -xvzf drake-latest-focal.tar.gz -C /opt
+sudo tar -xvzf drake-latest-focal.tar.gz -C $HOME
 
 # 3) Manual Installation
 # git clone https://github.com/RobotLocomotion/drake.git
-# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=/opt/drake ../drake && make)
+# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake ../drake && make)
 
 # 4) Manual Installation w/ Licensed Gurobi
 # Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 # git clone https://github.com/RobotLocomotion/drake.git
-# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=/opt/drake -DWITH_GUROBI=ON ../drake && make)
+# (mkdir drake-build && cd drake-build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON ../drake && make)
 
 ###############################################################
 # Build Everything
@@ -47,14 +47,14 @@ sudo tar -xvzf drake-latest-focal.tar.gz -C /opt
 git clone https://github.com/RobotLocomotion/drake-external-examples.git
 cd drake-external-examples
 mkdir drake_cmake_installed-build && cd drake_cmake_installed-build
-cmake -DCMAKE_PREFIX_PATH=/opt/drake ../drake_cmake_installed
+cmake -DCMAKE_PREFIX_PATH=$HOME/drake ../drake_cmake_installed
 make
 
 ###############################################################
 # Execute
 ###############################################################
 # A demo
-/opt/drake/bin/drake-visualizer &
+$HOME/drake/bin/drake-visualizer &
 (cd src/particles && exec ./uniformly_accelerated_particle)
 
 # (Optionally) Run Tests
@@ -75,7 +75,7 @@ If you are a Drake Developer making build or API changes that may affect the
 downstream interface, please test this locally on your system.
 
 These build instructions are adapted from those above, but will use an existing
-source tree of Drake (but *not* installing it to `/opt/drake`),
+source tree of Drake (but *not* installing it to `$HOME/drake`),
 build this project, and then run all available tests:
 
 ```shell
