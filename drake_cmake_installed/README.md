@@ -30,7 +30,7 @@ sudo cp *.a /usr/local/lib
 
 # 2) The latest (usually last night's build)
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-focal.tar.gz
-sudo tar -xvzf drake-latest-focal.tar.gz -C $HOME
+tar -xvzf drake-latest-focal.tar.gz -C $HOME
 
 # 3) Manual Installation
 # git clone https://github.com/RobotLocomotion/drake.git
