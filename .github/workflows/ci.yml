@@ -44,7 +44,7 @@ jobs:
     # This will not cancel CI runs associated with pushes to `main`.
     group: ${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
-  macos_monterey:
+  macos_monterey: 
     name: macos monterey 12
     runs-on: macos-12
     steps:
