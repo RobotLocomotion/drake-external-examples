@@ -32,7 +32,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - cancel-previous-runs
   pull_request:
     branches:
       - main
