@@ -35,5 +35,3 @@ Note, the GitHub Actions jobs only build and test `drake_ament_cmake_installed`,
 `drake_cmake_installed_apt` since these are the exemplary cases for lightweight,
 open-source builds on public CI servers. Not all example projects are supported
 on macOS.
-
-testing
