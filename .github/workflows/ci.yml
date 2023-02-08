@@ -38,6 +38,11 @@ on:
       - main
   schedule:
     - cron: '0 12 * * *'
+concurrency:
+  # Cancel previous CI runs when additional commits are added to a pull request.
+  # This will not cancel CI runs associated with pushes to `main`.
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 jobs:
   macos_monterey:
     name: macos monterey 12
