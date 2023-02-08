@@ -32,10 +32,10 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - cancel-previous-runs
   pull_request:
     branches:
-      - main
+      - cancel-previous-runs
   schedule:
     - cron: '0 12 * * *'
 concurrency:
