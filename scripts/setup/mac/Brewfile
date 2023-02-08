@@ -4,5 +4,6 @@
 tap 'robotlocomotion/director'
 
 brew 'bazel'
+brew 'gflags'
 brew 'robotlocomotion/director/clang-format@9'
 brew 'pkg-config'
