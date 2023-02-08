@@ -45,6 +45,20 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      # See issue https://github.com/actions/setup-python/issues/577.  There is
+      # some kind of environment conflict between the symlinks found in the
+      # GitHub Actions runner and `brew upgrade python` where `brew` detects and
+      # refuses to overwrite symlinks.  The cause for our runs is not clear,
+      # we do not use that action, but if that issue is closed this section
+      # can be removed.
+      - name: sanitize brew
+        run: |
+          # Remove the symlinks that cause issues.
+          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
+          sudo rm -rf /Library/Frameworks/Python.framework/
+          # Uninstall / reinstall brew.
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       - name: setup
         run: ./scripts/continuous_integration/github_actions/macos_monterey/setup
         shell: zsh -efuo pipefail {0}
