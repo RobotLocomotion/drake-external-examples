@@ -61,6 +61,8 @@ jobs:
           # Remove the symlinks that cause issues.
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
           sudo rm -rf /Library/Frameworks/Python.framework/
+          # On 2023-02-24 `brew upgrade` resulted in a failure linking tcl-tk.
+          brew unlink tcl-tk
           # Run upgrades now to fail-fast (setup scripts do this anyway).
           brew update && brew upgrade
           # On 2023-02-16 the pip3.11 symlink was mysteriously missing.
