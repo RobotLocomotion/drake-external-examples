@@ -63,6 +63,8 @@ jobs:
           sudo rm -rf /Library/Frameworks/Python.framework/
           # On 2023-02-24 `brew upgrade` resulted in a failure linking tcl-tk.
           brew unlink tcl-tk
+          # On 2023-04-06 `brew upgrade` resulted in a failure upgrading `go`.
+          brew unlink go && rm -f /usr/local/bin/go && rm -f /usr/local/bin/gofmt
           # Run upgrades now to fail-fast (setup scripts do this anyway).
           brew update && brew upgrade
           # On 2023-02-16 the pip3.11 symlink was mysteriously missing.
