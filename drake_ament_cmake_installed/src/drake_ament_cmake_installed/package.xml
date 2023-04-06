@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Ament CMake project with an installed Drake</description>
   <maintainer email="jamie.snape@kitware.com">Jamie Snape</maintainer>
-  <license>BSD</license>
+  <license>MIT-0</license>
   <url type="website">https://drake.mit.edu</url>
   <url type="bugtracker">https://github.com/RobotLocomotion/drake-external-examples/issues</url>
   <url type="repository">https://github.com/RobotLocomotion/drake-external-examples</url>
