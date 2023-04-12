@@ -4,4 +4,4 @@
 
 from pydrake.common import FindResourceOrThrow
 
-FindResourceOrThrow('drake/examples/atlas/urdf/atlas_convex_hull.urdf')
+FindResourceOrThrow('drake/examples/pendulum/Pendulum.urdf')
