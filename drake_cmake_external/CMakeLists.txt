@@ -106,16 +106,6 @@ ExternalProject_Add(spdlog
 # also pass this explicitly to ExternalProject_Add.
 set(DRAKE_PREFIX "${PROJECT_BINARY_DIR}/drake-prefix")
 
-# Location of the platform-specific install_prereqs_user_environment.sh.
-if(APPLE)
-  set(DRAKE_SETUP_DIR "${DRAKE_PREFIX}/src/drake/setup/mac")
-else()
-  set(DRAKE_SETUP_DIR "${DRAKE_PREFIX}/src/drake/setup/ubuntu")
-endif()
-set(DRAKE_INSTALL_PREREQS_USER_ENVIRONMENT
-  "${DRAKE_SETUP_DIR}/source_distribution/install_prereqs_user_environment.sh"
-)
-
 ExternalProject_Add(drake
   DEPENDS eigen fmt spdlog
   URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
@@ -124,7 +114,6 @@ ExternalProject_Add(drake
   # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
   # URL_HASH SHA256=899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca
   TLS_VERIFY ON
-  PATCH_COMMAND ${DRAKE_INSTALL_PREREQS_USER_ENVIRONMENT}
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
