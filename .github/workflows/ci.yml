@@ -38,7 +38,13 @@ jobs:
           brew unlink tcl-tk
           # On 2023-04-06 `brew upgrade` resulted in a failure upgrading `go`.
           brew unlink go && rm -f /usr/local/bin/go && rm -f /usr/local/bin/gofmt
+          # On 2023-09-25 there were issues upgrading node@18 from 18.17.1 to
+          # 18.18.0, caused by `brew upgrade`.
+          brew unlink node@18 && rm -rf /usr/local/lib/node_modules/
+          #
+          ######################################################################
           # Run upgrades now to fail-fast (setup scripts do this anyway).
+          ######################################################################
           brew update && brew upgrade
           # On 2023-02-16 the pip3.11 symlink was mysteriously missing.
           brew unlink python@3.11 && brew link python@3.11
