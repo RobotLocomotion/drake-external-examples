@@ -1,14 +1,9 @@
 # SPDX-License-Identifier: MIT-0
 
-# Disable native Python rules in Bazel versions before 3.0.
-# TODO(jamiesnape): Uncomment the below line when @drake uses @rules_python.
-# build --incompatible_load_python_rules_from_bzl=yes
-
 # Default to an optimized build.
 build --compilation_mode=opt
 
 # Default build options.
-build --force_pic=yes
 build --strip=never
 
 # Default test options.
@@ -21,6 +16,11 @@ build --host_cxxopt=-std=c++17
 
 # https://github.com/bazelbuild/bazel/issues/1164
 build --action_env=CCACHE_DISABLE=1
+
+# For Ubuntu builds, this flag can cut build times in half. For macOS builds,
+# this flag might cause build errors. We suggest turning it on if and only if
+# your project doesn't use macOS.
+## build --force_pic=yes
 
 # TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
 # customizations somehow.

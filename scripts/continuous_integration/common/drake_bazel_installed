@@ -3,10 +3,9 @@
 
 set -euxo pipefail
 
-bazel version
-
 pushd drake_bazel_installed
 
+bazel version
 bazel test //...
 
 popd
