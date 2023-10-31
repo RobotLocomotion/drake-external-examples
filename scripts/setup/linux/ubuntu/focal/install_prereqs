@@ -123,6 +123,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   libx11-dev
   libxml2-dev
   locales
+  nasm
   ocl-icd-opencl-dev
   opencl-headers
   openssh-client
