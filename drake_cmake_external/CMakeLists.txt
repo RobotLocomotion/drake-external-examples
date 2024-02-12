@@ -128,7 +128,6 @@ ExternalProject_Add(drake
   PREFIX "${DRAKE_PREFIX}"
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON
-  INSTALL_COMMAND :
 )
 
 ExternalProject_Add(drake_external_examples
