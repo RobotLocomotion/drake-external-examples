@@ -3,4 +3,4 @@
 
 set -euxo pipefail
 
-./scripts/continuous_integration/common/ros_foxy
+./scripts/continuous_integration/common/ros_humble
