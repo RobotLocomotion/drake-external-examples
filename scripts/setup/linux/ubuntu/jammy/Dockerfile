@@ -27,7 +27,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:focal
+FROM ubuntu:jammy
 COPY ./install_prereqs /tmp/install_prereqs
 RUN export DEBIAN_FRONTEND=noninteractive \
   && yes | /tmp/install_prereqs \
