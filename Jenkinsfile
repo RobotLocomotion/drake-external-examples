@@ -2,7 +2,7 @@
 
 /* SPDX-License-Identifier: MIT-0 */
 
-node('drake-external-examples-linux-jammy-unprovisioned') {
+node('linux-jammy-unprovisioned') {
   timeout(600) {
     ansiColor('xterm') {
       def triggers = []
