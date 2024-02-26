@@ -72,36 +72,36 @@ jobs:
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/macos_ventura/build_test
         shell: zsh -efuo pipefail {0}
-  ros_foxy:
-    name: ros 2 foxy
+  ros_humble:
+    name: ros 2 humble
     runs-on: ubuntu-latest
-    container: ubuntu:focal
+    container: ubuntu:jammy
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_foxy/setup
+        run: ./scripts/continuous_integration/github_actions/ros_humble/setup
         shell: bash
       - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ros_foxy/build_test
+        run: ./scripts/continuous_integration/github_actions/ros_humble/build_test
         shell: bash
-  ubuntu_focal:
-    name: ubuntu 20.04 focal
+  ubuntu_jammy:
+    name: ubuntu 22.04 jammy
     runs-on: ubuntu-latest
-    container: ubuntu:focal
+    container: ubuntu:jammy
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_focal/setup
+        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/setup
         shell: bash
       - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_focal/build_test
+        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/build_test
         shell: bash
-  ubuntu_focal_apt:
-    name: ubuntu 20.04 focal apt
+  ubuntu_jammy_apt:
+    name: ubuntu 22.04 jammy apt
     runs-on: ubuntu-latest
-    container: ubuntu:focal
+    container: ubuntu:jammy
     steps:
       - name: checkout
         uses: actions/checkout@v4

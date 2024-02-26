@@ -3,4 +3,4 @@
 
 set -euxo pipefail
 
-./scripts/continuous_integration/common/linux_ubuntu_focal
+./scripts/continuous_integration/common/linux_ubuntu_jammy

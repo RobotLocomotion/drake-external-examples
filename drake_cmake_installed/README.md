@@ -4,14 +4,14 @@ This uses the CMake `find_package(drake)` mechanism to find an installed instanc
 
 # Instructions
 
-These instructions are only supported for Ubuntu 20.04 (Focal).
+These instructions are only supported for Ubuntu 22.04 (Jammy).
 
 ```shell
 ###############################################################
 # Install Prerequisites
 ###############################################################
 # Various system dependencies
-sudo ../scripts/setup/linux/ubuntu/focal/install_prereqs
+sudo ../scripts/setup/linux/ubuntu/jammy/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:
@@ -26,11 +26,11 @@ sudo cp *.a /usr/local/lib
 ###############################################################
 
 # 1) A specific version (date-stamped)
-# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20220309-focal.tar.gz
+# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
 
 # 2) The latest (usually last night's build)
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-focal.tar.gz
-tar -xvzf drake-latest-focal.tar.gz -C $HOME
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
+tar -xvzf drake-latest-jammy.tar.gz -C $HOME
 
 # 3) Manual Installation
 # git clone https://github.com/RobotLocomotion/drake.git
