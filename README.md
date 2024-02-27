@@ -5,7 +5,6 @@ own project:
 
 * [`drake_ament_cmake_installed`](./drake_ament_cmake_installed)
 * [`drake_bazel_external`](./drake_bazel_external)
-* [`drake_bazel_installed`](./drake_bazel_installed)
 * [`drake_catkin_installed`](./drake_catkin_installed)
 * [`drake_cmake_external`](./drake_cmake_external)
 * [`drake_cmake_installed`](./drake_cmake_installed)
@@ -22,7 +21,6 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 |:---:|:---:|:---:|
 | `drake_ament_cmake_installed` | o | - |
 | `drake_bazel_external` | - | o |
-| `drake_bazel_installed` | o | o |
 | `drake_catkin_installed` | o | o |
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | o |
@@ -31,7 +29,7 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 
 
 Note, the GitHub Actions jobs only build and test `drake_ament_cmake_installed`,
-`drake_bazel_installed`, `drake_catkin_installed`, `drake_cmake_installed`, and
+`drake_catkin_installed`, `drake_cmake_installed`, and
 `drake_cmake_installed_apt` since these are the exemplary cases for lightweight,
 open-source builds on public CI servers. Not all example projects are supported
 on macOS.
