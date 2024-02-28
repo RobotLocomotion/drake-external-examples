@@ -7,7 +7,7 @@ py_binary(
     name = "simple_logging_example",
     srcs = ["simple_logging_example.py"],
     deps = [
-        "@drake//bindings/pydrake",
+        "@drake//:pydrake",
     ],
 )
 
@@ -27,7 +27,7 @@ py_test(
     main = "find_resource_test.py",
     srcs = ["find_resource_test.py"],
     deps = [
-        "@drake//bindings/pydrake",
+        "@drake//:pydrake",
     ],
 )
 
@@ -36,11 +36,6 @@ cc_test(
     srcs = ["find_resource_test.cc"],
     deps = [
         "@drake//:drake_shared_library",
-    ],
-    data = [
-        # TODO(sloretz) want smaller scope visible target access to
-        # @drake//examples:pendulum/Pendulum.urdf
-        "@drake//bindings/pydrake",
     ]
 )
 
@@ -57,6 +52,6 @@ py_test(
     main = "import_all_test.py",
     srcs = ["import_all_test.py"],
     deps = [
-        "@drake//bindings/pydrake",
+        "@drake//:pydrake",
     ],
 )

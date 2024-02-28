@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: MIT-0
+
+module(name = "drake_external_examples")
+
+# Add the Bazel rulesets we need.
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
+bazel_dep(name = "rules_cc", version = "0.0.9")
+bazel_dep(name = "rules_python", version = "0.31.0")
+
+# Use the host system python.
+register_toolchains("@bazel_tools//tools/python:autodetecting_toolchain")
+
+# Use the host system Eigen.
+local_eigen_repositiory = use_repo_rule("//:eigen.bzl", "local_eigen_repository")
+local_eigen_repositiory(name = "eigen")
+
+# Use a downloaded, pre-compiled build of Drake.
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "drake",
+    urls = [
+        # This URL refers to the most recent nightly build of Drake (which is
+        # helpful for our CI test coverage). Users will probably want to pin
+        # this to a specific release version, instead. To find those URLs,
+        # refer to https://github.com/RobotLocomotion/drake/releases.
+        "https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz"
+    ],
+    build_file = "drake.BUILD.bazel",
+    strip_prefix = "drake",
+)
