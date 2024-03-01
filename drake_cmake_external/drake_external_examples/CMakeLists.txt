@@ -6,7 +6,7 @@ project(drake_external_examples)
 include(CTest)
 
 if(APPLE)
-  set(FIND_PYTHON_INTERP_VERSION 3.11)
+  set(FIND_PYTHON_INTERP_VERSION 3.12)
 else()
   set(FIND_PYTHON_INTERP_VERSION 3.6)
 endif()
