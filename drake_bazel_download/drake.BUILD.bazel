@@ -1,0 +1,100 @@
+# -*- bazel -*-
+
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_python//python:defs.bzl", "py_library")
+
+package(default_visibility = ["//visibility:private"])
+
+# --- Resources stuff ---
+
+_RUNFILES = glob([
+    "share/drake/**",
+], exclude = [
+    "share/drake/common/**",
+    "share/drake/setup/**",
+    "share/drake/tutorials/**",
+], allow_empty = False)
+
+filegroup(
+    name = "_runfiles",
+    srcs = _RUNFILES,
+)
+
+# --- C++ stuff ---
+
+_DRAKE_SHLIBS = glob([
+    "lib/libdrake*.so",
+], allow_empty = False)
+
+_THIRD_SHLIBS = glob([
+    # For Mosek (not enabled by default).
+    "lib/libtbb*.so*",
+    "lib/libmosek64*.so*",
+    # For Gurobi (not enabled by default).
+    "lib/libgurobi*.so*",
+], allow_empty = True)
+
+cc_library(
+    name = "_lcm_coretypes",
+    hdrs = ["include/lcm/lcm/lcm_coretypes.h"],
+    strip_include_prefix = "include/lcm",
+)
+
+cc_library(
+    name = "_drake_lcm_headers",
+    hdrs = glob(["include/drake_lcmtypes/drake/**"]),
+    strip_include_prefix = "include/drake_lcmtypes",
+    deps = [":_lcm_coretypes"],
+)
+
+cc_library(
+    name = "_drake_headers",
+    hdrs = glob(["include/drake/**"], exclude = ["**/drake_lcmtypes/**"]),
+    strip_include_prefix = "include",
+    deps = [":_drake_lcm_headers"],
+)
+
+[
+    cc_import(
+        name = "_imported{}".format(shlib),
+        shared_library = shlib,
+    )
+    for shlib in _DRAKE_SHLIBS + _THIRD_SHLIBS
+]
+
+cc_library(
+    name = "drake_shared_library",
+    data = [
+        ":_runfiles",
+    ],
+    deps = [
+        ":_drake_headers",
+        "@eigen",
+    ] + [
+        ":_imported{}".format(shlib)
+        for shlib in _DRAKE_SHLIBS + _THIRD_SHLIBS
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# --- Python stuff ---
+
+_PYDRAKE_PYS = glob([
+    "lib/python3.*/site-packages/**/*.py",
+], allow_empty = False)
+
+_PYDRAKE_SOS = glob([
+    "lib/python3.*/site-packages/**/*.so",
+], allow_empty = False)
+
+_IMPORT = _PYDRAKE_PYS[0][:len("lib/python3.##/site-packages")]
+
+py_library(
+    name = "pydrake",
+    visibility = ["//visibility:public"],
+    srcs = _PYDRAKE_PYS,
+    data = _PYDRAKE_SOS + _DRAKE_SHLIBS + _THIRD_SHLIBS + [
+        ":_runfiles",
+    ],
+    imports = [_IMPORT],
+)

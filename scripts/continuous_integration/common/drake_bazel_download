@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-pushd drake_bazel_installed
+pushd drake_bazel_download
 
 bazel version
 bazel test //...
