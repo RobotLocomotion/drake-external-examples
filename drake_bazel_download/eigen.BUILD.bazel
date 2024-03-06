@@ -1,0 +1,8 @@
+# -*- bazel -*-
+
+cc_library(
+    name = "eigen",
+    hdrs = glob(["include/Eigen/**", "include/unsupported/Eigen/**"], allow_empty = False),
+    strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+)

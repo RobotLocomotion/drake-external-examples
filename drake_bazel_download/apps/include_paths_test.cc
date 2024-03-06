@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT-0
 
 // This test program checks that Drake headers that include third-party headers
-// can be successfully included when using drake_bazel_installed. It serves as
+// can be successfully included when using drake_bazel_download. It serves as
 // a regression test for Drake moreso than an example program for end-users.
 
 #include "drake/common/drake_assert.h"
