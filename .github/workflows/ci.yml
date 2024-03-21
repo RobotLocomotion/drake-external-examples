@@ -17,9 +17,9 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  macos_ventura:
-    name: macos ventura 13
-    runs-on: macos-13
+  macos_sonoma_arm:
+    name: macos sonoma 14 arm
+    runs-on: macos-14
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -67,10 +67,10 @@ jobs:
           brew unlink python@3.11 && brew link python@3.11
           pip3.11 --version
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/macos_ventura/setup
+        run: ./scripts/continuous_integration/github_actions/macos_sonoma/setup
         shell: zsh -efuo pipefail {0}
       - name: build and test
-        run: ./scripts/continuous_integration/github_actions/macos_ventura/build_test
+        run: ./scripts/continuous_integration/github_actions/macos_sonoma/build_test
         shell: zsh -efuo pipefail {0}
   ros_humble:
     name: ros 2 humble
