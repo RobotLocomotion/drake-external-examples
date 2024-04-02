@@ -13,9 +13,7 @@ namespace drake_external_examples {
 namespace {
 
 int main() {
-  drake::FindResourceOrThrow(
-      "drake/manipulation/models/iiwa_description/urdf/"
-      "iiwa14_primitive_collision.urdf");
+  drake::FindResourceOrThrow("drake/examples/pendulum/Pendulum.urdf");
 
   try {
     drake::FindResourceOrThrow("nobody_home.urdf");
