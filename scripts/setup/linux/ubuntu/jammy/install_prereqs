@@ -89,7 +89,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   gfortran
   git
   libblas-dev
-  libclang-14-dev
+  libclang-15-dev
   libeigen3-dev
   libgflags-dev
   libgl-dev
