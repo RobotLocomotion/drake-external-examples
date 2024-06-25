@@ -33,7 +33,7 @@ namespace particles {
 template <typename T>
 class Particle final : public drake::systems::LeafSystem<T> {
  public:
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle)
+  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle);
 
   Particle();
 
