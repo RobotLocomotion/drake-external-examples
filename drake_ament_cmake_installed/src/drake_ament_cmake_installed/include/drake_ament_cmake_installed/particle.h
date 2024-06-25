@@ -27,7 +27,7 @@ namespace particles {
 template <typename T>
 class Particle : public drake::systems::LeafSystem<T> {
  public:
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle)
+  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle);
 
   /// A constructor that initializes the system.
   Particle();

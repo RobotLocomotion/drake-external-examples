@@ -50,7 +50,7 @@ bool file_exists(const std::string& name) {
 /// a constant acceleration is applied.
 class UniformlyAcceleratedParticle : public drake::systems::Diagram<double> {
  public:
-  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(UniformlyAcceleratedParticle)
+  DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(UniformlyAcceleratedParticle);
 
   /// A constructor that wires up the whole diagram,
   /// taking a constant acceleration to be applied to
