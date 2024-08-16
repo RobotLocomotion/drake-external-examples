@@ -13,12 +13,7 @@ find_package(drake CONFIG REQUIRED)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
-find_program(PYTHON_EXECUTABLE NAMES python3
-  PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
-  NO_DEFAULT_PATH
-)
-
-execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
+execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
