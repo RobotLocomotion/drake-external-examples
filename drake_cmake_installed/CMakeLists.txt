@@ -13,7 +13,7 @@ find_package(drake CONFIG REQUIRED)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
-execute_process(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib'))"
+execute_process(COMMAND ${Python3_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_config_var('exec_prefix'))"
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
