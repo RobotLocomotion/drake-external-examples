@@ -15,7 +15,7 @@ target_link_libraries(simple_bindings PUBLIC drake::drake)
 set_target_properties(simple_bindings PROPERTIES CXX_VISIBILITY_PRESET default)
 
 add_test(NAME simple_bindings_test COMMAND
-    "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
+    "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
 set_tests_properties(simple_bindings_test PROPERTIES
     # Using `pybind11/tests/test_cmake_build/installed_target` as an example.
     ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${PYTHONPATH}")
