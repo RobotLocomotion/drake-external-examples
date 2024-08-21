@@ -3,7 +3,7 @@
 # TODO(eric.cousineau): Link to documentation on superproject example pending
 # resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
 
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.16)
 project(drake_cmake_external)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -31,11 +31,7 @@ else()
   set(FIND_PYTHON_EXECUTABLE_PATHS /usr/bin)
   set(FIND_PYTHON_INTERP_VERSION 3.6)
 endif()
-find_program(PYTHON_EXECUTABLE NAMES python3
-  PATHS "${FIND_PYTHON_EXECUTABLE_PATHS}"
-  NO_DEFAULT_PATH
-)
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 include(ExternalProject)
 
@@ -121,7 +117,7 @@ ExternalProject_Add(drake
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
-    -DPYTHON_EXECUTABLE:FILEPATH=${PYTHON_EXECUTABLE}
+    -DPYTHON_EXECUTABLE:FILEPATH=${Python3_EXECUTABLE}
     -DWITH_USER_EIGEN:BOOLEAN=ON
     -DWITH_USER_FMT:BOOLEAN=ON
     -DWITH_USER_SPDLOG:BOOLEAN=ON
