@@ -24,13 +24,6 @@ endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
-if(APPLE)
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/local/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.12)
-else()
-  set(FIND_PYTHON_EXECUTABLE_PATHS /usr/bin)
-  set(FIND_PYTHON_INTERP_VERSION 3.6)
-endif()
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 include(ExternalProject)
