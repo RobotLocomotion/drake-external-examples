@@ -8,4 +8,4 @@ set -euxo pipefail
 brew uninstall -f bazelisk
 
 git clone --filter=blob:none https://github.com/RobotLocomotion/drake.git
-./setup/mac/install_prereqs.sh
+./drake/setup/mac/install_prereqs.sh
