@@ -10,7 +10,7 @@ pushd drake_cmake_installed
 mkdir build
 pushd build
 
-cmake -DCMAKE_PREFIX_PATH=/drake "$@" ..
+cmake -DCMAKE_PREFIX_PATH=/opt/drake "$@" ..
 make
 ctest -V .
 
