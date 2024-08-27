@@ -7,4 +7,5 @@ set -euxo pipefail
 # the bazel formula in Homebrew.
 brew uninstall -f bazelisk
 
-./scripts/continuous_integration/common/mac
+git clone --filter=blob:none https://github.com/RobotLocomotion/drake.git
+./setup/mac/install_prereqs.sh
