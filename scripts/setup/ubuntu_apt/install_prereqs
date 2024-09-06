@@ -1,0 +1,21 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get -qq update || (sleep 30; apt-get -qq update)
+apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
+  install build-essential ca-certificates cmake gnupg lsb-release wget
+
+readonly codename="$(lsb_release -cs)"
+
+wget -qO- --retry-connrefused https://drake-apt.csail.mit.edu/drake.asc \
+  | gpg --dearmor - > /etc/apt/trusted.gpg.d/drake.gpg
+echo "deb [arch=amd64] https://drake-apt.csail.mit.edu/${codename} ${codename} main" \
+  > /etc/apt/sources.list.d/drake.list
+
+apt-get -qq update || (sleep 30; apt-get -qq update)
+apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
+  install drake-dev
