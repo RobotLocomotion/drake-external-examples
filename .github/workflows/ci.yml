@@ -67,7 +67,7 @@ jobs:
           brew unlink python@3.11 && brew link python@3.11
           pip3.11 --version
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/macos_sonoma/setup
+        run: ./scripts/setup/mac/install_prereqs
         shell: zsh -efuo pipefail {0}
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/macos_sonoma/build_test
