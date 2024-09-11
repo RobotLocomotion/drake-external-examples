@@ -1,6 +1,0 @@
-#!/bin/bash
-# SPDX-License-Identifier: MIT-0
-
-set -euxo pipefail
-
-./scripts/setup/mac/install_prereqs
