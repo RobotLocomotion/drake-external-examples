@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-# Unstalls a /usr/local/bin/bazel symlink that conflicts with that installed by
+# Uninstalls a /usr/local/bin/bazel symlink that conflicts with that installed by
 # the bazel formula in Homebrew.
 brew uninstall -f bazelisk
 
