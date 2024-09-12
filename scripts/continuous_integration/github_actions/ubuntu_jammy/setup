@@ -3,4 +3,9 @@
 
 set -euxo pipefail
 
-./scripts/continuous_integration/common/linux_ubuntu_jammy
+echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
+
+export DEBIAN_FRONTEND='noninteractive'
+
+./scripts/setup/linux/ubuntu/jammy/install_prereqs
