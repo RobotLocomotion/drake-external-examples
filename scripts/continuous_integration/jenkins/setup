@@ -3,7 +3,9 @@
 
 set -euxo pipefail
 
-sudo ./scripts/continuous_integration/common/linux_ubuntu_jammy
+echo "WORKSPACE is: ${WORKSPACE}"
+
+sudo ./scripts/setup/linux/ubuntu/jammy/install_prereqs
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}
