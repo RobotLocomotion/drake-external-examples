@@ -69,8 +69,8 @@ jobs:
       - name: setup
         run: ./scripts/setup/mac/install_prereqs
         shell: zsh -efuo pipefail {0}
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/macos_sonoma/build_test
+      - name: cmake_installed build and test
+        run: ./scripts/continuous_integration/common/drake_cmake_installed
         shell: zsh -efuo pipefail {0}
   ros_humble:
     name: ros 2 humble
@@ -82,8 +82,8 @@ jobs:
       - name: setup
         run: ./scripts/continuous_integration/github_actions/ros_humble/setup
         shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ros_humble/build_test
+      - name: ament_cmake_installed build and test
+        run: ./scripts/continuous_integration/common/drake_ament_cmake_installed
         shell: bash
   ubuntu_jammy:
     name: ubuntu 22.04 jammy
@@ -95,8 +95,14 @@ jobs:
       - name: setup
         run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/setup
         shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/build_test
+      - name: bazel_download build and test
+        run: ./scripts/continuous_integration/common/drake_bazel_download
+        shell: bash
+      - name: catkin_installed build and test
+        run: ./scripts/continuous_integration/common/drake_catkin_installed
+        shell: bash
+      - name: cmake_installed build and test
+        run: ./scripts/continuous_integration/common/drake_cmake_installed
         shell: bash
   ubuntu_jammy_apt:
     name: ubuntu 22.04 jammy apt
@@ -108,6 +114,6 @@ jobs:
       - name: setup
         run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
         shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
+      - name: cmake_installed_apt build and test
+        run: ./scripts/continuous_integration/common/drake_cmake_installed_apt
         shell: bash

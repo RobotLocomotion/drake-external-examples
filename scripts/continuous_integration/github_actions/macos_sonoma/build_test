@@ -1,6 +1,0 @@
-#!/bin/zsh
-# SPDX-License-Identifier: MIT-0
-
-set -euxo pipefail
-
-./scripts/continuous_integration/common/drake_cmake_installed
