@@ -3,9 +3,12 @@
 
 set -euxo pipefail
 
-echo "WORKSPACE is: ${WORKSPACE}"
+echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
-sudo ./scripts/setup/linux/ubuntu/jammy/install_prereqs
+export DEBIAN_FRONTEND='noninteractive'
+
+./scripts/setup/linux/ubuntu/jammy/install_prereqs
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}

@@ -18,7 +18,7 @@ node('linux-jammy-unprovisioned') {
             checkout scm
           }
           stage('setup') {
-            sh './scripts/continuous_integration/jenkins/setup'
+            sh 'sudo ./scripts/continuous_integration/jenkins/setup'
           }
           stage('build and test') {
             sh './scripts/continuous_integration/jenkins/build_test'
