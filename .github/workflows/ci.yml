@@ -80,7 +80,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_humble/setup
+        run: ./scripts/continuous_integration/github_actions/ros_humble_setup
         shell: bash
       - name: ament_cmake_installed build and test
         run: ./scripts/continuous_integration/common/drake_ament_cmake_installed
@@ -132,7 +132,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
+        run: ./scripts/continuous_integration/github_actions/ubuntu_apt_setup
         shell: bash
       - name: cmake_installed_apt build and test
         run: ./scripts/continuous_integration/common/drake_cmake_installed_apt
