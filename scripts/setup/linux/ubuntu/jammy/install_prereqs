@@ -152,9 +152,3 @@ else
 EOF
   )
 fi
-
-cat > "${HOME}/.bazelrc" << EOF
-startup --output_user_root=${WORKSPACE}/_bazel_${USER}
-test --color=yes
-test --keep_going
-EOF
