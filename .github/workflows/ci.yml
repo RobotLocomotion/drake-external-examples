@@ -80,7 +80,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_humble/setup
+        run: ./scripts/setup/linux/ubuntu/jammy/install_prereqs --ros-humble
         shell: bash
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ros_humble/build_test
@@ -93,7 +93,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/setup
+        run: ./scripts/setup/linux/ubuntu/jammy/install_prereqs
         shell: bash
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/build_test
@@ -106,7 +106,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
+        run: ./scripts/setup/ubuntu_apt/linux_ubuntu_apt
         shell: bash
       - name: build and test
         run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test

@@ -1,6 +1,0 @@
-#!/bin/bash
-# SPDX-License-Identifier: MIT-0
-
-set -euxo pipefail
-
-./scripts/continuous_integration/common/linux_ubuntu_jammy

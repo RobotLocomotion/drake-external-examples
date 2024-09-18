@@ -31,6 +31,11 @@
 
 set -euxo pipefail
 
+echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
+
+export DEBIAN_FRONTEND='noninteractive'
+
 ros_humble=0
 
 while [ "${1:-}" != "" ]; do
@@ -147,3 +152,9 @@ else
 EOF
   )
 fi
+
+cat > "${HOME}/.bazelrc" << EOF
+startup --output_user_root=${WORKSPACE}/_bazel_${USER}
+test --color=yes
+test --keep_going
+EOF
