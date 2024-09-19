@@ -9,7 +9,7 @@ manager.
 
 Install the `drake-dev` APT package by following the instructions found at:
 
-<https://drake.mit.edu/from_binary.html#apt-packages-for-monthly-tagged-releases>
+<https://drake.mit.edu/apt.html>
 
 For this example, also install the `build-essential` and `cmake` APT packages:
 ```bash
