@@ -3,10 +3,6 @@
 
 set -euxo pipefail
 
-# Uninstalls a /usr/local/bin/bazel symlink that conflicts with that installed by
-# the bazel formula in Homebrew.
-brew uninstall -f bazelisk
-
 if [[ "${EUID}" -eq 0 ]]; then
   echo 'This script must NOT be run as root' >&2
   exit 1
@@ -29,9 +25,5 @@ echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
 /opt/drake/share/drake/setup/install_prereqs
 
-# Install additional dependencies for development and compatibility examples.
+# Install additional dependencies needed to build example
 brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
-
-pip3.12 install \
-    --upgrade --break-system-packages \
-    --requirement "$(dirname ${(%):-%x})/requirements.txt"
