@@ -118,6 +118,11 @@ ExternalProject_Add(drake
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON
 )
+#ExternalProject_Add_Step(drake setup
+#  DEPENDEES download
+#  DEPENDERS configure
+#  COMMAND sudo <SOURCE_DIR>/setup/ubuntu/install_prereqs
+#)
 
 ExternalProject_Add(drake_external_examples
   DEPENDS drake
