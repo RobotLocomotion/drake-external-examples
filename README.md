@@ -33,5 +33,4 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 Note, the GitHub Actions jobs only build and test `drake_ament_cmake_installed`,
 `drake_bazel_download`, `drake_catkin_installed`, `drake_cmake_installed`, and
 `drake_cmake_installed_apt` since these are the exemplary cases for lightweight,
-open-source builds on public CI servers. Not all example projects are supported
-on macOS.
+open-source builds on public CI servers. The ament and catkin projects are not supported on macOS.
