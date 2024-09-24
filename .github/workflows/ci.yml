@@ -70,7 +70,7 @@ jobs:
         run: ./scripts/setup/mac/install_prereqs
         shell: zsh -efuo pipefail {0}
       - name: cmake_installed build and test
-        run: ./drake_cmake_installed/drake_cmake_installed
+        run: ./drake_cmake_installed/.github/ci_build_test
         shell: zsh -efuo pipefail {0}
   ros_humble_ament_cmake_installed:
     name: ros 2 humble ament cmake installed
@@ -83,7 +83,7 @@ jobs:
         run: ./scripts/continuous_integration/github_actions/ros_humble_setup
         shell: bash
       - name: ament_cmake_installed build and test
-        run: ./drake_ament_cmake_installed/drake_ament_cmake_installed
+        run: ./drake_ament_cmake_installed/.github/ci_build_test
         shell: bash
   ubuntu_jammy_bazel_download:
     name: ubuntu 22.04 jammy bazel download
@@ -96,7 +96,7 @@ jobs:
         run: ./scripts/continuous_integration/github_actions/ubuntu_setup
         shell: bash
       - name: bazel_download build and test
-        run: ./drake_bazel_download/drake_bazel_download
+        run: ./drake_bazel_download/.github/ci_build_test
         shell: bash
   ubuntu_jammy_catkin_installed:
     name: ubuntu 22.04 jammy catkin installed
@@ -109,7 +109,7 @@ jobs:
         run: ./scripts/continuous_integration/github_actions/ubuntu_setup
         shell: bash
       - name: catkin_installed build and test
-        run: ./drake_catkin_installed/drake_catkin_installed
+        run: ./drake_catkin_installed/.github/ci_build_test
         shell: bash
   ubuntu_jammy_cmake_installed:
     name: ubuntu 22.04 jammy cmake installed
@@ -122,7 +122,7 @@ jobs:
         run: ./scripts/continuous_integration/github_actions/ubuntu_setup
         shell: bash
       - name: cmake_installed build and test
-        run: ./drake_cmake_installed/drake_cmake_installed
+        run: ./drake_cmake_installed/.github/ci_build_test
         shell: bash
   ubuntu_jammy_cmake_installed_apt:
     name: ubuntu 22.04 jammy cmake installed apt
@@ -135,5 +135,5 @@ jobs:
         run: ./scripts/continuous_integration/github_actions/ubuntu_apt_setup
         shell: bash
       - name: cmake_installed_apt build and test
-        run: ./drake_cmake_installed_apt/drake_cmake_installed_apt
+        run: ./drake_cmake_installed_apt/.github/ci_build_test
         shell: bash
