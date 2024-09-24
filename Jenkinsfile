@@ -21,10 +21,10 @@ node('linux-jammy-unprovisioned') {
             sh './scripts/continuous_integration/jenkins/setup'
           }
           stage('bazel_external build and test') {
-            sh './drake_bazel_external/drake_bazel_external'
+            sh './drake_bazel_external/.github/ci_build_test'
           }
           stage('cmake_external build and test') {
-            sh './drake_cmake_external/drake_cmake_external'
+            sh './drake_cmake_external/.github/ci_build_test'
           }
         }
       } catch (e) {
