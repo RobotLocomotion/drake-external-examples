@@ -67,7 +67,7 @@ jobs:
           brew unlink python@3.11 && brew link python@3.11
           pip3.11 --version
       - name: setup
-        run: ./scripts/setup/mac/install_prereqs
+        run: ./drake_cmake_installed/setup/mac/install_prereqs
         shell: zsh -efuo pipefail {0}
       - name: cmake_installed build and test
         run: ./drake_cmake_installed/.github/ci_build_test
