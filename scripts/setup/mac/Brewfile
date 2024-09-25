@@ -1,9 +1,0 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-tap 'robotlocomotion/director'
-
-brew 'bazel'
-brew 'gflags'
-brew 'llvm@15'
-brew 'pkg-config'
