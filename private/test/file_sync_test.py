@@ -20,6 +20,25 @@ COPIES = (
         "drake_cmake_installed/.clang-format",
         "drake_cmake_installed_apt/.clang-format",
     ),
+    (
+        "drake_ament_cmake_installed/CPPLINT.cfg",
+        "drake_bazel_download/CPPLINT.cfg",
+        "drake_bazel_external/CPPLINT.cfg",
+        "drake_catkin_installed/CPPLINT.cfg",
+        "drake_cmake_external/CPPLINT.cfg",
+        "drake_cmake_installed/CPPLINT.cfg",
+        "drake_cmake_installed_apt/CPPLINT.cfg",
+    ),
+    (
+        "LICENSE",
+        "drake_ament_cmake_installed/LICENSE",
+        "drake_bazel_download/LICENSE",
+        "drake_bazel_external/LICENSE",
+        "drake_catkin_installed/LICENSE",
+        "drake_cmake_external/LICENSE",
+        "drake_cmake_installed/LICENSE",
+        "drake_cmake_installed_apt/LICENSE",
+    ),
 )
 
 found_errors = False
