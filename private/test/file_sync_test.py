@@ -30,6 +30,7 @@ COPIES = (
         "drake_cmake_installed_apt/CPPLINT.cfg",
     ),
     (
+        "LICENSE",
         "drake_ament_cmake_installed/LICENSE",
         "drake_bazel_download/LICENSE",
         "drake_bazel_external/LICENSE",
