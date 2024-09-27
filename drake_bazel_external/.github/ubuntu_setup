@@ -1,0 +1,11 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
+
+export DEBIAN_FRONTEND='noninteractive'
+
+./drake_bazel_external/setup/install_prereqs

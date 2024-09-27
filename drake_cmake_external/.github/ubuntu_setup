@@ -8,4 +8,4 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-./scripts/setup/linux/ubuntu/jammy/install_prereqs
+./drake_cmake_external/setup/install_prereqs

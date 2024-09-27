@@ -18,7 +18,7 @@ node('linux-jammy-unprovisioned') {
             checkout scm
           }
           stage('bazel external setup') {
-            sh './scripts/continuous_integration/jenkins/setup'
+            sh './drake_bazel_external/.github/setup'
           }
           stage('bazel external build and test') {
             sh './drake_bazel_external/.github/ci_build_test'
@@ -60,7 +60,7 @@ node('linux-jammy-unprovisioned') {
             checkout scm
           }
           stage('cmake external setup') {
-            sh './scripts/continuous_integration/jenkins/setup'
+            sh './drake_cmake_external/.github/setup'
           }
           stage('cmake external build and test') {
             sh './drake_cmake_external/.github/ci_build_test'
