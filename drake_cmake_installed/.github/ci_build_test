@@ -11,7 +11,7 @@ mkdir build
 pushd build
 
 cmake -DCMAKE_PREFIX_PATH=/opt/drake "$@" ..
-make
+cmake --build .
 ctest -V .
 
 popd
