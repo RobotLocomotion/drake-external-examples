@@ -3,11 +3,15 @@
 
 set -euxo pipefail
 
-cd $(dirname "${BASH_SOURCE}")
-sudo ./ubuntu_setup
+# CI setup
+sudo ./.github/ubuntu_setup
 
-cat > "${HOME}/.bazelrc" << EOF
-startup --output_user_root=${WORKSPACE}/_bazel_${USER}
-test --color=yes
-test --keep_going
-EOF
+# Download the drake source
+mkdir ~/drake_install
+wget -O drake.tar.gz \
+  https://github.com/RobotLocomotion/drake/archive/master.tar.gz
+trap 'rm -f drake.tar.gz' EXIT
+tar -xf drake.tar.gz -C ~/drake_install
+
+# Install the source prereqs
+sudo ~/drake_install/drake-master/setup/ubuntu/install_prereqs.sh

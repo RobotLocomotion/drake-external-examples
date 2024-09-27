@@ -5,15 +5,13 @@ set -euxo pipefail
 
 cmake --version
 
-pushd drake_cmake_external
-
 mkdir build
 pushd build
 
 export LD_LIBRARY_PATH="${PWD}/install/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 cmake ..
-make
+cmake --build .
 
 cd drake_external_examples
 ctest -V .
@@ -23,4 +21,3 @@ popd
 chmod -R a+w build || true
 rm -rf build
 
-popd

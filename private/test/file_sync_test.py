@@ -22,9 +22,7 @@ COPIES = (
     ),
     (
         "drake_bazel_download/.github/ubuntu_setup",
-        "drake_bazel_external/.github/ubuntu_setup",
         "drake_catkin_installed/.github/ubuntu_setup",
-        "drake_cmake_external/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
     ),
     (
@@ -47,12 +45,12 @@ COPIES = (
         "drake_cmake_installed_apt/LICENSE",
     ),
     (
-        "drake_bazel_external/.github/setup",
-        "drake_cmake_external/.github/setup",
+        "drake_bazel_external/.github/ubuntu_setup",
+        "drake_cmake_external/.github/ubuntu_setup",
     ),
     (
-        "drake_bazel_external/setup/install_prereqs",
-        "drake_cmake_external/setup/install_prereqs",
+        "drake_bazel_external/.github/setup",
+        "drake_cmake_external/.github/setup",
     ),
 )
 

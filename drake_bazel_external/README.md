@@ -7,13 +7,19 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, install the required Ubuntu packages:
+First, download the drake source to a location of your choice, importantly
+not this directory, and run the source setup script to install the required
+Ubuntu packages:
 
 ```
-sudo setup/install_prereqs
+mkdir ~/drake_install
+wget -O drake.tar.gz \
+  https://github.com/RobotLocomotion/drake/archive/master.tar.gz
+tar -xf drake.tar.gz -C ~/drake_install
+sudo ~/drake_install/drake-master/setup/ubuntu/install_prereqs.sh
 ```
 
-Then, to build and test all apps:
+Then, build and test all apps:
 ```
 bazel test //...
 ```
