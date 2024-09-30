@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   macos_sonoma_arm_cmake_installed:
-    uses: RobotLocomotion/drake-external-examples/drake_cmake_intstalled/.github/workflows/ci.yml@main
+    uses: ./.github/workflows/cmake_installed.yml
   ros_humble_ament_cmake_installed:
     name: ros 2 humble ament cmake installed
     runs-on: ubuntu-latest
