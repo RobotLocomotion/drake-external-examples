@@ -72,4 +72,4 @@ jobs:
         run: ./drake_cmake_installed/.github/ci_build_test
         shell: bash
   ubuntu_jammy_cmake_installed_apt:
-    uses: ./drake_cmake_installed_apt/.github/workflows/ci.yml@main
+    uses: ./.github/workflows/cmake_installed_apt.yml
