@@ -20,7 +20,18 @@ jobs:
   macos_sonoma_arm_cmake_installed:
     uses: ./drake_cmake_intstalled/.github/workflows/ci.yml@main
   ros_humble_ament_cmake_installed:
-    uses: ./drake_ament_cmake_installed/.github/workflows/ci.yml
+    name: ros 2 humble ament cmake installed
+      runs-on: ubuntu-latest
+      container: ubuntu:jammy
+      steps:
+        - name: checkout
+          uses: actions/checkout@v4
+        - name: setup
+          run: ./drake_ament_cmake_installed/.github/ros_humble_setup
+          shell: bash
+        - name: ament_cmake_installed build and test
+          run: ./drake_ament_cmake_installed/.github/ci_build_test
+          shell: bash
   ubuntu_jammy_bazel_download:
     name: ubuntu 22.04 jammy bazel download
     runs-on: ubuntu-latest
