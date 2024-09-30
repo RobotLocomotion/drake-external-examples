@@ -18,9 +18,9 @@ concurrency:
   cancel-in-progress: true
 jobs:
   macos_sonoma_arm_cmake_installed:
-    uses: ./drake_cmake_intstalled/.github/workflows/ci.yml
+    uses: ./drake_cmake_intstalled/.github/workflows/ci.yml@main
   ros_humble_ament_cmake_installed:
-    uses: ./drake_ament_cmake_installed/.github/workflows/ci.yml
+    uses: ./drake_ament_cmake_installed/.github/workflows/ci.yml@main
   ubuntu_jammy_bazel_download:
     name: ubuntu 22.04 jammy bazel download
     runs-on: ubuntu-latest
@@ -61,4 +61,4 @@ jobs:
         run: ./drake_cmake_installed/.github/ci_build_test
         shell: bash
   ubuntu_jammy_cmake_installed_apt:
-    uses: ./drake_cmake_installed_apt/.github/workflows/ci.yml
+    uses: ./drake_cmake_installed_apt/.github/workflows/ci.yml@main
