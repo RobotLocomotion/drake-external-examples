@@ -20,7 +20,7 @@ jobs:
   macos_sonoma_arm_cmake_installed:
     uses: ./drake_cmake_intstalled/.github/workflows/ci.yml@main
   ros_humble_ament_cmake_installed:
-    uses: ./drake_ament_cmake_installed/.github/workflows/ci.yml@main
+    uses: ./drake_ament_cmake_installed/.github/workflows/ci.yml
   ubuntu_jammy_bazel_download:
     name: ubuntu 22.04 jammy bazel download
     runs-on: ubuntu-latest
