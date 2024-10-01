@@ -39,6 +39,11 @@ COPIES = (
         "drake_cmake_installed/LICENSE",
         "drake_cmake_installed_apt/LICENSE",
     ),
+    (
+        "drake_bazel_download/.github/ubuntu_setup",
+        "drake_catkin_installed/.github/ubuntu_setup",
+        "drake_cmake_installed/.github/ubuntu_setup",
+    ),
 )
 
 found_errors = False
