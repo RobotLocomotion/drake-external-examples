@@ -77,7 +77,4 @@ EOF
 
 locale-gen en_US.UTF-8
 
-apt-get install --no-install-recommends $(cat <<EOF
-  python3-pkg-resources
-EOF
-)
+
