@@ -31,20 +31,6 @@
 
 set -euxo pipefail
 
-ros_humble=0
-
-while [ "${1:-}" != "" ]; do
-  case "$1" in
-    --ros-humble)
-      ros_humble=1
-      ;;
-    *)
-      echo 'Invalid command line argument' >&2
-      exit 1
-  esac
-  shift
-done
-
 if [[ "${EUID:-}" -ne 0 ]]; then
   echo 'This script must be run as root' >&2
   exit 2
@@ -92,26 +78,8 @@ EOF
 
 locale-gen en_US.UTF-8
 
-if [[ ${ros_humble} -eq 1 ]]; then
-  apt-key adv --fetch-keys \
-    https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
-  echo 'deb http://packages.ros.org/ros2/ubuntu jammy main' \
-    > /etc/apt/sources.list.d/ros2-latest.list
-
-  apt-get update
-  apt-get install --no-install-recommends $(cat <<EOF
-    python3-colcon-common-extensions
-    ros-humble-ament-cmake
-    ros-humble-ament-cmake-gtest
-    ros-humble-ament-cmake-lint-cmake
-    ros-humble-ament-cmake-xmllint
-    ros-humble-ament-lint-auto
-EOF
-  )
-else
-  apt-get install --no-install-recommends $(cat <<EOF
+apt-get install --no-install-recommends $(cat <<EOF
   catkin
   python3-pkg-resources
 EOF
-  )
-fi
+)
