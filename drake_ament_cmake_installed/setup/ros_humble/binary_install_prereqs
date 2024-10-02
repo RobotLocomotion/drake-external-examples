@@ -83,13 +83,10 @@ echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   libgflags-dev
-  locales
   pkg-config
   python3-all-dev
 EOF
 )
-
-locale-gen en_US.UTF-8
 
 if [[ ${ros_humble} -eq 1 ]]; then
   apt-key adv --fetch-keys \

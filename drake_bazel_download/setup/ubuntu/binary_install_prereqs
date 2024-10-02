@@ -70,13 +70,7 @@ apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
   libgflags-dev
-  locales
   pkg-config
   python3-all-dev
 EOF
 )
-
-locale-gen en_US.UTF-8
-
-
-
