@@ -8,4 +8,4 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-./scripts/setup/linux/ubuntu/jammy/binary_install_prereqs
+./drake_catkin_installed/setup/ubuntu/binary_install_prereqs
