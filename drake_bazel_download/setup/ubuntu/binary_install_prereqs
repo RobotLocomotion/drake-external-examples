@@ -71,6 +71,5 @@ apt-get install --no-install-recommends $(cat <<EOF
   bazel
   libgflags-dev
   pkg-config
-  python3-all-dev
 EOF
 )
