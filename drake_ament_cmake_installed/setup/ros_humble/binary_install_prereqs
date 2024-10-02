@@ -108,3 +108,4 @@ if [[ ${ros_humble} -eq 1 ]]; then
     ros-humble-ament-lint-auto
 EOF
   )
+fi
