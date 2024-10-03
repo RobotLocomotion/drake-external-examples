@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-sudo ./scripts/continuous_integration/jenkins/ubuntu_setup
+sudo ./drake_bazel_external/.github/ubuntu_setup
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}

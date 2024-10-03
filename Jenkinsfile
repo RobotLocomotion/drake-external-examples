@@ -18,7 +18,7 @@ node('linux-jammy-unprovisioned') {
             checkout scm
           }
           stage('setup') {
-            sh './scripts/continuous_integration/jenkins/setup'
+            sh './drake_bazel_external/.github/setup'
           }
           stage('bazel_external build and test') {
             sh './drake_bazel_external/.github/ci_build_test'
