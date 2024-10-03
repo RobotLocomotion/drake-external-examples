@@ -69,7 +69,6 @@ echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   libgflags-dev
-  pkg-config
   python3-all-dev
 EOF
 )
