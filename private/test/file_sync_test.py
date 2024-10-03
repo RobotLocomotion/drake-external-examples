@@ -44,6 +44,10 @@ COPIES = (
         "drake_catkin_installed/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
     ),
+    (
+        "drake_bazel_external/setup/ubuntu/install_prereqs",
+        "drake_cmake_external/setup/ubuntu/install_prereqs",
+    ),
 )
 
 found_errors = False
