@@ -60,8 +60,6 @@ echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
 /opt/drake/share/drake/setup/install_prereqs
 
-apt-get install --no-install-recommends gnupg
-
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   libgflags-dev
