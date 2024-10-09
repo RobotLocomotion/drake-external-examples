@@ -69,6 +69,9 @@ wget -O drake.tar.gz \
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C /opt
 
+# Show version for debugging; use echo for newline / readability.
+echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
+
 /opt/drake/share/drake/setup/install_prereqs
 
 apt-get install --no-install-recommends gnupg

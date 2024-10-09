@@ -21,6 +21,11 @@ COPIES = (
         "drake_cmake_installed_apt/.clang-format",
     ),
     (
+        "drake_bazel_download/.github/ubuntu_setup",
+        "drake_catkin_installed/.github/ubuntu_setup",
+        "drake_cmake_installed/.github/ubuntu_setup",
+    ),
+    (
         "drake_ament_cmake_installed/CPPLINT.cfg",
         "drake_bazel_download/CPPLINT.cfg",
         "drake_bazel_external/CPPLINT.cfg",
