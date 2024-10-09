@@ -8,5 +8,5 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-cd "$(dirname "${BASH_SOURCE}")"
-. "../setup/ros_humble/binary_install_prereqs" --ros-humble
+cd $(dirname "${BASH_SOURCE}")/..
+setup/ros_humble/binary_install_prereqs --ros-humble
