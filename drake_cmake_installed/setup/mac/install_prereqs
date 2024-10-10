@@ -16,7 +16,7 @@ if [[ ! -d /opt/drake ]]; then
 fi
 
 # Install Drake dependencies.
-curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
+curl -o drake.tar.gz  https://drake-packages.csail.mit.edu/drake/experimental/drake-0.0.20241010.134805%2Bgit0421489c-mac-arm64.tar.gz
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C /opt
 
