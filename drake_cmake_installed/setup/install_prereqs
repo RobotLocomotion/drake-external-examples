@@ -31,75 +31,64 @@
 
 set -euxo pipefail
 
-mac=0
-
-while [ "${1:-}" != "" ]; do
-  case "$1" in
-    --mac)
-      mac=1
-      ;;
-    *)
-      echo 'Invalid command line argument' >&2
+case "$OSTYPE" in
+    darwin*)
+    # Mac specific installations
+    if [[ "${EUID}" -eq 0 ]]; then
+      echo 'This script must NOT be run as root' >&2
       exit 1
-  esac
-  shift
-done
+    fi
 
-# Mac specific installations
-if [[ ${mac} -eq 1 ]]; then
-  if [[ "${EUID}" -eq 0 ]]; then
-    echo 'This script must NOT be run as root' >&2
-    exit 1
-  fi
+    if [[ ! -d /opt/drake ]]; then
+      sudo mkdir -p /opt/drake
+      sudo chmod g+rwx /opt/drake
+      sudo chown "${USER}" /opt/drake
+      sudo chgrp admin /opt/drake
+    fi
 
-  if [[ ! -d /opt/drake ]]; then
-    sudo mkdir -p /opt/drake
-    sudo chmod g+rwx /opt/drake
-    sudo chown "${USER}" /opt/drake
-    sudo chgrp admin /opt/drake
-  fi
+    # Install Drake dependencies.
+    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
+    trap 'rm -f drake.tar.gz' EXIT
+    tar -xf drake.tar.gz -C /opt
 
-  # Install Drake dependencies.
-  curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
-  trap 'rm -f drake.tar.gz' EXIT
-  tar -xf drake.tar.gz -C /opt
+    # Install additional dependencies needed to build example
+    brew bundle --file="$(dirname "${BASH_SOURCE}")/Brewfile"
+    ;;
 
-  # Install additional dependencies needed to build example
-  brew bundle --file="$(dirname "${BASH_SOURCE}")/Brewfile"
+    linux*)
+    # Ubuntu specific installations
+    if [[ "${EUID:-}" -ne 0 ]]; then
+      echo 'This script must be run as root' >&2
+      exit 2
+    fi
 
-# Ubuntu specific installations
-else
-  if [[ "${EUID:-}" -ne 0 ]]; then
-    echo 'This script must be run as root' >&2
-    exit 2
-  fi
+    apt-get update
+    apt-get install --no-install-recommends lsb-release
 
-  apt-get update
-  apt-get install --no-install-recommends lsb-release
+    if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
+      echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
+      exit 3
+    fi
 
-  if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
-    echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
-    exit 3
-  fi
-
-  apt-get install --no-install-recommends $(cat <<EOF
-    ca-certificates
-    wget
+    apt-get install --no-install-recommends $(cat <<EOF
+      ca-certificates
+      wget
 EOF
-  )
+    )
 
-  wget -O drake.tar.gz \
-    https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
-  trap 'rm -f drake.tar.gz' EXIT
-  tar -xf drake.tar.gz -C /opt
+    wget -O drake.tar.gz \
+      https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
+    trap 'rm -f drake.tar.gz' EXIT
+    tar -xf drake.tar.gz -C /opt
 
-  apt-get update
-  apt-get install --no-install-recommends $(cat <<EOF
-    libgflags-dev
-    python3-all-dev
+    apt-get update
+    apt-get install --no-install-recommends $(cat <<EOF
+      libgflags-dev
+      python3-all-dev
 EOF
-  )
-fi
+    )
+    ;;
+esac
 
 # Show version for debugging; use echo for newline / readability.
 echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
