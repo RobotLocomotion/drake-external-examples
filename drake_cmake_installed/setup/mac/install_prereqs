@@ -20,10 +20,13 @@ curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-la
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C /opt
 
+# Install additional dependencies needed to build example
+brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
+
 # Show version for debugging; use echo for newline / readability.
 echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
 /opt/drake/share/drake/setup/install_prereqs
 
 # Install additional dependencies needed to build example
-brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
+#brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
