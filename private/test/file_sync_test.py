@@ -49,6 +49,14 @@ COPIES = (
 found_errors = False
 
 
+def _ordinalize(number: int) -> str:
+    if (number % 100) // 10 == 1:
+        return f"{number}th"
+
+    SUFFIXES = {1: "st", 2: "nd", 3: "rd"}
+    return f"{number}{SUFFIXES.get(number % 10, 'th')}"
+
+
 def error(message: str):
     logging.error(message)
     global found_errors
@@ -58,12 +66,13 @@ def error(message: str):
 def check(index: int, paths: tuple[str]):
     # For readability, enforce that the lists are sorted.
     first_name = Path(paths[0]).name
-    prologue = f"The {index+1}th list of files (containing {first_name})"
+    prologue = (f"The {_ordinalize(index + 1)} list of files"
+                f" (containing {first_name})")
     if list(paths) != sorted(paths):
         error(f"{prologue} is not alpha-sorted; fix the file_sync_test code.")
 
     # Read all of the files into memory.
-    content = dict()
+    content = {}
     for path in paths:
         try:
             with open(path, "rb") as f:
