@@ -45,6 +45,7 @@ while [ "${1:-}" != "" ]; do
   shift
 done
 
+# Mac specific installations
 if [[ ${mac} -eq 1 ]]; then
   if [[ "${EUID}" -eq 0 ]]; then
     echo 'This script must NOT be run as root' >&2
@@ -66,6 +67,7 @@ if [[ ${mac} -eq 1 ]]; then
   # Install additional dependencies needed to build example
   brew bundle --file="$(dirname "${BASH_SOURCE}")/Brewfile"
 
+# Ubuntu specific installations
 else
   if [[ "${EUID:-}" -ne 0 ]]; then
     echo 'This script must be run as root' >&2
