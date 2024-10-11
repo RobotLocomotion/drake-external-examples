@@ -105,3 +105,15 @@ jobs:
       - name: cmake_installed_apt build and test
         run: ./drake_cmake_installed_apt/.github/ci_build_test
         shell: bash
+  file_sync:
+    name: file sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: file_sync test
+        run: python ./private/test/file_sync_test.py
