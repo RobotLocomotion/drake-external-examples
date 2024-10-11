@@ -64,7 +64,7 @@ if [[ ${mac} -eq 1 ]]; then
   tar -xf drake.tar.gz -C /opt
 
   # Install additional dependencies needed to build example
-  brew bundle --file="$(dirname ${(%):-%x})/Brewfile"
+  brew bundle --file="$(dirname "${BASH_SOURCE}")/Brewfile"
 
 else
   if [[ "${EUID:-}" -ne 0 ]]; then
