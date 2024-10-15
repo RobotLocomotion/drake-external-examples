@@ -23,10 +23,17 @@ execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 
-get_filename_component(PYTHONPATH
-  "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
-  REALPATH
-)
+if(APPLE)
+  get_filename_component(PYTHONPATH
+    "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
+    REALPATH
+  )
+else()
+  get_filename_component(PYTHONPATH
+    "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
+    REALPATH
+  )
+endif()
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
