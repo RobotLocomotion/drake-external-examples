@@ -11,32 +11,18 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
-if(APPLE)
-  find_package(Python 3.12 EXACT REQUIRED COMPONENTS Interpreter Development)
+find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
-  execute_process(COMMAND ${PYTHON_EXECUTABLE}-config --exec-prefix
-    OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-  list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
+execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
+  OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 
-  get_filename_component(PYTHONPATH
-    "${drake_DIR}/../../python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages"
-    REALPATH
-  )
-else()
-  find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-
-  execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
-    OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
-  list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
-
-  get_filename_component(PYTHONPATH
-    "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
-    REALPATH
-  )
+get_filename_component(PYTHONPATH
+  "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
+  REALPATH
+)
 endif()
 
 set(CMAKE_CXX_EXTENSIONS OFF)
