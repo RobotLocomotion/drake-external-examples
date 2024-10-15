@@ -21,7 +21,7 @@ if(APPLE)
   list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 
   get_filename_component(PYTHONPATH
-    "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
+    "${drake_DIR}/../../python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages"
     REALPATH
   )
 else()
