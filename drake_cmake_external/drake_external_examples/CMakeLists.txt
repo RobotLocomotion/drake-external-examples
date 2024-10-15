@@ -1,22 +1,25 @@
 # SPDX-License-Identifier: MIT-0
 
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.16)
 project(drake_external_examples)
 
-include(CTest)
-
-if(APPLE)
-  set(FIND_PYTHON_INTERP_VERSION 3.12)
-else()
-  set(FIND_PYTHON_INTERP_VERSION 3.6)
-endif()
-find_package(PythonInterp ${FIND_PYTHON_INTERP_VERSION} MODULE REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 find_package(drake CONFIG REQUIRED)
 
-get_filename_component(PYTHONPATH
-  "${drake_DIR}/../../python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages"
-  REALPATH
+add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
+target_link_libraries(simple_continuous_time_system drake::drake)
+
+
+include(CTest)
+
+add_test(NAME simple_continuous_time_system
+  COMMAND simple_continuous_time_system
 )
 
-add_subdirectory(apps)
+add_test(NAME import_all_test COMMAND
+  "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/import_all_test.py"
+)
+set_tests_properties(import_all_test PROPERTIES
+  ENVIRONMENT "PYTHONPATH=${Python_SITELIB}"
+)
