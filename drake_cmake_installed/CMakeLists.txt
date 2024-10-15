@@ -11,7 +11,7 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+find_package(Python 3.12 REQUIRED COMPONENTS Interpreter Development)
 
 execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
