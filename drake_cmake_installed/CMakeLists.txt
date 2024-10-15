@@ -13,14 +13,14 @@ find_package(drake CONFIG REQUIRED)
 
 find_package(Python 3.12 EXACT REQUIRED COMPONENTS Interpreter Development)
 
-execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
+execute_process(COMMAND ${Python_EXECUTABLE}-config --exec-prefix
   OUTPUT_VARIABLE PYTHON_EXEC_PREFIX
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 
 get_filename_component(PYTHONPATH
-  "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
+  "${drake_DIR}/../../python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages"
   REALPATH
 )
 
