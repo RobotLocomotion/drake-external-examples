@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (c) 2020, Massachusetts Institute of Technology.
 # All rights reserved.
 #
@@ -27,9 +29,67 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM ubuntu:jammy
-COPY ./install_prereqs /tmp/install_prereqs
-RUN export DEBIAN_FRONTEND=noninteractive \
-  && yes | /tmp/install_prereqs \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -f /tmp/install_prereqs
+set -euxo pipefail
+
+ros_humble=0
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --ros-humble)
+      ros_humble=1
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+if [[ "${EUID:-}" -ne 0 ]]; then
+  echo 'This script must be run as root' >&2
+  exit 2
+fi
+
+apt-get update
+apt-get install --no-install-recommends lsb-release
+
+if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
+  echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
+  exit 3
+fi
+
+apt-get install --no-install-recommends $(cat <<EOF
+  ca-certificates
+  wget
+EOF
+)
+
+wget -O drake.tar.gz \
+  https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
+trap 'rm -f drake.tar.gz' EXIT
+tar -xf drake.tar.gz -C /opt
+
+# Show version for debugging; use echo for newline / readability.
+echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
+
+/opt/drake/share/drake/setup/install_prereqs
+
+apt-get install --no-install-recommends gnupg
+
+if [[ ${ros_humble} -eq 1 ]]; then
+  apt-key adv --fetch-keys \
+    https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+  echo 'deb http://packages.ros.org/ros2/ubuntu jammy main' \
+    > /etc/apt/sources.list.d/ros2-latest.list
+
+  apt-get update
+  apt-get install --no-install-recommends $(cat <<EOF
+    python3-colcon-common-extensions
+    ros-humble-ament-cmake
+    ros-humble-ament-cmake-gtest
+    ros-humble-ament-cmake-lint-cmake
+    ros-humble-ament-cmake-xmllint
+    ros-humble-ament-lint-auto
+EOF
+  )
+fi

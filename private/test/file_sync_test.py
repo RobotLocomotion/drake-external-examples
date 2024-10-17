@@ -21,6 +21,11 @@ COPIES = (
         "drake_cmake_installed_apt/.clang-format",
     ),
     (
+        "drake_bazel_download/.github/ubuntu_setup",
+        "drake_catkin_installed/.github/ubuntu_setup",
+        "drake_cmake_installed/.github/ubuntu_setup",
+    ),
+    (
         "drake_ament_cmake_installed/CPPLINT.cfg",
         "drake_bazel_download/CPPLINT.cfg",
         "drake_bazel_external/CPPLINT.cfg",
@@ -40,17 +45,20 @@ COPIES = (
         "drake_cmake_installed_apt/LICENSE",
     ),
     (
-        "drake_bazel_download/.github/ubuntu_setup",
-        "drake_catkin_installed/.github/ubuntu_setup",
-        "drake_cmake_installed/.github/ubuntu_setup",
-    ),
-    (
-        "drake_bazel_external/setup/ubuntu/install_prereqs",
-        "drake_cmake_external/setup/ubuntu/install_prereqs",
+        "drake_bazel_external/setup/install_prereqs",
+        "drake_cmake_external/setup/install_prereqs",
     ),
 )
 
 found_errors = False
+
+
+def _ordinalize(number: int) -> str:
+    if (number % 100) // 10 == 1:
+        return f"{number}th"
+
+    SUFFIXES = {1: "st", 2: "nd", 3: "rd"}
+    return f"{number}{SUFFIXES.get(number % 10, 'th')}"
 
 
 def error(message: str):
@@ -62,12 +70,13 @@ def error(message: str):
 def check(index: int, paths: tuple[str]):
     # For readability, enforce that the lists are sorted.
     first_name = Path(paths[0]).name
-    prologue = f"The {index+1}th list of files (containing {first_name})"
+    prologue = (f"The {_ordinalize(index + 1)} list of files"
+                f" (containing {first_name})")
     if list(paths) != sorted(paths):
         error(f"{prologue} is not alpha-sorted; fix the file_sync_test code.")
 
     # Read all of the files into memory.
-    content = dict()
+    content = {}
     for path in paths:
         try:
             with open(path, "rb") as f:
