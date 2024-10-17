@@ -17,16 +17,14 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  macos_sonoma_arm_cmake_installed:
+  cmake_installed:
     uses: ./.github/workflows/cmake_installed.yml
-  ros_humble_ament_cmake_installed:
+  ament_cmake_installed:
     uses: ./.github/workflows/ament_cmake_installed.yml
-  ubuntu_jammy_bazel_download:
+  bazel_download:
     uses: ./.github/workflows/bazel_download.yml
-  ubuntu_jammy_catkin_installed:
+  catkin_installed:
     uses: ./.github/workflows/catkin_installed.yml
-  ubuntu_jammy_cmake_installed:
-    uses: ./.github/workflows/cmake_installed_ubuntu.yml
   cmake_installed_apt:
     uses: ./.github/workflows/cmake_installed_apt.yml
   file_sync:

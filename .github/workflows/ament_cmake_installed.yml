@@ -7,7 +7,7 @@ on:
 
 jobs:
   ros_humble_ament_cmake_installed:
-      name: ros 2 humble ament cmake installed
+      name: ros 2 humble
       runs-on: ubuntu-latest
       container: ubuntu:jammy
       steps:

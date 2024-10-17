@@ -7,7 +7,7 @@ on:
 
 jobs:
   macos_sonoma_arm_cmake_installed:
-    name: macos sonoma 14 arm cmake installed
+    name: macos sonoma 14 arm
     runs-on: macos-14
     steps:
       - name: checkout
@@ -29,3 +29,16 @@ jobs:
       - name: cmake_installed build and test
         run: ./drake_cmake_installed/.github/ci_build_test
         shell: zsh -efuo pipefail {0}
+  ubuntu_jammy_cmake_installed:
+    name: ubuntu 22.04 jammy
+    runs-on: ubuntu-latest
+    container: ubuntu:jammy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup
+        run: ./drake_cmake_installed/.github/ubuntu_setup
+        shell: bash
+      - name: cmake_installed build and test
+        run: ./drake_cmake_installed/.github/ci_build_test
+        shell: bash

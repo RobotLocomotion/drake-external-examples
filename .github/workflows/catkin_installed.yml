@@ -7,7 +7,7 @@ on:
 
 jobs:
   ubuntu_jammy_catkin_installed:
-    name: ubuntu 22.04 jammy catkin installed
+    name: ubuntu 22.04 jammy
     runs-on: ubuntu-latest
     container: ubuntu:jammy
     steps:

@@ -7,7 +7,7 @@ on:
 
 jobs:
   ubuntu_jammy_bazel_download:
-    name: ubuntu 22.04 jammy bazel download
+    name: ubuntu 22.04 jammy
     runs-on: ubuntu-latest
     container: ubuntu:jammy
     steps:
