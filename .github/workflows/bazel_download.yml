@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MIT-0
+
+---
+name: ci
+on:
+  workflow_call:
+
+jobs:
+  ubuntu_jammy_bazel_download:
+    name: ubuntu 22.04 jammy
+    runs-on: ubuntu-latest
+    container: ubuntu:jammy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup
+        run: ./drake_bazel_download/.github/ubuntu_setup
+        shell: bash
+      - name: bazel_download build and test
+        run: ./drake_bazel_download/.github/ci_build_test
+        shell: bash
