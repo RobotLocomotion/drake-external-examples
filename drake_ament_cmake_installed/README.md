@@ -10,7 +10,7 @@ Drake [binary packages](https://drake.mit.edu/from_binary.html).
 To use `ament_cmake` and `colcon` from the ROS 2 Humble package archive, install
 the required packages and configure your environment as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/jammy/binary_install_prereqs --ros-humble
+sudo ./setup/install_prereqs --ros-humble
 source /opt/ros/humble/setup.bash
 ```
 
