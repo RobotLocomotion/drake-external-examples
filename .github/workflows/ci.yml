@@ -26,7 +26,7 @@ jobs:
   catkin_installed:
     uses: ./.github/workflows/catkin_installed.yml
   cmake_installed_apt:
-    uses: ./.github/workflows/cmake_installed_apt.yml
+    uses: ./drake_cmake_installed_apt/.github/workflows/cmake_installed_apt.yml
   file_sync:
     name: file sync
     runs-on: ubuntu-latest
