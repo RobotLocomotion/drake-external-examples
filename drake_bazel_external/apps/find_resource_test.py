@@ -13,4 +13,4 @@ from pydrake.common import FindResourceOrThrow
 # how `FindResource*` is searching.
 logging.getLogger("drake").setLevel(logging.DEBUG)
 
-FindResourceOrThrow("drake/examples/pendulum/Pendulum.urdf")
+FindResourceOrThrow("drake/examples/pendulum/PendulumDOESNTEXIST.urdf")

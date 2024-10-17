@@ -34,7 +34,7 @@ class SimpleContinuousTimeSystem : public drake::systems::LeafSystem<double> {
   void DoCalcTimeDerivatives(
       const drake::systems::Context<double>& context,
       drake::systems::ContinuousState<double>* derivatives) const override {
-    const double x = context.get_continuous_state()[0];
+    const double x = context.get_continuous_state_BUILD_ERROR()[0];
     const double xdot = -x + std::pow(x, 3.0);
     (*derivatives)[0] = xdot;
   }
