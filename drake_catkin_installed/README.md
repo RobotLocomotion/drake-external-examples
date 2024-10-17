@@ -9,7 +9,7 @@ Drake [binary packages](https://drake.mit.edu/from_binary.html).
 If you wish use `catkin` from the Ubuntu package archive, without ROS Humble,
 install the required packages as follows:
 ```
-sudo ../scripts/setup/linux/ubuntu/jammy/binary_install_prereqs
+sudo ./setup/install_prereqs
 ```
 
 If you wish use `catkin` from ROS Humble package archive, install the required
