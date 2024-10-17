@@ -11,6 +11,7 @@ on:
       - main
   schedule:
     - cron: '0 12 * * *'
+  workflow_dispatch:
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -41,70 +42,15 @@ jobs:
         run: ./drake_cmake_installed/.github/ci_build_test
         shell: zsh -efuo pipefail {0}
   ros_humble_ament_cmake_installed:
-    name: ros 2 humble ament cmake installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_ament_cmake_installed/.github/ros_humble_setup
-        shell: bash
-      - name: ament_cmake_installed build and test
-        run: ./drake_ament_cmake_installed/.github/ci_build_test
-        shell: bash
+    uses: ./.github/workflows/ament_cmake_installed.yml
   ubuntu_jammy_bazel_download:
-    name: ubuntu 22.04 jammy bazel download
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_bazel_download/.github/ubuntu_setup
-        shell: bash
-      - name: bazel_download build and test
-        run: ./drake_bazel_download/.github/ci_build_test
-        shell: bash
+    uses: ./.github/workflows/bazel_download.yml
   ubuntu_jammy_catkin_installed:
-    name: ubuntu 22.04 jammy catkin installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_catkin_installed/.github/ubuntu_setup
-        shell: bash
-      - name: catkin_installed build and test
-        run: ./drake_catkin_installed/.github/ci_build_test
-        shell: bash
+    uses: ./.github/workflows/catkin_installed.yml
   ubuntu_jammy_cmake_installed:
-    name: ubuntu 22.04 jammy cmake installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_cmake_installed/.github/ubuntu_setup
-        shell: bash
-      - name: cmake_installed build and test
-        run: ./drake_cmake_installed/.github/ci_build_test
-        shell: bash
+    uses: ./.github/workflows/cmake_installed_ubuntu.yml
   ubuntu_jammy_cmake_installed_apt:
-    name: ubuntu 22.04 jammy cmake installed apt
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_cmake_installed_apt/.github/ubuntu_apt_setup
-        shell: bash
-      - name: cmake_installed_apt build and test
-        run: ./drake_cmake_installed_apt/.github/ci_build_test
-        shell: bash
+    uses: ./.github/workflows/cmake_installed_apt.yml
   file_sync:
     name: file sync
     runs-on: ubuntu-latest
