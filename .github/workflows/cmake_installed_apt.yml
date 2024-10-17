@@ -7,7 +7,7 @@ on:
 
 jobs:
   ubuntu_jammy_cmake_installed_apt:
-    name: ubuntu 22.04 jammy cmake installed apt
+    name: ubuntu 22.04 jammy
     runs-on: ubuntu-latest
     container: ubuntu:jammy
     steps:

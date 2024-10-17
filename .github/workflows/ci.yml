@@ -27,7 +27,7 @@ jobs:
     uses: ./.github/workflows/catkin_installed.yml
   ubuntu_jammy_cmake_installed:
     uses: ./.github/workflows/cmake_installed_ubuntu.yml
-  ubuntu_jammy_cmake_installed_apt:
+  cmake_installed_apt:
     uses: ./.github/workflows/cmake_installed_apt.yml
   file_sync:
     name: file sync
