@@ -1,0 +1,13 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+cd $(dirname "${BASH_SOURCE}")
+sudo ./ubuntu_setup
+
+cat > "${HOME}/.bazelrc" << EOF
+startup --output_user_root=${WORKSPACE}/_bazel_${USER}
+test --color=yes
+test --keep_going
+EOF

@@ -3,7 +3,8 @@
 
 set -euxo pipefail
 
-sudo ./scripts/continuous_integration/jenkins/ubuntu_setup
+cd $(dirname "${BASH_SOURCE}")
+sudo ./ubuntu_setup
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}
