@@ -11,7 +11,7 @@ These instructions are only supported for Ubuntu 22.04 (Jammy).
 # Install Prerequisites
 ###############################################################
 # Various system dependencies
-sudo ./setup/install_prereqs
+sudo setup/install_prereqs
 
 # (Optionally) Install GTest
 # You could also explicitly pull gtest into the CMake build directly:

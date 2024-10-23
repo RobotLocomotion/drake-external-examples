@@ -11,7 +11,7 @@ For an introduction to Bazel, refer to
 First, install the required Ubuntu packages:
 
 ```
-sudo ./setup/install_prereqs
+sudo setup/install_prereqs
 ```
 
 Then, to build and test all apps:
