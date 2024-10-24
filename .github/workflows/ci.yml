@@ -17,94 +17,16 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  macos_sonoma_arm_cmake_installed:
-    name: macos sonoma 14 arm cmake installed
-    runs-on: macos-14
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      # See issue https://github.com/actions/setup-python/issues/577.  There is
-      # some kind of environment conflict between the symlinks found in the
-      # GitHub Actions runner and `brew upgrade python` where `brew` detects and
-      # refuses to overwrite symlinks.  The cause for our runs is not clear,
-      # we do not use that action, but if that issue is closed this section
-      # can be removed.
-      - name: sanitize GHA / brew python environment
-        run: |
-          # Remove the symlinks that cause issues.
-          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
-          sudo rm -rf /Library/Frameworks/Python.framework/
-      - name: setup
-        run: ./drake_cmake_installed/setup/install_prereqs
-        shell: zsh -efuo pipefail {0}
-      - name: cmake_installed build and test
-        run: ./drake_cmake_installed/.github/ci_build_test
-        shell: zsh -efuo pipefail {0}
-  ros_humble_ament_cmake_installed:
-    name: ros 2 humble ament cmake installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_ament_cmake_installed/.github/ros_humble_setup
-        shell: bash
-      - name: ament_cmake_installed build and test
-        run: ./drake_ament_cmake_installed/.github/ci_build_test
-        shell: bash
-  ubuntu_jammy_bazel_download:
-    name: ubuntu 22.04 jammy bazel download
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_bazel_download/.github/ubuntu_setup
-        shell: bash
-      - name: bazel_download build and test
-        run: ./drake_bazel_download/.github/ci_build_test
-        shell: bash
-  ubuntu_jammy_catkin_installed:
-    name: ubuntu 22.04 jammy catkin installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_catkin_installed/.github/ubuntu_setup
-        shell: bash
-      - name: catkin_installed build and test
-        run: ./drake_catkin_installed/.github/ci_build_test
-        shell: bash
-  ubuntu_jammy_cmake_installed:
-    name: ubuntu 22.04 jammy cmake installed
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_cmake_installed/.github/ubuntu_setup
-        shell: bash
-      - name: cmake_installed build and test
-        run: ./drake_cmake_installed/.github/ci_build_test
-        shell: bash
-  ubuntu_jammy_cmake_installed_apt:
-    name: ubuntu 22.04 jammy cmake installed apt
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./drake_cmake_installed_apt/.github/ubuntu_apt_setup
-        shell: bash
-      - name: cmake_installed_apt build and test
-        run: ./drake_cmake_installed_apt/.github/ci_build_test
-        shell: bash
+  cmake_installed:
+    uses: ./.github/workflows/cmake_installed.yml
+  ament_cmake_installed:
+    uses: ./.github/workflows/ament_cmake_installed.yml
+  bazel_download:
+    uses: ./.github/workflows/bazel_download.yml
+  catkin_installed:
+    uses: ./.github/workflows/catkin_installed.yml
+  cmake_installed_apt:
+    uses: ./.github/workflows/cmake_installed_apt.yml
   file_sync:
     name: file sync
     runs-on: ubuntu-latest
