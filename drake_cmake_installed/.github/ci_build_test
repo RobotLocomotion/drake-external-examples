@@ -16,5 +16,3 @@ popd
 
 chmod -R a+w build || true
 rm -rf build
-
-popd
