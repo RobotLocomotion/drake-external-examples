@@ -8,5 +8,5 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-cd $(dirname "${BASH_SOURCE}")/..
-setup/install_prereqs
+cd $(dirname "${BASH_SOURCE}")/../setup
+install_prereqs
