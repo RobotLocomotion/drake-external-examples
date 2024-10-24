@@ -5,8 +5,6 @@ set -euxo pipefail
 
 cmake --version
 
-pushd drake_cmake_installed
-
 mkdir build
 pushd build
 
