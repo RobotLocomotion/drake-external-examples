@@ -70,6 +70,7 @@ apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
   pkg-config
+  python3-all-dev
   python3-pkg-resources
 EOF
 )
