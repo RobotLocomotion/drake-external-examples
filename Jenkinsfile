@@ -17,11 +17,13 @@ node('linux-jammy-unprovisioned') {
           stage('checkout') {
             checkout scm
           }
+        }
+        dir('src/drake_bazel_external'){
           stage('bazel_external setup') {
-            sh './drake_bazel_external/.github/setup'
+            sh '.github/setup'
           }
           stage('bazel_external build and test') {
-            sh './drake_bazel_external/.github/ci_build_test'
+            sh '.github/ci_build_test'
           }
         }
       } catch (e) {
@@ -58,11 +60,13 @@ node('linux-jammy-unprovisioned') {
           stage('checkout') {
             checkout scm
           }
+        }
+        dir('src/drake_cmake_external'){
           stage('cmake_external setup') {
-            sh './drake_cmake_external/.github/setup'
+            sh '.github/setup'
           }
           stage('cmake_external build and test') {
-            sh './drake_cmake_external/.github/ci_build_test'
+            sh '.github/ci_build_test'
           }
         }
       } catch (e) {
