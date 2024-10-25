@@ -13,10 +13,6 @@ the required packages and configure your environment as follows:
 sudo ../scripts/setup/linux/ubuntu/jammy/binary_install_prereqs --ros-humble
 source /opt/ros/humble/setup.bash
 ```
-Add drake library path to Linux search path.
-```
-echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/drake/lib" >> ~/.bashrc
-```
 
 To build the `drake_ament_cmake_installed` library:
 ```
