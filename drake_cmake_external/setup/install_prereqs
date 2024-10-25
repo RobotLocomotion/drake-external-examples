@@ -31,20 +31,6 @@
 
 set -euxo pipefail
 
-ros_humble=0
-
-while [ "${1:-}" != "" ]; do
-  case "$1" in
-    --ros-humble)
-      ros_humble=1
-      ;;
-    *)
-      echo 'Invalid command line argument' >&2
-      exit 1
-  esac
-  shift
-done
-
 if [[ "${EUID:-}" -ne 0 ]]; then
   echo 'This script must be run as root' >&2
   exit 2
@@ -82,68 +68,7 @@ echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
 
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
-  bazel
-  cmake
-  default-jdk
-  file
-  gfortran
-  git
-  libblas-dev
-  libclang-15-dev
-  libeigen3-dev
   libgflags-dev
-  libgl-dev
-  libglib2.0-dev
-  libglx-dev
-  liblapack-dev
-  libmumps-seq-dev
-  libopengl-dev
-  libspdlog-dev
-  libx11-dev
-  locales
-  nasm
-  ocl-icd-opencl-dev
-  opencl-headers
-  openssh-client
-  patch
-  patchelf
-  pkg-config
-  python-is-python3
   python3-all-dev
-  python3-ipywidgets
-  python3-matplotlib
-  python3-munkres
-  python3-numpy
-  python3-pil
-  python3-pydot
-  python3-pygame
-  python3-yaml
-  zlib1g-dev
 EOF
 )
-
-locale-gen en_US.UTF-8
-
-if [[ ${ros_humble} -eq 1 ]]; then
-  apt-key adv --fetch-keys \
-    https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
-  echo 'deb http://packages.ros.org/ros2/ubuntu jammy main' \
-    > /etc/apt/sources.list.d/ros2-latest.list
-
-  apt-get update
-  apt-get install --no-install-recommends $(cat <<EOF
-    python3-colcon-common-extensions
-    ros-humble-ament-cmake
-    ros-humble-ament-cmake-gtest
-    ros-humble-ament-cmake-lint-cmake
-    ros-humble-ament-cmake-xmllint
-    ros-humble-ament-lint-auto
-EOF
-  )
-else
-  apt-get install --no-install-recommends $(cat <<EOF
-  catkin
-  python3-pkg-resources
-EOF
-  )
-fi
