@@ -54,7 +54,7 @@ ament_export_include_directories(include)
 ament_export_interfaces(export_${PROJECT_NAME})
 ament_export_libraries(${PROJECT_NAME})
 
-# This is required to make the package findable by downstream packages
+# This is required to make the package findable by downstream packages.
 ament_export_dependencies(drake)
 
 ament_package()
