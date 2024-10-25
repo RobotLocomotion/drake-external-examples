@@ -69,6 +69,7 @@ echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
+  gfortran
   git
   libblas-dev
   libclang-15-dev
