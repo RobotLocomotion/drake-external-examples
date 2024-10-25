@@ -50,10 +50,6 @@ COPIES = (
         "drake_bazel_external/.github/setup",
         "drake_cmake_external/.github/setup",
     ),
-    (
-        "drake_bazel_external/setup/install_prereqs",
-        "drake_cmake_external/setup/install_prereqs",
-    ),
 )
 
 found_errors = False

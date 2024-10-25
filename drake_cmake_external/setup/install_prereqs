@@ -68,7 +68,42 @@ echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
 
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
+  bazel
+  cmake
+  default-jdk
+  file
+  gfortran
+  git
+  libblas-dev
+  libclang-15-dev
+  libeigen3-dev
   libgflags-dev
+  libgl-dev
+  libglib2.0-dev
+  libglx-dev
+  liblapack-dev
+  libmumps-seq-dev
+  libopengl-dev
+  libspdlog-dev
+  libx11-dev
+  locales
+  nasm
+  ocl-icd-opencl-dev
+  opencl-headers
+  openssh-client
+  patch
+  patchelf
+  pkg-config
+  python-is-python3
   python3-all-dev
+  python3-ipywidgets
+  python3-matplotlib
+  python3-munkres
+  python3-numpy
+  python3-pil
+  python3-pydot
+  python3-pygame
+  python3-yaml
+  zlib1g-dev
 EOF
 )
