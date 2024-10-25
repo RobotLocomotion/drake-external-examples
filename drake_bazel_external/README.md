@@ -3,7 +3,7 @@
 This pulls in Drake via the Bazel workspace mechanism.
 
 For an introduction to Bazel, refer to
-[Getting Started with Bazel](https://docs.bazel.build/versions/master/getting-started.html).
+[Getting Started with Bazel](https://bazel.build/start).
 
 ## Instructions
 

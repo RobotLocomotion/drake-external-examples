@@ -1,6 +1,0 @@
-# -*- mode: yaml -*-
-# vi: set ft=yaml :
-# SPDX-License-Identifier: MIT-0
-
----
-Checks: 'clang-analyzer-*,clang-diagnostic-*,cppcoreguidelines-*,google-*,modernize-*,performance-*,readability-*'

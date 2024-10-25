@@ -17,97 +17,25 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  macos_sonoma_arm:
-    name: macos sonoma 14 arm
-    runs-on: macos-14
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      # See issue https://github.com/actions/setup-python/issues/577.  There is
-      # some kind of environment conflict between the symlinks found in the
-      # GitHub Actions runner and `brew upgrade python` where `brew` detects and
-      # refuses to overwrite symlinks.  The cause for our runs is not clear,
-      # we do not use that action, but if that issue is closed this section
-      # can be removed.
-      - name: sanitize GHA / brew python environment
-        run: |
-          # Remove the symlinks that cause issues.
-          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
-          sudo rm -rf /Library/Frameworks/Python.framework/
-          #
-          ######################################################################
-          # For brew formulas that have issues during `brew upgrade` due to
-          # symlinks already existing, we use the strategy:
-          #     brew list <formula> && (brew unlink ... )
-          # The `brew list <formula>` will error if it is not installed.  When
-          # the logs say something like "No such keg: /some/path/<formula>"
-          # that means the band-aid can be removed from DEE CI.
-          ######################################################################
-          # On 2023-02-24 `brew upgrade` resulted in a failure linking tcl-tk.
-          brew list tcl-tk && brew unlink tcl-tk
-          #
-          # On 2023-04-06 `brew upgrade` resulted in a failure upgrading `go`.
-          brew list go && ( \
-            brew unlink go && \
-            rm -f /usr/local/bin/go && \
-            rm -f /usr/local/bin/gofmt \
-          )
-          #
-          # On 2023-09-25 there were issues upgrading node@18 from 18.17.1 to
-          # 18.18.0, caused by `brew upgrade`.
-          brew list node@18 && ( \
-            brew unlink node@18 && \
-            rm -rf /usr/local/lib/node_modules/ \
-          )
-          ######################################################################
-          # Run upgrades now to fail-fast (setup scripts do this anyway).
-          ######################################################################
-          brew update && brew upgrade
-          # On 2023-02-16 the pip3.11 symlink was mysteriously missing.
-          brew unlink python@3.11 && brew link python@3.11
-          pip3.11 --version
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/macos_sonoma/setup
-        shell: zsh -efuo pipefail {0}
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/macos_sonoma/build_test
-        shell: zsh -efuo pipefail {0}
-  ros_humble:
-    name: ros 2 humble
+  cmake_installed:
+    uses: ./.github/workflows/cmake_installed.yml
+  ament_cmake_installed:
+    uses: ./.github/workflows/ament_cmake_installed.yml
+  bazel_download:
+    uses: ./.github/workflows/bazel_download.yml
+  catkin_installed:
+    uses: ./.github/workflows/catkin_installed.yml
+  cmake_installed_apt:
+    uses: ./.github/workflows/cmake_installed_apt.yml
+  file_sync:
+    name: file sync
     runs-on: ubuntu-latest
-    container: ubuntu:jammy
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./scripts/continuous_integration/github_actions/ros_humble/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ros_humble/build_test
-        shell: bash
-  ubuntu_jammy:
-    name: ubuntu 22.04 jammy
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_jammy/build_test
-        shell: bash
-  ubuntu_jammy_apt:
-    name: ubuntu 22.04 jammy apt
-    runs-on: ubuntu-latest
-    container: ubuntu:jammy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: setup
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/setup
-        shell: bash
-      - name: build and test
-        run: ./scripts/continuous_integration/github_actions/ubuntu_apt/build_test
-        shell: bash
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: file_sync test
+        run: python ./private/test/file_sync_test.py
