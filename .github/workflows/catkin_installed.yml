@@ -14,8 +14,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
-        run: ./drake_catkin_installed/.github/ubuntu_setup
+        working-directory: drake_catkin_installed
+        run: ./.github/ubuntu_setup
         shell: bash
       - name: catkin_installed build and test
-        run: ./drake_catkin_installed/.github/ci_build_test
+        working-directory: drake_catkin_installed
+        run: ./.github/ci_build_test
         shell: bash

@@ -14,8 +14,10 @@ jobs:
         - name: checkout
           uses: actions/checkout@v4
         - name: setup
-          run: ./drake_ament_cmake_installed/.github/ros_humble_setup
+          working-directory: drake_ament_cmake_installed
+          run: ./.github/ros_humble_setup
           shell: bash
         - name: ament_cmake_installed build and test
-          run: ./drake_ament_cmake_installed/.github/ci_build_test
+          working-directory: drake_ament_cmake_installed
+          run: ./.github/ci_build_test
           shell: bash
