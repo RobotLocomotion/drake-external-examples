@@ -47,6 +47,10 @@ COPIES = (
         "drake_cmake_installed_apt/LICENSE",
     ),
     (
+        "drake_bazel_download/.bazeliskrc",
+        "drake_bazel_external/.bazeliskrc",
+    ),
+    (
         "drake_bazel_external/.github/setup",
         "drake_cmake_external/.github/setup",
     ),
