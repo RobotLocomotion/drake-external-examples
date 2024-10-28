@@ -81,8 +81,6 @@ apt-get install --no-install-recommends $(cat <<EOF
   libopengl-dev
   libx11-dev
   nasm
-  patch
-  patchelf
   pkg-config
   python3-all-dev
 EOF
