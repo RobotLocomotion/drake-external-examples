@@ -81,9 +81,6 @@ apt-get install --no-install-recommends $(cat <<EOF
   libopengl-dev
   libx11-dev
   nasm
-  ocl-icd-opencl-dev
-  opencl-headers
-  openssh-client
   patch
   patchelf
   pkg-config
