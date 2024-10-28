@@ -70,6 +70,8 @@ apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
   gfortran
+  libclang-15-dev
+  libeigen3-dev
   libgflags-dev
   libgl-dev
   libglib2.0-dev
@@ -94,9 +96,6 @@ apt-get install --no-install-recommends $(cat <<EOF
   python3-munkres
   python3-numpy
   python3-pil
-  python3-pydot
-  python3-pygame
-  python3-yaml
   zlib1g-dev
 EOF
 )
