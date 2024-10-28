@@ -70,8 +70,6 @@ apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
   bazel
   gfortran
-  libclang-15-dev
-  libeigen3-dev
   libgflags-dev
   libgl-dev
   libglib2.0-dev
