@@ -71,7 +71,6 @@ apt-get install --no-install-recommends $(cat <<EOF
   bazel
   gfortran
   libclang-15-dev
-  libeigen3-dev
   libgflags-dev
   libgl-dev
   libglib2.0-dev
@@ -79,9 +78,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   liblapack-dev
   libmumps-seq-dev
   libopengl-dev
-  libx11-dev
   nasm
-  pkg-config
   python3-all-dev
 EOF
 )
