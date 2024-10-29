@@ -86,15 +86,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   libopengl-dev
   libspdlog-dev
   libx11-dev
-  locales
   nasm
-  ocl-icd-opencl-dev
-  opencl-headers
-  openssh-client
-  patch
-  patchelf
-  pkg-config
   python3-all-dev
-  zlib1g-dev
 EOF
 )
