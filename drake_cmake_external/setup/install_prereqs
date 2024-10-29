@@ -94,16 +94,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   patch
   patchelf
   pkg-config
-  python-is-python3
   python3-all-dev
-  python3-ipywidgets
-  python3-matplotlib
-  python3-munkres
-  python3-numpy
-  python3-pil
-  python3-pydot
-  python3-pygame
-  python3-yaml
   zlib1g-dev
 EOF
 )
