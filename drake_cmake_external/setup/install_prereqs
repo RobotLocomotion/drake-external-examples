@@ -78,6 +78,7 @@ apt-get install --no-install-recommends $(cat <<EOF
   liblapack-dev
   libmumps-seq-dev
   libopengl-dev
+  libspdlog-dev
   nasm
   python3-all-dev
 EOF
