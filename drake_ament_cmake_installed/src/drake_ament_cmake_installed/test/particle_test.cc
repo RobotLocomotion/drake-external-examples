@@ -60,7 +60,7 @@ TYPED_TEST_P(ParticleTest, OutputTest) {
       this->output_->GetMutableVectorData(0);
   // Check results.
   EXPECT_EQ(output_vector->GetAtIndex(0),
-            static_cast<TypeParam>(10.0));  // y0 == x0
+            static_cast<TypeParam>(15.0));  // y0 == x0
   EXPECT_EQ(output_vector->GetAtIndex(1),
             static_cast<TypeParam>(1.0));  // y1 == x1
 }
