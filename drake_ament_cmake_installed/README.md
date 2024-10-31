@@ -1,6 +1,6 @@
 # Ament CMake Project with an Installed Drake
 
-This example uses the [`ament_cmake`](https://index.ros.org/doc/ros2/Tutorials/Ament-CMake-Documentation/)
+This example uses the [`ament_cmake`](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html)
 build system and [`colcon`](https://colcon.readthedocs.io) command line tool, as
 used by the Robot Operating System (ROS) 2, with an installed instance of the
 Drake [binary packages](https://drake.mit.edu/from_binary.html).
