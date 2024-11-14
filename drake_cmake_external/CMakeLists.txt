@@ -24,8 +24,6 @@ endif()
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-
 include(ExternalProject)
 
 # This shows how to fetch Eigen from source as part of Drake's CMake build.

@@ -9,7 +9,7 @@ add_test(NAME cc_particle_test COMMAND particle_test)
 set_tests_properties(cc_particle_test PROPERTIES LABELS small TIMEOUT 60)
 
 add_test(NAME python_particle_test
-  COMMAND Python::Interpreter -B -m unittest particle_test
+  COMMAND Python3::Interpreter -B -m unittest particle_test
 )
 set_tests_properties(python_particle_test PROPERTIES
   ENVIRONMENT "PYTHONPATH=${DRAKE_PYTHONPATH}"
