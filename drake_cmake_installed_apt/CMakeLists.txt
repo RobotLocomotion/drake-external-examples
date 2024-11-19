@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(drake_cmake_installed_apt)
 
 include(CTest)
@@ -21,23 +21,13 @@ target_include_directories(gtest PUBLIC
 )
 target_link_libraries(gtest Threads::Threads)
 
-if(CMAKE_VERSION VERSION_LESS 3.12)
-  list(INSERT CMAKE_MODULE_PATH 0
-    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/cmake/3.12/Modules"
-  )
-endif()
-
-find_package(Python 3.6 MODULE REQUIRED)
-set(PYTHON_VERSION_MAJOR_MINOR
-  "${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}"
-)
-
 find_package(drake CONFIG REQUIRED PATHS /opt/drake)
+find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
 get_filename_component(DRAKE_PYTHONPATH "${drake_DIR}" DIRECTORY)
 get_filename_component(DRAKE_PYTHONPATH "${DRAKE_PYTHONPATH}" DIRECTORY)
 set(DRAKE_PYTHONPATH
-  "${DRAKE_PYTHONPATH}/python${PYTHON_VERSION_MAJOR_MINOR}/site-packages"
+  "${DRAKE_PYTHONPATH}/python${drake_PYTHON_VERSION}/site-packages"
 )
 
 add_subdirectory(src)
