@@ -56,6 +56,34 @@ COPIES = (
     ),
 )
 
+CIS = (
+    (
+        ".github/workflows/ci.yml",
+        ".github/workflows/ament_cmake_installed.yml",
+        "drake_ament_cmake_installed/.github/workflows/ci.yml",
+    ),
+    (
+        ".github/workflows/ci.yml",
+        ".github/workflows/bazel_download.yml",
+        "drake_bazel_download/.github/workflows/ci.yml",
+    ),
+    (
+        ".github/workflows/ci.yml",
+        ".github/workflows/catkin_installed.yml",
+        "drake_catkin_installed/.github/workflows/ci.yml",
+    ),
+    (
+        ".github/workflows/ci.yml",
+        ".github/workflows/cmake_installed_apt.yml",
+        "drake_cmake_installed_apt/.github/workflows/ci.yml",
+    ),
+    (
+        ".github/workflows/ci.yml",
+        ".github/workflows/cmake_installed.yml",
+        "drake_cmake_installed/.github/workflows/ci.yml",
+    ),
+)
+
 found_errors = False
 
 
@@ -100,11 +128,37 @@ def check(index: int, paths: tuple[str]):
         error(f"{prologue} do not all match")
 
 
+def ci_check(index: int, paths: tuple[str]):
+    # For reabability
+    subci_name = Path(paths[2]).name
+    prologue = (f"The {_ordinalize(index + 1)} list of files"
+                f" (containing {subci_name})")
+    
+    # Read all of the files into memory.
+    content = {}
+    for path in paths:
+        try:
+            with open(path, "r") as f:
+                content[path] = f.read()
+        except IOError:
+            error(f"{prologue} refers to a missing file {path}")
+    paths = list(content.keys())
+
+    # Check for ci mismatch.
+    events = content[paths[0]].split("jobs:")[0]
+    ex_jobs = "jobs:" + content[paths[1]].split("jobs:")[1]
+    
+    if events + ex_jobs != content[paths[2]]:
+        error(f"{prologue} does not match")
+
+
 def main():
     logging.basicConfig(format="%(levelname)s: %(message)s")
     os.chdir(Path(__file__).parent.parent.parent)
     for i, paths in enumerate(COPIES):
         check(i, paths)
+    for i, paths in enumerate(CIS):
+        ci_check(i, paths)
     sys.exit(1 if found_errors else 0)
 
 

@@ -35,9 +35,11 @@ jobs:
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
           sudo rm -rf /Library/Frameworks/Python.framework/
       - name: setup
+        working-directory: drake_cmake_installed
         run: ./setup/install_prereqs
         shell: zsh -efuo pipefail {0}
       - name: cmake_installed build and test
+        working-directory: drake_cmake_installed
         run: ./.github/ci_build_test
         shell: zsh -efuo pipefail {0}
   ubuntu_jammy_cmake_installed:
@@ -48,8 +50,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
+        working-directory: drake_cmake_installed
         run: ./.github/ubuntu_setup
         shell: bash
       - name: cmake_installed build and test
+        working-directory: drake_cmake_installed
         run: ./.github/ci_build_test
         shell: bash

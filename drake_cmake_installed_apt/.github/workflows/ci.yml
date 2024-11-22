@@ -25,8 +25,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: setup
+        working-directory: drake_cmake_installed_apt
         run: ./.github/ubuntu_apt_setup
         shell: bash
       - name: cmake_installed_apt build and test
+        working-directory: drake_cmake_installed_apt
         run: ./.github/ci_build_test
         shell: bash
