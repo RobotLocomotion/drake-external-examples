@@ -5,8 +5,6 @@ set -euxo pipefail
 
 cmake --version
 
-pushd drake_cmake_external
-
 mkdir build
 pushd build
 
@@ -22,5 +20,3 @@ popd
 
 chmod -R a+w build || true
 rm -rf build
-
-popd

@@ -13,12 +13,8 @@ set -xu
 
 cmake --version
 
-pushd drake_ament_cmake_installed
-
 colcon build
 colcon test
 
 chmod -R a+w build install log || true
 rm -rf build install log
-
-popd
