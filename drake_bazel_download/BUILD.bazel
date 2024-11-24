@@ -1,4 +1,20 @@
 # SPDX-License-Identifier: MIT-0
 
-# This is an empty BUILD file, to ensure that this project's root directory is
-# a Bazel package.
+# We must opt-out of the py_exec_tools_toolchain, otherwise rules_python will
+# download a random copy from the internet that doesn't work correctly in CI.
+
+load(
+    "@rules_python//python:py_exec_tools_toolchain.bzl",
+    "py_exec_tools_toolchain",
+)
+
+py_exec_tools_toolchain(
+    name = "python_no_exec_tools",
+    exec_interpreter = "@rules_python//python:none",
+)
+
+toolchain(
+    name = "python_no_exec_tools_toolchain",
+    toolchain = ":python_no_exec_tools",
+    toolchain_type = "@rules_python//python:exec_tools_toolchain_type",
+)
