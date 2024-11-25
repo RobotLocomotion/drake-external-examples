@@ -7,10 +7,11 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, install the required Ubuntu packages:
+First, run the `install_prereqs` script to download the drake source and run
+drake's source setup script to install the required Ubuntu packages:
 
 ```
-sudo setup/install_prereqs
+setup/install_prereqs.sh
 ```
 
 Then, to build and test all apps:
