@@ -3,11 +3,14 @@
 module(name = "drake_external_examples")
 
 # Add the Bazel rulesets we need.
-bazel_dep(name = "rules_cc", version = "0.0.9")
-bazel_dep(name = "rules_python", version = "0.31.0")
+bazel_dep(name = "rules_cc", version = "0.0.17")
+bazel_dep(name = "rules_python", version = "0.40.0")
 
 # Use the host system python.
 register_toolchains("@bazel_tools//tools/python:autodetecting_toolchain")
+
+# Disable the exec tools toolchain.
+register_toolchains("//:python_no_exec_tools_toolchain")
 
 # Use the host system Eigen.
 local_eigen_repositiory = use_repo_rule("//:eigen.bzl", "local_eigen_repository")
