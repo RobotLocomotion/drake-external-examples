@@ -20,10 +20,10 @@ node('linux-jammy-unprovisioned') {
         }
         dir('src/drake_bazel_external'){
           stage('bazel_external setup') {
-            sh './.github/setup'
+            sh '.github/setup'
           }
           stage('bazel_external build and test') {
-            sh './.github/ci_build_test'
+            sh '.github/ci_build_test'
           }
         }
       } catch (e) {
@@ -63,10 +63,10 @@ node('linux-jammy-unprovisioned') {
         }
         dir('src/drake_cmake_external'){
           stage('cmake_external setup') {
-            sh './.github/setup'
+            sh '.github/setup'
           }
           stage('cmake_external build and test') {
-            sh './.github/ci_build_test'
+            sh '.github/ci_build_test'
           }
         }
       } catch (e) {

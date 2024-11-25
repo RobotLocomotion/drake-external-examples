@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-sudo ./.github/ubuntu_setup
+sudo .github/ubuntu_setup
 
 cat > "${HOME}/.bazelrc" << EOF
 startup --output_user_root=${WORKSPACE}/_bazel_${USER}
