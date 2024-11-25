@@ -74,15 +74,8 @@ echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
 /opt/drake/share/drake/setup/install_prereqs
 
-apt-get install --no-install-recommends gnupg
-
-apt-key adv --fetch-keys https://bazel.build/bazel-release.pub.gpg
-echo 'deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8' \
-  > /etc/apt/sources.list.d/bazel.list
-
 apt-get update
 apt-get install --no-install-recommends $(cat <<EOF
-  bazel
   cmake
   default-jdk
   file

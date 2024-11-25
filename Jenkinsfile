@@ -22,6 +22,9 @@ node('linux-jammy-unprovisioned') {
           stage('bazel_external setup') {
             sh '.github/setup'
           }
+          stage('bazel_external bazelisk') {
+            sh 'sudo setup/install_bazelisk'
+          }
           stage('bazel_external build and test') {
             sh '.github/ci_build_test'
           }
