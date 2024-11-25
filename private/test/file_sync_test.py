@@ -45,6 +45,10 @@ COPIES = (
         "drake_cmake_installed_apt/LICENSE",
     ),
     (
+        "drake_bazel_download/.github/ci_build_test",
+        "drake_bazel_external/.github/ci_build_test",
+    ),
+    (
         "drake_bazel_external/.github/setup",
         "drake_cmake_external/.github/setup",
     ),
@@ -55,6 +59,10 @@ COPIES = (
     (
         "drake_bazel_external/setup/install_prereqs",
         "drake_cmake_external/setup/install_prereqs",
+    ),
+    (
+        "drake_bazel_download/.bazelversion",
+        "drake_bazel_external/.bazelversion",
     ),
 )
 

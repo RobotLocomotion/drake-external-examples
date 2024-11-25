@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# TODO(jwnimmer-tri) Drake's install_prereqs script should offer to perform
+# this install step for us, but it doesn't -- so we need this work-around
+# in the meantime.
+
+set -euxo pipefail
+
+if [[ "${EUID:-}" -ne 0 ]]; then
+  echo 'This script must be run as root' >&2
+  exit 2
+fi
+
+wget -O bazelisk.deb \
+  https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-amd64.deb
+dpkg -i bazelisk.deb
+rm -f bazelisk.deb
