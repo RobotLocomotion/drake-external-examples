@@ -56,7 +56,7 @@ COPIES = (
     ),
 )
 
-CIS = (
+GITHUB_WORKFLOWS = (
     (
         ".github/workflows/ci.yml",
         ".github/workflows/ament_cmake_installed.yml",
@@ -128,11 +128,11 @@ def check(index: int, paths: tuple[str]):
         error(f"{prologue} do not all match")
 
 
-def ci_check(index: int, paths: tuple[str]):
+def gha_workflow_check(index: int, paths: tuple[str]):
     # For reabability
-    subci_name = Path(paths[2]).name
+    workflow_name = Path(paths[1]).name
     prologue = (f"The {_ordinalize(index + 1)} list of files"
-                f" (containing {subci_name})")
+                f" (containing {workflow_name})")
     
     # Read all of the files into memory.
     content = {}
@@ -144,7 +144,7 @@ def ci_check(index: int, paths: tuple[str]):
             error(f"{prologue} refers to a missing file {path}")
     paths = list(content.keys())
 
-    # Check for ci mismatch.
+    # Check for workflow mismatch.
     events = content[paths[0]].split("jobs:")[0]
     ex_jobs = "jobs:" + content[paths[1]].split("jobs:")[1]
     
@@ -157,8 +157,8 @@ def main():
     os.chdir(Path(__file__).parent.parent.parent)
     for i, paths in enumerate(COPIES):
         check(i, paths)
-    for i, paths in enumerate(CIS):
-        ci_check(i, paths)
+    for i, paths in enumerate(GITHUB_WORKFLOWS):
+        gha_workflow_check(i, paths)
     sys.exit(1 if found_errors else 0)
 
 
