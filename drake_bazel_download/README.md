@@ -14,6 +14,11 @@ First, install the required Ubuntu packages:
 sudo setup/install_prereqs
 ```
 
+If you don't already have bazel or bazelisk installed, then install bazelisk:
+```
+sudo setup/install_bazelisk
+```
+
 Then, to build and test all apps:
 ```
 bazel test //...
