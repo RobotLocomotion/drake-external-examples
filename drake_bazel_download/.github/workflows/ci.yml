@@ -28,6 +28,10 @@ jobs:
         working-directory: drake_bazel_download
         run: .github/ubuntu_setup
         shell: bash
+      - name: install_bazelisk
+        working-directory: drake_bazel_download
+        run: setup/install_bazelisk
+        shell: bash
       - name: bazel_download build and test
         working-directory: drake_bazel_download
         run: .github/ci_build_test
