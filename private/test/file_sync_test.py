@@ -7,6 +7,7 @@ each other are actually so.
 
 import logging
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -67,31 +68,11 @@ COPIES = (
 )
 
 GITHUB_WORKFLOWS = (
-    (
-        ".github/workflows/ci.yml",
-        ".github/workflows/ament_cmake_installed.yml",
-        "drake_ament_cmake_installed/.github/workflows/ci.yml",
-    ),
-    (
-        ".github/workflows/ci.yml",
-        ".github/workflows/bazel_download.yml",
-        "drake_bazel_download/.github/workflows/ci.yml",
-    ),
-    (
-        ".github/workflows/ci.yml",
-        ".github/workflows/catkin_installed.yml",
-        "drake_catkin_installed/.github/workflows/ci.yml",
-    ),
-    (
-        ".github/workflows/ci.yml",
-        ".github/workflows/cmake_installed_apt.yml",
-        "drake_cmake_installed_apt/.github/workflows/ci.yml",
-    ),
-    (
-        ".github/workflows/ci.yml",
-        ".github/workflows/cmake_installed.yml",
-        "drake_cmake_installed/.github/workflows/ci.yml",
-    ),
+    "ament_cmake_installed",
+    "bazel_download",
+    "catkin_installed",
+    "cmake_installed",
+    "cmake_installed_apt",
 )
 
 found_errors = False
@@ -138,28 +119,33 @@ def check(index: int, paths: tuple[str]):
         error(f"{prologue} do not all match")
 
 
-def gha_workflow_check(index: int, paths: tuple[str]):
-    # For reabability
-    workflow_name = Path(paths[1]).name
-    prologue = (f"The {_ordinalize(index + 1)} list of files"
-                f" (containing {workflow_name})")
-    
-    # Read all of the files into memory.
-    content = {}
-    for path in paths:
-        try:
-            with open(path, "r") as f:
-                content[path] = f.read()
-        except IOError:
-            error(f"{prologue} refers to a missing file {path}")
-    paths = list(content.keys())
+def gha_workflow_check(workflow_name: str):
+    """Enforces the subdir_ci to have the contents of root_ci up until 
+    it reaches the jobs: line plus the content in the subdir_ workflow
+    after jobs: is mentioned.
+    """
+    root_ci_path = ".github/workflows/ci.yml"
+    subdir_workflow_path = f".github/workflows/{workflow_name}.yml"
+    subdir_ci_path = f"drake_{workflow_name}/.github/workflows/ci.yml"
+    sep = "\njobs:\n"
 
-    # Check for workflow mismatch.
-    events = content[paths[0]].split("jobs:")[0]
-    ex_jobs = "jobs:" + content[paths[1]].split("jobs:")[1]
-    
-    if events + ex_jobs != content[paths[2]]:
-        error(f"{prologue} does not match")
+    # Read all files into memory and check sep occurs once in each file.
+    content = {}
+    for path in [root_ci_path, subdir_workflow_path, subdir_ci_path]:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                content[path] = f.read()
+                if len(re.findall(sep, content[path])) != 1:
+                    error(f"{workflow_name}'s {path} contents are invalid")
+        except IOError:
+            error(f"Missing {workflow_name} file {path}")
+
+    # Workflow check.
+    events = content[root_ci_path].split(sep)[0]
+    ex_jobs = sep + content[subdir_workflow_path].split(sep)[1]
+
+    if events + ex_jobs != content[subdir_ci_path]:
+        error(f"{workflow_name} subdir CI does not match")
 
 
 def main():
@@ -167,8 +153,8 @@ def main():
     os.chdir(Path(__file__).parent.parent.parent)
     for i, paths in enumerate(COPIES):
         check(i, paths)
-    for i, paths in enumerate(GITHUB_WORKFLOWS):
-        gha_workflow_check(i, paths)
+    for workflow in GITHUB_WORKFLOWS:
+        gha_workflow_check(workflow)
     sys.exit(1 if found_errors else 0)
 
 
