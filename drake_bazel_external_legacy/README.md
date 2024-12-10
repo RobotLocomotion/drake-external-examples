@@ -1,9 +1,10 @@
-# Bazel Project with Drake as an External
+# Bazel Project with Drake as an External (legacy style)
 
 This pulls in Drake and builds it from source via Bazel's WORKSPACE mechanism,
 which is deprecated as of Bazel 8 and will be removed in Bazel 9. Therefore,
-we will be rewriting this example to use Bazel modules ("bzlmod") in the near
-future. Stay tuned!
+we do not recommend using this example for new projects; instead, refer to
+the `drake_bazel_external` example. The legacy example primary serves as a
+regression test for the deprecated behavior.
 
 For an introduction to Bazel, refer to
 [Getting Started with Bazel](https://bazel.build/start).
