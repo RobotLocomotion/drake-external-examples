@@ -1,0 +1,7 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+bazel version
+bazel test //...
