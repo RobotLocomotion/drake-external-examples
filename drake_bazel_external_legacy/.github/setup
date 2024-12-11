@@ -1,0 +1,10 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+# CI setup
+sudo .github/ubuntu_setup
+
+# drake source setup
+setup/install_prereqs
