@@ -74,7 +74,6 @@ COPIES = (
         ".bazelignore",
         ".bazelproject",
         ".bazelrc",
-        ".bazelversion",
         ".clang-format",
         ".github/ci_build_test",
         ".github/setup",
