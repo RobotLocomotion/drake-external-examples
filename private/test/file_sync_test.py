@@ -50,10 +50,6 @@ COPIES = (
         "drake_bazel_external/.github/ci_build_test",
     ),
     (
-        "drake_bazel_external/.github/setup",
-        "drake_cmake_external/.github/setup",
-    ),
-    (
         "drake_bazel_external/.github/ubuntu_setup",
         "drake_cmake_external/.github/ubuntu_setup",
     ),
