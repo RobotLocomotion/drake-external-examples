@@ -1,9 +1,5 @@
 # SPDX-License-Identifier: MIT-0
 
-# Don't use bzlmod yet.
-common --enable_workspace=true
-common --enable_bzlmod=false
-
 # Default to an optimized build.
 build --compilation_mode=opt
 
