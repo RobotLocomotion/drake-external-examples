@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
-find_package(pybind11 CONFIG REQUIRED)
+#find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
 target_link_libraries(simple_bindings PUBLIC drake::drake)
