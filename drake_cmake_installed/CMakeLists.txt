@@ -11,6 +11,7 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
+find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 find_package(pybind11 CONFIG REQUIRED)
 
 execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
