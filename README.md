@@ -3,10 +3,8 @@
 Examples of how to use [Drake](https://github.com/RobotLocomotion/drake) in your
 own project:
 
-* [`drake_ament_cmake_installed`](./drake_ament_cmake_installed)
 * [`drake_bazel_external`](./drake_bazel_external)
 * [`drake_bazel_download`](./drake_bazel_download)
-* [`drake_catkin_installed`](./drake_catkin_installed)
 * [`drake_cmake_external`](./drake_cmake_external)
 * [`drake_cmake_installed`](./drake_cmake_installed)
 * [`drake_cmake_installed_apt`](./drake_cmake_installed_apt)
@@ -20,17 +18,14 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 
 | **Subproject** | **GitHub Actions** | **Jenkins** |
 |:---:|:---:|:---:|
-| `drake_ament_cmake_installed` | o | - |
 | `drake_bazel_external` | - | o |
 | `drake_bazel_download` | o | - |
-| `drake_catkin_installed` | o | - |
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | - |
 | `drake_cmake_installed_apt` | o | - |
 || ![GitHub Actions](https://img.shields.io/github/actions/workflow/status/RobotLocomotion/drake-external-examples/ci.yml?branch=main) | [![Jenkins](https://img.shields.io/jenkins/build.svg?jobUrl=https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/main)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/) |
 
 
-Note, the GitHub Actions jobs only build and test `drake_ament_cmake_installed`,
-`drake_bazel_download`, `drake_catkin_installed`, `drake_cmake_installed`, and
-`drake_cmake_installed_apt` since these are the exemplary cases for lightweight,
-open-source builds on public CI servers. The ament and catkin projects are not supported on macOS.
+Note, the GitHub Actions jobs only build and test `drake_bazel_download`,
+`drake_cmake_installed`, and `drake_cmake_installed_apt` since these are the
+exemplary cases for lightweight, open-source builds on public CI servers.
