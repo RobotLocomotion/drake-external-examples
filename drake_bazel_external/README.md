@@ -33,6 +33,15 @@ cause differences.  This is important when using tools like
 `drake::FindResource` / `pydrake.common.FindResource`.
 You may generally want to stick to using `bazel run` when able.
 
+### Using a local checkout of Drake
+
+To use Drake sources on disk instead of downloaded from github, pass the flag
+``--override_module=drake=/home/user/stuff/drake`` to bazel on the command line
+or add a line such as the following to ``user.bazelrc`` in the current directory:
+```
+build --override_module=drake=/home/user/stuff/drake
+```
+
 ## Python Versions
 
 By default, Python 3 is the Python interpreter that Drake will use when built
