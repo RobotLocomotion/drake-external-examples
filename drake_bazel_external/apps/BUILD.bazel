@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT-0
 
-load("@drake//tools/skylark:py.bzl", "py_binary", "py_test")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 load("@drake//tools/skylark:pybind.bzl", "pybind_py_library")
 
 # Compile a sample application.
@@ -79,6 +80,7 @@ cc_test(
 
 pybind_py_library(
     name = "simple_adder_py",
+    cc_binary_rule = cc_binary,
     cc_so_name = "simple_adder",
     cc_srcs = ["simple_adder_py.cc"],
     cc_deps = [
@@ -88,6 +90,7 @@ pybind_py_library(
     ],
     py_deps = ["@drake//bindings/pydrake"],
     py_imports = ["."],
+    py_library_rule = py_library,
 )
 
 # Mimic the C++ test in Python to show the bindings.
