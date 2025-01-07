@@ -12,7 +12,7 @@ bazel_dep(name = "rules_python", version = "0.40.0")
 bazel_dep(name = "drake")
 
 # By default, this example always uses the latest Drake master branch.
-DRAKE_COMMIT = "master"
+DRAKE_COMMIT = "bzlmod-extension"
 DRAKE_CHECKSUM = ""
 
 # You can choose a specific revision of Drake to use, e.g.:
@@ -32,7 +32,7 @@ DRAKE_CHECKSUM = ""
 archive_override(
     module_name = "drake",
     urls = [x.format(DRAKE_COMMIT) for x in [
-        "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
+        "https://github.com/jwnimmer-tri/drake/archive/{}.tar.gz",
     ]],
     sha256 = DRAKE_CHECKSUM,
     strip_prefix = "drake-{}".format(DRAKE_COMMIT.lstrip("v")),
