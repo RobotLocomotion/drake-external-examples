@@ -7,12 +7,13 @@ project(drake_cmake_installed)
 # does not need X11.
 option(RUN_X11_TESTS "Run tests that require X11" OFF)
 
+include(CMakeFindDependencyMacro)
 include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
 if (NOT Python_FOUND AND NOT Python3_FOUND)
-  find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
+  find_dependency(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 endif()
 find_package(pybind11 CONFIG REQUIRED)
 
