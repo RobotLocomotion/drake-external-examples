@@ -13,34 +13,27 @@ from pathlib import Path
 
 COPIES = (
     (
-        "drake_ament_cmake_installed/.clang-format",
         "drake_bazel_download/.clang-format",
         "drake_bazel_external/.clang-format",
-        "drake_catkin_installed/.clang-format",
         "drake_cmake_external/.clang-format",
         "drake_cmake_installed/.clang-format",
         "drake_cmake_installed_apt/.clang-format",
     ),
     (
         "drake_bazel_download/.github/ubuntu_setup",
-        "drake_catkin_installed/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
     ),
     (
-        "drake_ament_cmake_installed/CPPLINT.cfg",
         "drake_bazel_download/CPPLINT.cfg",
         "drake_bazel_external/CPPLINT.cfg",
-        "drake_catkin_installed/CPPLINT.cfg",
         "drake_cmake_external/CPPLINT.cfg",
         "drake_cmake_installed/CPPLINT.cfg",
         "drake_cmake_installed_apt/CPPLINT.cfg",
     ),
     (
         "LICENSE",
-        "drake_ament_cmake_installed/LICENSE",
         "drake_bazel_download/LICENSE",
         "drake_bazel_external/LICENSE",
-        "drake_catkin_installed/LICENSE",
         "drake_cmake_external/LICENSE",
         "drake_cmake_installed/LICENSE",
         "drake_cmake_installed_apt/LICENSE",
@@ -97,9 +90,7 @@ COPIES = (
 ])
 
 GITHUB_WORKFLOWS = (
-    "ament_cmake_installed",
     "bazel_download",
-    "catkin_installed",
     "cmake_installed",
     "cmake_installed_apt",
 )

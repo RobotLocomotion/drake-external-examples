@@ -19,12 +19,8 @@ concurrency:
 jobs:
   cmake_installed:
     uses: ./.github/workflows/cmake_installed.yml
-  ament_cmake_installed:
-    uses: ./.github/workflows/ament_cmake_installed.yml
   bazel_download:
     uses: ./.github/workflows/bazel_download.yml
-  catkin_installed:
-    uses: ./.github/workflows/catkin_installed.yml
   cmake_installed_apt:
     uses: ./.github/workflows/cmake_installed_apt.yml
   file_sync:
