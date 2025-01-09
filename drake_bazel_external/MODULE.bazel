@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: MIT-0
+
+module(name = "drake_external_examples")
+
+# If you don't want to support building on macOS, you may remove the next line.
+# Note that it must appear prior to loading "rules_cc", per the documentation:
+#  https://github.com/bazelbuild/apple_support?tab=readme-ov-file#bazel-7-setup
+bazel_dep(name = "apple_support", version = "1.17.1")
+
+# Add the Bazel rules we need.
+bazel_dep(name = "rules_cc", version = "0.0.17")
+bazel_dep(name = "rules_python", version = "0.40.0")
+
+# Here we introduce Drake as a module dependency, but note that Drake is not
+# published to any Bazel registry. Below, we'll override it with a github
+# source archive.
+bazel_dep(name = "drake")
+
+# By default, this example always uses the latest Drake master branch.
+DRAKE_COMMIT = "master"
+DRAKE_CHECKSUM = None
+
+# You can choose a specific revision of Drake to use, e.g.:
+# DRAKE_COMMIT = "19bb4703fdf4950d4b3530d496d8a0ff1ca5fc22"
+# DRAKE_CHECKSUM = "489d255db3cb1c8ff7a91ae0f961d76b6083a1d4a3f58150371b4b359683adb6"
+#
+# You can also use DRAKE_COMMIT to choose a Drake release; e.g.:
+# DRAKE_COMMIT = "v0.15.0"
+# DRAKE_CHECKSUM = "... TBD ..."
+#
+# Before changing the COMMIT, temporarily uncomment the next line so that Bazel
+# displays the suggested new value for the CHECKSUM.
+# DRAKE_CHECKSUM = "0" * 64
+
+# This declares the `@drake` module as a source code archive from github.
+# See README.md for instructions to use a local path, instead.
+archive_override(
+    module_name = "drake",
+    urls = [x.format(DRAKE_COMMIT) for x in [
+        "https://github.com/RobotLocomotion/drake/archive/{}.tar.gz",
+    ]],
+    sha256 = DRAKE_CHECKSUM,
+    strip_prefix = "drake-{}".format(DRAKE_COMMIT.lstrip("v")),
+)
+
+# Use the host system /usr/bin/python3.
+python_repository = use_repo_rule(
+    "@drake//tools/workspace/python:repository.bzl",
+    "python_repository",
+)
+
+python_repository(
+    name = "python",
+    linux_interpreter_path = "/usr/bin/python3",
+    requirements_flavor = "build",
+)
+
+register_toolchains("@python//:all")

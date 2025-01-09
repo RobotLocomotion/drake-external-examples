@@ -62,16 +62,13 @@ COPIES = (
     for path in [
         ".bazelignore",
         ".bazelproject",
-        ".bazelrc",
         ".clang-format",
         ".github/ci_build_test",
         ".github/setup",
         ".github/ubuntu_setup",
-        ".gitignore",
         "BUILD.bazel",
         "CPPLINT.cfg",
         "LICENSE",
-        "WORKSPACE",
         "apps/BUILD.bazel",
         "apps/exec.sh",
         "apps/find_resource_test.py",
@@ -84,7 +81,6 @@ COPIES = (
         "apps/simple_adder_test.cc",
         "apps/simple_continuous_time_system.cc",
         "apps/simple_logging_example.py",
-        "environ.bzl",
         "setup/install_prereqs",
     ]
 ])
