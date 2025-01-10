@@ -12,7 +12,7 @@ include(CTest)
 find_package(drake CONFIG REQUIRED)
 
 if (NOT Python_FOUND AND NOT Python3_FOUND)
-  find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED)
+  find_package(Python3 3.12 EXACT REQUIRED COMPONENTS Interpreter Development)
 endif()
 find_package(pybind11 CONFIG REQUIRED)
 
