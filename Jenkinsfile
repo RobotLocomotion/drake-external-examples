@@ -2,57 +2,52 @@
 
 /* SPDX-License-Identifier: MIT-0 */
 
+if (env.BRANCH_NAME == 'main') {
+  def triggers = []
+  triggers << cron('H H(7-8) * * *')
+  properties ([
+    pipelineTriggers(triggers)
+  ])
+}
+
 def examples = ['drake_bazel_external', 'drake_bazel_external_legacy', 'drake_cmake_external']
 def jobs = [:]
 
-for (x in examples) {
-    def example = x
-
-    jobs[example] = {
-      node('linux-jammy-unprovisioned') {
-        timeout(600) {
-          ansiColor('xterm') {
-            def triggers = []
+for (example in examples) {
+  def name = example
+  jobs[name] = {
+    node('linux-jammy-unprovisioned') {
+      timeout(600) {
+        ansiColor('xterm') {
+          try {
+            dir('src') {
+              stage('checkout') {
+                checkout scm
+              }
+            }
+            dir('src/' + name) {
+              stage(name + ' setup') {
+                sh '.github/setup'
+              }
+              stage(name + ' build and test') {
+                sh '.github/ci_build_test'
+              }
+            }
+          } catch (e) {
             if (env.BRANCH_NAME == 'main') {
-              triggers << cron('H H(7-8) * * *')
+              emailext (
+              subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+              body: "See <${env.BUILD_URL}display/redirect?page=changes>",
+              recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+              to: '$DEFAULT_RECIPIENTS',
+              )
             }
-            properties ([
-              pipelineTriggers(triggers)
-            ])
-            try {
-              dir('src') {
-                stage('checkout') {
-                  checkout scm
-                }
-              }
-              dir('src/' + example){
-                stage(example + ' setup') {
-                  sh '.github/setup'
-                }
-                stage(example + ' build and test') {
-                  sh '.github/ci_build_test'
-                }
-              }
-            } catch (e) {
-              if (env.BRANCH_NAME == 'main') {
-                emailext (
-                  subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                  body: "See <${env.BUILD_URL}display/redirect?page=changes>",
-                  recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                  to: '$DEFAULT_RECIPIENTS',
-                )
-              }
-              throw e
-            } finally {
-              deleteDir()
-              dir("${env.WORKSPACE}@tmp") {
-                deleteDir()
-              }
-            }
+            throw e
           }
         }
       }
     }
+  }
 }
 
 parallel jobs
