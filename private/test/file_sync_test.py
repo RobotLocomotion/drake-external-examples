@@ -83,6 +83,19 @@ COPIES = (
         "apps/simple_logging_example.py",
         "setup/install_prereqs",
     ]
+]) + tuple([
+    (
+        f"drake_cmake_installed/src/particle/{path}",
+        f"drake_cmake_installed_apt/src/{path}",
+    )
+    for path in [
+        "CMakeLists.txt",
+        "particle.cc",
+        "particle.h",
+        "particle.py",
+        "particle_test.cc",
+        "particle_test.py",
+    ]
 ])
 
 GITHUB_WORKFLOWS = (

@@ -18,4 +18,4 @@ add_test(NAME simple_bindings_test COMMAND
     "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
 set_tests_properties(simple_bindings_test PROPERTIES
     # Using `pybind11/tests/test_cmake_build/installed_target` as an example.
-    ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${PYTHONPATH}")
+    ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${DRAKE_PYTHONPATH}")

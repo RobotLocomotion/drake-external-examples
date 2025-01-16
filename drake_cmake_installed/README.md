@@ -49,14 +49,6 @@ cd drake-external-examples
 mkdir drake_cmake_installed-build && cd drake_cmake_installed-build
 cmake -DCMAKE_PREFIX_PATH=$HOME/drake ../drake_cmake_installed
 make
-
-###############################################################
-# Execute
-###############################################################
-# A demo
-$HOME/drake/bin/drake-visualizer &
-(cd src/particles && exec ./uniformly_accelerated_particle)
-
 # (Optionally) Run Tests
 make test
 ```
@@ -66,7 +58,7 @@ make test
 Drake specific Examples:
 
 * [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
-* [Particle Demo](src/particles/README.md)
+* [Particle System](src/particle)
 * [Find Resources](src/find_resource/README.md)
 
 # Developer Testing
