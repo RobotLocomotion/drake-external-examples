@@ -17,6 +17,11 @@ build --host_cxxopt=-std=c++20
 # https://github.com/bazelbuild/bazel/issues/1164
 build --action_env=CCACHE_DISABLE=1
 
+# Use eigen, fmt, spdlog from the host OS via pkg-config, rather than bzlmod.
+# It's okay to remove this line if you'd rather use bzlmod. For details, see:
+# https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
+build --@drake//tools/flags:public_repo_default=pkgconfig
+
 # For Ubuntu builds, this flag can cut build times in half. For macOS builds,
 # this flag might cause build errors. We suggest turning it on if and only if
 # your project doesn't use macOS.
