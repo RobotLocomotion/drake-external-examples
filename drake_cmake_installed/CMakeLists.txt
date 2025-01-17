@@ -19,7 +19,7 @@ execute_process(COMMAND ${Python3_EXECUTABLE}-config --exec-prefix
 )
 list(APPEND CMAKE_PREFIX_PATH "${PYTHON_EXEC_PREFIX}")
 
-get_filename_component(PYTHONPATH
+get_filename_component(DRAKE_PYTHONPATH
   "${drake_DIR}/../../python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages"
   REALPATH
 )

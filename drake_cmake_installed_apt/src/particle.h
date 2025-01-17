@@ -25,7 +25,7 @@ namespace particles {
 /// @tparam_double_only
 ///
 template <typename T>
-class Particle : public drake::systems::LeafSystem<T> {
+class Particle final : public drake::systems::LeafSystem<T> {
  public:
   DRAKE_NO_COPY_NO_MOVE_NO_ASSIGN(Particle);
 
