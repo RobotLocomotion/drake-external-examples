@@ -34,12 +34,8 @@
               # Remove the symlinks that cause issues.
               find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
               sudo rm -rf /Library/Frameworks/Python.framework/
-          - name: setup
-            working-directory: drake_poetry
-            run: .github/macos_setup
-            shell: zsh -efuo pipefail {0}
-          - name: poetry build and test
-            working-directory: drake_poetry
+          - name: pip build and test
+            working-directory: drake_pip
             run: .github/ci_build_test
             shell: zsh -efuo pipefail {0}
       ubuntu_jammy_cmake_installed:
@@ -50,10 +46,11 @@
           - name: checkout
             uses: actions/checkout@v4
           - name: setup
-            working-directory: drake_poetry
+            working-directory: drake_pip
             run: .github/ubuntu_setup
             shell: bash
-          - name: poetry build and test
-            working-directory: drake_poetry
+          - name: pip build and test
+            working-directory: drake_pip
             run: .github/ci_build_test
             shell: bash
+    

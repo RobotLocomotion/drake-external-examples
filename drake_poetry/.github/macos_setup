@@ -1,0 +1,9 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+brew install pipx
+pipx ensurepath
+
+pipx install poetry

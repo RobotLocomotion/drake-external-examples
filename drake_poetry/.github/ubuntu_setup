@@ -13,4 +13,5 @@ sudo apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
+pipx ensurepath
 pipx install poetry

@@ -102,12 +102,23 @@ COPIES = (
         "particle_test.cc",
         "particle_test.py",
     ]
+]) + tuple([
+    (
+        f"drake_pip/src/particle/{path}",
+        f"drake_poetry/src/particle/{path}",
+    )
+    for path in [
+        "particle.py",
+        "particle_test.py",
+    ]
 ])
 
 GITHUB_WORKFLOWS = (
     "bazel_download",
     "cmake_installed",
     "cmake_installed_apt",
+    "pip",
+    "poetry"
 )
 
 found_errors = False
