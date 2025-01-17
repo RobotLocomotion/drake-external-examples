@@ -27,3 +27,9 @@ That's all that is needed to use Drake from Python. See [Installation via Pip](h
 
 ## Examples
 
+To run the particle example tests in this directory, navigate to `src` and call the test file to execute the unit tests:
+
+```
+cd src
+python3 particle_test.py
+```

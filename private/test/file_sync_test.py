@@ -26,10 +26,6 @@ COPIES = (
         "drake_cmake_installed/.github/ubuntu_setup",
     ),
     (
-        "drake_pip/.github/ubuntu_setup",
-        "drake_poetry/.github/ubuntu_setup",
-    ),
-    (
         "drake_bazel_download/CPPLINT.cfg",
         "drake_bazel_external/CPPLINT.cfg",
         "drake_cmake_external/CPPLINT.cfg",

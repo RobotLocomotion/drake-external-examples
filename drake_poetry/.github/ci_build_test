@@ -5,13 +5,13 @@ set -euxo pipefail
 
 poetry --version
 
-poetry new drake_poetry_demo
-pushd drake_poetry_demo
+poetry init -n
 poetry add drake
 eval $(poetry env activate)
 
 python3 -c 'import pydrake.all; print(pydrake.__file__)'
 
+python3 src/particle_test.py
+
 deactivate
-popd
-rm -rf drake_poetry_demo
+rm -rf src/__pycache__

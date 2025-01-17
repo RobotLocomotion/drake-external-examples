@@ -11,5 +11,7 @@ pip install drake
 
 python3 -c 'import pydrake.all; print(pydrake.__file__)'
 
+python3 src/particle_test.py
+
 deactivate
-rm -rf env
+rm -rf env src/__pycache__

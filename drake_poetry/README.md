@@ -6,10 +6,10 @@ For an introduction to `poetry`, see [Basic usage](https://python-poetry.org/doc
 
 ## Instructions
 
-First, create a new `poetry` project:
+First, create a new `poetry` project in this directory, optionally including `-n` to ignore the interactive setup:
 
 ```
-poetry new drake_poetry_demo
+poetry init [-n]
 ```
 
 The `pyproject.toml` file that's created contains the project and dependency information. Refer to [Source Installation](https://drake.mit.edu/from_source.html) for the version of Python currently supported by Drake, which can be specified using:
@@ -32,3 +32,9 @@ eval $(poetry env activate)
 
 ## Examples
 
+To run the particle example tests in this directory, navigate to `src` and call the test file to execute the unit tests:
+
+```
+cd src
+python3 particle_test.py
+```
