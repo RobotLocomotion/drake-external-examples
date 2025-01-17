@@ -11,7 +11,7 @@ own project:
 
 ## Continuous Integration
 
-Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
+Scripts are provided for various CI instances in each example's respective subdirectory under `.github/`. The intended purpose of each is described below:
 
 * `github_actions`:  exemplifies how to put a project depending on a Drake installation on GitHub Actions
 * `jenkins` : provides complete coverage of additional external example projects
