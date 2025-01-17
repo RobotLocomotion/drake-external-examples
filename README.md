@@ -8,6 +8,8 @@ own project:
 * [`drake_cmake_external`](./drake_cmake_external)
 * [`drake_cmake_installed`](./drake_cmake_installed)
 * [`drake_cmake_installed_apt`](./drake_cmake_installed_apt)
+* [`drake_pip`](./drake_pip)
+* [`drake_poetry`](./drake_poetry)
 
 ## Continuous Integration
 
@@ -23,9 +25,12 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 | `drake_cmake_external` | - | o |
 | `drake_cmake_installed` | o | - |
 | `drake_cmake_installed_apt` | o | - |
+| `drake_pip` | o | - |
+| `drake_poetry` | o | - |
 || ![GitHub Actions](https://img.shields.io/github/actions/workflow/status/RobotLocomotion/drake-external-examples/ci.yml?branch=main) | [![Jenkins](https://img.shields.io/jenkins/build.svg?jobUrl=https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/job/main)](https://drake-jenkins.csail.mit.edu/job/RobotLocomotion/job/drake-external-examples/) |
 
 
 Note, the GitHub Actions jobs only build and test `drake_bazel_download`,
-`drake_cmake_installed`, and `drake_cmake_installed_apt` since these are the
-exemplary cases for lightweight, open-source builds on public CI servers.
+`drake_cmake_installed`, `drake_cmake_installed_apt`, `drake_pip`, and
+`drake_poetry`, since these are the exemplary cases for lightweight, 
+open-source builds on public CI servers.
