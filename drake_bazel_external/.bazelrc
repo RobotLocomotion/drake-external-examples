@@ -17,6 +17,11 @@ build --host_cxxopt=-std=c++20
 # https://github.com/bazelbuild/bazel/issues/1164
 build --action_env=CCACHE_DISABLE=1
 
+# Work around BCR absurdity:
+#  https://github.com/bazelbuild/bazel-central-registry/pull/3582
+# This line can be removed when using (future) Drake >= 1.38.0.
+common --allow_yanked_versions=rules_cc@0.1.0
+
 # Use eigen, fmt, spdlog from the host OS via pkg-config, rather than bzlmod.
 # It's okay to remove this line if you'd rather use bzlmod. For details, see:
 # https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
