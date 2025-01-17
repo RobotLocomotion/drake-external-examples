@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: MIT-0
+
+---
+    name: ci
+    on:
+      push:
+        branches:
+          - main
+      pull_request:
+        branches:
+          - main
+      schedule:
+        - cron: '0 12 * * *'
+    concurrency:
+      # Cancel previous CI runs when additional commits are added to a pull request.
+      # This will not cancel CI runs associated with `schedule` or `push`.
+      group: ${{ github.head_ref || github.run_id }}
+      cancel-in-progress: true
+    jobs:
+      macos_sonoma_arm_cmake_installed:
+        name: macos sonoma 14 arm
+        runs-on: macos-14
+        steps:
+          - name: checkout
+            uses: actions/checkout@v4
+          # See issue https://github.com/actions/setup-python/issues/577.  There is
+          # some kind of environment conflict between the symlinks found in the
+          # GitHub Actions runner and `brew upgrade python` where `brew` detects and
+          # refuses to overwrite symlinks.  The cause for our runs is not clear,
+          # we do not use that action, but if that issue is closed this section
+          # can be removed.
+          - name: sanitize GHA / brew python environment
+            run: |
+              # Remove the symlinks that cause issues.
+              find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
+              sudo rm -rf /Library/Frameworks/Python.framework/
+          - name: pip build and test
+            working-directory: drake_pip
+            run: .github/ci_build_test
+            shell: zsh -efuo pipefail {0}
+      ubuntu_jammy_cmake_installed:
+        name: ubuntu 22.04 jammy
+        runs-on: ubuntu-latest
+        container: ubuntu:jammy
+        steps:
+          - name: checkout
+            uses: actions/checkout@v4
+          - name: setup
+            working-directory: drake_pip
+            run: .github/ubuntu_setup
+            shell: bash
+          - name: pip build and test
+            working-directory: drake_pip
+            run: .github/ci_build_test
+            shell: bash
+    

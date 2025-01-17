@@ -1,0 +1,17 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+poetry --version
+
+poetry new drake_poetry_demo
+pushd drake_poetry_demo
+poetry add drake
+eval $(poetry env activate)
+
+python3 -c 'import pydrake.all; print(pydrake.__file__)'
+
+deactivate
+popd
+rm -rf drake_poetry_demo

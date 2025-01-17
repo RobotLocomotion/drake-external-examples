@@ -18,10 +18,16 @@ COPIES = (
         "drake_cmake_external/.clang-format",
         "drake_cmake_installed/.clang-format",
         "drake_cmake_installed_apt/.clang-format",
+        "drake_pip/.clang-format",
+        "drake_poetry/.clang-format",
     ),
     (
         "drake_bazel_download/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
+    ),
+    (
+        "drake_pip/.github/ubuntu_setup",
+        "drake_poetry/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/CPPLINT.cfg",
@@ -29,6 +35,8 @@ COPIES = (
         "drake_cmake_external/CPPLINT.cfg",
         "drake_cmake_installed/CPPLINT.cfg",
         "drake_cmake_installed_apt/CPPLINT.cfg",
+        "drake_pip/.CPPLINT.cfg",
+        "drake_poetry/.CPPLINT.cfg",
     ),
     (
         "LICENSE",
@@ -37,6 +45,8 @@ COPIES = (
         "drake_cmake_external/LICENSE",
         "drake_cmake_installed/LICENSE",
         "drake_cmake_installed_apt/LICENSE",
+        "drake_pip/LICENSE"
+        "drake_poetry/LICENSE"
     ),
     (
         "drake_bazel_download/.github/ci_build_test",
