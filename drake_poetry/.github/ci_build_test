@@ -4,8 +4,10 @@
 set -euxo pipefail
 
 poetry --version
+"python$PYTHON_VERSION" --version
+poetry init -n --python "~$PYTHON_VERSION"
+poetry env use $PYTHON_VERSION
 
-poetry init -n
 poetry add drake
 eval $(poetry env activate)
 

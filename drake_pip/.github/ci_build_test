@@ -3,9 +3,9 @@
 
 set -euxo pipefail
 
-python3 --version
+"python$PYTHON_VERSION" --version
+"python$PYTHON_VERSION" -m venv env 
 
-python3 -m venv env
 source env/bin/activate
 pip install drake
 

@@ -6,7 +6,15 @@ For an introduction to `poetry`, see [Basic usage](https://python-poetry.org/doc
 
 ## Instructions
 
-First, create a new `poetry` project in this directory, optionally including `-n` to ignore the interactive setup:
+First, install the required packages:
+
+```
+sudo setup/install_prereqs
+```
+
+Additionally, install `poetry` following the [Installation Instructions](https://python-poetry.org/docs/#installation).
+
+Create a new `poetry` project in the current directory, optionally including `-n` to ignore the interactive setup:
 
 ```
 poetry init [-n]
@@ -36,5 +44,5 @@ To run the particle example tests in this directory, navigate to `src` and call 
 
 ```
 cd src
-python3 particle_test.py
+python particle_test.py
 ```

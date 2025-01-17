@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-brew install pipx
-pipx ensurepath
+setup/install_prereqs
 
 pipx install poetry
+pipx ensurepath

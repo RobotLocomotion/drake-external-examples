@@ -31,8 +31,8 @@ COPIES = (
         "drake_cmake_external/CPPLINT.cfg",
         "drake_cmake_installed/CPPLINT.cfg",
         "drake_cmake_installed_apt/CPPLINT.cfg",
-        "drake_pip/.CPPLINT.cfg",
-        "drake_poetry/.CPPLINT.cfg",
+        "drake_pip/CPPLINT.cfg",
+        "drake_poetry/CPPLINT.cfg",
     ),
     (
         "LICENSE",
@@ -41,8 +41,8 @@ COPIES = (
         "drake_cmake_external/LICENSE",
         "drake_cmake_installed/LICENSE",
         "drake_cmake_installed_apt/LICENSE",
-        "drake_pip/LICENSE"
-        "drake_poetry/LICENSE"
+        "drake_pip/LICENSE",
+        "drake_poetry/LICENSE",
     ),
     (
         "drake_bazel_download/.github/ci_build_test",
@@ -104,8 +104,8 @@ COPIES = (
     ]
 ]) + tuple([
     (
-        f"drake_pip/src/particle/{path}",
-        f"drake_poetry/src/particle/{path}",
+        f"drake_pip/src/{path}",
+        f"drake_poetry/src/{path}",
     )
     for path in [
         "particle.py",

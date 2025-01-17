@@ -8,10 +8,7 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-sudo apt-get install --no-install-recommends $(cat <<EOF
-  pipx
-EOF
-)
+setup/install_prereqs
 
-pipx ensurepath
 pipx install poetry
+pipx ensurepath
