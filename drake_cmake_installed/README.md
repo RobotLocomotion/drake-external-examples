@@ -10,6 +10,7 @@ These instructions are only supported for Ubuntu 22.04 (Jammy).
 ###############################################################
 # Install Prerequisites
 ###############################################################
+
 # Various system dependencies
 sudo setup/install_prereqs
 
@@ -17,30 +18,34 @@ sudo setup/install_prereqs
 # Install Drake to $HOME/drake
 ###############################################################
 
+# There are a few options to install drake:
+
 # 1) A specific version (date-stamped)
-# curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
 
 # 2) The latest (usually last night's build)
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
 tar -xvzf drake-latest-jammy.tar.gz -C $HOME
 
 # 3) Manual Installation
-# git clone https://github.com/RobotLocomotion/drake.git
-# (cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
+git clone https://github.com/RobotLocomotion/drake.git
+(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
 
 # 4) Manual Installation w/ Licensed Gurobi
 # Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
-# git clone https://github.com/RobotLocomotion/drake.git
-# (cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
+git clone https://github.com/RobotLocomotion/drake.git
+(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
 
 ###############################################################
 # Build Everything
 ###############################################################
+
 git clone https://github.com/RobotLocomotion/drake-external-examples.git
 cd drake-external-examples/drake_cmake_installed
 mkdir build && cd build
 cmake -DCMAKE_PREFIX_PATH=$HOME/drake ..
 make
+
 # (Optionally) Run Tests
 make test
 ```
