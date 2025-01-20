@@ -31,6 +31,11 @@
 
 set -euxo pipefail
 
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
 case "$OSTYPE" in
     darwin*)
     # Mac specific installations
@@ -40,10 +45,10 @@ case "$OSTYPE" in
     fi
 
     if [[ ! -d /opt/drake ]]; then
-      sudo mkdir -p /opt/drake
-      sudo chmod g+rwx /opt/drake
-      sudo chown "${USER}" /opt/drake
-      sudo chgrp admin /opt/drake
+      ${maybe_sudo} mkdir -p /opt/drake
+      ${maybe_sudo} chmod g+rwx /opt/drake
+      ${maybe_sudo} chown "${USER}" /opt/drake
+      ${maybe_sudo} chgrp admin /opt/drake
     fi
 
     # Install Drake dependencies.
@@ -62,8 +67,8 @@ case "$OSTYPE" in
       exit 2
     fi
 
-    apt-get update
-    apt-get install --no-install-recommends lsb-release
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
     if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
       echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
@@ -81,8 +86,8 @@ EOF
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C /opt
 
-    apt-get update
-    apt-get install --no-install-recommends $(cat <<EOF
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       python3-all-dev
       pipx
 EOF
