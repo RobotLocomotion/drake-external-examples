@@ -6,7 +6,7 @@ This uses the CMake `find_package(drake)` mechanism to find an installed instanc
 
 These instructions are only supported for Ubuntu 22.04 (Jammy).
 
-```shell
+```bash
 ###############################################################
 # Install Prerequisites
 ###############################################################
@@ -67,7 +67,7 @@ These build instructions are adapted from those above, but will use an existing
 source tree of Drake (but *not* installing it to `$HOME/drake`),
 build this project, and then run all available tests:
 
-```shell
+```bash
 # Build development version of Drake, ensuring no old artifacts are present.
 cd drake  # Where you are developing.
 rm -rf build && mkdir build && cd build

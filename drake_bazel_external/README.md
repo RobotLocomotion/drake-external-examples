@@ -7,20 +7,20 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, run the `install_prereqs` script to download the drake source and run
-drake's source setup script to install the required Ubuntu packages:
+First, run the `install_prereqs` script to download the Drake source and run
+its setup script to install the required Ubuntu packages:
 
-```
+```bash
 sudo setup/install_prereqs
 ```
 
 Then, to build and test all apps:
-```
+```bash
 bazel test //...
 ```
 
 As an example to run a binary directly:
-```
+```bash
 bazel run //apps:simple_logging_example
 ```
 
@@ -35,7 +35,8 @@ You may generally want to stick to using `bazel run` when able.
 To use Drake sources on disk instead of downloaded from github, pass the flag
 ``--override_module=drake=/home/user/stuff/drake`` to bazel on the command line
 or add a line such as the following to ``user.bazelrc`` in the current directory:
-```
+
+```bash
 build --override_module=drake=/home/user/stuff/drake
 ```
 

@@ -11,10 +11,10 @@ own project:
 
 ## Continuous Integration
 
-Scripts are provided for Jenkins or GitHub Actions, depending on the example, 
-in each example's respective subdirectory under `.github/`. 
-See the `Jenkinsfile` and the top-level `.github/workflows/ci.yml` 
-for a complete overview of each respective pipeline. 
+Scripts are provided for Jenkins or GitHub Actions, depending on the example,
+in each example's respective subdirectory under `.github/`.
+See the `Jenkinsfile` and the top-level `.github/workflows/ci.yml`
+for a complete overview of each respective pipeline.
 The intended purpose of each is described below:
 
 * GitHub Actions: exemplifies how to put a project depending on a Drake installation on GitHub Actions
