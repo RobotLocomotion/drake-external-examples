@@ -16,11 +16,11 @@ setup/install_prereqs
 
 Call `poetry init` to create project in the current directory, including the following arguments:
 
-* `--python [version]` to introduce a requirement on the version(s) 
-of Python that will be supported by this `poetry` project. 
-Refer to [Source Installation](https://drake.mit.edu/from_source.html) 
-for the version of Python currently supported by Drake 
-on each operating system. Refer to 
+* `--python [version]` to introduce a requirement on the version(s)
+of Python that will be supported by this `poetry` project.
+Refer to [Source Installation](https://drake.mit.edu/from_source.html)
+for the version of Python currently supported by Drake
+on each operating system. Refer to
 [Version Constraints](https://python-poetry.org/docs/dependency-specification/#version-constraints)
 for guidelines on how to specify Python version requirements in `poetry`.
 * (Optional) `-n` to ignore the interactive setup
@@ -31,7 +31,7 @@ For example, to setup an environment on Ubuntu 22.04, call:
 poetry init -n --python ~3.10
 ```
 
-The `pyproject.toml` file that's created contains the project and dependency information. 
+The `pyproject.toml` file that's created contains the project and dependency information.
 
 From there, ensure `poetry` is using the correct version of Python, as directed above:
 

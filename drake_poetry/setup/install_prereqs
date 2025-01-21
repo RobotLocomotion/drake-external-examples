@@ -52,7 +52,6 @@ case "$OSTYPE" in
       exit 3
     fi
 
-    ${maybe_sudo} apt-get update
     ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       python3-all-dev
       libegl1
