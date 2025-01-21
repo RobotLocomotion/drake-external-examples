@@ -47,34 +47,21 @@ case "$OSTYPE" in
     ${maybe_sudo} apt-get update
     ${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
-    # Jammy and Noble have slightly different package versions needed
-    # (libglib2.0-0 vs. libglib2.0-0t64)
-    if [[ "$(lsb_release -sc)" == 'jammy' ]]; then
-      ${maybe_sudo} apt-get update
-      ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
-        python3-all-dev
-        libegl1
-        libx11-6
-        libsm6
-        libglib2.0-0
-        pipx
-EOF
-      )
-    elif [[ "$(lsb_release -sc)" == 'noble' ]]; then
-      ${maybe_sudo} apt-get update
-      ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
-        python3-all-dev
-        libegl1
-        libx11-6
-        libsm6
-        libglib2.0-0t64
-        pipx
-EOF
-      )
-    else
-      echo 'This script requires Ubuntu 22.04 (Jammy) or 24.04 (Noble)' >&2
+    if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
+      echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
       exit 3
     fi
+
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
+      python3-all-dev
+      libegl1
+      libx11-6
+      libsm6
+      libglib2.0-0
+      pipx
+EOF
+    )
     ;;
 esac
 

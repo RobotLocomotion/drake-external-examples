@@ -24,6 +24,8 @@ COPIES = (
     (
         "drake_bazel_download/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
+        "drake_pip/.github/ubuntu_setup",
+        "drake_poetry/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/CPPLINT.cfg",
@@ -98,12 +100,12 @@ COPIES = (
         "CMakeLists.txt",
         "particle.cc",
         "particle.h",
-        "particle.py",
         "particle_test.cc",
-        "particle_test.py",
     ]
 ]) + tuple([
     (
+        f"drake_cmake_installed/src/particle/{path}",
+        f"drake_cmake_installed_apt/src/{path}",
         f"drake_pip/src/{path}",
         f"drake_poetry/src/{path}",
     )
