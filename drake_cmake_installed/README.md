@@ -11,7 +11,8 @@ These instructions are only supported for Ubuntu 22.04 (Jammy).
 # Install Prerequisites
 ###############################################################
 
-# Various system dependencies
+# Download Drake source to /opt/drake/ and install
+# various system dependencies
 sudo setup/install_prereqs
 
 ###############################################################
@@ -52,7 +53,7 @@ make test
 
 # Examples
 
-Drake specific Examples:
+Drake-specific examples:
 
 * [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
 * [Particle System](src/particle)
