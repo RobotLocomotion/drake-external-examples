@@ -1,4 +1,4 @@
-# Python Project with Drake Installed from pip
+# Python Project with Drake Installed from Poetry
 
 This installs Drake using [`poetry`](https://python-poetry.org/), the Python package manager.
 
@@ -6,13 +6,13 @@ For an introduction to `poetry`, see [Basic usage](https://python-poetry.org/doc
 
 ## Instructions
 
-First, install the required packages:
+First, install the required packages. This includes an installation of Poetry using `pipx`;
+see the [Installation Instructions](https://python-poetry.org/docs/#installation) for
+more information.
 
 ```
 setup/install_prereqs
 ```
-
-Additionally, install `poetry` following the [Installation Instructions](https://python-poetry.org/docs/#installation).
 
 Call `poetry init` to create project in the current directory, including the following arguments:
 

@@ -36,63 +36,35 @@ if [[ "${EUID}" -ne 0 ]]; then
   maybe_sudo=sudo
 fi
 
-case "$OSTYPE" in
-    darwin*)
-    # Mac specific installations
-    if [[ "${EUID}" -eq 0 ]]; then
-      echo 'This script must NOT be run as root' >&2
-      exit 1
-    fi
+# Ubuntu-specific installations
+${maybe_sudo} apt-get update
+${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
-    if [[ ! -d /opt/drake ]]; then
-      ${maybe_sudo} mkdir -p /opt/drake
-      ${maybe_sudo} chmod g+rwx /opt/drake
-      ${maybe_sudo} chown "${USER}" /opt/drake
-      ${maybe_sudo} chgrp admin /opt/drake
-    fi
-
-    # Install Drake dependencies.
-    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
-    trap 'rm -f drake.tar.gz' EXIT
-    tar -xf drake.tar.gz -C /opt
-    ;;
-
-    linux*)
-    # Ubuntu specific installations
-    if [[ "${EUID:-}" -ne 0 ]]; then
-      echo 'This script must be run as root' >&2
-      exit 2
-    fi
-
-    ${maybe_sudo} apt-get update
-    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
-
-    if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
-      echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
-      exit 3
-    fi
-
-    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
-      ca-certificates
-      wget
+# Jammy and Noble have slightly different package versions needed
+# (libglib2.0-0 vs. libglib2.0-0t64)
+if [[ "$(lsb_release -sc)" == 'jammy' ]]; then
+  ${maybe_sudo} apt-get update
+  ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
+    python3-all-dev
+    libegl1
+    libx11-6
+    libsm6
+    libglib2.0-0
+    pipx
 EOF
-    )
-
-    wget -O drake.tar.gz \
-      https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
-    trap 'rm -f drake.tar.gz' EXIT
-    tar -xf drake.tar.gz -C /opt
-
-    ${maybe_sudo} apt-get update
-    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
-      python3-all-dev
-      python3.10-venv
+  )
+elif [[ "$(lsb_release -sc)" == 'noble' ]]; then
+  ${maybe_sudo} apt-get update
+  ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
+    python3-all-dev
+    libegl1
+    libx11-6
+    libsm6
+    libglib2.0-0t64
+    pipx
 EOF
-    )
-    ;;
-esac
-
-# Show version for debugging; use echo for newline / readability.
-echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
-
-/opt/drake/share/drake/setup/install_prereqs
+  )
+else
+  echo 'This script requires Ubuntu 22.04 (Jammy) or 24.04 (Noble)' >&2
+  exit 3
+fi

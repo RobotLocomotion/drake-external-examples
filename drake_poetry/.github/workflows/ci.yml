@@ -41,7 +41,7 @@ jobs:
           python-version: '3.12'
       - name: poetry setup
         working-directory: drake_poetry
-        run: .github/macos_setup
+        run: setup/install_prereqs
         shell: zsh -efuo pipefail {0}
       - name: poetry build and test
         working-directory: drake_poetry

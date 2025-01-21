@@ -1,10 +1,10 @@
-# Python Project with Drake Installed from pip
+# Python Project with Drake Installed from Pip
 
 This installs Drake using [`pip`](https://pypi.org/project/pip/), the Python package manager.
 
 ## Instructions
 
-First, install the required packages:
+First, install the required Ubuntu packages (this step is not needed on Mac):
 
 ```
 setup/install_prereqs

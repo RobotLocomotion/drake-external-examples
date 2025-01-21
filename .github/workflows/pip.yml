@@ -28,10 +28,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: pip setup
-        working-directory: drake_pip
-        run: setup/install_prereqs
-        shell: zsh -efuo pipefail {0}
       - name: pip build and test
         working-directory: drake_pip
         run: .github/ci_build_test
