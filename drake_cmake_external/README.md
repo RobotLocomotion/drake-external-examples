@@ -9,7 +9,7 @@ First, run the `install_prereqs` script to download the Drake source to `drake-m
 install the required Ubuntu packages:
 
 ```bash
-sudo setup/install_prereqs
+setup/install_prereqs
 ```
 
 Keep in mind that within the top-level CMakeLists, the drake source is once
