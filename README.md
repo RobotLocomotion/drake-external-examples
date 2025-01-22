@@ -32,5 +32,5 @@ Scripts are provided for various CI instances in `scripts/continuous_integration
 
 Note, the GitHub Actions jobs only build and test `drake_bazel_download`,
 `drake_cmake_installed`, `drake_cmake_installed_apt`, `drake_pip`, and
-`drake_poetry`, since these are the exemplary cases for lightweight, 
+`drake_poetry`, since these are the exemplary cases for lightweight,
 open-source builds on public CI servers.

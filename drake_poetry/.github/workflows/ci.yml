@@ -65,5 +65,5 @@ jobs:
           source $HOME/.profile # update PATH
           .github/ci_build_test
         env:
-          PYTHON_VERSION: '3.10'
+          PYTHON_VERSION: '3'
         shell: bash

@@ -13,7 +13,9 @@ eval $(poetry env activate)
 
 python3 -c 'import pydrake.all; print(pydrake.__file__)'
 
-python3 src/particle_test.py
+cd src
+python3 particle_test.py
 
+cd ..
 deactivate
 rm -rf src/__pycache__

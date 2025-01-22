@@ -60,5 +60,5 @@ jobs:
         working-directory: drake_pip
         run: .github/ci_build_test
         env:
-          PYTHON_VERSION: '3.10'
+          PYTHON_VERSION: '3'
         shell: bash

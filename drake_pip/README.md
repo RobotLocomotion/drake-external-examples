@@ -5,11 +5,15 @@ the Python package manager.
 
 ## Instructions
 
-First, install the required Ubuntu packages (this step is not needed on Mac):
+First, install the required Ubuntu packages:
 
 ```
 setup/install_prereqs
 ```
+
+For Mac users, simply ensure the correct version of Python
+is installed from Homebrew by referring to the
+[Supported Configurations](https://drake.mit.edu/installation.html#supported-configurations).
 
 Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)
 named `env` and activate it:
@@ -18,13 +22,6 @@ named `env` and activate it:
 python3 -m venv env
 source env/bin/activate
 ```
-
-*Note:* Depending on the system and which version of Python is installed,
-it may be beneficial (or necessary) to instantiate the virtual environment
-with a specific command. For example, call `python3.10` on Ubuntu 22.04.
-Refer to [Source Installation](https://drake.mit.edu/from_source.html)
-for the version of Python currently supported by Drake on each
-operating system.
 
 Then install Drake for Python in the virtual environment:
 
@@ -47,7 +44,8 @@ and the Python API [pydrake](https://drake.mit.edu/pydrake/index.html).
 
 ## Examples
 
-To run the particle example tests in this directory, navigate to `src` and call the test file to execute the unit tests:
+To run the particle example tests in this directory,
+navigate to `src` and call the test file to execute the unit tests:
 
 ```
 cd src
