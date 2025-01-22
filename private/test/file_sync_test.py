@@ -18,8 +18,6 @@ COPIES = (
         "drake_cmake_external/.clang-format",
         "drake_cmake_installed/.clang-format",
         "drake_cmake_installed_apt/.clang-format",
-        "drake_pip/.clang-format",
-        "drake_poetry/.clang-format",
     ),
     (
         "drake_bazel_download/.github/ubuntu_setup",
@@ -33,8 +31,6 @@ COPIES = (
         "drake_cmake_external/CPPLINT.cfg",
         "drake_cmake_installed/CPPLINT.cfg",
         "drake_cmake_installed_apt/CPPLINT.cfg",
-        "drake_pip/CPPLINT.cfg",
-        "drake_poetry/CPPLINT.cfg",
     ),
     (
         "LICENSE",
@@ -168,7 +164,7 @@ def check(index: int, paths: tuple[str]):
 
 
 def gha_workflow_check(workflow_name: str):
-    """Enforces the subdir_ci to have the contents of root_ci up until 
+    """Enforces the subdir_ci to have the contents of root_ci up until
     it reaches the jobs: line plus the content in the subdir_ workflow
     after jobs: is mentioned.
     """
