@@ -35,7 +35,6 @@ jobs:
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
           sudo rm -rf /Library/Frameworks/Python.framework/
       - name: python setup
-        id: macos_python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
