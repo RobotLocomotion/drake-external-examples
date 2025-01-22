@@ -29,13 +29,11 @@ jobs:
           python-version: '3.12'
       - name: poetry setup
         working-directory: drake_poetry
-        run: setup/install_prereqs
+        run: setup/install_prereqs 3.12
         shell: zsh -efuo pipefail {0}
-      - name: poetry build and test
+      - name: poetry test
         working-directory: drake_poetry
         run: .github/ci_build_test
-        env:
-          PYTHON_VERSION: '3.12'
         shell: zsh -efuo pipefail {0}
   ubuntu_jammy_poetry:
     name: ubuntu 22.04 jammy
@@ -44,14 +42,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      # This should be kept in one step because updating of the PATH variable
-      # after installing poetry does not persist between steps on GHA.
-      - name: poetry setup, build, and test
+      # ubuntu_setup and ci_build_test must occur in one step
+      # because when poetry is installed, the update to PATH
+      # does not persist between steps on GHA.
+      - name: poetry setup and test
         working-directory: drake_poetry
         run: |
           .github/ubuntu_setup
-          source $HOME/.profile # update PATH
+          source $HOME/.profile
           .github/ci_build_test
-        env:
-          PYTHON_VERSION: '3'
         shell: bash

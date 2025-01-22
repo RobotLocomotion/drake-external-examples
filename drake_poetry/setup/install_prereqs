@@ -36,6 +36,21 @@ EOF
     ;;
 esac
 
-# Install poetry and put it on PATH
+# Install poetry
 pipx install poetry
 pipx ensurepath
+# Update PATH on Linux in order to run the next steps
+if [[ "$OSTYPE" == "linux"* ]]; then
+  source $HOME/.profile
+fi
+
+# If a version of Python other than the default (3) is provided,
+# enforce that poetry use that version.
+PYTHON_VERSION=${1:-'3'}
+echo "Creating poetry environment with python${PYTHON_VERSION}"
+if [[ "$PYTHON_VERSION" != "3" ]]; then
+  poetry env use $PYTHON_VERSION
+fi
+
+# Install poetry dependencies
+poetry install

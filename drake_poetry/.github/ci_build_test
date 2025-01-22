@@ -4,24 +4,9 @@
 set -euxo pipefail
 
 poetry --version
-"python$PYTHON_VERSION" --version
-# Set up the appropriate version of Python for Poetry
-# if one other than the default is specified
-if [[ "$PYTHON_VERSION" != "3" ]]; then
-    poetry init -n --python "~$PYTHON_VERSION"
-    poetry env use $PYTHON_VERSION
-else
-    poetry init -n
-fi
-
-poetry add drake
-eval $(poetry env activate)
-
-python3 -c 'import pydrake.all; print(pydrake.__file__)'
 
 cd src
-python3 particle_test.py
+poetry run python particle_test.py
 
 cd ..
-deactivate
 rm -rf src/__pycache__
