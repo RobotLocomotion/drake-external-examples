@@ -38,11 +38,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: venv setup and install
+        working-directory: drake_pip
+        run: setup/setup_env 3.12
+        shell: zsh -eufo pipefail {0}
       - name: pip build and test
         working-directory: drake_pip
         run: .github/ci_build_test
-        env:
-          PYTHON_VERSION: '3.12'
         shell: zsh -efuo pipefail {0}
   ubuntu_jammy_pip:
     name: ubuntu 22.04 jammy
@@ -58,6 +60,4 @@ jobs:
       - name: pip build and test
         working-directory: drake_pip
         run: .github/ci_build_test
-        env:
-          PYTHON_VERSION: '3'
         shell: bash

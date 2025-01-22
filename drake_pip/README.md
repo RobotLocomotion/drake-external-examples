@@ -3,36 +3,67 @@
 This installs Drake using [`pip`](https://pypi.org/project/pip/),
 the Python package manager.
 
-## Instructions
+# Instructions
 
-First, install the required Ubuntu packages:
+Follow the setup instructions for [Ubuntu](#ubuntu-setup)
+or [Mac OS](#mac-setup), and read the [General Overview](#general-overview)
+for additional background information.
 
-```
+## Ubuntu Setup
+
+If on Ubuntu, first install the required packages:
+
+```bash
 setup/install_prereqs
 ```
 
-For Mac users, simply ensure the correct version of Python
+This script will also run `setup/setup_env`, which creates the virtual environment for this project and installs Drake.
+
+To start programming, simply activate the environment by calling:
+
+```bash
+source env/bin/activate
+```
+
+## Mac Setup
+
+If on Mac OS X, simply ensure the correct version of Python
 is installed from Homebrew by referring to the
 [Supported Configurations](https://drake.mit.edu/installation.html#supported-configurations).
+
+Then, run the following script to create the virtual environment for this project and install Drake:
+
+```bash
+setup/setup_env
+```
+
+*Note*: If you have multiple versions of Python installed,
+you can specify the correct version as an optional argument
+to the script. For example, `setup/setup_env 3.12`.
+
+To start programming, simply activate the environment by calling:
+
+```bash
+source env/bin/activate
+```
+
+## General Overview
+
+The `setup_env` script takes care of the virtual environment
+and Drake installation, but read below for a quick overview of the steps.
 
 Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)
 named `env` and activate it:
 
-```
+```bash
 python3 -m venv env
 source env/bin/activate
 ```
 
-Then install Drake for Python in the virtual environment:
+Then install Drake in the virtual environment using the provided `requirements.txt` file:
 
-```
-pip install drake
-```
-
-Call the following to ensure `pydrake` can be imported:
-
-```
-python3 -c 'import pydrake.all; print(pydrake.__file__)'
+```bash
+pip3 install -r requirements.txt
 ```
 
 That's all that is needed to use Drake from Python.
@@ -42,12 +73,12 @@ For more information on what's available for Drake in Python,
 see [Using Drake from Python](https://drake.mit.edu/python_bindings.html)
 and the Python API [pydrake](https://drake.mit.edu/pydrake/index.html).
 
-## Examples
+# Examples
 
 To run the particle example tests in this directory,
 navigate to `src` and call the test file to execute the unit tests:
 
-```
+```bash
 cd src
 python3 particle_test.py
 ```

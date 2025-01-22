@@ -1,0 +1,10 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+PYTHON_VERSION=${1:-'3'}
+echo "Creating virtual environment with python${PYTHON_VERSION}"
+
+"python${PYTHON_VERSION}" -m venv env
+"env/bin/pip$PYTHON_VERSION" install -r requirements.txt

@@ -21,3 +21,5 @@ ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
   python3-venv
 EOF
 )
+
+setup/setup_env
