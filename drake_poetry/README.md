@@ -37,3 +37,7 @@ navigate to `src` and call the test file to execute the unit tests:
 cd src
 poetry run python particle_test.py
 ```
+
+For more information on what's available for Drake in Python,
+see [Using Drake from Python](https://drake.mit.edu/python_bindings.html)
+and the Python API [pydrake](https://drake.mit.edu/pydrake/index.html).

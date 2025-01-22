@@ -6,8 +6,10 @@ the Python package manager.
 # Instructions
 
 Follow the setup instructions for [Ubuntu](#ubuntu-setup)
-or [Mac OS](#mac-setup), and read the [General Overview](#general-overview)
-for additional background information.
+or [Mac OS](#mac-setup).
+
+See [Installation via Pip](https://drake.mit.edu/pip.html#stable-releases)
+for more information on installation.
 
 ## Ubuntu Setup
 
@@ -47,32 +49,6 @@ To start programming, simply activate the environment by calling:
 source env/bin/activate
 ```
 
-## General Overview
-
-The `setup_env` script takes care of the virtual environment
-and Drake installation, but read below for a quick overview of the steps.
-
-Create a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)
-named `env` and activate it:
-
-```bash
-python3 -m venv env
-source env/bin/activate
-```
-
-Then install Drake in the virtual environment using the provided `requirements.txt` file:
-
-```bash
-pip3 install -r requirements.txt
-```
-
-That's all that is needed to use Drake from Python.
-See [Installation via Pip](https://drake.mit.edu/pip.html#stable-releases)
-for more information on installation.
-For more information on what's available for Drake in Python,
-see [Using Drake from Python](https://drake.mit.edu/python_bindings.html)
-and the Python API [pydrake](https://drake.mit.edu/pydrake/index.html).
-
 # Examples
 
 To run the particle example tests in this directory,
@@ -82,3 +58,7 @@ navigate to `src` and call the test file to execute the unit tests:
 cd src
 python3 particle_test.py
 ```
+
+For more information on what's available for Drake in Python,
+see [Using Drake from Python](https://drake.mit.edu/python_bindings.html)
+and the Python API [pydrake](https://drake.mit.edu/pydrake/index.html).

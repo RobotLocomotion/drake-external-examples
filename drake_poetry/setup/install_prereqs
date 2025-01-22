@@ -16,14 +16,9 @@ case "$OSTYPE" in
 
     linux*)
     # Ubuntu-specific installations
+    # See https://github.com/RobotLocomotion/drake/blob/master/tools/wheel/content/INSTALLATION
+    # for a complete list of the required libraries to be installed.
     ${maybe_sudo} apt-get update
-    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
-
-    if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
-      echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
-      exit 3
-    fi
-
     ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       libegl1
       libglib2.0-0
