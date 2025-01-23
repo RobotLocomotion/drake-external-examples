@@ -38,6 +38,7 @@ case "$OSTYPE" in
       echo 'This script must NOT be run as root' >&2
       exit 1
     fi
+    maybe_sudo= # assign empty for later call to install source prereqs
 
     # Download the drake source
     curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
@@ -47,20 +48,20 @@ case "$OSTYPE" in
 
     linux*)
     # Ubuntu specific installations
-    if [[ "${EUID:-}" -ne 0 ]]; then
-      echo 'This script must be run as root' >&2
-      exit 2
+    maybe_sudo=
+    if [[ "${EUID}" -ne 0 ]]; then
+      maybe_sudo=sudo
     fi
 
-    apt-get update
-    apt-get install --no-install-recommends lsb-release
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
     if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
       echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
       exit 3
     fi
 
-    apt-get install --no-install-recommends $(cat <<EOF
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       ca-certificates
       wget
 EOF
@@ -72,8 +73,8 @@ EOF
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
 
-    apt-get update
-    apt-get install --no-install-recommends $(cat <<EOF
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       python3-all-dev
 EOF
     )
@@ -84,4 +85,4 @@ esac
 echo -e "\ndrake VERSION.TXT: $(cat $HOME/drake/share/doc/drake/VERSION.TXT)\n"
 
 # Install the source prereqs
-$HOME/drake/share/drake/setup/install_prereqs
+${maybe_sudo} ${HOME}/drake/share/drake/setup/install_prereqs
