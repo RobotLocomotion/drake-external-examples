@@ -11,10 +11,14 @@ own project:
 
 ## Continuous Integration
 
-Scripts are provided for various CI instances in `scripts/continuous_integration`. The intended purpose of each is described below:
+Scripts are provided for Jenkins or GitHub Actions, depending on the example,
+in each example's respective subdirectory under `.github/`.
+See the `Jenkinsfile` and the top-level `.github/workflows/ci.yml`
+for a complete overview of each respective pipeline.
+The intended purpose of each is described below:
 
-* `github_actions`:  exemplifies how to put a project depending on a Drake installation on GitHub Actions
-* `jenkins` : provides complete coverage of additional external example projects
+* GitHub Actions: exemplifies how to put a project depending on a Drake installation on GitHub Actions
+* Jenkins: provides complete coverage of additional external example projects
 
 | **Subproject** | **GitHub Actions** | **Jenkins** |
 |:---:|:---:|:---:|

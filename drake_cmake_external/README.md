@@ -4,11 +4,12 @@ This pulls in Drake using the CMake `ExternalProject_Add(drake)` mechanism.
 
 ## Instructions
 
-First, run the `install_prereqs` script to download the drake source and run
-drake's source setup script to install the required Ubuntu packages:
+First, run the `install_prereqs` script to download the Drake source to `drake-master/`
+(from the current directory). This also runs Drake's setup script to
+install the required Ubuntu packages:
 
-```
-setup/install_prereqs.sh
+```bash
+setup/install_prereqs
 ```
 
 Keep in mind that within the top-level CMakeLists, the drake source is once
@@ -19,7 +20,7 @@ changed within that version, then the script ran above must also be modified.
 Once all necessary dependencies have been installed, build and run tests
 using CMake:
 
-```
+```bash
 mkdir build
 cd build
 cmake ..
