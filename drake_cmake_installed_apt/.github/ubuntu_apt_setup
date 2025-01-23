@@ -3,10 +3,15 @@
 
 set -euxo pipefail
 
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get -qq update || (sleep 30; apt-get -qq update)
-apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
+${maybe_sudo} apt-get -qq update || (sleep 30; apt-get -qq update)
+${maybe_sudo} apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
   install build-essential ca-certificates cmake gnupg lsb-release wget
 
 readonly codename="$(lsb_release -cs)"
@@ -16,6 +21,6 @@ wget -qO- --retry-connrefused https://drake-apt.csail.mit.edu/drake.asc \
 echo "deb [arch=amd64] https://drake-apt.csail.mit.edu/${codename} ${codename} main" \
   > /etc/apt/sources.list.d/drake.list
 
-apt-get -qq update || (sleep 30; apt-get -qq update)
-apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
+${maybe_sudo} apt-get -qq update || (sleep 30; apt-get -qq update)
+${maybe_sudo} apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
   install drake-dev

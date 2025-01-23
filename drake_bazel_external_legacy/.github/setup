@@ -3,8 +3,13 @@
 
 set -euxo pipefail
 
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
 # CI setup
-sudo .github/ubuntu_setup
+${maybe_sudo} .github/ubuntu_setup
 
 # drake source setup
 setup/install_prereqs
