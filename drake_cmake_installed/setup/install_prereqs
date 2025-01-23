@@ -54,20 +54,20 @@ case "$OSTYPE" in
 
     linux*)
     # Ubuntu specific installations
-    if [[ "${EUID:-}" -ne 0 ]]; then
-      echo 'This script must be run as root' >&2
-      exit 2
+    maybe_sudo=
+    if [[ "${EUID}" -ne 0 ]]; then
+      maybe_sudo=sudo
     fi
 
-    apt-get update
-    apt-get install --no-install-recommends lsb-release
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
     if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
       echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
       exit 3
     fi
 
-    apt-get install --no-install-recommends $(cat <<EOF
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       ca-certificates
       wget
 EOF
@@ -78,8 +78,8 @@ EOF
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C /opt
 
-    apt-get update
-    apt-get install --no-install-recommends $(cat <<EOF
+    ${maybe_sudo} apt-get update
+    ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       python3-all-dev
 EOF
     )
@@ -89,4 +89,4 @@ esac
 # Show version for debugging; use echo for newline / readability.
 echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
 
-/opt/drake/share/drake/setup/install_prereqs
+${maybe_sudo} /opt/drake/share/drake/setup/install_prereqs
