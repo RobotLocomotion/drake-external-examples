@@ -8,17 +8,18 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, run the `install_prereqs` script to download the Drake source to `/opt/drake/`.
-This also runs Drake's setup script to install the required Ubuntu packages:
+First, run the `install_prereqs` script to download the
+Drake source to `/opt/drake/`. This also runs Drake's
+setup script to install the required Ubuntu packages:
 
 ```bash
-sudo setup/install_prereqs
+setup/install_prereqs
 ```
 
 Additionally, if you don't already have bazel or bazelisk installed, then install bazelisk:
 
 ```bash
-sudo setup/install_bazelisk
+setup/install_bazelisk
 ```
 
 Then, to build and test all apps:

@@ -13,7 +13,7 @@ These instructions are only supported for Ubuntu 22.04 (Jammy).
 
 # Download Drake source to /opt/drake/ and install
 # various system dependencies
-sudo setup/install_prereqs
+setup/install_prereqs
 
 ###############################################################
 # Install Drake to $HOME/drake
