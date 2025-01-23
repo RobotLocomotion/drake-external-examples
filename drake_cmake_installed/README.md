@@ -8,31 +8,31 @@ These instructions are only supported for Ubuntu 22.04 (Jammy).
 
 ```bash
 ###############################################################
-# Install Prerequisites
+# Download Drake and Install Prerequisites
 ###############################################################
 
-# Download Drake source to /opt/drake/ and install
-# various system dependencies
+# Download Drake source to $HOME/drake/ and
+# install various system dependencies
 sudo setup/install_prereqs
 
 ###############################################################
-# Install Drake to $HOME/drake
+# Alternative Drake Versions
 ###############################################################
 
-# There are a few options to install drake:
+# The script above gets the latest version of Drake (usually
+# last night's build). Ignore this step if that version is desired.
+# Otherwise, the following are alternative options for which
+# version of Drake to download:
 
 # 1) A specific version (date-stamped)
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
+tar -xvzf drake-20240214-jammy.tar.gz -C $HOME
 
-# 2) The latest (usually last night's build)
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
-tar -xvzf drake-latest-jammy.tar.gz -C $HOME
-
-# 3) Manual Installation
+# 2) Manual Installation
 git clone https://github.com/RobotLocomotion/drake.git
 (cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
 
-# 4) Manual Installation w/ Licensed Gurobi
+# 3) Manual Installation w/ Licensed Gurobi
 # Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 git clone https://github.com/RobotLocomotion/drake.git
 (cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)

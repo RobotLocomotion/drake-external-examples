@@ -8,7 +8,7 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, run the `install_prereqs` script to download the Drake source to `/opt/drake/`.
+First, run the `install_prereqs` script to download the Drake source to `$HOME/drake/`.
 This also runs Drake's setup script to install the required Ubuntu packages:
 
 ```bash
