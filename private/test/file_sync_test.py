@@ -23,7 +23,6 @@ COPIES = (
         "drake_bazel_download/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
         "drake_pip/.github/ubuntu_setup",
-        "drake_poetry/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/CPPLINT.cfg",

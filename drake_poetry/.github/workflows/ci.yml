@@ -40,7 +40,9 @@ jobs:
           python-version: '3.12'
       - name: poetry setup
         working-directory: drake_poetry
-        run: setup/install_prereqs 3.12
+        run: |
+          .github/setup
+          setup/install_prereqs 3.12
         shell: zsh -efuo pipefail {0}
       - name: poetry test
         working-directory: drake_poetry
@@ -53,13 +55,14 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      # ubuntu_setup and ci_build_test must occur in one step
+      # setup and test must occur in one step
       # because when poetry is installed, the update to PATH
-      # does not persist between steps on GHA.
+      # does not persist between steps on GHA
       - name: poetry setup and test
         working-directory: drake_poetry
         run: |
-          .github/ubuntu_setup
+          .github/setup
           source $HOME/.profile
+          setup/install_prereqs
           .github/ci_build_test
         shell: bash

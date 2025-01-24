@@ -1,0 +1,30 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+case "$OSTYPE" in
+    darwin*)
+    # Mac-specific installations
+    brew install pipx
+    ;;
+
+    linux*)
+    if [[ "${EUID:-}" -ne 0 ]]; then
+      echo 'This script must be run as root' >&2
+      exit 2
+    fi
+
+    # Ubuntu-specific installations
+    echo 'APT::Acquire::Retries "4";' > /etc/apt/apt.conf.d/80-acquire-retries
+    echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
+
+    export DEBIAN_FRONTEND='noninteractive'
+
+    apt-get update
+    apt-get install --no-install-recommends pipx python3
+    ;;
+esac
+
+pipx install poetry
+pipx ensurepath

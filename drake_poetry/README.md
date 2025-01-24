@@ -12,13 +12,13 @@ The `pyproject.toml` file found in this directory contains all
 that is needed to start a Poetry project using the most recent
 version of Drake.
 
+First, follow the [Installation Instructions](https://python-poetry.org/docs/#installation)
+to install Poetry using your preferred method.
+
 Run the installation script to perform the following:
 
-* install the required system packages for Drake
-* install Poetry using `pipx`; see the
-[Installation Instructions](https://python-poetry.org/docs/#installation)
-for more information
-* install the most recent version of Drake using `poetry install`
+* install the required system packages for Drake (Ubuntu only)
+* set up your Poetry environment and install the most recent version of Drake
 
 ```bash
 setup/install_prereqs

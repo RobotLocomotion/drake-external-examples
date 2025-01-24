@@ -8,13 +8,7 @@ if [[ "${EUID}" -ne 0 ]]; then
   maybe_sudo=sudo
 fi
 
-case "$OSTYPE" in
-    darwin*)
-    # Mac-specific installations
-    brew install pipx
-    ;;
-
-    linux*)
+if [[ "$OSTYPE" == "linux"* ]]; then
     # Ubuntu-specific installations
     # See https://github.com/RobotLocomotion/drake/blob/master/tools/wheel/content/INSTALLATION
     # for a complete list of the required libraries to be installed.
@@ -24,19 +18,8 @@ case "$OSTYPE" in
       libglib2.0-0
       libsm6
       libx11-6
-      pipx
-      python3
 EOF
     )
-    ;;
-esac
-
-# Install poetry
-pipx install poetry
-pipx ensurepath
-# Update PATH on Linux in order to run the next steps
-if [[ "$OSTYPE" == "linux"* ]]; then
-  source $HOME/.profile
 fi
 
 # If a version of Python other than the default (3) is provided,
