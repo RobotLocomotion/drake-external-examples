@@ -41,17 +41,10 @@ cc_library(
 )
 
 cc_library(
-    name = "_drake_lcm_headers",
-    hdrs = glob(["include/drake_lcmtypes/drake/**"]),
-    strip_include_prefix = "include/drake_lcmtypes",
-    deps = [":_lcm_coretypes"],
-)
-
-cc_library(
     name = "_drake_headers",
-    hdrs = glob(["include/drake/**"], exclude = ["**/drake_lcmtypes/**"]),
+    hdrs = glob(["include/drake/**"]),
     strip_include_prefix = "include",
-    deps = [":_drake_lcm_headers"],
+    deps = [":_lcm_coretypes"],
 )
 
 [
