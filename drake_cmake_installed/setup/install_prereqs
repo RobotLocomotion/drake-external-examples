@@ -47,7 +47,7 @@ case "$OSTYPE" in
     fi
 
     # Install Drake dependencies.
-    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
+    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/experimental/drake-0.0.20250125.53926%2Bgit92bb4526-mac-arm64.tar.gz
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C /opt
     ;;
