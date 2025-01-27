@@ -50,12 +50,14 @@ apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
+# Download the drake source
 wget -O drake.tar.gz \
   https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
 trap 'rm -f drake.tar.gz' EXIT
-tar -xf drake.tar.gz -C /opt
+tar -xf drake.tar.gz -C $HOME
 
 # Show version for debugging; use echo for newline / readability.
-echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
+echo -e "\ndrake VERSION.TXT: $(cat $HOME/drake/share/doc/drake/VERSION.TXT)\n"
 
-/opt/drake/share/drake/setup/install_prereqs
+# Install the source prereqs
+$HOME/drake/share/drake/setup/install_prereqs

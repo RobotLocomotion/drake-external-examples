@@ -39,17 +39,10 @@ case "$OSTYPE" in
       exit 1
     fi
 
-    if [[ ! -d /opt/drake ]]; then
-      sudo mkdir -p /opt/drake
-      sudo chmod g+rwx /opt/drake
-      sudo chown "${USER}" /opt/drake
-      sudo chgrp admin /opt/drake
-    fi
-
-    # Install Drake dependencies.
+    # Download the drake source
     curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
     trap 'rm -f drake.tar.gz' EXIT
-    tar -xf drake.tar.gz -C /opt
+    tar -xf drake.tar.gz -C $HOME
     ;;
 
     linux*)
@@ -73,10 +66,11 @@ case "$OSTYPE" in
 EOF
     )
 
+    # Download the drake source
     wget -O drake.tar.gz \
       https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
     trap 'rm -f drake.tar.gz' EXIT
-    tar -xf drake.tar.gz -C /opt
+    tar -xf drake.tar.gz -C $HOME
 
     apt-get update
     apt-get install --no-install-recommends $(cat <<EOF
@@ -87,6 +81,7 @@ EOF
 esac
 
 # Show version for debugging; use echo for newline / readability.
-echo -e "\ndrake VERSION.TXT: $(cat /opt/drake/share/doc/drake/VERSION.TXT)\n"
+echo -e "\ndrake VERSION.TXT: $(cat $HOME/drake/share/doc/drake/VERSION.TXT)\n"
 
-/opt/drake/share/drake/setup/install_prereqs
+# Install the source prereqs
+$HOME/drake/share/drake/setup/install_prereqs

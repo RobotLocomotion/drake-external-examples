@@ -8,7 +8,7 @@ cmake --version
 mkdir build
 pushd build
 
-cmake -DCMAKE_PREFIX_PATH=/opt/drake "$@" ..
+cmake -DCMAKE_PREFIX_PATH=$HOME/drake "$@" ..
 make
 ctest -V .
 
