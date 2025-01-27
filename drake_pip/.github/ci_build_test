@@ -1,0 +1,13 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+source env/bin/activate
+
+cd src
+python3 particle_test.py
+
+cd ..
+deactivate
+rm -rf env src/__pycache__

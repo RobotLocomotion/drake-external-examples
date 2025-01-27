@@ -1,0 +1,25 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
+# Ubuntu-specific installations
+# See https://github.com/RobotLocomotion/drake/blob/master/tools/wheel/content/INSTALLATION
+# for a complete list of the required libraries to be installed.
+${maybe_sudo} apt-get update
+${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
+  libegl1
+  libglib2.0-0
+  libsm6
+  libx11-6
+  python3
+  python3-venv
+EOF
+)
+
+setup/setup_env

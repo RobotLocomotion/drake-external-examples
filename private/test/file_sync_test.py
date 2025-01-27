@@ -22,6 +22,7 @@ COPIES = (
     (
         "drake_bazel_download/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
+        "drake_pip/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/CPPLINT.cfg",
@@ -37,6 +38,8 @@ COPIES = (
         "drake_cmake_external/LICENSE",
         "drake_cmake_installed/LICENSE",
         "drake_cmake_installed_apt/LICENSE",
+        "drake_pip/LICENSE",
+        "drake_poetry/LICENSE",
     ),
     (
         "drake_bazel_download/.github/ci_build_test",
@@ -92,8 +95,17 @@ COPIES = (
         "CMakeLists.txt",
         "particle.cc",
         "particle.h",
-        "particle.py",
         "particle_test.cc",
+    ]
+]) + tuple([
+    (
+        f"drake_cmake_installed/src/particle/{path}",
+        f"drake_cmake_installed_apt/src/{path}",
+        f"drake_pip/src/{path}",
+        f"drake_poetry/src/{path}",
+    )
+    for path in [
+        "particle.py",
         "particle_test.py",
     ]
 ])
@@ -102,6 +114,8 @@ GITHUB_WORKFLOWS = (
     "bazel_download",
     "cmake_installed",
     "cmake_installed_apt",
+    "pip",
+    "poetry"
 )
 
 found_errors = False
@@ -149,7 +163,7 @@ def check(index: int, paths: tuple[str]):
 
 
 def gha_workflow_check(workflow_name: str):
-    """Enforces the subdir_ci to have the contents of root_ci up until 
+    """Enforces the subdir_ci to have the contents of root_ci up until
     it reaches the jobs: line plus the content in the subdir_ workflow
     after jobs: is mentioned.
     """

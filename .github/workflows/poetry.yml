@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: MIT-0
+
+---
+name: ci
+on:
+  workflow_call:
+
+jobs:
+  macos_sonoma_arm_poetry:
+    name: macos sonoma 14 arm
+    runs-on: macos-14
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      # See issue https://github.com/actions/setup-python/issues/577.  There is
+      # some kind of environment conflict between the symlinks found in the
+      # GitHub Actions runner and `brew upgrade python` where `brew` detects and
+      # refuses to overwrite symlinks.  The cause for our runs is not clear,
+      # we do not use that action, but if that issue is closed this section
+      # can be removed.
+      - name: sanitize GHA / brew python environment
+        run: |
+          # Remove the symlinks that cause issues.
+          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
+          sudo rm -rf /Library/Frameworks/Python.framework/
+      - name: python setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: poetry setup
+        working-directory: drake_poetry
+        run: |
+          .github/setup
+          setup/install_prereqs 3.12
+        shell: zsh -efuo pipefail {0}
+      - name: poetry test
+        working-directory: drake_poetry
+        run: .github/ci_build_test
+        shell: zsh -efuo pipefail {0}
+  ubuntu_jammy_poetry:
+    name: ubuntu 22.04 jammy
+    runs-on: ubuntu-latest
+    container: ubuntu:jammy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      # setup and test must occur in one step
+      # because when poetry is installed, the update to PATH
+      # does not persist between steps on GHA
+      - name: poetry setup and test
+        working-directory: drake_poetry
+        run: |
+          .github/setup
+          source $HOME/.profile
+          setup/install_prereqs
+          .github/ci_build_test
+        shell: bash

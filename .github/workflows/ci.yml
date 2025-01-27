@@ -23,6 +23,10 @@ jobs:
     uses: ./.github/workflows/bazel_download.yml
   cmake_installed_apt:
     uses: ./.github/workflows/cmake_installed_apt.yml
+  pip:
+    uses: ./.github/workflows/pip.yml
+  poetry:
+    uses: ./.github/workflows/poetry.yml
   file_sync:
     name: file sync
     runs-on: ubuntu-latest

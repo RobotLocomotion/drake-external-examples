@@ -1,0 +1,12 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+poetry --version
+
+cd src
+poetry run python particle_test.py
+
+cd ..
+rm -rf src/__pycache__
