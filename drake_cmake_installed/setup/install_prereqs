@@ -39,13 +39,6 @@ case "$OSTYPE" in
       exit 1
     fi
 
-    if [[ ! -d "${HOME}/drake" ]]; then
-      sudo mkdir -p "${HOME}/drake"
-      sudo chmod g+rwx "${HOME}/drake"
-      sudo chown "${USER}" "${HOME}/drake"
-      sudo chgrp admin "${HOME}/drake"
-    fi
-
     # Download the drake source
     curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
     trap 'rm -f drake.tar.gz' EXIT
