@@ -20,8 +20,7 @@ Drake to download.
 
 ## Build Everything
 
-Then, after cloning this repository, run the following to
-build using CMake from the current directory
+Then run the following to build using CMake from the current directory
 (`drake-external-examples/drake_cmake_installed`):
 
 ```bash
@@ -38,6 +37,10 @@ By default, `install_prereqs` script gets the latest version
 of Drake (usually last night's build). Ignore this if that
 version is desired. Otherwise, the following are alternative
 options for which version of Drake to download.
+
+To use any of these options, instead of running `install_prereqs`,
+first run the code for whichever option you prefer below. Each option
+downloads Drake to the `$HOME` directory.
 
 1. A specific version (date-stamped)
 
@@ -59,6 +62,15 @@ Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
 (cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
+```
+
+Then ensure you have Python installed; specifically,
+install `python3-all-dev` if on Ubuntu, and use Homebrew Python
+(not Apple's system Python) if on macOS. Finally, run *Drake's*
+`install_prereqs` script to install the remaining system packages:
+
+```bash
+$HOME/drake/share/drake/setup/install_prereqs
 ```
 
 # Examples
