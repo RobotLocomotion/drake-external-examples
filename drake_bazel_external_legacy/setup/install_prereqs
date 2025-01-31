@@ -23,4 +23,4 @@ trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz
 
 # Install the source prereqs
-drake-master/setup/install_prereqs
+drake-master/setup/install_prereqs --with-bazel

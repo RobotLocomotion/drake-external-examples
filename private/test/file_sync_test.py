@@ -47,10 +47,6 @@ COPIES = (
         "drake_cmake_external/.github/ubuntu_setup",
     ),
     (
-        "drake_bazel_external/setup/install_prereqs",
-        "drake_cmake_external/setup/install_prereqs",
-    ),
-    (
         "drake_bazel_download/.bazelversion",
         "drake_bazel_external/.bazelversion",
     ),
@@ -149,7 +145,7 @@ def check(index: int, paths: tuple[str]):
 
 
 def gha_workflow_check(workflow_name: str):
-    """Enforces the subdir_ci to have the contents of root_ci up until 
+    """Enforces the subdir_ci to have the contents of root_ci up until
     it reaches the jobs: line plus the content in the subdir_ workflow
     after jobs: is mentioned.
     """
