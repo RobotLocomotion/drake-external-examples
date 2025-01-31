@@ -50,10 +50,6 @@ COPIES = (
         "drake_cmake_external/.github/ubuntu_setup",
     ),
     (
-        "drake_bazel_external/setup/install_prereqs",
-        "drake_cmake_external/setup/install_prereqs",
-    ),
-    (
         "drake_bazel_download/.bazelversion",
         "drake_bazel_external/.bazelversion",
     ),

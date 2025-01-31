@@ -4,7 +4,12 @@
 
 set -euxo pipefail
 
-sudo apt-get install --no-install-recommends $(cat <<EOF
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
+${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
   wget
 EOF
 )
@@ -18,4 +23,4 @@ trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz
 
 # Install the source prereqs
-sudo drake-master/setup/ubuntu/install_prereqs.sh
+drake-master/setup/install_prereqs
