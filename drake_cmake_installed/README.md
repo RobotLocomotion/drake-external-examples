@@ -39,39 +39,50 @@ version is desired. Otherwise, the following are alternative
 options for which version of Drake to download.
 
 To use any of these options, instead of running `install_prereqs`,
-first run the code for whichever option you prefer below. Each option
+run the code for whichever option you prefer below. Each option
 downloads Drake to the `$HOME` directory.
 
 1. A specific version (date-stamped)
 
+Replace `jammy` (for Ubuntu 22.04) with `noble` or `mac-arm64`
+to download the version needed for your operating system.
+
 ```bash
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
-tar -xvzf drake-20240214-jammy.tar.gz -C $HOME
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-jammy.tar.gz
+tar -xvzf drake-0.0.20250131-jammy.tar.gz -C $HOME
+$HOME/drake/share/drake/setup/install_prereqs # install prereqs
 ```
+
+See [Installation via Direct Download](https://drake.mit.edu/from_binary.html)
+for more information.
 
 2. Manual installation
 
+If on Mac, adjust the call to install prereqs to replace `ubuntu` with `mac`
+and remove the use of `sudo`.
+
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
-(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
+cd drake
+sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+(mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
 ```
 
 3. Manual installation w/ licensed Gurobi
 Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 
+If on Mac, adjust the call to install prereqs to replace `ubuntu` with `mac`
+and remove the use of `sudo`.
+
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
-(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
+cd drake
+sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+(mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
 ```
 
-Then ensure you have Python installed; specifically,
-install `python3-all-dev` if on Ubuntu, and use Homebrew Python
-(not Apple's system Python) if on macOS. Finally, run *Drake's*
-`install_prereqs` script to install the remaining system packages:
-
-```bash
-$HOME/drake/share/drake/setup/install_prereqs
-```
+Finally, for the code in this example, ensure you have `python3-all-dev`
+installed if on Ubuntu.
 
 # Examples
 
