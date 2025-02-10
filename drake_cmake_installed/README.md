@@ -50,7 +50,7 @@ to download the version needed for your operating system.
 ```bash
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-jammy.tar.gz
 tar -xvzf drake-0.0.20250131-jammy.tar.gz -C $HOME
-$HOME/drake/share/drake/setup/install_prereqs # install prereqs
+$HOME/drake/share/drake/setup/install_prereqs
 ```
 
 See [Installation via Direct Download](https://drake.mit.edu/from_binary.html)
@@ -64,7 +64,7 @@ and remove the use of `sudo`.
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
 cd drake
-sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+setup/install_prereqs
 (mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
 ```
 
@@ -77,7 +77,7 @@ and remove the use of `sudo`.
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
 cd drake
-sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+setup/install_prereqs
 (mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
 ```
 
