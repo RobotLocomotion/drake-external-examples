@@ -1,55 +1,83 @@
 # CMake Project with an Installed Drake
 
-This uses the CMake `find_package(drake)` mechanism to find an installed instance of Drake.
+This uses the CMake `find_package(drake)`
+mechanism to find an installed instance of Drake.
 
 # Instructions
 
-These instructions are only supported for Ubuntu 22.04 (Jammy).
+## Download and Install Prerequisites
+
+First, run the `install_prereqs` script to download the
+Drake source to `$HOME/drake/`. This also run's Drake's
+setup script to install the required packages depending
+on your operating system:
 
 ```bash
-###############################################################
-# Download Drake and Install Prerequisites
-###############################################################
-
-# Download Drake source to $HOME/drake/ and
-# install various system dependencies
 setup/install_prereqs
+```
 
-###############################################################
-# Alternative Drake Versions
-###############################################################
+See [below](#alternative-versions) for alternative versions of
+Drake to download.
 
-# The script above gets the latest version of Drake (usually
-# last night's build). Ignore this step if that version is desired.
-# Otherwise, the following are alternative options for which
-# version of Drake to download:
+## Build Everything
 
-# 1) A specific version (date-stamped)
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-20240214-jammy.tar.gz
-tar -xvzf drake-20240214-jammy.tar.gz -C $HOME
+Then run the following to build using CMake from the current directory
+(`drake-external-examples/drake_cmake_installed`):
 
-# 2) Manual Installation
-git clone https://github.com/RobotLocomotion/drake.git
-(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
-
-# 3) Manual Installation w/ Licensed Gurobi
-# Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
-git clone https://github.com/RobotLocomotion/drake.git
-(cd drake && mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
-
-###############################################################
-# Build Everything
-###############################################################
-
-git clone https://github.com/RobotLocomotion/drake-external-examples.git
-cd drake-external-examples/drake_cmake_installed
+```bash
 mkdir build && cd build
 cmake -DCMAKE_PREFIX_PATH=$HOME/drake ..
 make
-
-# (Optionally) Run Tests
-make test
 ```
+
+You can also optionally run the tests by calling `make test`.
+
+## Alternative Versions
+
+By default, `install_prereqs` script gets the latest version
+of Drake (usually last night's build). Ignore this if that
+version is desired. Otherwise, the following are alternative
+options for which version of Drake to download.
+
+To use any of these options, instead of running `install_prereqs`,
+run the code for whichever option you prefer below. Each option
+downloads Drake to the `$HOME` directory.
+
+1. A specific version (date-stamped)
+
+Replace `jammy` (for Ubuntu 22.04) with `noble` or `mac-arm64`
+to download the version needed for your operating system.
+
+```bash
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-jammy.tar.gz
+tar -xvzf drake-0.0.20250131-jammy.tar.gz -C $HOME
+$HOME/drake/share/drake/setup/install_prereqs
+```
+
+See [Installation via Direct Download](https://drake.mit.edu/from_binary.html)
+for more information.
+
+2. Manual installation
+
+```bash
+git clone https://github.com/RobotLocomotion/drake.git
+cd drake
+setup/install_prereqs
+(mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
+```
+
+3. Manual installation w/ licensed Gurobi
+Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
+
+```bash
+git clone https://github.com/RobotLocomotion/drake.git
+cd drake
+setup/install_prereqs
+(mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
+```
+
+Finally, for the code in this example, ensure you have `python3-all-dev`
+installed if on Ubuntu.
 
 # Examples
 
