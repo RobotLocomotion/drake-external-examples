@@ -15,7 +15,7 @@ case "$OSTYPE" in
     fi
 
     # Download the drake source
-    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
+    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/experimental/drake-0.0.20250211.23908%2Bgit7a5352aa-mac-arm64.tar.gz
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
     ;;
