@@ -1,6 +1,7 @@
 # CMake Project with an Installed Drake
 
-This uses the CMake `find_package(drake)` mechanism to find an installed instance of Drake.
+This uses the CMake `find_package(drake)`
+mechanism to find an installed instance of Drake.
 
 # Instructions
 
@@ -50,7 +51,7 @@ to download the version needed for your operating system.
 ```bash
 curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-jammy.tar.gz
 tar -xvzf drake-0.0.20250131-jammy.tar.gz -C $HOME
-$HOME/drake/share/drake/setup/install_prereqs # install prereqs
+$HOME/drake/share/drake/setup/install_prereqs
 ```
 
 See [Installation via Direct Download](https://drake.mit.edu/from_binary.html)
@@ -58,26 +59,20 @@ for more information.
 
 2. Manual installation
 
-If on Mac, adjust the call to install prereqs to replace `ubuntu` with `mac`
-and remove the use of `sudo`.
-
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
 cd drake
-sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+setup/install_prereqs
 (mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake .. && make)
 ```
 
 3. Manual installation w/ licensed Gurobi
 Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 
-If on Mac, adjust the call to install prereqs to replace `ubuntu` with `mac`
-and remove the use of `sudo`.
-
 ```bash
 git clone https://github.com/RobotLocomotion/drake.git
 cd drake
-sudo setup/ubuntu/source_distribution/install_prereqs.sh # install prereqs
+setup/install_prereqs
 (mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
 ```
 
