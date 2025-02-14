@@ -95,11 +95,11 @@ set(DRAKE_PREFIX "${PROJECT_BINARY_DIR}/drake-prefix")
 
 ExternalProject_Add(drake
   DEPENDS eigen fmt spdlog
-  URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
+  # URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
   # Or from a commit (download and use "shasum -a 256 'xxx.tar.gz'" on it to
   # get the URL_HASH.
-  # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
-  # URL_HASH SHA256=899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca
+  URL https://github.com/RobotLocomotion/drake/archive/f848b02282cda2128475aa9a10db704a086b9752.tar.gz
+  URL_HASH SHA256=baee279a679268eddb98fa8ec0356dae8ec0e86520e80e5559e73030f9c8cca2
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
