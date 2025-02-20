@@ -112,6 +112,10 @@ ExternalProject_Add(drake
     -DWITH_USER_EIGEN:BOOLEAN=ON
     -DWITH_USER_FMT:BOOLEAN=ON
     -DWITH_USER_SPDLOG:BOOLEAN=ON
+    # The Drake build has options to turn features on/off.
+    # See https://drake.mit.edu/from_source.html for the full list.
+    # Here, we demonstrate how to set an arbitrary option
+    # for one of the open-source dependencies.
     -DWITH_CSDP:BOOLEAN=OFF
   PREFIX "${DRAKE_PREFIX}"
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"

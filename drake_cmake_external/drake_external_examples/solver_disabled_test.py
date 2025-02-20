@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: MIT-0
 
 """
-Provides an example of disabling the open-source CSDP solver.
+Our CMakeLists.txt file disabled the CSDP solver as part of the Drake build.
+Here, we'll check that the opt-out succeeded.
 """
 
 import unittest
