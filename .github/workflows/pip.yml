@@ -29,7 +29,12 @@ jobs:
           python-version: '3.12'
       - name: venv setup and install
         working-directory: drake_pip
-        run: setup/setup_env 3.12
+        run: |
+          args=("--python-version '3.12'")
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.mac_arm_sonoma_wheel_experimental }}")
+          fi
+          setup/setup_env "${args[@]}"
         shell: zsh -eufo pipefail {0}
       - name: pip build and test
         working-directory: drake_pip
@@ -44,7 +49,12 @@ jobs:
         uses: actions/checkout@v4
       - name: pip setup
         working-directory: drake_pip
-        run: .github/ubuntu_setup
+        run: |
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.linux_jammy_wheel_experimental }}")
+          fi
+          .github/ubuntu_setup "${args[@]}"
         shell: bash
       - name: pip build and test
         working-directory: drake_pip

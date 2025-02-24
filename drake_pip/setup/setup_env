@@ -3,8 +3,40 @@
 
 set -euxo pipefail
 
-PYTHON_VERSION=${1:-'3'}
-echo "Creating virtual environment with python${PYTHON_VERSION}"
+wheel_experimental_url=
+python_version='3'
 
-"python${PYTHON_VERSION}" -m venv env
-"env/bin/pip$PYTHON_VERSION" install -r requirements.txt
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --wheel-experimental-url)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --wheel-experimental-url' >&2
+        exit 1
+      fi
+      wheel_experimental_url="$1"
+      ;;
+    --python-version)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --python-version' >&2
+        exit 1
+      fi
+      python_version="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+echo "Creating virtual environment with python${python_version}"
+"python${python_version}" -m venv env
+# Install from requirements.txt, which currently only includes drake.
+"env/bin/pip$python_version" install -r requirements.txt
+
+# Use experimental wheels if specified, on the respective OS.
+if [[ ! -z "${wheel_experimental_url}" ]]; then
+  "env/bin/pip$python_version" install "${wheel_experimental_url}"
+fi

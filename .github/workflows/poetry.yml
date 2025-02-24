@@ -31,7 +31,11 @@ jobs:
         working-directory: drake_poetry
         run: |
           .github/setup
-          setup/install_prereqs 3.12
+          args=("--python-version '3.12'")
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.mac_arm_sonoma_wheel_experimental }}")
+          fi
+          setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}
       - name: poetry test
         working-directory: drake_poetry
@@ -52,6 +56,10 @@ jobs:
         run: |
           .github/setup
           source $HOME/.profile
-          setup/install_prereqs
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.linux_jammy_wheel_experimental }}")
+          fi
+          setup/install_prereqs "${args[@]}"
           .github/ci_build_test
         shell: bash

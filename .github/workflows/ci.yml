@@ -21,6 +21,14 @@ on:
         description: 'Full URL for the Drake mac-arm-sonoma-*-experimental-packaging artifact'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz'
+      linux_jammy_wheel_experimental:
+        description: 'Full URL for the Drake linux-jammy-*-wheel-experimental-release artifact (Python 3.10)'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
+      mac_arm_sonoma_wheel_experimental:
+        description: 'Full URL for the Drake mac-arm-sonoma-*-wheel-experimental-release artifact (Python 3.12)'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.

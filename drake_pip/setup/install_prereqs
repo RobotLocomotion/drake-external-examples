@@ -3,6 +3,33 @@
 
 set -euxo pipefail
 
+setup_env_args=()
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --wheel-experimental-url)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --wheel-experimental-url' >&2
+        exit 1
+      fi
+      setup_env_args=(--wheel-experimental-url $1)
+      ;;
+    --python-version)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --python-version' >&2
+        exit 1
+      fi
+      setup_env_args+=(--python-version $1)
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
 maybe_sudo=
 if [[ "${EUID}" -ne 0 ]]; then
   maybe_sudo=sudo
@@ -22,4 +49,4 @@ ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
-setup/setup_env
+setup/setup_env "${setup_env_args[@]}"
