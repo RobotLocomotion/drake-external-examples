@@ -98,8 +98,8 @@ ExternalProject_Add(drake
   # URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
   # Or from a commit (download and use "shasum -a 256 'xxx.tar.gz'" on it to
   # get the URL_HASH.
-  URL https://github.com/RobotLocomotion/drake/archive/565130305be05a4d2071761442ae93ce5aadbcb7.tar.gz
-  URL_HASH SHA256=787c57af97eb267d8a980595a612964cc598f7350b3bbfacaf5743ea60c360ab
+  URL https://github.com/RobotLocomotion/drake/archive/9f58df5932f703162641e639ecaf1e732074aee7.tar.gz
+  URL_HASH SHA256=2de69323ccd2abb94891074c7ad225a02e0d7cd4f9363c43beb36c1944df3e06
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
