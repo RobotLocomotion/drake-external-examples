@@ -12,6 +12,15 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_experimental_packaging:
+        description: 'Full URL for the Drake linux-jammy-*-experimental-packaging artifact'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
+      mac_arm_sonoma_experimental_packaging:
+        description: 'Full URL for the Drake mac-arm-sonoma-*-experimental-packaging artifact'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz'
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
