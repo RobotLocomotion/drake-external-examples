@@ -12,6 +12,11 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_experimental_packaging:
+        description: 'Full URL for the Drake linux-jammy-*-experimental-packaging artifact'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -27,7 +32,12 @@ jobs:
         uses: actions/checkout@v4
       - name: setup
         working-directory: drake_bazel_download
-        run: .github/ubuntu_setup
+        run: |
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }}")
+          fi
+          .github/ubuntu_setup "${args[@]}"
         shell: bash
       - name: install_bazelisk
         working-directory: drake_bazel_download
@@ -35,5 +45,10 @@ jobs:
         shell: bash
       - name: bazel_download build and test
         working-directory: drake_bazel_download
-        run: .github/ci_build_test
+        run: |
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=(--override-repository)
+          fi
+          .github/ci_build_test "${args[@]}"
         shell: bash
