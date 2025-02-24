@@ -12,6 +12,15 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_wheel_experimental:
+        description: 'Full URL for the Drake linux-jammy-*-wheel-experimental-release artifact (Python 3.10)'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
+      mac_arm_sonoma_wheel_experimental:
+        description: 'Full URL for the Drake mac-arm-sonoma-*-wheel-experimental-release artifact (Python 3.12)'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -45,7 +54,11 @@ jobs:
         working-directory: drake_poetry
         run: |
           .github/setup
-          setup/install_prereqs $PYTHON_VERSION
+          args=("--python-version $PYTHON_VERSION")
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.mac_arm_sonoma_wheel_experimental }}")
+          fi
+          setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}
       - name: poetry test
         working-directory: drake_poetry
@@ -66,6 +79,10 @@ jobs:
         run: |
           .github/setup
           source $HOME/.profile
-          setup/install_prereqs
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=("--wheel-experimental-url ${{ github.event.inputs.linux_jammy_wheel_experimental }}")
+          fi
+          setup/install_prereqs "${args[@]}"
           .github/ci_build_test
         shell: bash
