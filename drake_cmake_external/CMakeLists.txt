@@ -93,13 +93,20 @@ ExternalProject_Add(spdlog
 # also pass this explicitly to ExternalProject_Add.
 set(DRAKE_PREFIX "${PROJECT_BINARY_DIR}/drake-prefix")
 
+# Options to override Drake's latest source on master with a specific commit.
+# Download https://github.com/RobotLocomotion/drake/archive/${DRAKE_COMMIT_HASH}.tar.gz
+# and use "shasum -a 256 'xxx.tar.gz'" on it to get the DRAKE_COMMIT_SHA256.
+set(DRAKE_COMMIT_HASH "master" CACHE STRING "Commit hash for Drake")
+set(DRAKE_COMMIT_SHA256 CACHE STRING "SHA256 hash value for Drake commit archive")
+
+if (NOT "${DRAKE_COMMIT_SHA256}" STREQUAL "")
+  string(PREPEND DRAKE_COMMIT_SHA256 "SHA256=")
+endif()
+
 ExternalProject_Add(drake
   DEPENDS eigen fmt spdlog
-  URL https://github.com/RobotLocomotion/drake/archive/master.tar.gz
-  # Or from a commit (download and use "shasum -a 256 'xxx.tar.gz'" on it to
-  # get the URL_HASH.
-  # URL https://github.com/RobotLocomotion/drake/archive/65c4366ea2b63278a286b1e22b8d464d50fbe365.tar.gz
-  # URL_HASH SHA256=899d98485522a7cd5251e50a7a6b8a64e40aff2a3af4951a3f0857fd938cafca
+  URL https://github.com/RobotLocomotion/drake/archive/${DRAKE_COMMIT_HASH}.tar.gz
+  URL_HASH ${DRAKE_COMMIT_SHA256}
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
