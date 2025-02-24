@@ -3,5 +3,32 @@
 
 set -euxo pipefail
 
+override_repository=0
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --override-repository)
+      override_repository=1
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+override_repository_flag=()
+if [[ ${override_repository} -eq 1 ]]; then
+  # Use what we installed to $HOME/drake,
+  # rather than the URL to the most recent nightly release
+  # found in drake_bazel_download/MODULE.bazel.
+  override_repository_flag+=("--override_repository=+_repo_rules2+drake=$HOME/drake")
+
+  # Setup $HOME/drake as a Bazel workspace via
+  # BUILD and WORKSPACE files.
+  ln -sf $(realpath drake.BUILD.bazel) "$HOME/drake/BUILD.bazel"
+  touch "$HOME/drake/WORKSPACE.bazel"
+fi
+
 bazel version
-bazel test //...
+bazel test "${override_repository_flag[@]}" //...

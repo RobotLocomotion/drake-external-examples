@@ -31,6 +31,25 @@
 
 set -euxo pipefail
 
+experimental_packaging_url=
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --experimental-packaging-url)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --experimental-packaging-url' >&2
+        exit 1
+      fi
+      experimental_packaging_url="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
 maybe_sudo=
 if [[ "${EUID}" -ne 0 ]]; then
   maybe_sudo=sudo
@@ -51,8 +70,9 @@ EOF
 )
 
 # Download the drake source
-wget -O drake.tar.gz \
-  https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
+drake_url="https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz"
+[[ ! -z "${experimental_packaging_url}" ]] && drake_url="${experimental_packaging_url}"
+wget -O drake.tar.gz ${drake_url}
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C $HOME
 
