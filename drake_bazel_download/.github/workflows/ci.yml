@@ -35,7 +35,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=("--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }}")
+            args+=(--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash
