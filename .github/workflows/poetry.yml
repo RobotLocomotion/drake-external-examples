@@ -35,7 +35,7 @@ jobs:
           .github/setup
           args=(--python-version $PYTHON_VERSION)
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--wheel-experimental-url ${{ github.event.inputs.mac_arm_sonoma_wheel_experimental }})
+            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
           fi
           setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}
@@ -60,7 +60,7 @@ jobs:
           source $HOME/.profile
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--wheel-experimental-url ${{ github.event.inputs.linux_jammy_wheel_experimental }})
+            args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
           fi
           setup/install_prereqs "${args[@]}"
           .github/ci_build_test

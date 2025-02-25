@@ -13,8 +13,8 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_experimental_packaging:
-        description: 'Full URL for the Drake linux-jammy-*-experimental-packaging artifact'
+      linux_jammy_package_tar:
+        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
 concurrency:
@@ -35,7 +35,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }})
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash
@@ -48,7 +48,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--override-repository)
+            args+=(--drake-override)
           fi
           .github/ci_build_test "${args[@]}"
         shell: bash

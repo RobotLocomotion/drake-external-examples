@@ -7,13 +7,13 @@ setup_env_args=()
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
-    --wheel-experimental-url)
+    --wheel-url)
       shift
       if [[ $# -eq 0 ]]; then
-        echo 'No argument specified for --wheel-experimental-url' >&2
+        echo 'No argument specified for --wheel-url' >&2
         exit 1
       fi
-      setup_env_args=(--wheel-experimental-url $1)
+      setup_env_args=(--wheel-url $1)
       ;;
     --python-version)
       shift

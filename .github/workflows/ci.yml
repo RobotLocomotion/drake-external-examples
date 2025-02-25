@@ -13,20 +13,24 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_experimental_packaging:
-        description: 'Full URL for the Drake linux-jammy-*-experimental-packaging artifact'
+      linux_jammy_package_tar:
+        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
-      mac_arm_sonoma_experimental_packaging:
-        description: 'Full URL for the Drake mac-arm-sonoma-*-experimental-packaging artifact'
+      linux_jammy_package_deb:
+        description: 'Drake linux-jammy-*-packaging .deb artifact URL'
+        required: true
+        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-dev_latest-1_amd64-jammy.deb'
+      mac_arm_sonoma_package_tar:
+        description: 'Drake mac-arm-sonoma-*-packaging .tar.gz artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz'
-      linux_jammy_wheel_experimental:
-        description: 'Full URL for the Drake linux-jammy-*-wheel-experimental-release artifact (Python 3.10)'
+      linux_jammy_wheel:
+        description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
-      mac_arm_sonoma_wheel_experimental:
-        description: 'Full URL for the Drake mac-arm-sonoma-*-wheel-experimental-release artifact (Python 3.12)'
+      mac_arm_sonoma_wheel:
+        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
 concurrency:
