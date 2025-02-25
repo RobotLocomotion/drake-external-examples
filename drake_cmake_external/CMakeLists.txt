@@ -112,10 +112,9 @@ ExternalProject_Add(drake
     -DWITH_USER_EIGEN:BOOL=ON
     -DWITH_USER_FMT:BOOL=ON
     -DWITH_USER_SPDLOG:BOOL=ON
-    # The Drake build has options to turn features on/off.
-    # See https://drake.mit.edu/from_source.html for the full list.
-    # Here, we demonstrate how to set an arbitrary option
-    # for one of the open-source dependencies.
+    # The Drake build has options to turn features on/off. For the full list,
+    # see https://drake.mit.edu/from_source.html. Here, we demonstrate how to
+    # set an arbitrary option for one of the open-source dependencies.
     -DWITH_CSDP:BOOL=OFF
   PREFIX "${DRAKE_PREFIX}"
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
