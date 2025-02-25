@@ -28,7 +28,7 @@ include(ExternalProject)
 
 # This shows how to fetch Eigen from source as part of Drake's CMake build.
 # If you'd rather just use your operating system's Eigen, then this stanza could
-# be removed (as well as removing -DWITH_USER_EIGEN:BOOLEAN=ON, below).
+# be removed (as well as removing -DWITH_USER_EIGEN:BOOL=ON, below).
 ExternalProject_Add(eigen
   URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
   URL_HASH SHA256=8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72
@@ -45,7 +45,7 @@ ExternalProject_Add(eigen
 
 # This shows how to rebuild fmt from source as part of Drake's CMake build.
 # If you'd rather just use your operating system's fmt, then this stanza could
-# be removed (as well as removing -DWITH_USER_FMT:BOOLEAN=ON, below).
+# be removed (as well as removing -DWITH_USER_FMT:BOOL=ON, below).
 # If you rebuild fmt from source, then you must also rebuild spdlog from source.
 ExternalProject_Add(fmt
   URL https://github.com/fmtlib/fmt/archive/refs/tags/6.1.2.tar.gz
@@ -67,7 +67,7 @@ ExternalProject_Add(fmt
 
 # This shows how to rebuild spdlog from source as part of Drake's CMake build.
 # If you'd rather just use your operating system's fmt, then this stanza could
-# be removed (as well as removing -DWITH_USER_SPDLOG:BOOLEAN=ON, below).
+# be removed (as well as removing -DWITH_USER_SPDLOG:BOOL=ON, below).
 # If you rebuild spdlog from source, then you must also rebuild fmt from source.
 ExternalProject_Add(spdlog
   DEPENDS fmt
@@ -83,7 +83,7 @@ ExternalProject_Add(spdlog
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
     -DSPDLOG_BUILD_SHARED=ON
     -DCMAKE_CXX_FLAGS:STRING=-fPIC
-    -DSPDLOG_FMT_EXTERNAL:BOOLEAN=ON
+    -DSPDLOG_FMT_EXTERNAL:BOOL=ON
     -Dfmt_DIR=${CMAKE_INSTALL_PREFIX}/lib/cmake/fmt
 )
 
@@ -109,9 +109,13 @@ ExternalProject_Add(drake
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
     -DPYTHON_EXECUTABLE:FILEPATH=${Python3_EXECUTABLE}
-    -DWITH_USER_EIGEN:BOOLEAN=ON
-    -DWITH_USER_FMT:BOOLEAN=ON
-    -DWITH_USER_SPDLOG:BOOLEAN=ON
+    -DWITH_USER_EIGEN:BOOL=ON
+    -DWITH_USER_FMT:BOOL=ON
+    -DWITH_USER_SPDLOG:BOOL=ON
+    # The Drake build has options to turn features on/off. For the full list,
+    # see https://drake.mit.edu/from_source.html. Here, we demonstrate how to
+    # set an arbitrary option for one of the open-source dependencies.
+    -DWITH_CSDP:BOOL=OFF
   PREFIX "${DRAKE_PREFIX}"
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON

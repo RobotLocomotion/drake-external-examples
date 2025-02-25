@@ -27,3 +27,13 @@ set_tests_properties(import_all_test PROPERTIES
   ENVIRONMENT "PYTHONPATH=${DRAKE_PYTHONPATH}"
 )
 
+add_test(NAME solver_disabled_test
+  COMMAND Python3::Interpreter -B -m unittest solver_disabled_test
+)
+set_tests_properties(solver_disabled_test PROPERTIES
+  ENVIRONMENT "PYTHONPATH=${DRAKE_PYTHONPATH}"
+  LABELS small
+  REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/solver_disabled_test.py"
+  TIMEOUT 60
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
