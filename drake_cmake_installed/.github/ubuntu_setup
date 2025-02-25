@@ -7,13 +7,13 @@ install_args=()
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
-    --experimental-packaging-url)
+    --package-url)
       shift
       if [[ $# -eq 0 ]]; then
-        echo 'No argument specified for --experimental-packaging-url' >&2
+        echo 'No argument specified for --package-url' >&2
         exit 1
       fi
-      install_args+=(--experimental-packaging-url $1)
+      install_args+=(--package-url $1)
       ;;
     *)
       echo 'Invalid command line argument' >&2

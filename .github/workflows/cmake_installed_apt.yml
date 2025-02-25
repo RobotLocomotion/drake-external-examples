@@ -15,7 +15,12 @@ jobs:
         uses: actions/checkout@v4
       - name: setup
         working-directory: drake_cmake_installed_apt
-        run: .github/ubuntu_apt_setup
+        run: |
+          args=()
+          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_deb }})
+          fi
+          .github/ubuntu_apt_setup "${args[@]}"
         shell: bash
       - name: cmake_installed_apt build and test
         working-directory: drake_cmake_installed_apt

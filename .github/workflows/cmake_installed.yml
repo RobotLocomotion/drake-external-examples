@@ -28,7 +28,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--experimental-packaging-url ${{ github.event.inputs.mac_arm_sonoma_experimental_packaging }})
+            args+=(--package-url ${{ github.event.inputs.mac_arm_sonoma_package_tar }})
           fi
           setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}
@@ -48,7 +48,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }})
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash

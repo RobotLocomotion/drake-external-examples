@@ -13,12 +13,12 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_wheel_experimental:
-        description: 'Full URL for the Drake linux-jammy-*-wheel-experimental-release artifact (Python 3.10)'
+      linux_jammy_wheel:
+        description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
-      mac_arm_sonoma_wheel_experimental:
-        description: 'Full URL for the Drake mac-arm-sonoma-*-wheel-experimental-release artifact (Python 3.12)'
+      mac_arm_sonoma_wheel:
+        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
 concurrency:
@@ -53,7 +53,7 @@ jobs:
         run: |
           args=(--python-version '3.12')
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--wheel-experimental-url ${{ github.event.inputs.mac_arm_sonoma_wheel_experimental }})
+            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
           fi
           setup/setup_env "${args[@]}"
         shell: zsh -eufo pipefail {0}
@@ -73,7 +73,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--wheel-experimental-url ${{ github.event.inputs.linux_jammy_wheel_experimental }})
+            args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash

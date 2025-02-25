@@ -13,12 +13,12 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_experimental_packaging:
-        description: 'Full URL for the Drake linux-jammy-*-experimental-packaging artifact'
+      linux_jammy_package_tar:
+        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
-      mac_arm_sonoma_experimental_packaging:
-        description: 'Full URL for the Drake mac-arm-sonoma-*-experimental-packaging artifact'
+      mac_arm_sonoma_package_tar:
+        description: 'Drake mac-arm-sonoma-*-packaging .tar.gz artifact URL'
         required: true
         default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz'
 concurrency:
@@ -49,7 +49,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--experimental-packaging-url ${{ github.event.inputs.mac_arm_sonoma_experimental_packaging }})
+            args+=(--package-url ${{ github.event.inputs.mac_arm_sonoma_package_tar }})
           fi
           setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}
@@ -69,7 +69,7 @@ jobs:
         run: |
           args=()
           if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
-            args+=(--experimental-packaging-url ${{ github.event.inputs.linux_jammy_experimental_packaging }})
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash

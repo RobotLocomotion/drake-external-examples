@@ -3,18 +3,18 @@
 
 set -euxo pipefail
 
-wheel_experimental_url=
+wheel_url=
 python_version='3'
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
-    --wheel-experimental-url)
+    --wheel-url)
       shift
       if [[ $# -eq 0 ]]; then
-        echo 'No argument specified for --wheel-experimental-url' >&2
+        echo 'No argument specified for --wheel-url' >&2
         exit 1
       fi
-      wheel_experimental_url="$1"
+      wheel_url="$1"
       ;;
     --python-version)
       shift
@@ -57,10 +57,10 @@ if [[ "$python_version" != "3" ]]; then
   poetry env use $python_version
 fi
 
-# Use experimental wheels if specified, on the respective OS.
+# Use custom wheels if specified, on the respective OS.
 # Note that this will modify the pyproject.toml and the poetry.lock files.
-if [[ ! -z "${wheel_experimental_url}" ]]; then
-  poetry add "${wheel_experimental_url}"
+if [[ ! -z "${wheel_url}" ]]; then
+  poetry add "${wheel_url}"
 fi
 
 # Install poetry dependencies.
