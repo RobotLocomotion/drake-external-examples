@@ -15,8 +15,7 @@ on:
     inputs:
       linux_jammy_package_deb:
         description: 'Drake linux-jammy-*-packaging .deb artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-dev_latest-1_amd64-jammy.deb'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -34,7 +33,7 @@ jobs:
         working-directory: drake_cmake_installed_apt
         run: |
           args=()
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.linux_jammy_package_deb }} != '' ]]; then
             args+=(--package-url ${{ github.event.inputs.linux_jammy_package_deb }})
           fi
           .github/ubuntu_apt_setup "${args[@]}"
