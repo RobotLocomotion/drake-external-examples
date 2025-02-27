@@ -17,7 +17,7 @@ jobs:
         working-directory: drake_cmake_installed_apt
         run: |
           args=()
-          if [[ ${{ github.event.inputs.linux_jammy_package_deb }} != '' ]]; then
+          if [[ '${{ github.event.inputs.linux_jammy_package_deb }}' != '' ]]; then
             args+=(--package-url ${{ github.event.inputs.linux_jammy_package_deb }})
           fi
           .github/ubuntu_apt_setup "${args[@]}"

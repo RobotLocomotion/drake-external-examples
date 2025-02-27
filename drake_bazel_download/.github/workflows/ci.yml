@@ -33,7 +33,7 @@ jobs:
         working-directory: drake_bazel_download
         run: |
           args=()
-          if [[ ${{ github.event.inputs.linux_jammy_package_tar }} != '' ]]; then
+          if [[ '${{ github.event.inputs.linux_jammy_package_tar }}' != '' ]]; then
             args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
           fi
           .github/ubuntu_setup "${args[@]}"
@@ -46,7 +46,7 @@ jobs:
         working-directory: drake_bazel_download
         run: |
           args=()
-          if [[ ${{ github.event.inputs.linux_jammy_package_tar }} != '' ]]; then
+          if [[ '${{ github.event.inputs.linux_jammy_package_tar }}' != '' ]]; then
             args+=(--drake-override)
           fi
           .github/ci_build_test "${args[@]}"
