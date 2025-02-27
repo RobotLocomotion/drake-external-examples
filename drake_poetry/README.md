@@ -1,16 +1,16 @@
 # Python Project with Drake Installed from Poetry
 
 This installs Drake using [`poetry`](https://python-poetry.org/),
-the Python package manager.
-
-For an introduction to `poetry`,
+the Python package manager. For an introduction to `poetry`,
 see [Basic usage](https://python-poetry.org/docs/basic-usage/).
+
+Currently, this example is supported using
+[Drake v1.38.0](https://github.com/RobotLocomotion/drake/releases/tag/v1.38.0).
 
 # Instructions
 
 The `pyproject.toml` file found in this directory contains all
-that is needed to start a Poetry project using the most recent
-version of Drake.
+that is needed to start a Poetry project using Drake.
 
 First, follow the [Installation Instructions](https://python-poetry.org/docs/#installation)
 to install Poetry using your preferred method.
@@ -18,7 +18,12 @@ to install Poetry using your preferred method.
 Run the installation script to perform the following:
 
 * install the required system packages for Drake (Ubuntu only)
-* set up your Poetry environment and install the most recent version of Drake
+* set up your Poetry environment and install Drake
+  - The `poetry.lock` file listing all dependencies and their versions is not
+    included with this example in order to reduce confusion and keep the version
+    of Drake up to date. It will be created once the environment is set up,
+    and it's encouraged to check in this file for your own project
+    using Drake in order to manage its dependencies.
 
 ```bash
 setup/install_prereqs

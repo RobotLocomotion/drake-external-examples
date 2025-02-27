@@ -3,6 +3,9 @@
 This installs Drake using [`pip`](https://pypi.org/project/pip/),
 the Python package manager.
 
+Currently, this example is supported using
+[Drake v1.38.0](https://github.com/RobotLocomotion/drake/releases/tag/v1.38.0).
+
 # Instructions
 
 Follow the setup instructions for [Ubuntu](#ubuntu-setup)
@@ -19,7 +22,8 @@ If on Ubuntu, first install the required packages:
 setup/install_prereqs
 ```
 
-This script will also run `setup/setup_env`, which creates the virtual environment for this project and installs Drake.
+This script will also run `setup/setup_env`,
+which creates the virtual environment for this project and installs Drake.
 
 To start programming, simply activate the environment by calling:
 
@@ -33,7 +37,8 @@ If on Mac OS X, simply ensure the correct version of Python
 is installed from Homebrew by referring to the
 [Supported Configurations](https://drake.mit.edu/installation.html#supported-configurations).
 
-Then, run the following script to create the virtual environment for this project and install Drake:
+Then, run the following script to create the virtual environment
+for this project and install Drake:
 
 ```bash
 setup/setup_env
