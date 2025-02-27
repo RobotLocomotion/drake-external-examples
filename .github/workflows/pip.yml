@@ -33,7 +33,7 @@ jobs:
         working-directory: drake_pip
         run: |
           args=(--python-version $PYTHON_VERSION)
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.mac_arm_sonoma_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
           fi
           setup/setup_env "${args[@]}"
@@ -53,7 +53,7 @@ jobs:
         working-directory: drake_pip
         run: |
           args=()
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.linux_jammy_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
           fi
           .github/ubuntu_setup "${args[@]}"

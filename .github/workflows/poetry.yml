@@ -34,7 +34,7 @@ jobs:
         run: |
           .github/setup
           args=(--python-version $PYTHON_VERSION)
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.mac_arm_sonoma_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
           fi
           setup/install_prereqs "${args[@]}"
@@ -59,7 +59,7 @@ jobs:
           .github/setup
           source $HOME/.profile
           args=()
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.linux_jammy_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
           fi
           setup/install_prereqs "${args[@]}"

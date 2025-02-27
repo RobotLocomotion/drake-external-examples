@@ -15,12 +15,10 @@ on:
     inputs:
       linux_jammy_wheel:
         description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
+        required: false
       mac_arm_sonoma_wheel:
         description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -55,7 +53,7 @@ jobs:
         run: |
           .github/setup
           args=(--python-version $PYTHON_VERSION)
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.mac_arm_sonoma_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
           fi
           setup/install_prereqs "${args[@]}"
@@ -80,7 +78,7 @@ jobs:
           .github/setup
           source $HOME/.profile
           args=()
-          if [[ ${{ github.event_name }} == "workflow_dispatch" ]]; then
+          if [[ ${{ github.event.inputs.linux_jammy_wheel }} != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
           fi
           setup/install_prereqs "${args[@]}"

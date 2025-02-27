@@ -15,24 +15,19 @@ on:
     inputs:
       linux_jammy_package_tar:
         description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz'
+        required: false
       linux_jammy_package_deb:
         description: 'Drake linux-jammy-*-packaging .deb artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-dev_latest-1_amd64-jammy.deb'
+        required: false
       mac_arm_sonoma_package_tar:
         description: 'Drake mac-arm-sonoma-*-packaging .tar.gz artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz'
+        required: false
       linux_jammy_wheel:
         description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp310-cp310-manylinux_2_35_x86_64.whl'
+        required: false
       mac_arm_sonoma_wheel:
         description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
-        required: true
-        default: 'https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-cp312-cp312-macosx_14_0_arm64.whl'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
