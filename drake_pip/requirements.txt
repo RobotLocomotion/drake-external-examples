@@ -1,3 +1,7 @@
 # Currently, this only includes a recent version of Drake.
 # Feel free to add more packages for your own project below!
-drake~=1.38.0
+# Note: When specifying a compatible version of Drake with ~=,
+# use 'drake~=x.y' instead of 'drake~=x.y.z'. See
+# https://packaging.python.org/en/latest/specifications/version-specifiers/#compatible-release
+# for more details.
+drake~=1.38

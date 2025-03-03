@@ -19,8 +19,8 @@ Run the installation script to perform the following:
   - The `poetry.lock` file listing all dependencies and their versions is not
     included with this example in order to reduce confusion and keep the version
     of Drake up to date. It will be created once the environment is set up,
-    and it's encouraged to check in this file for your own project
-    using Drake in order to manage its dependencies.
+    and it is encouraged to include this file in your own project's version
+    control in order to manage your project's dependencies.
 
 ```bash
 setup/install_prereqs
