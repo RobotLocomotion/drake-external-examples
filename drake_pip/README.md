@@ -3,9 +3,6 @@
 This installs Drake using [`pip`](https://pypi.org/project/pip/),
 the Python package manager.
 
-Currently, this example is supported using
-[Drake v1.38.0](https://github.com/RobotLocomotion/drake/releases/tag/v1.38.0).
-
 # Instructions
 
 Follow the setup instructions for [Ubuntu](#ubuntu-setup)

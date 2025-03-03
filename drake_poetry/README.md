@@ -4,9 +4,6 @@ This installs Drake using [`poetry`](https://python-poetry.org/),
 the Python package manager. For an introduction to `poetry`,
 see [Basic usage](https://python-poetry.org/docs/basic-usage/).
 
-Currently, this example is supported using
-[Drake v1.38.0](https://github.com/RobotLocomotion/drake/releases/tag/v1.38.0).
-
 # Instructions
 
 The `pyproject.toml` file found in this directory contains all
