@@ -43,7 +43,11 @@ setup/setup_env
 
 *Note*: If you have multiple versions of Python installed,
 you can specify the correct version as an optional argument
-to the script. For example, `setup/setup_env 3.12`.
+to the script. For example, to use `python3.12`, call:
+
+```bash
+setup/setup_env --python-version 3.12
+```
 
 To start programming, simply activate the environment by calling:
 

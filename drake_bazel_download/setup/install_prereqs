@@ -70,9 +70,7 @@ EOF
 )
 
 # Download the drake source
-drake_url="https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz"
-[[ ! -z "${package_url}" ]] && drake_url="${package_url}"
-wget -O drake.tar.gz ${drake_url}
+wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz}"
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C $HOME
 

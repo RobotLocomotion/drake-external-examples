@@ -195,11 +195,11 @@ def gha_workflow_check(workflow_name: str):
     subdir_workflow_path = f".github/workflows/{workflow_name}.yml"
     subdir_ci_path = f"drake_{workflow_name}/.github/workflows/ci.yml"
     paths = [ root_ci_path, subdir_workflow_path, subdir_ci_path ]
-    seps = [
-        "\n  workflow_dispatch:\n    inputs:\n",
-        "\nconcurrency:\n",
-        "\njobs:\n"
-    ]
+    seps = {
+        "dispatch": "\n  workflow_dispatch:\n    inputs:\n",
+        "conc": "\nconcurrency:\n",
+        "jobs": "\njobs:\n"
+    }
 
     # Read all files into memory.
     content = {}
@@ -217,26 +217,26 @@ def gha_workflow_check(workflow_name: str):
             if len(re.findall(sep, content[path])) != 1:
                 error(f"{workflow_name}'s {path} contents are invalid: does not include {sep}")
                 exit(1)
-    check_sep([root_ci_path, subdir_ci_path], seps[0])
-    check_sep([root_ci_path, subdir_ci_path], seps[1])
-    check_sep(paths, seps[2])
+    check_sep([root_ci_path, subdir_ci_path], seps["dispatch"])
+    check_sep([root_ci_path, subdir_ci_path], seps["conc"])
+    check_sep(paths, seps["jobs"])
 
     # Workflow check. See above for steps.
-    root_events = content[root_ci_path].split(seps[0])[0]
-    subdir_events = content[subdir_ci_path].split(seps[0])[0]
+    root_events = content[root_ci_path].split(seps["dispatch"])[0]
+    subdir_events = content[subdir_ci_path].split(seps["dispatch"])[0]
     if root_events != subdir_events:
         error(f"{workflow_name} subdir CI events do not match")
 
     # Custom logic for workflow dispatch based on options defined above.
-    root_dispatch = (content[root_ci_path].split(seps[0]))[1].split(seps[1])[0].splitlines()
-    subdir_dispatch = (content[subdir_ci_path].split(seps[0]))[1].split(seps[1])[0].splitlines()
+    root_dispatch = content[root_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0].splitlines()
+    subdir_dispatch = content[subdir_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0].splitlines()
     def get_option_definition(dispatch, option_line):
         dispatch_option = [option_line]
-        l = dispatch.index(option_line) + 1
-        while l < len(dispatch):
-            if len(dispatch[l]) - len(dispatch[l].lstrip()) == 8:
-                dispatch_option.append(dispatch[l])
-                l += 1
+        line_idx = dispatch.index(option_line) + 1
+        while line_idx < len(dispatch):
+            if len(dispatch[line_idx]) - len(dispatch[line_idx].lstrip()) == 8:
+                dispatch_option.append(dispatch[line_idx])
+                line_idx += 1
             else:
                 break
         return dispatch_option
@@ -268,13 +268,13 @@ def gha_workflow_check(workflow_name: str):
         error(f"Root CI workflow_dispatch defines additional options than expected. Please add them to the file_sync_test.")
     # End workflow dispatch custom logic.
 
-    root_conc = (content[root_ci_path].split(seps[1]))[1].split(seps[2])[0]
-    subdir_conc = (content[subdir_ci_path].split(seps[1]))[1].split(seps[2])[0]
+    root_conc = content[root_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
+    subdir_conc = content[subdir_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
     if root_conc != subdir_conc:
         error(f"{workflow_name} subdir CI concurrency does not match")
 
-    subdir_jobs = content[subdir_ci_path].split(seps[2])[1]
-    subdir_workflow_jobs = content[subdir_workflow_path].split(seps[2])[1]
+    subdir_jobs = content[subdir_ci_path].split(seps["jobs"])[1]
+    subdir_workflow_jobs = content[subdir_workflow_path].split(seps["jobs"])[1]
     if subdir_jobs != subdir_workflow_jobs:
         error(f"{workflow_name} subdir CI jobs do not match")
 
