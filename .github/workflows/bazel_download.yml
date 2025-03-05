@@ -28,10 +28,5 @@ jobs:
         shell: bash
       - name: bazel_download build and test
         working-directory: drake_bazel_download
-        run: |
-          args=()
-          if [[ '${{ github.event.inputs.linux_jammy_package_tar }}' != '' ]]; then
-            args+=(--drake-override)
-          fi
-          .github/ci_build_test "${args[@]}"
+        run: .github/ci_build_test
         shell: bash
