@@ -21,6 +21,8 @@ jobs:
   macos_sonoma_arm_poetry:
     name: macos sonoma 14 arm
     runs-on: macos-14
+    env:
+      PYTHON_VERSION: '3.12'
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -38,12 +40,12 @@ jobs:
       - name: python setup
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: poetry setup
         working-directory: drake_poetry
         run: |
           .github/setup
-          setup/install_prereqs 3.12
+          setup/install_prereqs $PYTHON_VERSION
         shell: zsh -efuo pipefail {0}
       - name: poetry test
         working-directory: drake_poetry

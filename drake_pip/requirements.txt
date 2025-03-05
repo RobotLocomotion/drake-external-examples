@@ -1,3 +1,7 @@
-# Currently, this only includes the most recent version of drake.
-# Feel free to add more packages for your own project!
-drake
+# Currently, this only includes a recent version of Drake.
+# Feel free to add more packages for your own project below!
+# Note: When specifying a compatible version of Drake with ~=,
+# use 'drake~=x.y' instead of 'drake~=x.y.z'. See
+# https://packaging.python.org/en/latest/specifications/version-specifiers/#compatible-release
+# for more details.
+drake~=1.38

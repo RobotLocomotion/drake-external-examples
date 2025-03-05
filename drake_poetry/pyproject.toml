@@ -8,6 +8,8 @@ description = "Example poetry project using Drake"
 authors = ["RobotLocomotion <@>"]
 readme = "README.md"
 
+# Currently, this only includes a recent version of Drake.
+# Feel free to add more packages for your own project below!
 [tool.poetry.dependencies]
 python = "^3.10"
-drake = "^1.37.0"
+drake = "^1.38.0"
