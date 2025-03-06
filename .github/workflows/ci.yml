@@ -55,4 +55,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: file_sync test
-        run: python ./private/test/file_sync_test.py
+        run: |
+          pip install ruamel.yaml
+          python ./private/test/file_sync_test.py

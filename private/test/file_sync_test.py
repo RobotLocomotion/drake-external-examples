@@ -5,12 +5,14 @@
 each other are actually so.
 """
 
+from io import StringIO
 from itertools import chain
 import logging
 import os
 import re
 import sys
 from pathlib import Path
+import ruamel.yaml
 
 COPIES = (
     (
@@ -41,15 +43,6 @@ COPIES = (
         "drake_pip/LICENSE",
         "drake_poetry/LICENSE",
     ),
-    # TODO(tyankee): These aren't synced right now because
-    # drake_bazel_download runs in GHA while drake_bazel_external
-    # runs in Jenkins, and only GHA has been updated so far.
-    # Perhaps this can be brought back once the Jenkins changes
-    # are introduced.
-    # (
-    #     "drake_bazel_download/.github/ci_build_test",
-    #     "drake_bazel_external/.github/ci_build_test",
-    # ),
     (
         "drake_bazel_external/.github/ubuntu_setup",
         "drake_cmake_external/.github/ubuntu_setup",
@@ -227,46 +220,31 @@ def gha_workflow_check(workflow_name: str):
     if root_events != subdir_events:
         error(f"{workflow_name} subdir CI events do not match")
 
-    # Custom logic for workflow dispatch based on options defined above.
-    root_dispatch = content[root_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0].splitlines()
-    subdir_dispatch = content[subdir_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0].splitlines()
-    def get_option_definition(dispatch, option_line):
-        dispatch_option = [option_line]
-        line_idx = dispatch.index(option_line) + 1
-        while line_idx < len(dispatch):
-            if len(dispatch[line_idx]) - len(dispatch[line_idx].lstrip()) == 8:
-                dispatch_option.append(dispatch[line_idx])
-                line_idx += 1
-            else:
-                break
-        return dispatch_option
+    root_dispatch = content[root_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
+    subdir_dispatch = content[subdir_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
+    subdir_dispatch = re.sub("[^\S\r\n]{6}", "", subdir_dispatch) # remove leading indendation
 
-    for dispatch_option in GITHUB_WORKFLOW_OPTS[workflow_name]:
-        dispatch_option_line = f"      {dispatch_option}:"
-
-        # Check that all options occur in both files.
-        if (dispatch_option_line not in root_dispatch or
-            dispatch_option_line not in subdir_dispatch):
-            error(f"{workflow_name} subdir workflow_dispatch does not match: missing {dispatch_option}")
-            exit(1)
-
-        # Find the next line which is not indented to the sub-level,
-        # representing the next option (or end).
-        root_dispatch_option = get_option_definition(root_dispatch, dispatch_option_line)
-        subdir_dispatch_option = get_option_definition(subdir_dispatch, dispatch_option_line)
-        if root_dispatch_option != subdir_dispatch_option:
-            error(f"{workflow_name} subdir CI workflow_dispatch option {dispatch_option} does not match")
-
-    # Check that the subdir and root workflows define no extra options
+    # Check that the root workflow defines no extra options
     # beyond what is configured here.
-    subdir_dispatch_options = sum([1 for line in subdir_dispatch if len(line) - len(line.lstrip()) == 6])
-    if subdir_dispatch_options != len(GITHUB_WORKFLOW_OPTS[workflow_name]):
-        error(f"{workflow_name} subdir CI defines additional options than expected. Please add them to the file_sync_test.")
     all_dispatch_options = set(chain(*GITHUB_WORKFLOW_OPTS.values()))
-    root_dispatch_options = sum([1 for line in root_dispatch if len(line) - len(line.lstrip()) == 6])
-    if root_dispatch_options != len(all_dispatch_options):
-        error(f"Root CI workflow_dispatch defines additional options than expected. Please add them to the file_sync_test.")
-    # End workflow dispatch custom logic.
+    root_dispatch_options = set([line.lstrip().rstrip(':') for line in root_dispatch.splitlines() if len(line) - len(line.lstrip()) == 6])
+    if root_dispatch_options != all_dispatch_options:
+        error(f"Root CI workflow_dispatch does not define the expected options. Please add them to the file_sync_test.")
+        exit(1)
+
+    # Load root workflow as yaml, delete the unused options, and check
+    # dumped string for equality to subdir workflow.
+    yaml = ruamel.yaml.YAML()
+    yaml.preserve_quotes = True # Enforce use of '' for quoted strings.
+    root_dispatch_yaml = yaml.load(root_dispatch)
+    unused_options = set.difference(all_dispatch_options, GITHUB_WORKFLOW_OPTS[workflow_name])
+    for unused in unused_options:
+        del root_dispatch_yaml[unused]
+    with StringIO() as string_stream:
+        yaml.dump(root_dispatch_yaml, string_stream)
+        root_dispatch_parsed = string_stream.getvalue().rstrip('\n')
+    if root_dispatch_parsed != subdir_dispatch:
+        error(f"{workflow_name} subdir CI workflow_dispatch does not match")
 
     root_conc = content[root_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
     subdir_conc = content[subdir_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
