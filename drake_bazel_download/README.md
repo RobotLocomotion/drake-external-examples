@@ -39,3 +39,20 @@ above command prints out; however, be aware that your working directories may
 cause differences. This is important when using tools like
 `drake::FindResource` / `pydrake.common.FindResource`.
 You may generally want to stick to using `bazel run` when able.
+
+### Using a local checkout of Drake
+
+To use an installation of Drake on disk instead of downloaded from github, pass the flag
+``--override_repository=+_repo_rules2+drake=/home/user/stuff/drake`` to bazel on the command line
+or add a line such as the following to ``user.bazelrc`` in the current directory:
+
+```bash
+build --override_repository=+_repo_rules2+drake=/home/user/stuff/drake
+```
+
+Note that the local installation of Drake needs the following two files
+inside its top-level directory:
+
+* an empty `WORKSPACE.bazel` file
+* a symlink or copy of `drake.BUILD.bazel` (found in the current directory
+of this example) named `BUILD.bazel`

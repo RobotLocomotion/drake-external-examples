@@ -28,7 +28,11 @@ setup/install_prereqs
 
 *Note*: If you have multiple versions of Python installed,
 you can specify the correct version as an optional argument
-to the script. For example, `setup/install_prereqs 3.12`.
+to the script. For example, to use `python3.12`, call:
+
+```bash
+setup/setup_env --python-version 3.12
+```
 
 # Examples
 
