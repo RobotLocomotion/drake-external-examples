@@ -4,7 +4,6 @@
 set -euxo pipefail
 
 drake_commit_hash=
-drake_commit_sha256=
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
@@ -15,14 +14,6 @@ while [ "${1:-}" != "" ]; do
         exit 1
       fi
       drake_commit_hash="$1"
-      ;;
-    --drake-commit-sha256)
-      shift
-      if [[ $# -eq 0 ]]; then
-        echo 'No argument specified for --drake-commit-sha256' >&2
-        exit 1
-      fi
-      drake_commit_sha256="$1"
       ;;
     *)
       echo 'Invalid command line argument' >&2
@@ -42,8 +33,14 @@ cmake_args=()
 if [[ ! -z "${drake_commit_hash}" ]]; then
   # Use a specific commit of Drake source,
   # rather than the latest from master.
-  cmake_args+=("-DDRAKE_COMMIT_HASH=${drake_commit_hash}")
-  cmake_args+=("-DDRAKE_COMMIT_SHA256=${drake_commit_sha256}")
+  cmake_args+=(-DDRAKE_COMMIT_HASH=${drake_commit_hash})
+
+  # Find the SHA-256 by downloading and running shasum.
+  wget -O drake.tar.gz \
+    https://github.com/RobotLocomotion/drake/archive/${drake_commit_hash}.tar.gz
+  trap 'rm -f drake.tar.gz' EXIT
+  drake_commit_sha256=$(echo $(shasum -a 256 drake.tar.gz | awk '{print $1}'))
+  cmake_args+=(-DDRAKE_COMMIT_SHA256=${drake_commit_sha256})
 fi
 
 cmake .. "${cmake_args[@]}"
