@@ -8,21 +8,20 @@ on:
     types: [completed]
 
 jobs:
-  notify:
+  notify_failure:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify Build Cop Slack
-        if: github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'timed_out'
+      - name: Buildcop Notify Failure
+        if: ${{ github.event.workflow_run.conclusion }} == 'failure' || ${{ github.event.workflow_run.conclusion }} == 'timed_out'
         uses: ravsamhq/notify-slack-action@v2
         with:
           status: ${{ github.event.workflow_run.conclusion }}
           notification_title: >
-            ${{github.event.workflow_run.name}} failed on ${{github.event.workflow_run.head_branch}} -
+            ${{github.event.workflow_run.name}} ${{github.event.workflow_run.conclusion}} on {branch} -
             <${{github.server_url}}/${{github.repository}}/actions/runs/${{github.event.workflow_run.id}}|View Failure>
           message_format: |
-            Result: ${{github.event.workflow_run.conclusion}}
             Run: ${{github.event.workflow_run.run_number}}
-            Branch: <${{github.server_url}}/${{github.repository}}/tree/${{github.event.workflow_run.head_branch}}|${{github.repository}}/${{github.event.workflow_run.head_branch}}>
-          footer: "Repository: <${{github.server_url}}/${{github.repository}}|${{github.repository}}>"
+            Branch: <{branch_url}|{branch}>
+          footer: "Repository: <{repo_url}|{repo}>"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BUILDCOP_URL }}

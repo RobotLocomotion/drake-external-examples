@@ -40,8 +40,3 @@ jobs:
           python-version: '3.12'
       - name: file_sync test
         run: python ./private/test/file_sync_test.py
-  slack_test_fail:
-    runs-on: ubuntu-latest
-    steps:
-      - name: fail step
-        run: exit 1
