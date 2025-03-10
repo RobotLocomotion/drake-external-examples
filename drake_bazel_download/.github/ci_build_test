@@ -6,7 +6,7 @@ set -euxo pipefail
 # Use what we installed to $HOME/drake,
 # rather than the URL to the most recent nightly release
 # found in drake_bazel_download/MODULE.bazel.
-drake_override_flag+=("--override_repository=+_repo_rules2+drake=$HOME/drake")
+drake_override_flag="--override_repository=+_repo_rules2+drake=$HOME/drake"
 
 # Setup $HOME/drake as a Bazel workspace via
 # BUILD and WORKSPACE files.
@@ -14,4 +14,4 @@ ln -sf $(realpath drake.BUILD.bazel) "$HOME/drake/BUILD.bazel"
 touch "$HOME/drake/WORKSPACE.bazel"
 
 bazel version
-bazel test "${drake_override_flag[@]}" //...
+bazel test "${drake_override_flag}" //...
