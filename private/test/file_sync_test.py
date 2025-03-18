@@ -123,14 +123,14 @@ GITHUB_WORKFLOW_OPTS = {
     "cmake_installed_apt": (
         "linux_jammy_package_deb",
     ),
-    **dict.fromkeys([
-        "pip",
-        "poetry"
-    ],
-    (
+    "pip": (
         "linux_jammy_wheel",
         "mac_arm_sonoma_wheel"
-    ))
+    ),
+    "poetry": (
+        "linux_jammy_wheel",
+        "mac_arm_sonoma_wheel"
+    )
 }
 
 found_errors = False
