@@ -12,4 +12,4 @@ readme = "README.md"
 # Feel free to add more packages for your own project below!
 [tool.poetry.dependencies]
 python = "^3.10"
-drake = "^1.38.0"
+drake = "^1.39.0"
