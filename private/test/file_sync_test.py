@@ -42,10 +42,6 @@ COPIES = (
         "drake_poetry/LICENSE",
     ),
     (
-        "drake_bazel_download/.github/ci_build_test",
-        "drake_bazel_external/.github/ci_build_test",
-    ),
-    (
         "drake_bazel_external/.github/ubuntu_setup",
         "drake_cmake_external/.github/ubuntu_setup",
     ),
@@ -62,7 +58,6 @@ COPIES = (
         ".bazelignore",
         ".bazelproject",
         ".clang-format",
-        ".github/ci_build_test",
         ".github/setup",
         ".github/ubuntu_setup",
         "BUILD.bazel",
