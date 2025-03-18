@@ -94,8 +94,7 @@ ExternalProject_Add(spdlog
 set(DRAKE_PREFIX "${PROJECT_BINARY_DIR}/drake-prefix")
 
 # Options to override Drake's latest source on master with a specific commit.
-# Download https://github.com/RobotLocomotion/drake/archive/${DRAKE_COMMIT_HASH}.tar.gz
-# and use "shasum -a 256 'xxx.tar.gz'" on it to get the DRAKE_COMMIT_SHA256.
+# See README.md for details.
 set(DRAKE_COMMIT_HASH "master" CACHE STRING "Commit hash for Drake")
 set(DRAKE_COMMIT_SHA256 CACHE STRING "SHA256 hash value for Drake commit archive")
 
