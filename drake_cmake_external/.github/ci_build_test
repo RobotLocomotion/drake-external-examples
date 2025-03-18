@@ -29,21 +29,14 @@ pushd build
 
 export LD_LIBRARY_PATH="${PWD}/install/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
-cmake_args=()
+cmake_commit_arg=
 if [[ ! -z "${drake_commit_hash}" ]]; then
   # Use a specific commit of Drake source,
   # rather than the latest from master.
-  cmake_args+=(-DDRAKE_COMMIT_HASH=${drake_commit_hash})
-
-  # Find the SHA-256 by downloading and running shasum.
-  wget -O drake.tar.gz \
-    https://github.com/RobotLocomotion/drake/archive/${drake_commit_hash}.tar.gz
-  trap 'rm -f drake.tar.gz' EXIT
-  drake_commit_sha256=$(echo $(shasum -a 256 drake.tar.gz | awk '{print $1}'))
-  cmake_args+=(-DDRAKE_COMMIT_SHA256=${drake_commit_sha256})
+  cmake_commit_arg="-DDRAKE_COMMIT_HASH=${drake_commit_hash}"
 fi
 
-cmake .. "${cmake_args[@]}"
+cmake .. "${cmake_commit_arg}"
 cmake --build .
 
 cd drake_external_examples
