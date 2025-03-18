@@ -12,6 +12,22 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_package_tar:
+        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
+        required: false
+      linux_jammy_package_deb:
+        description: 'Drake linux-jammy-*-packaging .deb artifact URL'
+        required: false
+      mac_arm_sonoma_package_tar:
+        description: 'Drake mac-arm-sonoma-*-packaging .tar.gz artifact URL'
+        required: false
+      linux_jammy_wheel:
+        description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
+        required: false
+      mac_arm_sonoma_wheel:
+        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -39,4 +55,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: file_sync test
-        run: python ./private/test/file_sync_test.py
+        run: |
+          pip install ruamel.yaml
+          python ./private/test/file_sync_test.py
