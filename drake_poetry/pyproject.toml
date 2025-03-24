@@ -9,7 +9,10 @@ description = "External examples for Drake"
 authors = [{ name = "RobotLocomotion <@>" }]
 readme = "README.md"
 requires-python = ">=3.10, <4.0"
-dependencies = ["drake~=1.38.0"]
+dynamic = ["dependencies"]
 
 [tool.poetry]
 package-mode = false
+
+[tool.poetry.dependencies]
+drake = "~1.38.0"
