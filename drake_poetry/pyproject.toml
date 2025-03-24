@@ -6,9 +6,9 @@ build-backend = "poetry.core.masonry.api"
 name = "drake-external-examples"
 version = "0.1.0"
 description = "External examples for Drake"
-authors = [{ name = "RobotLocomotion" }]
+authors = [{ name = "RobotLocomotion <@>" }]
 readme = "README.md"
-requires-python = ">=3.10, <4.0"
+requires-python = ">=3.10, <3.14"
 dependencies = ["drake~=1.39.0"]
 
 [tool.poetry]
