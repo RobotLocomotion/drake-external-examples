@@ -2,14 +2,17 @@
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[project]
+name = "drake-external-examples"
+version = "0.0.0.dev0"
+description = "External examples for Drake"
+authors = [{ name = "RobotLocomotion <@>" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
 [tool.poetry]
 package-mode = false
-description = "Example poetry project using Drake"
-authors = ["RobotLocomotion <@>"]
-readme = "README.md"
 
-# Currently, this only includes a recent version of Drake.
-# Feel free to add more packages for your own project below!
 [tool.poetry.dependencies]
-python = "^3.10"
-drake = "^1.39.0"
+drake = "~1.39"
