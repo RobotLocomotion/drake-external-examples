@@ -4,6 +4,25 @@
 
 set -euxo pipefail
 
+package_url=
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --package-url)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --package-url' >&2
+        exit 1
+      fi
+      package_url="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
 maybe_sudo=
 
 case "$OSTYPE" in
@@ -15,7 +34,7 @@ case "$OSTYPE" in
     fi
 
     # Download the drake source
-    curl -o drake.tar.gz https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz
+    curl -o drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz}"
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
     ;;
@@ -41,8 +60,7 @@ EOF
     )
 
     # Download the drake source
-    wget -O drake.tar.gz \
-      https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz
+    wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz}"
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
 
