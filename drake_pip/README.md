@@ -43,7 +43,11 @@ setup/setup_env
 
 *Note*: If you have multiple versions of Python installed,
 you can specify the correct version as an optional argument
-to the script. For example, `setup/setup_env 3.12`.
+to the script. For example, `setup/setup_env 3.13`.
+Refer to the
+[Drake installation documentation](https://drake.mit.edu/installation.html)
+for the versions of Python officially supported on each OS
+when installing via PyPI.
 
 To start programming, simply activate the environment by calling:
 
