@@ -28,7 +28,11 @@ setup/install_prereqs
 
 *Note*: If you have multiple versions of Python installed,
 you can specify the correct version as an optional argument
-to the script. For example, `setup/install_prereqs 3.12`.
+to the script. For example, `setup/install_prereqs 3.13`.
+Refer to the
+[Drake installation documentation](https://drake.mit.edu/installation.html)
+for the versions of Python officially supported on each OS
+when installing via PyPI.
 
 # Examples
 
