@@ -17,7 +17,7 @@ on:
         description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
         required: false
       mac_arm_sonoma_wheel:
-        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.12 artifact URL'
+        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.13 artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
