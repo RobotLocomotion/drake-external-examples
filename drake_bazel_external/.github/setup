@@ -7,4 +7,4 @@ set -euxo pipefail
 sudo .github/ubuntu_setup
 
 # drake source setup
-setup/install_prereqs
+setup/install_prereqs "$@"

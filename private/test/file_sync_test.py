@@ -60,7 +60,6 @@ COPIES = (
         ".bazelignore",
         ".bazelproject",
         ".clang-format",
-        ".github/ci_build_test",
         ".github/setup",
         ".github/ubuntu_setup",
         "BUILD.bazel",
