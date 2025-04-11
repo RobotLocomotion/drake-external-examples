@@ -5,11 +5,14 @@
 each other are actually so.
 """
 
+from io import StringIO
+from itertools import chain
 import logging
 import os
 import re
 import sys
 from pathlib import Path
+import ruamel.yaml
 
 COPIES = (
     (
@@ -22,7 +25,6 @@ COPIES = (
     (
         "drake_bazel_download/.github/ubuntu_setup",
         "drake_cmake_installed/.github/ubuntu_setup",
-        "drake_pip/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/CPPLINT.cfg",
@@ -40,10 +42,6 @@ COPIES = (
         "drake_cmake_installed_apt/LICENSE",
         "drake_pip/LICENSE",
         "drake_poetry/LICENSE",
-    ),
-    (
-        "drake_bazel_download/.github/ci_build_test",
-        "drake_bazel_external/.github/ci_build_test",
     ),
     (
         "drake_bazel_external/.github/ubuntu_setup",
@@ -114,6 +112,27 @@ GITHUB_WORKFLOWS = (
     "poetry"
 )
 
+GITHUB_WORKFLOW_OPTS = {
+    "bazel_download": (
+        "linux_jammy_package_tar",
+    ),
+    "cmake_installed": (
+        "linux_jammy_package_tar",
+        "mac_arm_sonoma_package_tar"
+    ),
+    "cmake_installed_apt": (
+        "linux_jammy_package_deb",
+    ),
+    "pip": (
+        "linux_jammy_wheel",
+        "mac_arm_sonoma_wheel"
+    ),
+    "poetry": (
+        "linux_jammy_wheel",
+        "mac_arm_sonoma_wheel"
+    )
+}
+
 found_errors = False
 
 
@@ -157,34 +176,85 @@ def check(index: int, paths: tuple[str]):
     if not all_match:
         error(f"{prologue} do not all match")
 
-
 def gha_workflow_check(workflow_name: str):
-    """Enforces the subdir_ci to have the contents of root_ci up until
-    it reaches the jobs: line plus the content in the subdir_ workflow
-    after jobs: is mentioned.
+    """Enforces the following contents of root_ci and subdir_ci:
+        1. subdir_ci and root_ci match until 'workflow_dispatch:'
+        2. root_ci and subdir_ workflow match from 'workflow_dispatch:' until 'concurrency:',
+           for only the options corresponding to the given workflow
+        3. subdir_ci and root_ci match from 'concurrency:' until 'jobs:'
+        4. subdir_ci and subdir_ workflow match after 'jobs:'
     """
     root_ci_path = ".github/workflows/ci.yml"
     subdir_workflow_path = f".github/workflows/{workflow_name}.yml"
     subdir_ci_path = f"drake_{workflow_name}/.github/workflows/ci.yml"
-    sep = "\njobs:\n"
+    paths = [ root_ci_path, subdir_workflow_path, subdir_ci_path ]
+    seps = {
+        "dispatch": "\n  workflow_dispatch:\n    inputs:\n",
+        "conc": "\nconcurrency:\n",
+        "jobs": "\njobs:\n"
+    }
 
-    # Read all files into memory and check sep occurs once in each file.
+    # Read all files into memory.
     content = {}
-    for path in [root_ci_path, subdir_workflow_path, subdir_ci_path]:
+    for path in paths:
         try:
             with open(path, "r", encoding="utf-8") as f:
                 content[path] = f.read()
-                if len(re.findall(sep, content[path])) != 1:
-                    error(f"{workflow_name}'s {path} contents are invalid")
         except IOError:
             error(f"Missing {workflow_name} file {path}")
+            exit(1)
 
-    # Workflow check.
-    events = content[root_ci_path].split(sep)[0]
-    ex_jobs = sep + content[subdir_workflow_path].split(sep)[1]
+    # Check that seps occur once in each file.
+    def check_sep(paths, sep):
+        for path in paths:
+            if len(re.findall(sep, content[path])) != 1:
+                error(f"{workflow_name}'s {path} contents are invalid: does not include {sep}")
+                exit(1)
+    check_sep([root_ci_path, subdir_ci_path], seps["dispatch"])
+    check_sep([root_ci_path, subdir_ci_path], seps["conc"])
+    check_sep(paths, seps["jobs"])
 
-    if events + ex_jobs != content[subdir_ci_path]:
-        error(f"{workflow_name} subdir CI does not match")
+    # Workflow check. See above for steps.
+    root_events = content[root_ci_path].split(seps["dispatch"])[0]
+    subdir_events = content[subdir_ci_path].split(seps["dispatch"])[0]
+    if root_events != subdir_events:
+        error(f"{workflow_name} subdir CI events do not match")
+
+    root_dispatch = content[root_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
+    subdir_dispatch = content[subdir_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
+    subdir_dispatch = re.sub("[^\S\r\n]{6}", "", subdir_dispatch) # remove leading indendation
+
+    # Check that the root workflow defines no extra options
+    # beyond what is configured here.
+    all_dispatch_options = set(chain(*GITHUB_WORKFLOW_OPTS.values()))
+    root_dispatch_options = set([line.lstrip().rstrip(':') for line in root_dispatch.splitlines() if len(line) - len(line.lstrip()) == 6])
+    if root_dispatch_options != all_dispatch_options:
+        error(f"Root CI workflow_dispatch does not define the expected options. Please add them to the file_sync_test.")
+        exit(1)
+
+    # Load root workflow as yaml, delete the unused options, and check
+    # dumped string for equality to subdir workflow.
+    yaml = ruamel.yaml.YAML()
+    yaml.preserve_quotes = True # Enforce use of '' for quoted strings.
+    root_dispatch_yaml = yaml.load(root_dispatch)
+    unused_options = set.difference(all_dispatch_options, GITHUB_WORKFLOW_OPTS[workflow_name])
+    for unused in unused_options:
+        del root_dispatch_yaml[unused]
+    with StringIO() as string_stream:
+        yaml.dump(root_dispatch_yaml, string_stream)
+        root_dispatch_parsed = string_stream.getvalue().rstrip('\n')
+    if root_dispatch_parsed != subdir_dispatch:
+        error(f"{workflow_name} subdir CI workflow_dispatch does not match")
+
+    root_conc = content[root_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
+    subdir_conc = content[subdir_ci_path].split(seps["conc"])[1].split(seps["jobs"])[0]
+    if root_conc != subdir_conc:
+        error(f"{workflow_name} subdir CI concurrency does not match")
+
+    subdir_jobs = content[subdir_ci_path].split(seps["jobs"])[1]
+    subdir_workflow_jobs = content[subdir_workflow_path].split(seps["jobs"])[1]
+    if subdir_jobs != subdir_workflow_jobs:
+        error(f"{workflow_name} subdir CI jobs do not match")
 
 
 def main():

@@ -22,4 +22,4 @@ ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
-setup/setup_env
+setup/setup_env "$@"

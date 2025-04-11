@@ -12,6 +12,10 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_package_deb:
+        description: 'Drake linux-jammy-*-packaging .deb artifact URL'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -27,7 +31,12 @@ jobs:
         uses: actions/checkout@v4
       - name: setup
         working-directory: drake_cmake_installed_apt
-        run: .github/ubuntu_apt_setup
+        run: |
+          args=()
+          if [[ '${{ github.event.inputs.linux_jammy_package_deb }}' != '' ]]; then
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_deb }})
+          fi
+          .github/ubuntu_apt_setup "${args[@]}"
         shell: bash
       - name: cmake_installed_apt build and test
         working-directory: drake_cmake_installed_apt

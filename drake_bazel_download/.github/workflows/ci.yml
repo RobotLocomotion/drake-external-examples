@@ -12,6 +12,10 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
+    inputs:
+      linux_jammy_package_tar:
+        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
+        required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
   # This will not cancel CI runs associated with `schedule` or `push`.
@@ -27,7 +31,12 @@ jobs:
         uses: actions/checkout@v4
       - name: setup
         working-directory: drake_bazel_download
-        run: .github/ubuntu_setup
+        run: |
+          args=()
+          if [[ '${{ github.event.inputs.linux_jammy_package_tar }}' != '' ]]; then
+            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
+          fi
+          .github/ubuntu_setup "${args[@]}"
         shell: bash
       - name: install_bazelisk
         working-directory: drake_bazel_download
