@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: MIT-0
 
-cmake_minimum_required(VERSION 3.16)
+# See https://drake.mit.edu/from_source.html for the versions of CMake
+# officially supported by Drake.
+cmake_minimum_required(VERSION 3.22)
 project(drake_cmake_installed)
 
 # N.B. This is a temporary flag. It only really applies to Linux, as Mac

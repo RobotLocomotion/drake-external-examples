@@ -3,8 +3,25 @@
 # TODO(eric.cousineau): Link to documentation on superproject example pending
 # resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
 
-cmake_minimum_required(VERSION 3.16)
+# See https://drake.mit.edu/from_source.html for the versions of CMake
+# officially supported by Drake.
+cmake_minimum_required(VERSION 3.22)
 project(drake_cmake_external)
+
+# Enable ExternalProject_Add to set the timestamp of all extracted contents
+# to the time of extraction, ensuring anything that depends on the extracted
+# contents will be rebuilt whenever the URL changes.
+# This behavior is preferred by CMake >= 3.24, and is controlled by the
+# DOWNLOAD_EXTRACT_TIMESTAMP option introduced in that version of CMake.
+# See https://cmake.org/cmake/help/latest/policy/CMP0135.html
+# for details on this policy and
+# https://cmake.org/cmake/help/latest/manual/cmake-policies.7.html#transition-schedule
+# for details on transitioning policies between versions of CMake.
+# TODO(tyler.yankee): Remove this when Drake no longer officially supports
+# versions of CMake older than 3.24.
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE Release CACHE STRING
