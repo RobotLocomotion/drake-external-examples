@@ -3,7 +3,9 @@
 # TODO(eric.cousineau): Link to documentation on superproject example pending
 # resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
 
-cmake_minimum_required(VERSION 3.16)
+# See https://drake.mit.edu/from_source.html for the versions of CMake
+# officially supported by Drake when building from source.
+cmake_minimum_required(VERSION 3.22...4.0)
 project(drake_cmake_external)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
