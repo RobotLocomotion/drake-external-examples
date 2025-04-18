@@ -1,8 +1,11 @@
 # SPDX-License-Identifier: MIT-0
 
-# See https://drake.mit.edu/from_source.html for the versions of CMake
-# officially supported by Drake.
-cmake_minimum_required(VERSION 3.22)
+# Note that the minimum required version of CMake to consume a binary
+# installation of Drake is lower than the minimum required version
+# when building Drake from source (as seen in drake_cmake_external).
+# The maximum version below allows for the use of modern policies
+# with newer versions of CMake.
+cmake_minimum_required(VERSION 3.9...4.0)
 project(drake_cmake_installed)
 
 # N.B. This is a temporary flag. It only really applies to Linux, as Mac
