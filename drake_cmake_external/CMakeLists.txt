@@ -48,8 +48,8 @@ ExternalProject_Add(eigen
 # be removed (as well as removing -DWITH_USER_FMT:BOOL=ON, below).
 # If you rebuild fmt from source, then you must also rebuild spdlog from source.
 ExternalProject_Add(fmt
-  URL https://github.com/fmtlib/fmt/archive/refs/tags/6.1.2.tar.gz
-  URL_HASH SHA256=1cafc80701b746085dddf41bd9193e6d35089e1c6ec1940e037fcb9c98f62365
+  URL https://github.com/fmtlib/fmt/archive/refs/tags/11.0.2.tar.gz
+  URL_HASH SHA256=6cb1e6d37bdcb756dbbe59be438790db409cdb4868c66e888d5df9f13f7c027f
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -71,8 +71,8 @@ ExternalProject_Add(fmt
 # If you rebuild spdlog from source, then you must also rebuild fmt from source.
 ExternalProject_Add(spdlog
   DEPENDS fmt
-  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.6.0.tar.gz
-  URL_HASH SHA256=0421667c9f2fc78e6548d44f7bc5921be0f03e612df384294c16cedb93d967f8
+  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.tar.gz
+  URL_HASH SHA256=9962648c9b4f1a7bbc76fd8d9172555bad1871fdb14ff4f842ef87949682caa5
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
