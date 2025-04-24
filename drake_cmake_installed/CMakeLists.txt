@@ -8,10 +8,6 @@
 cmake_minimum_required(VERSION 3.9...4.0)
 project(drake_cmake_installed)
 
-# N.B. This is a temporary flag. It only really applies to Linux, as Mac
-# does not need X11.
-option(RUN_X11_TESTS "Run tests that require X11" OFF)
-
 include(CTest)
 
 find_package(drake CONFIG REQUIRED)
