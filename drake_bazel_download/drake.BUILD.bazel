@@ -35,16 +35,9 @@ _THIRD_SHLIBS = glob([
 ], allow_empty = True)
 
 cc_library(
-    name = "_lcm_coretypes",
-    hdrs = ["include/lcm/lcm/lcm_coretypes.h"],
-    strip_include_prefix = "include/lcm",
-)
-
-cc_library(
     name = "_drake_headers",
     hdrs = glob(["include/drake/**"]),
     strip_include_prefix = "include",
-    deps = [":_lcm_coretypes"],
 )
 
 [
