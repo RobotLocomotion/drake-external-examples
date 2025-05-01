@@ -27,6 +27,20 @@ build --@drake//tools/flags:public_repo_default=pkgconfig
 # your project doesn't use macOS.
 ## build --force_pic=yes
 
+# Drake supports the use of proprietary solvers for mathematical programs.
+# See https://drake.mit.edu/bazel.html#proprietary-solvers for more info
+# and details on how to set them up.
+# They can be enabled for the build and tests as shown below.
+# Gurobi
+# build --define=WITH_GUROBI=ON
+# test --test_env=GRB_LICENSE_FILE
+# MOSEK
+# build --define=WITH_MOSEK=ON
+# test --test_env=MOSEKLM_LICENSE_FILE
+# SNOPT
+# build --define=WITH_SNOPT=ON
+# test --test_env=SNOPT_PATH
+
 # TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
 # customizations somehow.
 
