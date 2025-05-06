@@ -2,6 +2,15 @@
 
 /* SPDX-License-Identifier: MIT-0 */
 
+// This file defines the Jenkins job pipeline for the main and PR builds
+// on this repository. It's also used as a template for the pipeline for
+// Drake's linux-jammy-unprovisioned-external-examples job:
+// https://drake-jenkins.csail.mit.edu/job/linux-jammy-unprovisioned-external-examples/.
+// Notably, the job uses some additional parameters to the setup and
+// ci_build_test scripts not used here.
+// When updating this file, please also update the pipeline definition
+// in drake-jenkins-jobs accordingly.
+
 if (env.BRANCH_NAME == 'main') {
   def triggers = []
   triggers << cron('H H(7-8) * * *')
