@@ -27,6 +27,28 @@ build --@drake//tools/flags:public_repo_default=pkgconfig
 # your project doesn't use macOS.
 ## build --force_pic=yes
 
+# Drake supports the use of proprietary solvers for mathematical programs.
+# See https://drake.mit.edu/bazel.html#proprietary-solvers for more info
+# and details on how to set them up.
+# They can be enabled for the build and tests as shown below.
+# Note that setting the --test_env below as 'build' flags is deliberate,
+# to keep the analysis cache intact when switching between build and test.
+
+# Enable Gurobi.
+# build --@drake//tools/flags:with_gurobi=True
+# Location of the Gurobi license key file, typically named "gurobi.lic".
+# build --test_env=GRB_LICENSE_FILE
+
+# Enable MOSEK.
+# build --@drake//tools/flags:with_mosek=True
+# Location of the MOSEK license file, typically named "mosek.lic".
+# build --test_env=MOSEKLM_LICENSE_FILE
+
+# Enable SNOPT.
+# build --@drake//tools/flags:with_snopt=True
+# Location of the SNOPT source archive.
+# build --test_env=SNOPT_PATH
+
 # TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
 # customizations somehow.
 
