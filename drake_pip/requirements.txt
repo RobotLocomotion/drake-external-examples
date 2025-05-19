@@ -4,4 +4,4 @@
 # use 'drake~=x.y' instead of 'drake~=x.y.z'. See
 # https://packaging.python.org/en/latest/specifications/version-specifiers/#compatible-release
 # for more details.
-drake~=1.40
+drake~=1.31
