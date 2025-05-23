@@ -5,9 +5,3 @@ updates:
     directory: /
     schedule:
       interval: weekly
-  - package-ecosystem: pip
-    directories:
-      - /drake_pip
-      - /drake_poetry
-    schedule:
-      interval: weekly
