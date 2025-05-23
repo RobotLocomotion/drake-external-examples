@@ -1,13 +1,9 @@
 ---
 version: 2
 updates:
+  # This updates official GitHub Actions used in CI, e.g. actions/checkout,
+  # actions/setup-python.
   - package-ecosystem: github-actions
     directory: /
-    schedule:
-      interval: weekly
-  - package-ecosystem: pip
-    directories:
-      - /drake_pip
-      - /drake_poetry
     schedule:
       interval: weekly
