@@ -9,8 +9,12 @@ sudo .github/ubuntu_setup
 # drake source setup
 setup/install_prereqs "$@"
 
+# Prevent removal for AWS-related packages on Noble.
+if [[ "$(lsb_release -sc)" == 'noble' ]]; then
+    sudo apt-mark hold \
+        linux-aws linux-headers-aws linux-image-aws linux-tools-aws
+fi
 # Provide regression coverage for the WITH_USER_...=ON options by un-installing
 # packages that should not be necessary in this particular build flavor. This
 # example configures them to be built from source.
-sudo apt-get remove libeigen3-dev libfmt-dev libspdlog-dev
-sudo apt-get autoremove
+sudo apt-get purge --autoremove libeigen3-dev libfmt-dev libspdlog-dev
