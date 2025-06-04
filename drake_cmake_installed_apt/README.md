@@ -11,11 +11,13 @@ Install the `drake-dev` APT package by following the instructions found at:
 
 <https://drake.mit.edu/apt.html>
 
-For this example, also install the `build-essential` and `cmake` APT packages:
+For this example, also install the `build-essential`, `cmake`, and
+`python3-dev` APT packages:
 
 ```bash
 sudo apt-get update
-sudo apt-get --no-install-recommends install build-essential cmake
+sudo apt-get --no-install-recommends install \
+    build-essential cmake python3-dev
 ```
 
 To build the `drake_cmake_installed_apt` example:

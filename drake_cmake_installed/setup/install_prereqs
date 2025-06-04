@@ -65,7 +65,7 @@ EOF
     tar -xf drake.tar.gz -C $HOME
 
     ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
-      python3-all-dev
+      python3-dev
 EOF
     )
     ;;
