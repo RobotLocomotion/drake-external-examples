@@ -77,7 +77,12 @@ setup/install_prereqs
 ```
 
 Finally, for the code in this example, ensure you have `python3-all-dev`
-installed if on Ubuntu.
+installed if on Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get --no-install-recommends install python3-all-dev
+```
 
 # Examples
 

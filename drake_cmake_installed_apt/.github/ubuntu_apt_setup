@@ -24,17 +24,29 @@ done
 
 export DEBIAN_FRONTEND=noninteractive
 
+readonly apt_install=(
+  apt-get
+  -o Acquire::Retries=4
+  -o Dpkg::Use-Pty=0
+  -qy --no-install-recommends install
+)
+
 apt-get -qq update || (sleep 30; apt-get -qq update)
-apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
-  install build-essential ca-certificates cmake gnupg lsb-release wget
+"${apt_install[@]}" \
+  build-essential \
+  ca-certificates \
+  cmake \
+  gnupg \
+  lsb-release \
+  python3-all-dev \
+  wget
 
 if [[ ! -z "${package_url}" ]]; then
   # Install a custom Drake package if specified.
   wget -O drake.deb ${package_url}
   trap 'rm -f drake.deb' EXIT
 
-  apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
-    install ./drake.deb
+  "${apt_install[@]}" ./drake.deb
 else
   # Otherwise, install the latest released version.
   readonly codename="$(lsb_release -cs)"
@@ -45,6 +57,5 @@ else
     > /etc/apt/sources.list.d/drake.list
 
   apt-get -qq update || (sleep 30; apt-get -qq update)
-  apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
-    install drake-dev
+  "${apt_install[@]}" drake-dev
 fi
