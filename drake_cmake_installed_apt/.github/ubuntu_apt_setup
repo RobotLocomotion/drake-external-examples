@@ -26,7 +26,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get -qq update || (sleep 30; apt-get -qq update)
 apt-get -o Acquire::Retries=4 -o Dpkg::Use-Pty=0 -qy --no-install-recommends \
-  install build-essential ca-certificates cmake gnupg lsb-release wget
+  install build-essential ca-certificates cmake gnupg lsb-release wget \
+  python3-all-dev
 
 if [[ ! -z "${package_url}" ]]; then
   # Install a custom Drake package if specified.
