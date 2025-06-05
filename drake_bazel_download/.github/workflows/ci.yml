@@ -13,8 +13,8 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_package_tar:
-        description: 'Drake linux-jammy-*-packaging .tar.gz artifact URL'
+      linux_noble_package_tar:
+        description: 'Drake linux-noble-*-packaging .tar.gz artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
@@ -22,10 +22,10 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  ubuntu_jammy_bazel_download:
-    name: ubuntu 22.04 jammy
+  ubuntu_noble_bazel_download:
+    name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
-    container: ubuntu:jammy
+    container: ubuntu:noble
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -33,8 +33,8 @@ jobs:
         working-directory: drake_bazel_download
         run: |
           args=()
-          if [[ '${{ github.event.inputs.linux_jammy_package_tar }}' != '' ]]; then
-            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_tar }})
+          if [[ '${{ github.event.inputs.linux_noble_package_tar }}' != '' ]]; then
+            args+=(--package-url ${{ github.event.inputs.linux_noble_package_tar }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash

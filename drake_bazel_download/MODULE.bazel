@@ -25,7 +25,7 @@ http_archive(
         # helpful for our CI test coverage). Users will probably want to pin
         # this to a specific release version, instead. To find those URLs,
         # refer to https://github.com/RobotLocomotion/drake/releases.
-        "https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz"
+        "https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-noble.tar.gz"
     ],
     build_file = "drake.BUILD.bazel",
     strip_prefix = "drake",

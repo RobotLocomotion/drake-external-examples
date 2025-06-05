@@ -45,12 +45,12 @@ downloads Drake to the `$HOME` directory.
 
 1. A specific version (date-stamped)
 
-Replace `jammy` (for Ubuntu 22.04) with `noble` or `mac-arm64`
+Replace `noble` (for Ubuntu 24.04) with `jammy` or `mac-arm64`
 to download the version needed for your operating system.
 
 ```bash
-curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-jammy.tar.gz
-tar -xvzf drake-0.0.20250131-jammy.tar.gz -C $HOME
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-0.0.20250131-noble.tar.gz
+tar -xvzf drake-0.0.20250131-noble.tar.gz -C $HOME
 $HOME/drake/share/drake/setup/install_prereqs
 ```
 
