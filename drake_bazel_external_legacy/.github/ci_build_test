@@ -3,6 +3,16 @@
 
 set -euxo pipefail
 
+cat <<-EOF > "user.bazelrc"
+	# Pass along the compiler version to Drake (as suggested in
+	# drake_bazel_external/.bazelrc).
+	build --@drake//tools/cc_toolchain:compiler_major=$(gcc -dumpversion)
+
+	# Use force_pic to speed up the build on Ubuntu
+	# (as suggested in drake_bazel_external/.bazelrc).
+	build --force_pic=yes
+EOF
+
 # Use what we downloaded to drake_bazel_external_legacy/drake,
 # rather than the URL to the latest Drake master branch
 # found in drake_bazel_external_legacy/WORKSPACE.
