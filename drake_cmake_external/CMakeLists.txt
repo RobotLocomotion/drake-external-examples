@@ -42,6 +42,21 @@ ExternalProject_Add(eigen
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
+    # Suppress warnings from Eigen's deprecated upstream CMake.
+    # 1. Using find_package(CUDA), which has been replaced by more robust CUDA
+    # language support since CMake 3.27. Eigen officially enforces the OLD
+    # policy, but doesn't properly cover their "unsupported" code.
+    # See https://cmake.org/cmake/help/latest/module/FindCUDA.html or run
+    # cmake --help-policy CMP0146 for details.
+    -DCMAKE_POLICY_DEFAULT_CMP0146:STRING=OLD
+    # 2. Using find_package(Boost), which has been replaced by Boost's upstream
+    # package configuration file since CMake 3.30 and Boost 1.70.
+    # find_package(Boost) now defers to upstream to keep up with their
+    # releases. Since Eigen allows Boost from 1.53 (as of writing), we can't
+    # enforce the NEW policy here.
+    # See https://cmake.org/cmake/help/latest/module/FindBoost.html or run
+    # cmake --help-policy CMP0167 for details.
+    -DCMAKE_POLICY_DEFAULT_CMP0167:STRING=OLD
   BUILD_ALWAYS ON
 )
 
