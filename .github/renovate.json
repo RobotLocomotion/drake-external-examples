@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "automerge": false,
+  "schedule": ["at 10:00 on Sunday"],
+  "timezone": "America/New_York",
+  "enabledManagers": ["pip_requirements", "poetry"],
+  "includePaths": ["drake_pip/**", "drake_poetry/**"],
+  "pip_requirements": {
+    "fileMatch": ["drake_pip/requirements\\.txt$"]
+  },
+  "poetry": {
+    "fileMatch": ["drake_poetry/pyproject\\.toml$"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["pip_requirements"],
+      "matchFiles": ["drake_pip/requirements.txt"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "pip-deps"
+    },
+    {
+      "matchManagers": ["poetry"],
+      "matchFiles": ["drake_poetry/pyproject.toml"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "poetry-deps"
+    }
+  ]
+}
