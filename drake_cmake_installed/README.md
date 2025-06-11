@@ -76,8 +76,13 @@ setup/install_prereqs
 (mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
 ```
 
-Finally, for the code in this example, ensure you have `python3-all-dev`
-installed if on Ubuntu.
+Finally, for the code in this example, ensure you have `python3-dev`
+installed if on Ubuntu:
+
+```bash
+sudo apt-get update
+sudo apt-get --no-install-recommends install python3-dev
+```
 
 # Examples
 
