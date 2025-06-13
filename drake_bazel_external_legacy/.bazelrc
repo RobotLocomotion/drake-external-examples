@@ -21,6 +21,11 @@ build --host_cxxopt=-std=c++20
 # https://github.com/bazelbuild/bazel/issues/1164
 build --action_env=CCACHE_DISABLE=1
 
+# When using gcc 13 (the default on Ubuntu 24.04 Noble), enable some additional
+# warning suppression that Drake does. See drake/tools/skylark/drake_cc.bzl for
+# details. If you're using another version of gcc, or clang, leave this off.
+# build --@drake//tools/cc_toolchain:compiler_major=13
+
 # For Ubuntu builds, this flag can cut build times in half. For macOS builds,
 # this flag might cause build errors. We suggest turning it on if and only if
 # your project doesn't use macOS.

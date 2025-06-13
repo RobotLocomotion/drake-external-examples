@@ -8,5 +8,10 @@ set -euxo pipefail
 # found in drake_bazel_external_legacy/WORKSPACE.
 export EXAMPLES_LOCAL_DRAKE_PATH=$(realpath drake)
 
+# Suppress compiler warnings for gcc 13 as suggested in
+# drake_bazel_external/.bazelrc.
+gcc_flag="--@drake//tools/cc_toolchain:compiler_major="
+gcc_flag="${gcc_flag}$(gcc -dumpversion | cut -d. -f1)"
+
 bazel version
-bazel test //...
+bazel test "${gcc_flag}" //...
