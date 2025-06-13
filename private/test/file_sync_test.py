@@ -113,21 +113,21 @@ GITHUB_WORKFLOWS = (
 
 GITHUB_WORKFLOW_OPTS = {
     "bazel_download": (
-        "linux_jammy_package_tar",
+        "linux_noble_package_tar",
     ),
     "cmake_installed": (
-        "linux_jammy_package_tar",
+        "linux_noble_package_tar",
         "mac_arm_sonoma_package_tar"
     ),
     "cmake_installed_apt": (
-        "linux_jammy_package_deb",
+        "linux_noble_package_deb",
     ),
     "pip": (
-        "linux_jammy_wheel",
+        "linux_noble_wheel",
         "mac_arm_sonoma_wheel"
     ),
     "poetry": (
-        "linux_jammy_wheel",
+        "linux_noble_wheel",
         "mac_arm_sonoma_wheel"
     )
 }

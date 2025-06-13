@@ -58,8 +58,8 @@ fi
 ${maybe_sudo} apt-get update
 ${maybe_sudo} apt-get install --no-install-recommends lsb-release
 
-if [[ "$(lsb_release -sc)" != 'jammy' ]]; then
-  echo 'This script requires Ubuntu 22.04 (Jammy)' >&2
+if [[ "$(lsb_release -sc)" != 'noble' ]]; then
+  echo 'This script requires Ubuntu 24.04 (Noble)' >&2
   exit 3
 fi
 
@@ -70,7 +70,7 @@ EOF
 )
 
 # Download the drake source
-wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-jammy.tar.gz}"
+wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-noble.tar.gz}"
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C $HOME
 

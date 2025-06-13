@@ -13,8 +13,8 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_wheel:
-        description: 'Drake linux-jammy-*-wheel-*-release Python 3.10 artifact URL'
+      linux_noble_wheel:
+        description: 'Drake linux-noble-*-wheel-*-release Python 3.10 artifact URL'
         required: false
       mac_arm_sonoma_wheel:
         description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.13 artifact URL'
@@ -61,10 +61,10 @@ jobs:
         working-directory: drake_pip
         run: .github/ci_build_test
         shell: zsh -efuo pipefail {0}
-  ubuntu_jammy_pip:
-    name: ubuntu 22.04 jammy
+  ubuntu_noble_pip:
+    name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
-    container: ubuntu:jammy
+    container: ubuntu:noble
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -72,8 +72,8 @@ jobs:
         working-directory: drake_pip
         run: |
           args=()
-          if [[ '${{ github.event.inputs.linux_jammy_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.linux_jammy_wheel }})
+          if [[ '${{ github.event.inputs.linux_noble_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.linux_noble_wheel }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash
