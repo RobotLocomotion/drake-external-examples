@@ -36,6 +36,12 @@ if [[ ! -z "${drake_commit_hash}" ]]; then
   cmake_args+=(-DDRAKE_COMMIT_HASH=${drake_commit_hash})
 fi
 
+# TODO(drake#23119): Explicitly use /usr/bin/gcc and /usr/bin/g++, because
+# Drake's warning suppressions don't correctly identify /usr/bin/{cc|c++}
+# as the underlying compilers.
+cmake_args+=(-DCMAKE_C_COMPILER=/usr/bin/gcc)
+cmake_args+=(-DCMAKE_CXX_COMPILER=/usr/bin/g++)
+
 cmake .. "${cmake_args[@]}"
 cmake --build .
 
