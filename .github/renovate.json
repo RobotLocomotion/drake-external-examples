@@ -1,32 +1,56 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "automerge": false,
-  "schedule": ["at any time"],
+  "schedule": [
+    "at any time"
+  ],
   "timezone": "America/New_York",
-  "enabledManagers": ["pip_requirements", "poetry"],
-  "includePaths": ["drake_pip/**", "drake_poetry/**"],
+  "enabledManagers": [
+    "pip_requirements",
+    "poetry"
+  ],
+  "includePaths": [
+    "drake_pip/**",
+    "drake_poetry/**"
+  ],
   "pip_requirements": {
-    "fileMatch": ["drake_pip/requirements\\.txt$"]
+    "managerFilePatterns": [
+      "/drake_pip/requirements\\.txt$/"
+    ]
   },
   "poetry": {
-    "fileMatch": ["drake_poetry/pyproject\\.toml$"]
+    "managerFilePatterns": [
+      "/drake_poetry/pyproject\\.toml$/"
+    ]
   },
   "packageRules": [
     {
-      "matchManagers": ["pip_requirements"],
-      "matchFiles": ["drake_pip/requirements.txt"],
+      "matchManagers": [
+        "pip_requirements"
+      ],
+      "matchFileNames": [
+        "drake_pip/requirements.txt"
+      ],
       "semanticCommitType": "chore",
       "semanticCommitScope": "pip-deps"
     },
     {
-      "matchManagers": ["poetry"],
-      "matchFiles": ["drake_poetry/pyproject.toml"],
+      "matchManagers": [
+        "poetry"
+      ],
+      "matchFileNames": [
+        "drake_poetry/pyproject.toml"
+      ],
       "semanticCommitType": "chore",
       "semanticCommitScope": "poetry-deps"
     },
     {
-      "matchPackageNames": ["drake"],
+      "matchPackageNames": [
+        "drake"
+      ],
       "rangeStrategy": "bump"
     }
   ]
