@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "automerge": false,
-  "schedule": ["at 10:00 on Sunday"],
+  "schedule": ["at any time"],
   "timezone": "America/New_York",
   "enabledManagers": ["pip_requirements", "poetry"],
   "includePaths": ["drake_pip/**", "drake_poetry/**"],
