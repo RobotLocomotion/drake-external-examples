@@ -13,8 +13,8 @@ on:
     - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      linux_jammy_package_deb:
-        description: 'Drake linux-jammy-*-packaging .deb artifact URL'
+      linux_noble_package_deb:
+        description: 'Drake linux-noble-*-packaging .deb artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
@@ -22,10 +22,10 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  ubuntu_jammy_cmake_installed_apt:
-    name: ubuntu 22.04 jammy
+  ubuntu_noble_cmake_installed_apt:
+    name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
-    container: ubuntu:jammy
+    container: ubuntu:noble
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -33,8 +33,8 @@ jobs:
         working-directory: drake_cmake_installed_apt
         run: |
           args=()
-          if [[ '${{ github.event.inputs.linux_jammy_package_deb }}' != '' ]]; then
-            args+=(--package-url ${{ github.event.inputs.linux_jammy_package_deb }})
+          if [[ '${{ github.event.inputs.linux_noble_package_deb }}' != '' ]]; then
+            args+=(--package-url ${{ github.event.inputs.linux_noble_package_deb }})
           fi
           .github/ubuntu_apt_setup "${args[@]}"
         shell: bash

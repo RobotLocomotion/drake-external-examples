@@ -2,7 +2,7 @@
 
 This example uses the [`cmake`](https://cmake.org/) build system with an
 instance of Drake installed using the
-[APT](https://manpages.ubuntu.com/manpages/jammy/man8/apt.8.html) package
+[APT](https://manpages.ubuntu.com/manpages/noble/man8/apt.8.html) package
 manager.
 
 ## Instructions

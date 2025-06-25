@@ -16,7 +16,7 @@ def jobs = [:]
 for (example in examples) {
   def name = example
   jobs[name] = {
-    node('linux-jammy-unprovisioned') {
+    node('linux-noble-unprovisioned') {
       timeout(600) {
         ansiColor('xterm') {
           try {
