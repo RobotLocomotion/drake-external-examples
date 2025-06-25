@@ -24,6 +24,10 @@
       "matchFiles": ["drake_poetry/pyproject.toml"],
       "semanticCommitType": "chore",
       "semanticCommitScope": "poetry-deps"
+    },
+    {
+      "matchPackageNames": ["drake"],
+      "rangeStrategy": "bump"
     }
   ]
 }
