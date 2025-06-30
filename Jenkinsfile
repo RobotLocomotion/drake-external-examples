@@ -2,13 +2,25 @@
 
 /* SPDX-License-Identifier: MIT-0 */
 
-if (env.BRANCH_NAME == 'main') {
+environment {
+  IS_DOWNSTREAM_BUILD = currentBuild.getBuildCauses()[0].class.toString.contains('UpstreamCause')
+}
+
+def props = []
+props << parameters([
+  string(name: 'drakeSha', defaultValue: 'master',
+    description: 'Commit SHA or branch name. ' +
+      'Enter the full commit SHA or branch name of Drake to test. ' +
+      'Defaults to <code>master</code>.'),
+])
+
+if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
   def triggers = []
   triggers << cron('H H(7-8) * * *')
-  properties ([
-    pipelineTriggers(triggers)
-  ])
+  props << pipelineTriggers(triggers)
 }
+
+properties(props)
 
 def examples = ['drake_bazel_external', 'drake_bazel_external_legacy', 'drake_cmake_external']
 def jobs = [:]
@@ -27,14 +39,14 @@ for (example in examples) {
             }
             dir('src/' + name) {
               stage(name + ' setup') {
-                sh '.github/setup'
+                sh ".github/setup --drake-commit-hash ${params.drakeSha}"
               }
               stage(name + ' build and test') {
-                sh '.github/ci_build_test'
+                sh ".github/ci_build_test --drake-commit-hash ${params.drakeSha}"
               }
             }
           } catch (e) {
-            if (env.BRANCH_NAME == 'main') {
+            if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
               emailext (
               subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
               body: "See <${env.BUILD_URL}display/redirect?page=changes>",
