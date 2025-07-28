@@ -3,7 +3,7 @@
 
 set -euxo pipefail
 
-cat <<EOF > "user.bazelrc"
+cat > "user.bazelrc" <<EOF
 # Use what we downloaded to drake_bazel_external/drake,
 # rather than the URL to the latest Drake master branch
 # found in drake_bazel_external/MODULE.bazel.
