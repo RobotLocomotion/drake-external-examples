@@ -27,39 +27,31 @@ def jobs = [:]
 
 for (example in examples) {
   def name = example
-  jobs[name] = {
-    node('linux-noble-unprovisioned') {
-      timeout(600) {
-        ansiColor('xterm') {
-          try {
+  node('linux-noble-unprovisioned') {
+    timeout(600) {
+      ansiColor('xterm') {
+        try {
+          stage(name) {
             dir('src') {
-              stage('checkout') {
-                checkout scm
-              }
+              checkout scm
             }
             dir('src/' + name) {
-              stage(name + ' setup') {
-                sh ".github/setup --drake-commit-hash ${params.drakeSha}"
-              }
-              stage(name + ' build and test') {
-                sh ".github/ci_build_test --drake-commit-hash ${params.drakeSha}"
-              }
+              sh ".github/setup --drake-commit-hash ${params.drakeSha}"
+              sh ".github/ci_build_test --drake-commit-hash ${params.drakeSha}"
             }
-          } catch (e) {
-            if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
-              emailext (
-              subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-              body: "See <${env.BUILD_URL}display/redirect?page=changes>",
-              recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-              to: '$DEFAULT_RECIPIENTS',
-              )
-            }
-            throw e
           }
+        } catch (e) {
+          if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
+            emailext (
+            subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: "See <${env.BUILD_URL}display/redirect?page=changes>",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            to: '$DEFAULT_RECIPIENTS',
+            )
+          }
+          throw e
         }
       }
     }
   }
 }
-
-parallel jobs
