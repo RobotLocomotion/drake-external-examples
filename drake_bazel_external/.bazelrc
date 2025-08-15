@@ -2,6 +2,7 @@
 
 # Default to an optimized build.
 build --compilation_mode=opt
+build --features=prefer_pic_for_opt_binaries
 
 # Default build options.
 build --strip=never
@@ -29,11 +30,6 @@ build --@drake//tools/flags:public_repo_default=pkgconfig
 # on Ubuntu 24.04 Noble). Adapt this flag to your system's compiler major
 # version as necessary.
 # build --@drake//tools/cc_toolchain:compiler_major=13
-
-# For Ubuntu builds, this flag can cut build times in half. For macOS builds,
-# this flag might cause build errors. We suggest turning it on if and only if
-# your project doesn't use macOS.
-## build --force_pic=yes
 
 # Drake supports the use of proprietary solvers for mathematical programs.
 # See https://drake.mit.edu/bazel.html#proprietary-solvers for more info
