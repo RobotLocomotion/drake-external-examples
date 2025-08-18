@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-14
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       # See issue https://github.com/actions/setup-python/issues/577.  There is
       # some kind of environment conflict between the symlinks found in the
       # GitHub Actions runner and `brew upgrade python` where `brew` detects and
@@ -42,7 +42,7 @@ jobs:
     container: ubuntu:noble
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: setup
         working-directory: drake_cmake_installed
         run: |
