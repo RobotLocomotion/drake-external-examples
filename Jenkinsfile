@@ -2,8 +2,12 @@
 
 /* SPDX-License-Identifier: MIT-0 */
 
-environment {
-  IS_DOWNSTREAM_BUILD = currentBuild.getBuildCauses()[0].class.toString.contains('UpstreamCause')
+def is_downstream_build = false
+def current_build_causes = currentBuild.getBuildCauses()
+for (cause in current_build_causes) {
+  if (cause._class.toString().contains('UpstreamCause')) {
+    is_downstream_build = true
+  }
 }
 
 def props = []
@@ -14,7 +18,7 @@ props << parameters([
       'Defaults to <code>master</code>.'),
 ])
 
-if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
+if (env.BRANCH_NAME == 'main' && !is_downstream_build) {
   def triggers = []
   triggers << cron('H H(7-8) * * *')
   props << pipelineTriggers(triggers)
@@ -46,7 +50,7 @@ for (example in examples) {
               }
             }
           } catch (e) {
-            if (env.BRANCH_NAME == 'main' && !env.IS_DOWNSTREAM_BUILD) {
+            if (env.BRANCH_NAME == 'main' && !is_downstream_build) {
               emailext (
               subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
               body: "See <${env.BUILD_URL}display/redirect?page=changes>",
