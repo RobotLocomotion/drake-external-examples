@@ -3,9 +3,10 @@
 This pulls in Drake and builds it from source via Bazel's WORKSPACE mechanism,
 which is deprecated as of Bazel 8 and will be removed in Bazel 9. Therefore,
 we do not recommend using this example for new projects; instead, refer to
-the `drake_bazel_external` example. The legacy example primarily serves
-as a regression test for the deprecated behavior, and therefore uses Drake's
-minimum supported Bazel version.
+the `drake_bazel_external` example.
+
+The WORKSPACE mechanism is only supported for Drake v1.44.0 and earlier.
+This example will be deleted after the next Drake v1.45.0 released.
 
 For an introduction to Bazel, refer to
 [Getting Started with Bazel](https://bazel.build/start).

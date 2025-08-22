@@ -60,8 +60,6 @@ COPIES = (
         ".bazelignore",
         ".bazelproject",
         ".clang-format",
-        ".github/setup",
-        ".github/ubuntu_setup",
         "BUILD.bazel",
         "CPPLINT.cfg",
         "LICENSE",
@@ -77,7 +75,6 @@ COPIES = (
         "apps/simple_adder_test.cc",
         "apps/simple_continuous_time_system.cc",
         "apps/simple_logging_example.py",
-        "setup/install_prereqs",
     ]
 ]) + tuple([
     (
@@ -221,7 +218,7 @@ def gha_workflow_check(workflow_name: str):
 
     root_dispatch = content[root_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
     subdir_dispatch = content[subdir_ci_path].split(seps["dispatch"])[1].split(seps["conc"])[0]
-    subdir_dispatch = re.sub("[^\S\r\n]{6}", "", subdir_dispatch) # remove leading indendation
+    subdir_dispatch = re.sub(r"[^\S\r\n]{6}", "", subdir_dispatch) # remove leading indendation
 
     # Check that the root workflow defines no extra options
     # beyond what is configured here.
