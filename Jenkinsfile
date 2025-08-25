@@ -18,7 +18,7 @@ props << parameters([
       'Defaults to <code>master</code>.'),
 ])
 
-if (env.BRANCH_NAME == 'main' && !is_downstream_build) {
+if (env.BRANCH_NAME == 'main') {
   def triggers = []
   triggers << cron('H H(7-8) * * *')
   props << pipelineTriggers(triggers)
