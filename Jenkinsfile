@@ -26,7 +26,7 @@ if (env.BRANCH_NAME == 'main') {
 
 properties(props)
 
-def examples = ['drake_bazel_external', 'drake_bazel_external_legacy', 'drake_cmake_external']
+def examples = ['drake_bazel_external', 'drake_cmake_external']
 def jobs = [:]
 
 for (example in examples) {
