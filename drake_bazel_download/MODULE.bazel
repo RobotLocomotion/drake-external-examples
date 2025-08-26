@@ -7,7 +7,7 @@ bazel_dep(name = "rules_cc", version = "0.2.0")
 bazel_dep(name = "rules_python", version = "1.5.3")
 
 # Use the host system python.
-register_toolchains("@bazel_tools//tools/python:autodetecting_toolchain")
+register_toolchains("@rules_python//python/runtime_env_toolchains:all")
 
 # Disable the exec tools toolchain.
 register_toolchains("//:python_no_exec_tools_toolchain")
