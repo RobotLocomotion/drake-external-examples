@@ -3,7 +3,7 @@
 module(name = "drake_external_examples")
 
 # Add the Bazel rulesets we need.
-bazel_dep(name = "rules_cc", version = "0.2.0")
+bazel_dep(name = "rules_cc", version = "0.2.1")
 bazel_dep(name = "rules_python", version = "1.5.3")
 
 # Use the host system python.
