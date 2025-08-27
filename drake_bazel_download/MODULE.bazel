@@ -13,8 +13,8 @@ register_toolchains("@rules_python//python/runtime_env_toolchains:all")
 register_toolchains("//:python_no_exec_tools_toolchain")
 
 # Use the host system Eigen.
-local_eigen_repositiory = use_repo_rule("//:eigen.bzl", "local_eigen_repository")
-local_eigen_repositiory(name = "eigen")
+local_eigen_repository = use_repo_rule("//:eigen.bzl", "local_eigen_repository")
+local_eigen_repository(name = "eigen")
 
 # Use a downloaded, pre-compiled build of Drake.
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
