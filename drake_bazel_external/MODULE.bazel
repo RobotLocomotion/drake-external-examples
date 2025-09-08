@@ -8,7 +8,7 @@ module(name = "drake_external_examples")
 bazel_dep(name = "apple_support", version = "1.17.1")
 
 # Add the Bazel rules we need.
-bazel_dep(name = "rules_cc", version = "0.2.2")
+bazel_dep(name = "rules_cc", version = "0.2.3")
 bazel_dep(name = "rules_python", version = "1.5.4")
 
 # Here we introduce Drake as a module dependency, but note that Drake is not
