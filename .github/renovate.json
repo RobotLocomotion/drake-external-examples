@@ -22,12 +22,6 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": [
-        "apple_support"
-      ],
-      "enabled": false
-    },
-    {
       "matchManagers": [
         "pip_requirements",
         "poetry",
