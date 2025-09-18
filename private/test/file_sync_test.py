@@ -21,6 +21,7 @@ COPIES = (
         "drake_cmake_external/.clang-format",
         "drake_cmake_installed/.clang-format",
         "drake_cmake_installed_apt/.clang-format",
+        "private/drake_cmake_external_static/.clang-format",
     ),
     (
         "drake_bazel_download/.github/ubuntu_setup",
@@ -32,6 +33,7 @@ COPIES = (
         "drake_cmake_external/CPPLINT.cfg",
         "drake_cmake_installed/CPPLINT.cfg",
         "drake_cmake_installed_apt/CPPLINT.cfg",
+        "private/drake_cmake_external_static/CPPLINT.cfg",
     ),
     (
         "LICENSE",
@@ -46,6 +48,7 @@ COPIES = (
     (
         "drake_bazel_external/.github/ubuntu_setup",
         "drake_cmake_external/.github/ubuntu_setup",
+        "private/drake_cmake_external_static/.github/ubuntu_setup",
     ),
     (
         "drake_bazel_download/.bazelversion",
@@ -97,6 +100,16 @@ COPIES = (
     for path in [
         "particle.py",
         "particle_test.py",
+    ]
+]) + tuple([
+    (
+        f"drake_cmake_external/{path}",
+        f"private/drake_cmake_external_static/{path}"
+    )
+    for path in [
+        "drake_external_examples/simple_continuous_time_system.cc",
+        "setup/install_prereqs",
+        ".github/setup"
     ]
 ])
 
