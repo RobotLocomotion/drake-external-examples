@@ -1,0 +1,16 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+# CI setup
+sudo .github/ubuntu_setup
+
+# drake source setup
+setup/install_prereqs "$@"
+
+# Provide regression coverage for the WITH_USER_...=ON options by un-installing
+# packages that should not be necessary in this particular build flavor. This
+# example configures them to be built from source.
+sudo apt-get remove libeigen3-dev libfmt-dev libspdlog-dev
+sudo apt-get autoremove
