@@ -1,0 +1,48 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+drake_commit_hash=
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --drake-commit-hash)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --drake-commit-hash' >&2
+        exit 1
+      fi
+      drake_commit_hash="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+cmake --version
+
+mkdir build
+pushd build
+
+export LD_LIBRARY_PATH="${PWD}/install/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+cmake_args=()
+if [[ ! -z "${drake_commit_hash}" ]]; then
+  # Use a specific commit of Drake source,
+  # rather than the latest from master.
+  cmake_args+=(-DDRAKE_COMMIT_HASH=${drake_commit_hash})
+fi
+
+cmake .. "${cmake_args[@]}"
+cmake --build .
+
+cd drake_external_examples
+ctest -V .
+
+popd
+
+chmod -R a+w build || true
+rm -rf build
