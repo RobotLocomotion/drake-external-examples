@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+drake_commit_hash='master'
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --drake-commit-hash)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --drake-commit-hash' >&2
+        exit 1
+      fi
+      drake_commit_hash="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
+${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
+  wget
+EOF
+)
+
+# Download the drake source
+wget -O drake.tar.gz \
+  https://github.com/RobotLocomotion/drake/archive/${drake_commit_hash}.tar.gz
+trap 'rm -f drake.tar.gz' EXIT
+mkdir -p drake && tar -xf drake.tar.gz -C drake --strip-components 1
+
+# Install the source prereqs
+drake/setup/install_prereqs
