@@ -6,9 +6,9 @@ on:
   workflow_call:
 
 jobs:
-  macos_sonoma_arm_poetry:
-    name: macos sonoma 14 arm
-    runs-on: macos-14
+  macos_sequoia_arm_poetry:
+    name: macos sequoia 15 arm
+    runs-on: macos-15
     env:
       PYTHON_VERSION: '3.13'
     steps:
@@ -34,8 +34,8 @@ jobs:
         run: |
           .github/setup
           args=(--python-version $PYTHON_VERSION)
-          if [[ '${{ github.event.inputs.mac_arm_sonoma_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
+          if [[ '${{ github.event.inputs.mac_arm_sequoia_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sequoia_wheel }})
           fi
           setup/install_prereqs "${args[@]}"
         shell: zsh -efuo pipefail {0}

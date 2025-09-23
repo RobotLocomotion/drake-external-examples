@@ -16,8 +16,8 @@ on:
       linux_noble_wheel:
         description: 'Drake linux-noble-*-wheel-*-release Python 3.10 artifact URL'
         required: false
-      mac_arm_sonoma_wheel:
-        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.13 artifact URL'
+      mac_arm_sequoia_wheel:
+        description: 'Drake mac-arm-sequoia-*-wheel-*-release Python 3.13 artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
@@ -25,9 +25,9 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  macos_sonoma_arm_pip:
-    name: macos sonoma 14 arm
-    runs-on: macos-14
+  macos_sequoia_arm_pip:
+    name: macos sequoia 15 arm
+    runs-on: macos-15
     env:
       PYTHON_VERSION: '3.13'
     steps:
@@ -52,8 +52,8 @@ jobs:
         working-directory: drake_pip
         run: |
           args=(--python-version $PYTHON_VERSION)
-          if [[ '${{ github.event.inputs.mac_arm_sonoma_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
+          if [[ '${{ github.event.inputs.mac_arm_sequoia_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sequoia_wheel }})
           fi
           setup/setup_env "${args[@]}"
         shell: zsh -eufo pipefail {0}

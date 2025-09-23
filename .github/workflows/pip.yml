@@ -6,9 +6,9 @@ on:
   workflow_call:
 
 jobs:
-  macos_sonoma_arm_pip:
-    name: macos sonoma 14 arm
-    runs-on: macos-14
+  macos_sequoia_arm_pip:
+    name: macos sequoia 15 arm
+    runs-on: macos-15
     env:
       PYTHON_VERSION: '3.13'
     steps:
@@ -33,8 +33,8 @@ jobs:
         working-directory: drake_pip
         run: |
           args=(--python-version $PYTHON_VERSION)
-          if [[ '${{ github.event.inputs.mac_arm_sonoma_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sonoma_wheel }})
+          if [[ '${{ github.event.inputs.mac_arm_sequoia_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sequoia_wheel }})
           fi
           setup/setup_env "${args[@]}"
         shell: zsh -eufo pipefail {0}

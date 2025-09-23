@@ -19,14 +19,14 @@ on:
       linux_noble_package_deb:
         description: 'Drake linux-noble-*-packaging .deb artifact URL'
         required: false
-      mac_arm_sonoma_package_tar:
-        description: 'Drake mac-arm-sonoma-*-packaging .tar.gz artifact URL'
+      mac_arm_sequoia_package_tar:
+        description: 'Drake mac-arm-sequoia-*-packaging .tar.gz artifact URL'
         required: false
       linux_noble_wheel:
         description: 'Drake linux-noble-*-wheel-*-release Python 3.10 artifact URL'
         required: false
-      mac_arm_sonoma_wheel:
-        description: 'Drake mac-arm-sonoma-*-wheel-*-release Python 3.13 artifact URL'
+      mac_arm_sequoia_wheel:
+        description: 'Drake mac-arm-sequoia-*-wheel-*-release Python 3.13 artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
