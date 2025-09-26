@@ -139,6 +139,13 @@ ExternalProject_Add(drake
     # see https://drake.mit.edu/from_source.html. Here, we demonstrate how to
     # set an arbitrary option for one of the open-source dependencies.
     -DWITH_CSDP:BOOL=OFF
+    # The Drake build also supports installing a static drake::drake library,
+    # instead of shared (the default). This is incompatible with certain other
+    # options, and as a result, changes their default values; see
+    # https://drake.mit.edu/from_source.html for the full details. To enable
+    # this option, and disable incompatible installation options, uncomment the
+    # following line.
+    # -DBUILD_SHARED_LIBS:BOOL=OFF
   PREFIX "${DRAKE_PREFIX}"
   BINARY_DIR "${PROJECT_BINARY_DIR}/drake"
   BUILD_ALWAYS ON
