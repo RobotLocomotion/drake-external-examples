@@ -53,31 +53,6 @@ COPIES = (
     ),
 ) + tuple([
     (
-        f"drake_bazel_external/{path}",
-        f"drake_bazel_external_legacy/{path}",
-    )
-    for path in [
-        ".bazelignore",
-        ".bazelproject",
-        ".clang-format",
-        "BUILD.bazel",
-        "CPPLINT.cfg",
-        "LICENSE",
-        "apps/BUILD.bazel",
-        "apps/exec.sh",
-        "apps/find_resource_test.py",
-        "apps/import_all_test.py",
-        "apps/simple_adder-inl.h",
-        "apps/simple_adder.cc",
-        "apps/simple_adder.h",
-        "apps/simple_adder_py.cc",
-        "apps/simple_adder_py_test.py",
-        "apps/simple_adder_test.cc",
-        "apps/simple_continuous_time_system.cc",
-        "apps/simple_logging_example.py",
-    ]
-]) + tuple([
-    (
         f"drake_cmake_installed/src/particle/{path}",
         f"drake_cmake_installed_apt/src/{path}",
     )
