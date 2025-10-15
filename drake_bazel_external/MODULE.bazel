@@ -56,3 +56,15 @@ python_repository(
 )
 
 register_toolchains("@python//:all")
+
+# If you would like to re-use one of Drake's public dependencies, you can do so
+# via the `drake_dep_repositories` module extension. For a list of available
+# dependencies, refer to Drake's MODULE.bazel file.
+drake_dep_repositories = use_extension(
+    "@drake//tools/workspace:default.bzl",
+    "drake_dep_repositories",
+)
+use_repo(
+    drake_dep_repositories,
+    "eigen",
+)
