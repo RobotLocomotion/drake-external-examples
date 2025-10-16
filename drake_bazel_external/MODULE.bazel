@@ -5,7 +5,7 @@ module(name = "drake_external_examples")
 # If you don't want to support building on macOS, you may remove the next line.
 # Note that it must appear prior to loading "rules_cc", per the documentation:
 #  https://github.com/bazelbuild/apple_support?tab=readme-ov-file#bazel-7-setup
-bazel_dep(name = "apple_support", version = "1.23.1")
+bazel_dep(name = "apple_support", version = "1.24.0")
 
 # Add the Bazel rules we need.
 bazel_dep(name = "rules_cc", version = "0.2.9")
