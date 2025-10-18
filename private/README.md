@@ -7,3 +7,5 @@ copied into your own project(s).
 example in order to provide CI coverage of installing and linking libdrake
 statically.
 * `test/`: General testing utilities.
+* `upgrade_cmake_externals.py`: A script to automatically upgrade the upstream
+dependencies used by the drake_cmake_external example.
