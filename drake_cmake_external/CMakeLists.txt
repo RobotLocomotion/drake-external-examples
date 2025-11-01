@@ -32,8 +32,8 @@ include(ExternalProject)
 # If you'd rather just use your operating system's Eigen, then this stanza could
 # be removed (as well as removing -DWITH_USER_EIGEN:BOOL=ON, below).
 ExternalProject_Add(eigen
-  URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-  URL_HASH SHA256=8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72
+  URL https://gitlab.com/libeigen/eigen/-/archive/5.0.0/eigen-5.0.0.tar.gz
+  URL_HASH SHA256=315c881e19e17542a7d428c5aa37d113c89b9500d350c433797b730cd449c056
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -42,21 +42,6 @@ ExternalProject_Add(eigen
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
-    # Suppress warnings from Eigen's deprecated upstream CMake.
-    # 1. Using find_package(CUDA), which has been replaced by more robust CUDA
-    # language support since CMake 3.27. Eigen officially enforces the OLD
-    # policy, but doesn't properly cover their "unsupported" code.
-    # See https://cmake.org/cmake/help/latest/module/FindCUDA.html or run
-    # cmake --help-policy CMP0146 for details.
-    -DCMAKE_POLICY_DEFAULT_CMP0146:STRING=OLD
-    # 2. Using find_package(Boost), which has been replaced by Boost's upstream
-    # package configuration file since CMake 3.30 and Boost 1.70.
-    # find_package(Boost) now defers to upstream to keep up with their
-    # releases. Since Eigen allows Boost from 1.53 (as of writing), we can't
-    # enforce the NEW policy here.
-    # See https://cmake.org/cmake/help/latest/module/FindBoost.html or run
-    # cmake --help-policy CMP0167 for details.
-    -DCMAKE_POLICY_DEFAULT_CMP0167:STRING=OLD
   BUILD_ALWAYS ON
 )
 
