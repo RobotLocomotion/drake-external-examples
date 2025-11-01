@@ -65,8 +65,8 @@ ExternalProject_Add(eigen
 # be removed (as well as removing -DWITH_USER_FMT:BOOL=ON, below).
 # If you rebuild fmt from source, then you must also rebuild spdlog from source.
 ExternalProject_Add(fmt
-  URL https://github.com/fmtlib/fmt/archive/refs/tags/11.0.2.tar.gz
-  URL_HASH SHA256=6cb1e6d37bdcb756dbbe59be438790db409cdb4868c66e888d5df9f13f7c027f
+  URL https://github.com/fmtlib/fmt/archive/refs/tags/12.1.0.tar.gz
+  URL_HASH SHA256=ea7de4299689e12b6dddd392f9896f08fb0777ac7168897a244a6d6085043fea
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
