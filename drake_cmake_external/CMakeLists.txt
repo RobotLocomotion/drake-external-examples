@@ -88,8 +88,8 @@ ExternalProject_Add(fmt
 # If you rebuild spdlog from source, then you must also rebuild fmt from source.
 ExternalProject_Add(spdlog
   DEPENDS fmt
-  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.tar.gz
-  URL_HASH SHA256=9962648c9b4f1a7bbc76fd8d9172555bad1871fdb14ff4f842ef87949682caa5
+  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.16.0.tar.gz
+  URL_HASH SHA256=8741753e488a78dd0d0024c980e1fb5b5c85888447e309d9cb9d949bdb52aa3e
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
