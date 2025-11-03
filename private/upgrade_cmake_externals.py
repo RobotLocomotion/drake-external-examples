@@ -7,7 +7,8 @@ downloads the requested version of `<package>` and obtains its sha256sum, and
 replaces the `URL` and `URL_HASH` arguments with the values for the new version.
 
 Usage:
-    python3 upgrade_cmake_externals.py --package <package> --version <version>
+    python3 upgrade_cmake_externals.py [--commit] \
+        --package <package> --version <version>
 
 where `<version>` is of the form MAJOR.MINOR(.PATCH).
 """
@@ -16,6 +17,8 @@ import argparse
 import hashlib
 from pathlib import Path
 import re
+import shlex
+import subprocess
 import sys
 from urllib.request import urlopen
 
@@ -65,6 +68,12 @@ def main(args):
         required=True,
         help="Version to upgrade the package to.",
     )
+    parser.add_argument(
+        "--commit",
+        action="store_true",
+        default=False,
+        help="When upgrading packages, automatically commit the changes.",
+    )
     options = parser.parse_args(args)
 
     # Find the CMakeLists.txt file for drake_cmake_external.
@@ -97,6 +106,36 @@ def main(args):
     # Replace the URL and SHA in CMakeLists.txt.
     new_text = text.replace(old_url, new_url).replace(old_sha, new_sha)
     cmake_file.write_text(new_text)
+
+    # Commit the changes.
+    message = f"[drake_cmake_external] Upgrade {options.package} to {options.version}"
+    if options.commit:
+        subprocess.check_call(
+            [
+                "git",
+                "add",
+                "-A",
+                str(cmake_file),
+            ],
+            cwd=Path(__file__).parent,
+        )
+        subprocess.check_call(
+            [
+                "git",
+                "commit",
+                "-o",
+                str(cmake_file),
+                "-m",
+                message,
+            ],
+            cwd=Path(__file__).parent,
+        )
+        print(f"Done. Changes were committed.")
+        print("Be sure to review the changes and amend the commit if needed.")
+    else:
+        print("Done. Be sure to review and commit the changes:")
+        print(f"+ git add {cmake_file}")
+        print(f"+ git commit -m{shlex.quote(message)}")
 
 
 if __name__ == "__main__":
