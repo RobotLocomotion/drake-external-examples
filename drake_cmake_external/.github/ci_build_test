@@ -22,6 +22,10 @@ while [ "${1:-}" != "" ]; do
   shift
 done
 
+# Use /usr/bin/gcc vs /usr/bin/cc to get proper warning suppressions.
+export CC=gcc
+export CXX=g++
+
 cmake --version
 
 mkdir build
