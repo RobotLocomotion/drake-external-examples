@@ -32,8 +32,8 @@ include(ExternalProject)
 # If you'd rather just use your operating system's Eigen, then this stanza could
 # be removed (as well as removing -DWITH_USER_EIGEN:BOOL=ON, below).
 ExternalProject_Add(eigen
-  URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-  URL_HASH SHA256=8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72
+  URL https://gitlab.com/libeigen/eigen/-/archive/5.0.1/eigen-5.0.1.tar.gz
+  URL_HASH SHA256=e9c326dc8c05cd1e044c71f30f1b2e34a6161a3b6ecf445d56b53ff1669e3dec
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -42,21 +42,15 @@ ExternalProject_Add(eigen
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=${CMAKE_VERBOSE_MAKEFILE}
-    # Suppress warnings from Eigen's deprecated upstream CMake.
-    # 1. Using find_package(CUDA), which has been replaced by more robust CUDA
-    # language support since CMake 3.27. Eigen officially enforces the OLD
-    # policy, but doesn't properly cover their "unsupported" code.
-    # See https://cmake.org/cmake/help/latest/module/FindCUDA.html or run
-    # cmake --help-policy CMP0146 for details.
-    -DCMAKE_POLICY_DEFAULT_CMP0146:STRING=OLD
-    # 2. Using find_package(Boost), which has been replaced by Boost's upstream
-    # package configuration file since CMake 3.30 and Boost 1.70.
-    # find_package(Boost) now defers to upstream to keep up with their
-    # releases. Since Eigen allows Boost from 1.53 (as of writing), we can't
-    # enforce the NEW policy here.
-    # See https://cmake.org/cmake/help/latest/module/FindBoost.html or run
-    # cmake --help-policy CMP0167 for details.
-    -DCMAKE_POLICY_DEFAULT_CMP0167:STRING=OLD
+    # Eigen's default option is to build vendored dependencies and other
+    # development tools (tests, documentation, etc.) when building from source
+    # via `ExternalProject_Add`. Since these tools aren't needed for this
+    # example, we'll disable them explicitly.
+    -DEIGEN_BUILD_BLAS:BOOL=OFF
+    -DEIGEN_BUILD_LAPACK:BOOL=OFF
+    -DEIGEN_BUILD_TESTING:BOOL=OFF
+    -DEIGEN_BUILD_DOC:BOOL=OFF
+    -DEIGEN_BUILD_DEMOS:BOOL=OFF
   BUILD_ALWAYS ON
 )
 
@@ -65,8 +59,8 @@ ExternalProject_Add(eigen
 # be removed (as well as removing -DWITH_USER_FMT:BOOL=ON, below).
 # If you rebuild fmt from source, then you must also rebuild spdlog from source.
 ExternalProject_Add(fmt
-  URL https://github.com/fmtlib/fmt/archive/refs/tags/11.0.2.tar.gz
-  URL_HASH SHA256=6cb1e6d37bdcb756dbbe59be438790db409cdb4868c66e888d5df9f13f7c027f
+  URL https://github.com/fmtlib/fmt/archive/refs/tags/12.1.0.tar.gz
+  URL_HASH SHA256=ea7de4299689e12b6dddd392f9896f08fb0777ac7168897a244a6d6085043fea
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -88,8 +82,8 @@ ExternalProject_Add(fmt
 # If you rebuild spdlog from source, then you must also rebuild fmt from source.
 ExternalProject_Add(spdlog
   DEPENDS fmt
-  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.15.0.tar.gz
-  URL_HASH SHA256=9962648c9b4f1a7bbc76fd8d9172555bad1871fdb14ff4f842ef87949682caa5
+  URL https://github.com/gabime/spdlog/archive/refs/tags/v1.16.0.tar.gz
+  URL_HASH SHA256=8741753e488a78dd0d0024c980e1fb5b5c85888447e309d9cb9d949bdb52aa3e
   TLS_VERIFY ON
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
