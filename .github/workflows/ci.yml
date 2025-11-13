@@ -58,3 +58,19 @@ jobs:
         run: |
           pip install ruamel.yaml
           python ./private/test/file_sync_test.py
+  check_cmake_deps:
+    name: sync drake_cmake_external deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+      - name: setup
+        uses: actions/setup-python@v6
+      - name: upgrade test
+        run: |
+          python ./private/upgrade_cmake_externals.py | tee output.log
+          if [[ -n "$(cat output.log)" ]]; then
+            echo "Check Drake for possible upgrades to drake_cmake_external dependencies."
+            exit 1
+          fi
+        shell: bash
