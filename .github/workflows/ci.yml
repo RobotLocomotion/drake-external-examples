@@ -23,10 +23,10 @@ on:
         description: 'Drake mac-arm-sequoia-*-packaging .tar.gz artifact URL'
         required: false
       linux_noble_wheel:
-        description: 'Drake linux-noble-*-wheel-*-release Python 3.10 artifact URL'
+        description: 'Drake linux-noble-*-wheel-*-release Python 3.12 artifact URL'
         required: false
       mac_arm_sequoia_wheel:
-        description: 'Drake mac-arm-sequoia-*-wheel-*-release Python 3.13 artifact URL'
+        description: 'Drake mac-arm-sequoia-*-wheel-*-release Python 3.14 artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
@@ -53,7 +53,7 @@ jobs:
       - name: setup
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
       - name: file_sync test
         run: |
           pip install ruamel.yaml

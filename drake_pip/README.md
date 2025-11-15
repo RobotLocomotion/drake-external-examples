@@ -43,10 +43,10 @@ setup/setup_env
 
 *Note*: If you have multiple versions of Python installed,
 you can specify the correct version as an optional argument
-to the script. For example, to use `python3.13`, call:
+to the script. For example, to use `python3.14`, call:
 
 ```bash
-setup/setup_env --python-version 3.13
+setup/setup_env --python-version 3.14
 ```
 
 Refer to the
