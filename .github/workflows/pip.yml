@@ -13,7 +13,7 @@ jobs:
       PYTHON_VERSION: '3.14'
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       # See issue https://github.com/actions/setup-python/issues/577.  There is
       # some kind of environment conflict between the symlinks found in the
       # GitHub Actions runner and `brew upgrade python` where `brew` detects and
@@ -48,7 +48,7 @@ jobs:
     container: ubuntu:noble
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: pip setup
         working-directory: drake_pip
         run: |
