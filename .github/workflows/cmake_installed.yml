@@ -12,17 +12,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v5
-      # See issue https://github.com/actions/setup-python/issues/577.  There is
-      # some kind of environment conflict between the symlinks found in the
-      # GitHub Actions runner and `brew upgrade python` where `brew` detects and
-      # refuses to overwrite symlinks.  The cause for our runs is not clear,
-      # we do not use that action, but if that issue is closed this section
-      # can be removed.
-      - name: sanitize GHA / brew python environment
-        run: |
-          # Remove the symlinks that cause issues.
-          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete
-          sudo rm -rf /Library/Frameworks/Python.framework/
       - name: setup
         working-directory: drake_cmake_installed
         run: |
