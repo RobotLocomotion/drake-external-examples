@@ -28,7 +28,7 @@ jobs:
     container: ubuntu:noble
     steps:
       - name: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: setup
         working-directory: drake_bazel_download
         run: |
