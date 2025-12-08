@@ -12,13 +12,15 @@
     "pip_requirements",
     "poetry",
     "bazelisk",
-    "bazel-module"
+    "bazel-module",
+    "github-actions"
   ],
   "includePaths": [
     "drake_pip/**",
     "drake_poetry/**",
     "drake_bazel_download/**",
-    "drake_bazel_external/**"
+    "drake_bazel_external/**",
+    "**/.github/**"
   ],
   "packageRules": [
     {
@@ -26,7 +28,8 @@
         "pip_requirements",
         "poetry",
         "bazelisk",
-        "bazel-module"
+        "bazel-module",
+        "github-actions"
       ],
       "rangeStrategy": "bump"
     }
