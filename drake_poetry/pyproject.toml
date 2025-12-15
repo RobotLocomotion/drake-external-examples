@@ -15,4 +15,4 @@ dynamic = ["dependencies"]
 package-mode = false
 
 [tool.poetry.dependencies]
-drake = "~=1.47"
+drake = "~=1.48"
