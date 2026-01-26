@@ -2,6 +2,8 @@
 
 load("@drake//tools/skylark:py.bzl", "py_binary", "py_test")
 load("@drake//tools/skylark:pybind.bzl", "pybind_py_library")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 # Compile a sample application.
 cc_binary(
