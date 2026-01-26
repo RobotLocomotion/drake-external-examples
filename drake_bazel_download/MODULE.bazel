@@ -4,7 +4,7 @@ module(name = "drake_external_examples")
 
 # Add the Bazel rulesets we need.
 bazel_dep(name = "rules_cc", version = "0.2.16")
-bazel_dep(name = "rules_python", version = "1.7.0")
+bazel_dep(name = "rules_python", version = "1.8.2")
 
 # Use the host system python.
 register_toolchains("@rules_python//python/runtime_env_toolchains:all")
