@@ -33,7 +33,8 @@ case "$OSTYPE" in
       exit 1
     fi
 
-    # Download the drake source
+    # Download the drake binary package, defaulting to the latest nightly
+    # release.
     curl -o drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-mac-arm64.tar.gz}"
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
@@ -59,7 +60,8 @@ case "$OSTYPE" in
 EOF
     )
 
-    # Download the drake source
+    # Download the drake binary package, defaulting to the latest nightly
+    # release.
     wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-noble.tar.gz}"
     trap 'rm -f drake.tar.gz' EXIT
     tar -xf drake.tar.gz -C $HOME
@@ -74,5 +76,5 @@ esac
 # Show version for debugging; use echo for newline / readability.
 echo -e "\ndrake VERSION.TXT: $(cat $HOME/drake/share/doc/drake/VERSION.TXT)\n"
 
-# Install the source prereqs
+# Install the binary distribution prereqs.
 ${maybe_sudo} ${HOME}/drake/share/drake/setup/install_prereqs

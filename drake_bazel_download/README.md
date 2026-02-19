@@ -8,15 +8,16 @@ For an introduction to Bazel, refer to
 
 ## Instructions
 
-First, run the `install_prereqs` script to download the
-Drake source to `$HOME/drake/`. This also runs Drake's
-setup script to install the required Ubuntu packages:
+First, run the `install_prereqs` script to download the Drake binary package to
+`$HOME/drake/`. This also runs Drake's setup script to install the required
+Ubuntu packages:
 
 ```bash
 setup/install_prereqs
 ```
 
-Additionally, if you don't already have bazel or bazelisk installed, then install bazelisk:
+Additionally, if you don't already have `bazel` or `bazelisk` installed, then
+install `bazelisk`:
 
 ```bash
 setup/install_bazelisk
