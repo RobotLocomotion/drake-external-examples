@@ -7,10 +7,9 @@ mechanism to find an installed instance of Drake.
 
 ## Download and Install Prerequisites
 
-First, run the `install_prereqs` script to download the
-Drake source to `$HOME/drake/`. This also run's Drake's
-setup script to install the required packages depending
-on your operating system:
+First, run the `install_prereqs` script to download the Drake binary package to
+`$HOME/drake/`. This also run's Drake's setup script to install the required
+packages depending on your operating system:
 
 ```bash
 setup/install_prereqs

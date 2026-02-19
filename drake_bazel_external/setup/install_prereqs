@@ -4,6 +4,7 @@
 
 set -euxo pipefail
 
+# Download the source from the `master` branch by default.
 drake_commit_hash='master'
 
 while [ "${1:-}" != "" ]; do
@@ -33,11 +34,11 @@ ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
-# Download the drake source
+# Download the drake source.
 wget -O drake.tar.gz \
   https://github.com/RobotLocomotion/drake/archive/${drake_commit_hash}.tar.gz
 trap 'rm -f drake.tar.gz' EXIT
 mkdir -p drake && tar -xf drake.tar.gz -C drake --strip-components 1
 
-# Install the source prereqs
+# Install the source distribution prereqs.
 drake/setup/install_prereqs --with-bazel

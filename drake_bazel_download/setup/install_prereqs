@@ -31,7 +31,8 @@
 
 set -euxo pipefail
 
-package_url=
+# Download binaries from the latest nightly release by default.
+package_url=https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-noble.tar.gz
 
 while [ "${1:-}" != "" ]; do
   case "$1" in
@@ -69,13 +70,13 @@ ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
 EOF
 )
 
-# Download the drake source
-wget -O drake.tar.gz "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-latest-noble.tar.gz}"
+# Download the drake binary package.
+wget -O drake.tar.gz "${package_url}"
 trap 'rm -f drake.tar.gz' EXIT
 tar -xf drake.tar.gz -C $HOME
 
 # Show version for debugging; use echo for newline / readability.
 echo -e "\ndrake VERSION.TXT: $(cat $HOME/drake/share/doc/drake/VERSION.TXT)\n"
 
-# Install the source prereqs
+# Install the binary distribution prereqs.
 ${maybe_sudo} ${HOME}/drake/share/drake/setup/install_prereqs
