@@ -5,7 +5,7 @@
 # when building Drake from source (as seen in drake_cmake_external).
 # The maximum version below allows for the use of modern policies
 # with newer versions of CMake.
-cmake_minimum_required(VERSION 3.9...4.0)
+cmake_minimum_required(VERSION 3.9...4.2)
 project(drake_cmake_installed)
 
 include(CTest)
