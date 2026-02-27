@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
       - name: venv setup and install
         working-directory: drake_pip
         run: |
