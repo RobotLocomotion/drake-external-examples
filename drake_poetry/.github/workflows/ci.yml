@@ -33,14 +33,31 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6
+      - name: install poetry
+        working-directory: drake_poetry
+        run: .github/setup
+      # Note that in the pyproject.toml,
+      # we find the latest "compatible release" of drake
+      # using ~=. This means that, with the caching disabled,
+      # poetry will find the most recent version of drake
+      # that uses the same major number. With the caching enabled, however,
+      # setup-python will use the version of drake that is in the cache,
+      # until the pyproject.toml file is updated
+      # (see the cache-dependency-path argument below).
+      # We update the pyproject.toml file monthly after a new minor
+      # version of drake using automated renovate PRs.
+      # Note that between a new minor release of drake and the renovate
+      # PR for that release being merged in, setup-python will
+      # pull in the older version of drake.
       - name: python setup
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+          cache-dependency-path: 'drake_poetry/pyproject.toml'
       - name: poetry setup
         working-directory: drake_poetry
         run: |
-          .github/setup
           args=(--python-version $PYTHON_VERSION)
           if [[ '${{ github.event.inputs.mac_arm_sequoia_wheel }}' != '' ]]; then
             args+=(--wheel-url ${{ github.event.inputs.mac_arm_sequoia_wheel }})
@@ -54,17 +71,30 @@ jobs:
   ubuntu_noble_poetry:
     name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: '3.12'
     container: ubuntu:noble
     steps:
       - name: checkout
         uses: actions/checkout@v6
-      # setup and test must occur in one step
-      # because when poetry is installed, the update to PATH
-      # does not persist between steps on GHA
+      - name: install poetry
+        working-directory: drake_poetry
+        # When poetry is installed, the update to the PATH
+        # environment variable does not persist between steps on
+        # GHA. Thus, we update the path after installing.
+        run: |
+          .github/setup
+          PIPX_BIN=$(pipx environment --value PIPX_BIN_DIR)
+          echo "$PIPX_BIN" >> $GITHUB_PATH
+      - name: python setup
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+          cache-dependency-path: 'drake_poetry/pyproject.toml'
       - name: poetry setup and test
         working-directory: drake_poetry
         run: |
-          .github/setup
           source $HOME/.profile
           args=()
           if [[ '${{ github.event.inputs.linux_noble_wheel }}' != '' ]]; then

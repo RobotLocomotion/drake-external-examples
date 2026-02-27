@@ -14,10 +14,24 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v6
+      # Note that in the requirements.txt,
+      # we find the latest "compatible release" of drake
+      # using ~=. This means that, with the caching disabled,
+      # poetry will find the most recent version of drake
+      # that uses the same major number. With the caching enabled, however,
+      # setup-python will use the version of drake that is in the cache,
+      # until the requirements.txt file is updated
+      # (see the cache-dependency-path argument below).
+      # We update the requirements.txt file monthly after a new minor
+      # version of drake using automated renovate PRs.
+      # Note that between a new minor release of drake and the renovate
+      # PR for that release being merged in, setup-python will
+      # pull in the older version of drake.
       - name: python setup
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
       - name: venv setup and install
         working-directory: drake_pip
         run: |
