@@ -44,7 +44,7 @@ downloads Drake to the `$HOME` directory.
 
 1. A specific version (date-stamped)
 
-Replace `noble` (for Ubuntu 24.04) with `jammy` or `mac-arm64`
+Replace `noble` (for Ubuntu 24.04) with `mac-arm64`
 to download the version needed for your operating system.
 
 ```bash
@@ -53,7 +53,7 @@ tar -xvzf drake-0.0.20250131-noble.tar.gz -C $HOME
 $HOME/drake/share/drake/setup/install_prereqs
 ```
 
-See [Installation via Direct Download](https://drake.mit.edu/from_binary.html)
+See [Installation via Direct Download](https://drake.mit.edu/from_binary.html#nightly-releases)
 for more information.
 
 2. Manual installation
