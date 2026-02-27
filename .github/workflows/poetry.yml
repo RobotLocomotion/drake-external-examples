@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
       - name: poetry setup
         working-directory: drake_poetry
         run: |
