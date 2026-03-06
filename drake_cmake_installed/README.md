@@ -44,7 +44,7 @@ downloads Drake to the `$HOME` directory.
 
 1. A specific version (date-stamped)
 
-Replace `noble` (for Ubuntu 24.04) with `jammy` or `mac-arm64`
+Replace `noble` (for Ubuntu 24.04) with `mac-arm64`
 to download the version needed for your operating system.
 
 ```bash
