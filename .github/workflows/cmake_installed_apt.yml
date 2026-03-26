@@ -20,7 +20,7 @@ jobs:
           if [[ '${{ github.event.inputs.linux_noble_package_deb }}' != '' ]]; then
             args+=(--package-url ${{ github.event.inputs.linux_noble_package_deb }})
           fi
-          .github/ubuntu_apt_setup "${args[@]}"
+          setup/install_prereqs "${args[@]}"
         shell: bash
       - name: cmake_installed_apt build and test
         working-directory: drake_cmake_installed_apt

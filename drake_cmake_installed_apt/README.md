@@ -7,17 +7,14 @@ manager.
 
 ## Instructions
 
-Install the `drake-dev` APT package by following the instructions found at:
-
-<https://drake.mit.edu/apt.html>
-
-For this example, also install the `build-essential`, `cmake`, and
-`python3-dev` APT packages:
+First, run the `install_prereqs` script to download and install the
+`drake-dev.deb` package from the latest
+[release](https://github.com/RobotLocomotion/drake/releases). Most content
+installs to `/opt/drake`. This script also installs the necessary packages for
+this example.
 
 ```bash
-sudo apt-get update
-sudo apt-get --no-install-recommends install \
-    build-essential cmake python3-dev
+setup/install_prereqs
 ```
 
 To build the `drake_cmake_installed_apt` example:
