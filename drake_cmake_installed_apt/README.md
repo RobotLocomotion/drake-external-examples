@@ -5,20 +5,24 @@ instance of Drake installed using the
 [APT](https://manpages.ubuntu.com/manpages/noble/man8/apt.8.html) package
 manager.
 
-## Instructions
+# Instructions
 
-Install the `drake-dev` APT package by following the instructions found at:
+## Download and Install Prerequisites
 
-<https://drake.mit.edu/apt.html>
-
-For this example, also install the `build-essential`, `cmake`, and
-`python3-dev` APT packages:
+First, run the `install_prereqs` script to download and install the
+`drake-dev.deb` package from the latest
+[release](https://github.com/RobotLocomotion/drake/releases). Most content
+installs to `/opt/drake`. This script also installs the necessary packages for
+this example.
 
 ```bash
-sudo apt-get update
-sudo apt-get --no-install-recommends install \
-    build-essential cmake python3-dev
+setup/install_prereqs
 ```
+
+See [below](#alternative-versions) for alternative versions of
+Drake to download.
+
+## Build Everything
 
 To build the `drake_cmake_installed_apt` example:
 
@@ -35,3 +39,46 @@ To run the `drake_cmake_installed_apt` tests:
 cd build
 ctest .
 ```
+
+## Alternative Versions
+
+By default, the `install_prereqs` script gets the latest version of Drake
+(usually last night's build). Ignore this if that version is desired.
+Otherwise, the following are alternative options for which version of Drake to
+download.
+
+To use any of these options, instead of running `install_prereqs`,
+run the code for whichever option you prefer below. Each option
+installs Drake into `/opt/drake`.
+
+1. A date-stamped version
+
+Replace `20260401` with the desired date.
+
+```bash
+curl -O https://drake-packages.csail.mit.edu/drake/nightly/drake-dev_0.0.20260401-1_amd64-noble.deb
+sudo apt-get install --no-install-recommends ./drake-dev_0.0.20260401-1_amd64-noble.deb
+```
+
+See [Apt Nightly Releases](https://drake.mit.edu/apt.html#nightly-releases)
+for more information.
+
+2. A stable release
+
+Replace `1.51.1` with the desired release.
+
+```bash
+curl -O https://drake-packages.csail.mit.edu/drake/release/drake-dev_1.51.1-1_amd64-noble.deb
+sudo apt-get install --no-install-recommends ./drake-dev_1.51.1-1_amd64-noble.deb
+```
+
+Alternatively, stable release packages are available at the following GitHub
+URL (again, with `1.51.1` as a placeholder), being sure to use `-L` to follow
+redirects properly:
+
+```bash
+curl -LO https://github.com/RobotLocomotion/drake/releases/download/v1.51.1/drake-dev_1.51.1-1_amd64-noble.deb
+```
+
+See [Apt Stable Releases](https://drake.mit.edu/apt.html#stable-releases)
+for more information.
