@@ -33,7 +33,7 @@ You can also optionally run the tests by calling `make test`.
 
 ## Alternative Versions
 
-By default, `install_prereqs` script gets the latest version
+By default, the `install_prereqs` script gets the latest version
 of Drake (usually last night's build). Ignore this if that
 version is desired. Otherwise, the following are alternative
 options for which version of Drake to download.
@@ -66,14 +66,14 @@ setup/install_prereqs
 ```
 
 3. Manual installation w/ licensed Gurobi
-Install & setup gurobi (http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu)
 
-```bash
-git clone https://github.com/RobotLocomotion/drake.git
-cd drake
-setup/install_prereqs
-(mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$HOME/drake -DWITH_GUROBI=ON .. && make)
-```
+Install and setup Gurobi:
+<http://drake.mit.edu/bazel.html?highlight=gurobi#install-on-ubuntu>.
+
+Follow the same instructions as the previous example (2), but additionally
+configure CMake with `-DWITH_GUROBI=ON`. See
+<https://drake.mit.edu/from_source.html> for a more detailed list of CMake
+options when configuring Drake's build.
 
 Finally, for the code in this example, ensure you have `python3-dev`
 installed if on Ubuntu:
