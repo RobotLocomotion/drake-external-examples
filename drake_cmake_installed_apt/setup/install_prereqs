@@ -1,0 +1,54 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT-0
+
+set -euxo pipefail
+
+package_url=
+
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    --package-url)
+      shift
+      if [[ $# -eq 0 ]]; then
+        echo 'No argument specified for --package-url' >&2
+        exit 1
+      fi
+      package_url="$1"
+      ;;
+    *)
+      echo 'Invalid command line argument' >&2
+      exit 1
+  esac
+  shift
+done
+
+maybe_sudo=
+if [[ "${EUID}" -ne 0 ]]; then
+  maybe_sudo=sudo
+fi
+
+readonly apt_install=(
+  ${maybe_sudo}
+  apt-get
+  -o Acquire::Retries=4
+  -o Dpkg::Use-Pty=0
+  -qy --no-install-recommends install
+)
+
+if [[ "$(. /etc/os-release && echo ${VERSION_CODENAME})" != 'noble' ]]; then
+  echo 'This script requires Ubuntu 24.04 (Noble)' >&2
+  exit 2
+fi
+
+${maybe_sudo} apt-get -qq update || (sleep 30; apt-get -qq update)
+"${apt_install[@]}" \
+  build-essential \
+  ca-certificates \
+  cmake \
+  python3-dev \
+  wget
+
+# Download the drake-dev apt package, defaulting to the latest nightly release.
+wget -O drake-dev.deb "${package_url:-https://drake-packages.csail.mit.edu/drake/nightly/drake-dev_latest-1_amd64-noble.deb}"
+trap 'rm -f drake-dev.deb' EXIT
+"${apt_install[@]}" ./drake-dev.deb

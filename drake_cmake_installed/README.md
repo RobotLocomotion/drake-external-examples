@@ -33,7 +33,7 @@ You can also optionally run the tests by calling `make test`.
 
 ## Alternative Versions
 
-By default, `install_prereqs` script gets the latest version
+By default, the `install_prereqs` script gets the latest version
 of Drake (usually last night's build). Ignore this if that
 version is desired. Otherwise, the following are alternative
 options for which version of Drake to download.
