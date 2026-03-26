@@ -12,7 +12,7 @@ add_test(NAME python_particle_test
   COMMAND Python3::Interpreter -B -m unittest particle_test
 )
 set_tests_properties(python_particle_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${DRAKE_PYTHONPATH}"
+  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR}"
   LABELS small
   REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/particle_test.py"
   TIMEOUT 60
