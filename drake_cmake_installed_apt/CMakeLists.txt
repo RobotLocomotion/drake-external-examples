@@ -29,11 +29,4 @@ target_link_libraries(gtest Threads::Threads)
 find_package(drake CONFIG REQUIRED PATHS /opt/drake)
 find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
-get_filename_component(DRAKE_PYTHONPATH "${drake_DIR}" DIRECTORY)
-get_filename_component(DRAKE_PYTHONPATH "${DRAKE_PYTHONPATH}" DIRECTORY)
-set(DRAKE_PYTHONPATH
-  "${DRAKE_PYTHONPATH}/python${drake_PYTHON_VERSION}/site-packages"
-)
-
 add_subdirectory(src)
-
