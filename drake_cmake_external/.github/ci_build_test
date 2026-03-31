@@ -27,12 +27,9 @@ cmake --version
 mkdir build
 pushd build
 
-export LD_LIBRARY_PATH="${PWD}/install/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-
 cmake_args=()
 if [[ ! -z "${drake_commit_hash}" ]]; then
-  # Use a specific commit of Drake source,
-  # rather than the latest from master.
+  # Use a specific commit of Drake source, rather than the latest from master.
   cmake_args+=(-DDRAKE_COMMIT_HASH=${drake_commit_hash})
 fi
 
