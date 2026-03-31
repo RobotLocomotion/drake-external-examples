@@ -46,14 +46,12 @@ case "$OSTYPE" in
       maybe_sudo=sudo
     fi
 
-    ${maybe_sudo} apt-get update
-    ${maybe_sudo} apt-get install --no-install-recommends lsb-release
-
-    if [[ "$(lsb_release -sc)" != 'noble' ]]; then
+    if [[ "$(. /etc/os-release && echo ${VERSION_CODENAME})" != 'noble' ]]; then
       echo 'This script requires Ubuntu 24.04 (Noble)' >&2
       exit 3
     fi
 
+    ${maybe_sudo} apt-get update
     ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       ca-certificates
       wget

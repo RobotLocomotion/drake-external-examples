@@ -13,10 +13,7 @@ echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90-get-assume-yes
 
 export DEBIAN_FRONTEND='noninteractive'
 
-apt-get update
-apt-get install --no-install-recommends lsb-release
-
-if [[ "$(lsb_release -sc)" != 'noble' ]]; then
+if [[ "$(. /etc/os-release && echo ${VERSION_CODENAME})" != 'noble' ]]; then
   echo 'This script requires Ubuntu 24.04 (Noble)' >&2
   exit 3
 fi
