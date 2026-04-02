@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
-cmake_minimum_required(VERSION 3.22...4.2)
+cmake_minimum_required(VERSION 3.20...3.28)
 project(drake_cmake_external)
 
 include(ExternalProject)
