@@ -85,11 +85,8 @@ sudo apt-get --no-install-recommends install python3-dev
 
 # Examples
 
-Drake-specific examples:
-
-* [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
-* [Particle System](src/particle)
-* [Find Resources](src/find_resource/README.md)
+See the [source examples](src/README.md) for further details on the
+Drake-specific examples in this project.
 
 # Developer Testing
 
