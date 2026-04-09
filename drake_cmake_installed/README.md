@@ -87,9 +87,10 @@ sudo apt-get --no-install-recommends install python3-dev
 
 Drake-specific examples:
 
-* [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
-* [Particle System](src/particle)
 * [Find Resources](src/find_resource/README.md)
+* [Particle System](src/particle/README.md)
+* [Simple Bindings](src/simple_bindings/README.md)
+* [Simple Continuous Time System](src/simple_continuous_time_system/README.md)
 
 # Developer Testing
 
