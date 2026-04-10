@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: MIT-0
 
+# Enable platform-specific config groups (e.g., "build:linux", "build:macos").
+common --enable_platform_specific_config
+
 # Default to an optimized build.
 build --compilation_mode=opt
 build --features=prefer_pic_for_opt_binaries
@@ -26,6 +29,11 @@ build --action_env=CCACHE_DISABLE=1
 # It's okay to remove this line if you'd rather use bzlmod. For details, see:
 # https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
 build --@drake//tools/flags:public_repo_default=pkgconfig
+
+# Enable OpenMP (linux only).
+build:linux --copt=-DEIGEN_DONT_PARALLELIZE
+build:linux --copt=-fopenmp
+build:linux --linkopt=-fopenmp
 
 # Drake supports the use of proprietary solvers for mathematical programs.
 # See https://drake.mit.edu/bazel.html#proprietary-solvers for more info

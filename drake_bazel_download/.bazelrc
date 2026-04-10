@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: MIT-0
 
+# Enable platform-specific config groups (e.g., "build:linux", "build:macos").
+common --enable_platform_specific_config
+
 # Default to an optimized build.
 build --compilation_mode=opt
 build --features=prefer_pic_for_opt_binaries
@@ -17,6 +20,11 @@ build --host_cxxopt=-std=c++23
 
 # https://github.com/bazelbuild/bazel/issues/1164
 build --action_env=CCACHE_DISABLE=1
+
+# Enable OpenMP (linux only).
+build:linux --copt=-DEIGEN_DONT_PARALLELIZE
+build:linux --copt=-fopenmp
+build:linux --linkopt=-fopenmp
 
 # TODO(jwnimmer-tri) We should see if we can reuse more of Drake's
 # customizations somehow.
