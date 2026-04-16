@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
+add_subdirectory(deprecated)
 add_subdirectory(find_resource)
 add_subdirectory(particle)
 add_subdirectory(simple_bindings)

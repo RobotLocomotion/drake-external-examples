@@ -7,6 +7,11 @@ include(CTest)
 
 find_package(drake CONFIG REQUIRED)
 
+option(DRAKE_COMPILE_IGNORE_DEPRECATED
+  "Silence compile-time warnings at deprecated Drake C++ API call sites" OFF)
+option(DRAKE_COMPILE_DEPRECATION_IS_ERROR
+  "Make use of deprecated Drake C++ APIs a compile error" OFF)
+
 find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
