@@ -1,4 +1,4 @@
-# Simple Continuous Time System
+# Particle
 
 This is the hello world for the `drake::systems` classes.
 
@@ -10,12 +10,10 @@ Follow the instructions in the [README](../../README.md) for this project.
 
 ```bash
 cd build
-# Run the sample program directly.
-./src/simple_continuous_time_system/simple_continuous_time_system
 # Run all tests belonging to this subdirectory.
-ctest --test-dir src/simple_continuous_time_system
-# Run all tests matching "simple_continuous_time_system".
-ctest -R simple_continuous_time_system
+ctest --test-dir src/particle
+# Run all tests matching "particle".
+ctest -R particle
 ```
 
 Note that there is no interaction nor output from this program. It is merely
