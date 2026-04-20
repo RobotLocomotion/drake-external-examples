@@ -15,6 +15,13 @@ This also runs Drake's setup script to install the required Ubuntu packages:
 setup/install_prereqs
 ```
 
+Additionally, if you don't already have `bazel` or `bazelisk` installed, then
+install `bazelisk`:
+
+```bash
+setup/install_bazelisk
+```
+
 Then, to build and test all apps:
 
 ```bash
