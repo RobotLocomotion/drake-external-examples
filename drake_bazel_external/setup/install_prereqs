@@ -41,4 +41,4 @@ trap 'rm -f drake.tar.gz' EXIT
 mkdir -p drake && tar -xf drake.tar.gz -C drake --strip-components 1
 
 # Install the source distribution prereqs.
-drake/setup/install_prereqs --with-bazel
+drake/setup/install_prereqs
