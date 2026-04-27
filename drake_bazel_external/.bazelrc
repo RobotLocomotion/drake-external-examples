@@ -30,6 +30,11 @@ build --action_env=CCACHE_DISABLE=1
 # https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
 build --@drake//tools/flags:public_repo_default=pkgconfig
 
+# On Linux we expected to be using -fuse-ld=lld to link (per @rules_cc), so we
+# must dial back its default per-process thread count of 16 down to something
+# less likely to overload the system.
+build:linux --linkopt=-Wl,--threads=1
+
 # Enable OpenMP (linux only).
 build:linux --copt=-DEIGEN_DONT_PARALLELIZE
 build:linux --copt=-fopenmp

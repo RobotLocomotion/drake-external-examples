@@ -42,3 +42,7 @@ mkdir -p drake && tar -xf drake.tar.gz -C drake --strip-components 1
 
 # Install the source distribution prereqs.
 drake/setup/install_prereqs
+
+# Get ahead of a new dependency that will be added in Drake v1.53.0.
+# TODO(jwnimmer-tri) Remove after Drake v1.53.0 has been released.
+${maybe_sudo} apt-get install --no-install-recommends lld
