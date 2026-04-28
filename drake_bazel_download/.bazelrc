@@ -3,6 +3,9 @@
 # Enable platform-specific config groups (e.g., "build:linux", "build:macos").
 common --enable_platform_specific_config
 
+# Use cloudflare's mirror for improved reliability of external downloads.
+common --module_mirrors=https://bcr.cloudflaremirrors.com
+
 # Default to an optimized build.
 build --compilation_mode=opt
 build --features=prefer_pic_for_opt_binaries
