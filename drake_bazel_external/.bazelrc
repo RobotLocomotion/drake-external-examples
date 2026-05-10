@@ -17,6 +17,14 @@ build --strip=never
 build --test_output=errors
 build --test_summary=terse
 
+# Treat any use of a deprecated Drake API as a hard error: the copt fails
+# the C++ compile, and the test_env makes pydrake throw at the call site.
+# We set these in our examples to ensure they stay up-to-date with latest
+# Drake. You might decide to remove them or set to 'ignore' in your own
+# project.
+build --copt=-Werror=deprecated-declarations
+build --test_env=DRAKE_DEPRECATION_RUNTIME_SEVERITY=error
+
 # Use C++23.
 build --cxxopt=-std=c++23
 build --host_cxxopt=-std=c++23
