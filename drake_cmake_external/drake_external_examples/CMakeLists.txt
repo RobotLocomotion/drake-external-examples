@@ -25,17 +25,23 @@ add_test(NAME simple_continuous_time_system
 add_test(NAME import_all_test COMMAND
   "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/import_all_test.py"
 )
-set_tests_properties(import_all_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR};DRAKE_DEPRECATION_RUNTIME_SEVERITY=error"
+set_property(TEST import_all_test APPEND PROPERTY ENVIRONMENT
+  "PYTHONPATH=${drake_PYTHON_DIR}"
+  "DRAKE_DEPRECATION_RUNTIME_SEVERITY=error"
+  "PYTHONWARNINGS=default"
 )
 
 add_test(NAME solver_disabled_test
   COMMAND Python3::Interpreter -B -m unittest solver_disabled_test
 )
 set_tests_properties(solver_disabled_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR};DRAKE_DEPRECATION_RUNTIME_SEVERITY=error"
   LABELS small
   REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/solver_disabled_test.py"
   TIMEOUT 60
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+set_property(TEST solver_disabled_test APPEND PROPERTY ENVIRONMENT
+  "PYTHONPATH=${drake_PYTHON_DIR}"
+  "DRAKE_DEPRECATION_RUNTIME_SEVERITY=error"
+  "PYTHONWARNINGS=default"
 )

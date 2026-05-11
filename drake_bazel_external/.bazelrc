@@ -24,6 +24,10 @@ build --test_summary=terse
 # project.
 build --copt=-Werror=deprecated-declarations
 build --test_env=DRAKE_DEPRECATION_RUNTIME_SEVERITY=error
+# PYTHONWARNINGS populates Python's sys.warnoptions so that test runners like
+# unittest don't reset the warnings filter and thereby silently disable the
+# DRAKE_DEPRECATION_RUNTIME_SEVERITY=error behavior set up by pydrake.
+build --test_env=PYTHONWARNINGS=default
 
 # Use C++23.
 build --cxxopt=-std=c++23
