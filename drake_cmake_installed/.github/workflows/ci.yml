@@ -27,7 +27,7 @@ concurrency:
 jobs:
   macos_sequoia_arm_cmake_installed:
     name: macos sequoia 15 arm
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: checkout
         uses: actions/checkout@v6
