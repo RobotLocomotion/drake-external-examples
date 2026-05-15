@@ -24,4 +24,12 @@ target_link_libraries(gtest Threads::Threads)
 find_package(drake CONFIG REQUIRED PATHS /opt/drake)
 find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
+# Treat any use of a deprecated Drake API as a hard error: the compile flag
+# fails the C++ compile, and the test environment (set per-test in src/)
+# makes pydrake throw at the call site. We set these in our examples to
+# ensure they stay up-to-date with latest Drake. You might decide to remove
+# them or set to 'ignore' in your own project. Applied here (after the gtest
+# target) so it scopes only to our own example sources.
+add_compile_options(-Werror=deprecated-declarations)
+
 add_subdirectory(src)

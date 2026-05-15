@@ -7,6 +7,8 @@ add_test(NAME find_resource_example COMMAND find_resource_example)
 add_test(NAME find_resource_example_py COMMAND
   "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/find_resource_example.py"
 )
-set_tests_properties(find_resource_example_py PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR}"
+set_property(TEST find_resource_example_py APPEND PROPERTY ENVIRONMENT
+  "PYTHONPATH=${drake_PYTHON_DIR}"
+  "DRAKE_DEPRECATION_RUNTIME_SEVERITY=error"
+  "PYTHONWARNINGS=default"
 )
