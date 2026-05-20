@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  ubuntu_noble_cmake_installed_apt:
+  ubuntu_cmake_installed_apt:
     name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
     container: ubuntu:noble

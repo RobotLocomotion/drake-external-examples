@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  ubuntu_noble_bazel_download:
+  ubuntu_bazel_download:
     name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
     container: ubuntu:noble

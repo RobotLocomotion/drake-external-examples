@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  macos_sequoia_arm_pip:
+  macos_pip:
     name: macos sequoia 15 arm
     runs-on: macos-15
     env:
@@ -22,8 +22,8 @@ jobs:
         working-directory: drake_pip
         run: |
           args=(--python-version $PYTHON_VERSION)
-          if [[ '${{ github.event.inputs.mac_arm_sequoia_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.mac_arm_sequoia_wheel }})
+          if [[ '${{ github.event.inputs.mac_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.mac_wheel }})
           fi
           setup/setup_env "${args[@]}"
         shell: zsh -eufo pipefail {0}
@@ -31,7 +31,7 @@ jobs:
         working-directory: drake_pip
         run: .github/ci_build_test
         shell: zsh -efuo pipefail {0}
-  ubuntu_noble_pip:
+  ubuntu_pip:
     name: ubuntu 24.04 noble
     runs-on: ubuntu-latest
     container: ubuntu:noble
@@ -42,8 +42,8 @@ jobs:
         working-directory: drake_pip
         run: |
           args=()
-          if [[ '${{ github.event.inputs.linux_noble_wheel }}' != '' ]]; then
-            args+=(--wheel-url ${{ github.event.inputs.linux_noble_wheel }})
+          if [[ '${{ github.event.inputs.linux_wheel }}' != '' ]]; then
+            args+=(--wheel-url ${{ github.event.inputs.linux_wheel }})
           fi
           .github/ubuntu_setup "${args[@]}"
         shell: bash
