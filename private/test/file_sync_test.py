@@ -89,18 +89,18 @@ GITHUB_WORKFLOW_OPTS = {
     ),
     "cmake_installed": (
         "linux_noble_package_tar",
-        "mac_arm_sequoia_package_tar"
+        "mac_package_tar"
     ),
     "cmake_installed_apt": (
         "linux_noble_package_deb",
     ),
     "pip": (
-        "linux_noble_wheel",
-        "mac_arm_sequoia_wheel"
+        "linux_wheel",
+        "mac_wheel"
     ),
     "poetry": (
-        "linux_noble_wheel",
-        "mac_arm_sequoia_wheel"
+        "linux_wheel",
+        "mac_wheel"
     )
 }
 
