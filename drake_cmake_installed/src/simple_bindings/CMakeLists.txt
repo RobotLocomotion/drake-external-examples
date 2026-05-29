@@ -4,6 +4,13 @@ find_package(pybind11 CONFIG REQUIRED)
 
 pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
 target_link_libraries(simple_bindings PUBLIC drake::drake)
+# Treat any use of a deprecated Drake C++ API as a hard compile error.
+# We set this in our examples to ensure they stay up-to-date with latest
+# Drake. You might decide to remove this or ignore deprecation warnings
+# in your own project.
+target_compile_options(simple_bindings PRIVATE
+  -Werror=deprecated-declarations
+)
 # N.B. `pybind11_add_module` normally sets the default visibility to "hidden"
 # to avoid warnings. However, we need the default visibility to be public so
 # template instantions that are bound in Python (e.g. `drake::Value<>`)
