@@ -1,5 +1,11 @@
 # SPDX-License-Identifier: MIT-0
 
+# Treat any use of a deprecated Drake C++ API as a hard compile error.
+# We set this in our examples to ensure they stay up-to-date with latest
+# Drake. You might decide to remove this or ignore deprecation warnings
+# in your own project.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=deprecated-declarations")
+
 add_subdirectory(find_resource)
 add_subdirectory(particle)
 add_subdirectory(simple_bindings)
