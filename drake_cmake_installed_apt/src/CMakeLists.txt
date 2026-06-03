@@ -1,10 +1,9 @@
 # SPDX-License-Identifier: MIT-0
 
-add_library(particle particle.cc particle.h)
-target_link_libraries(particle drake::drake)
+drake_example_add_library(particle particle.cc particle.h)
 
-add_executable(particle_test particle_test.cc)
-target_link_libraries(particle_test particle drake::drake gtest)
+drake_example_add_executable(particle_test particle_test.cc)
+target_link_libraries(particle_test PUBLIC particle gtest)
 add_test(NAME cc_particle_test COMMAND particle_test)
 set_tests_properties(cc_particle_test PROPERTIES LABELS small TIMEOUT 60)
 

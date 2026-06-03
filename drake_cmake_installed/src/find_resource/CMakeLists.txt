@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
-add_executable(find_resource_example find_resource_example.cc)
-target_link_libraries(find_resource_example drake::drake)
+drake_example_add_executable(find_resource_example find_resource_example.cc)
 add_test(NAME find_resource_example COMMAND find_resource_example)
 
 add_test(NAME find_resource_example_py COMMAND

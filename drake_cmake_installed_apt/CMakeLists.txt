@@ -24,4 +24,21 @@ target_link_libraries(gtest Threads::Threads)
 find_package(drake CONFIG REQUIRED PATHS /opt/drake)
 find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
+# Drake target configuration wrappers that set common toolchain-related
+# semantics (linking drake::drake, deprecation policy) across the example
+# targets in this project.
+function(drake_example_add_executable target)
+  add_executable(${target} ${ARGN})
+  target_link_libraries(${target} PUBLIC drake::drake)
+  # Treat any use of a deprecated Drake C++ API as a hard compile error.
+  # You might decide to ignore deprecation warnings in your own project.
+  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
+endfunction()
+
+function(drake_example_add_library target)
+  add_library(${target} ${ARGN})
+  target_link_libraries(${target} PUBLIC drake::drake)
+  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
+endfunction()
+
 add_subdirectory(src)
