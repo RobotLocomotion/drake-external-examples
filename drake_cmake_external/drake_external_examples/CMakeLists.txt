@@ -7,7 +7,22 @@ find_package(drake CONFIG REQUIRED)
 
 find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
 
-add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
+# Wrappers around add_executable / add_library that additionally treat any
+# use of a deprecated Drake C++ API as a hard compile error. We use these in
+# our examples to ensure they stay up-to-date with latest Drake. You might
+# decide to call add_executable / add_library directly or ignore deprecation
+# warnings in your own project.
+macro(drake_example_add_executable target)
+  add_executable(${target} ${ARGN})
+  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
+endmacro()
+
+macro(drake_example_add_library target)
+  add_library(${target} ${ARGN})
+  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
+endmacro()
+
+drake_example_add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
 target_link_libraries(simple_continuous_time_system drake::drake)
 
 include(CTest)

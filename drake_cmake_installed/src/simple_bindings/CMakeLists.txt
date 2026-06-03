@@ -2,7 +2,7 @@
 
 find_package(pybind11 CONFIG REQUIRED)
 
-pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
+drake_example_pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
 target_link_libraries(simple_bindings PUBLIC drake::drake)
 # N.B. `pybind11_add_module` normally sets the default visibility to "hidden"
 # to avoid warnings. However, we need the default visibility to be public so
