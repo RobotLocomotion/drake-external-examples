@@ -13,8 +13,8 @@ drake_example_pybind11_add_module(simple_bindings MODULE simple_bindings.cc)
 # https://github.com/pybind/pybind11/issues/2479
 set_target_properties(simple_bindings PROPERTIES CXX_VISIBILITY_PRESET default)
 
-add_test(NAME simple_bindings_test COMMAND
+drake_example_add_py_test(NAME simple_bindings_test COMMAND
     "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/simple_bindings_test.py")
-set_tests_properties(simple_bindings_test PROPERTIES
-    # Using `pybind11/tests/test_cmake_build/installed_target` as an example.
-    ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${drake_PYTHON_DIR}")
+
+set_property(TEST simple_bindings_test APPEND PROPERTY ENVIRONMENT
+    "PYTHONPATH=$<TARGET_FILE_DIR:simple_bindings>:${drake_PYTHON_DIR}")
