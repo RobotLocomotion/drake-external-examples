@@ -27,22 +27,19 @@ endfunction()
 drake_example_add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
 
 include(CTest)
+include(cmake/drake_example_add_test.cmake)
 
-add_test(NAME simple_continuous_time_system
+drake_example_add_cc_test(NAME simple_continuous_time_system
   COMMAND simple_continuous_time_system
 )
-add_test(NAME import_all_test COMMAND
+drake_example_add_py_test(NAME import_all_test COMMAND
   "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/import_all_test.py"
 )
-set_tests_properties(import_all_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR}"
-)
 
-add_test(NAME solver_disabled_test
+drake_example_add_py_test(NAME solver_disabled_test
   COMMAND Python3::Interpreter -B -m unittest solver_disabled_test
 )
 set_tests_properties(solver_disabled_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR}"
   LABELS small
   REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/solver_disabled_test.py"
   TIMEOUT 60
