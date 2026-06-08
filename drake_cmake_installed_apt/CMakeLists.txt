@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.20...4.3)
 project(drake_cmake_installed_apt)
 
 include(CTest)
+include(cmake/drake_example_add_test.cmake)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 23)
