@@ -17,12 +17,17 @@ build --strip=never
 build --test_output=errors
 build --test_summary=terse
 
-# Treat any use of a deprecated Drake C++ API as a hard compile error.
-# We set this in our examples to ensure they stay up-to-date with latest
-# Drake. You might decide to remove this or ignore deprecation warnings
-# in your own project.
+# Treat any use of a deprecated Drake API as an error. On the C++ side,
+# -Werror=deprecated-declarations provides compile-time assertions. On the
+# Python side, PYTHONWARNINGS=error promotes all warnings to errors
+# (including deprecation warnings from pydrake). We set these in our
+# examples to ensure they stay up-to-date with latest Drake. You might
+# decide to remove these or ignore deprecation warnings in your own
+# project.
 build --copt=-Werror=deprecated-declarations
 build --host_copt=-Werror=deprecated-declarations
+build --test_env=DRAKE_DEPRECATION_RUNTIME_SEVERITY=error
+build --test_env=PYTHONWARNINGS=error
 
 # Use C++23.
 build --cxxopt=-std=c++23

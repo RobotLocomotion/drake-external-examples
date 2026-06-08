@@ -4,14 +4,13 @@ drake_example_add_library(particle particle.cc particle.h)
 
 drake_example_add_executable(particle_test particle_test.cc)
 target_link_libraries(particle_test PUBLIC particle gtest)
-add_test(NAME cc_particle_test COMMAND particle_test)
+drake_example_add_cc_test(NAME cc_particle_test COMMAND particle_test)
 set_tests_properties(cc_particle_test PROPERTIES LABELS small TIMEOUT 60)
 
-add_test(NAME python_particle_test
+drake_example_add_py_test(NAME python_particle_test
   COMMAND Python3::Interpreter -B -m unittest particle_test
 )
 set_tests_properties(python_particle_test PROPERTIES
-  ENVIRONMENT "PYTHONPATH=${drake_PYTHON_DIR}"
   LABELS small
   REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/particle_test.py"
   TIMEOUT 60

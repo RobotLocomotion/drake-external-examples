@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.20...4.3)
 project(drake_cmake_installed)
 
 include(CTest)
+include(cmake/drake_example_add_test.cmake)
 
 find_package(drake CONFIG REQUIRED)
 
