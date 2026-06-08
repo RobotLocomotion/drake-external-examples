@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.20...4.3)
 project(drake_cmake_installed)
 
 include(CTest)
+include(cmake/drake_example_add_test.cmake)
 
 find_package(drake CONFIG REQUIRED)
 
@@ -36,6 +37,7 @@ function(drake_example_pybind11_add_module target)
   target_link_libraries(${target} PUBLIC drake::drake)
   target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
 endfunction()
+
 
 add_subdirectory(src)
 add_subdirectory(third_party)
