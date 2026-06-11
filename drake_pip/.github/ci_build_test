@@ -5,6 +5,16 @@ set -euxo pipefail
 
 source env/bin/activate
 
+# Set two environment variables for promoting warnings to errors:
+#   DRAKE_DEPRECATION_RUNTIME_SEVERITY=error so DrakeDeprecationWarnings
+#     from pydrake are propagated as errors. Without this, pydrake's
+#     default "once" filter sits at position 0 of the warnings filter
+#     list and shadows PYTHONWARNINGS=error for this category.
+#   PYTHONWARNINGS=error so any other Python warning is also promoted
+#     to a test failure.
+export DRAKE_DEPRECATION_RUNTIME_SEVERITY=error
+export PYTHONWARNINGS=error
+
 cd src
 python3 particle_test.py
 
