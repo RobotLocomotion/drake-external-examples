@@ -28,7 +28,7 @@ jobs:
     container: ubuntu:noble
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: setup
         working-directory: drake_cmake_installed_apt
         run: |
