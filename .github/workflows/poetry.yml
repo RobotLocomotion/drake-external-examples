@@ -13,7 +13,7 @@ jobs:
       PYTHON_VERSION: '3.14'
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: python setup
         uses: actions/setup-python@v6
         with:
@@ -38,7 +38,7 @@ jobs:
     container: ubuntu:noble
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # setup and test must occur in one step
       # because when poetry is installed, the update to PATH
       # does not persist between steps on GHA
