@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: MIT-0
 
-find_package(Threads)
-
-add_library(gtest STATIC googletest/gtest-all.cc googletest/gtest/gtest.h)
-target_include_directories(gtest PUBLIC googletest)
-target_link_libraries(gtest Threads::Threads)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/52eb8108c5bdec04579160ae17225d66034bd723.zip # release 1.17.0
+  URL_HASH SHA256=9a56a54ae784394ff664cd55e8f4c9a03b503ebf0cb99576321c78ab3d87ca84
+)
+FetchContent_MakeAvailable(googletest)
