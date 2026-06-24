@@ -3,31 +3,19 @@
 cmake_minimum_required(VERSION 3.20...4.3)
 project(drake_external_examples)
 
-find_package(drake CONFIG REQUIRED)
-
-find_package(Python3 ${drake_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
-
-# Drake target configuration wrappers that set common toolchain-related
-# semantics (linking drake::drake, deprecation policy) across the example
-# targets in this project.
-function(drake_example_add_executable target)
-  add_executable(${target} ${ARGN})
-  target_link_libraries(${target} PUBLIC drake::drake)
-  # Treat any use of a deprecated Drake C++ API as a hard compile error.
-  # You might decide to ignore deprecation warnings in your own project.
-  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
-endfunction()
-
-function(drake_example_add_library target)
-  add_library(${target} ${ARGN})
-  target_link_libraries(${target} PUBLIC drake::drake)
-  target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
-endfunction()
-
-drake_example_add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
-
 include(CTest)
+include(cmake/drake_example_add_target.cmake)
 include(cmake/drake_example_add_test.cmake)
+
+find_package(drake CONFIG REQUIRED)
+find_package(Python3
+  ${drake_PYTHON_VERSION} EXACT REQUIRED
+  COMPONENTS Interpreter Development
+)
+
+drake_example_add_executable(simple_continuous_time_system
+  simple_continuous_time_system.cc
+)
 
 drake_example_add_cc_test(NAME simple_continuous_time_system
   COMMAND simple_continuous_time_system
