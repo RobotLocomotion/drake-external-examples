@@ -3,9 +3,12 @@
 drake_example_add_library(particle particle.cc particle.h)
 
 drake_example_add_executable(particle_test particle_test.cc)
-target_link_libraries(particle_test PUBLIC particle gtest)
-drake_example_add_cc_test(NAME cc_particle_test COMMAND particle_test)
-set_tests_properties(cc_particle_test PROPERTIES LABELS small TIMEOUT 60)
+target_link_libraries(particle_test PUBLIC particle GTest::gtest_main)
+drake_example_discover_gtests(particle_test
+  PROPERTIES
+    LABELS small
+    TIMEOUT 60
+)
 
 drake_example_add_py_test(NAME python_particle_test
   COMMAND Python3::Interpreter -B -m unittest particle_test
