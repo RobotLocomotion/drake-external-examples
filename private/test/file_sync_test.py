@@ -56,7 +56,6 @@ COPIES = (
         "drake_cmake_installed_apt/cmake/drake_example_add_target.cmake",
     ),
     (
-        "drake_cmake_external/drake_external_examples/cmake/drake_example_add_test.cmake",
         "drake_cmake_installed/cmake/drake_example_add_test.cmake",
         "drake_cmake_installed_apt/cmake/drake_example_add_test.cmake",
     ),
