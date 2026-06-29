@@ -1,8 +1,5 @@
 # SPDX-License-Identifier: MIT-0
 
-# TODO(eric.cousineau): Link to documentation on superproject example pending
-# resolution of: https://gitlab.kitware.com/cmake/cmake/issues/18336
-
 cmake_minimum_required(VERSION 3.20...4.3)
 project(drake_cmake_external)
 
