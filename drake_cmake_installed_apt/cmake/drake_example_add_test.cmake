@@ -27,3 +27,8 @@ endfunction()
 function(drake_example_add_cc_test)
   add_test(${ARGN})
 endfunction()
+
+include(GoogleTest)
+function(drake_example_discover_gtests)
+  gtest_discover_tests(${ARGN})
+endfunction()
