@@ -27,3 +27,9 @@ endfunction()
 function(drake_example_add_cc_test)
   add_test(${ARGN})
 endfunction()
+
+# Wrapper around CMake's gtest_discover_tests() for C++ example tests.
+include(GoogleTest)
+function(drake_example_discover_gtests)
+  gtest_discover_tests(${ARGN})
+endfunction()
