@@ -12,20 +12,19 @@ find_package(Python3
   ${drake_PYTHON_VERSION} EXACT REQUIRED
   COMPONENTS Interpreter Development
 )
-find_package(Threads MODULE REQUIRED)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_library(gtest STATIC
-  third_party/googletest/1.10/googletest/include/gtest/gtest.h
-  third_party/googletest/1.10/googletest/src/gtest-all.cc
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
+  URL_HASH SHA256=65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c
+  TLS_VERIFY ON
 )
-target_include_directories(gtest PUBLIC
-  third_party/googletest/1.10/googletest/include
-)
-target_link_libraries(gtest Threads::Threads)
+FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(src)

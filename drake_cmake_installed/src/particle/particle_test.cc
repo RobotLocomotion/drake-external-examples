@@ -99,8 +99,3 @@ INSTANTIATE_TYPED_TEST_SUITE_P(WithDoubles, ParticleTest, double);
 }  // namespace
 }  // namespace particles
 }  // namespace drake_external_examples
-
-int main(int argc, char** argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
