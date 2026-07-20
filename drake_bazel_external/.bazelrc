@@ -13,6 +13,11 @@ build --features=prefer_pic_for_opt_binaries
 # Default build options.
 build --strip=never
 
+# The legacy __init__.py causes runfiles test flakes with Bazel >= 7, and
+# in any case we don't want this feature in the first place. We should
+# create all __init__.py files ourselves by hand anywhere we need them.
+build --incompatible_default_to_explicit_init_py
+
 # Default test options.
 build --test_output=errors
 build --test_summary=terse
