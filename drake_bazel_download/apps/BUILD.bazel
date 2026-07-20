@@ -11,6 +11,7 @@ py_binary(
     deps = [
         "@drake//:pydrake",
     ],
+    legacy_create_init = 0
 )
 
 # Check that third-party include paths work properly.
@@ -31,6 +32,7 @@ py_test(
     deps = [
         "@drake//:pydrake",
     ],
+    legacy_create_init = 0,
 )
 
 cc_test(
@@ -56,4 +58,5 @@ py_test(
     deps = [
         "@drake//:pydrake",
     ],
+    legacy_create_init = 0,
 )

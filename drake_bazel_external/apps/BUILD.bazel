@@ -22,6 +22,7 @@ py_binary(
     deps = [
         "@drake//bindings/pydrake",
     ],
+    legacy_create_init = 0,
 )
 
 # This ensures that downstream Bazel projects can use Drake's `find_resource`
@@ -32,6 +33,7 @@ py_test(
     deps = [
         "@drake//bindings/pydrake",
     ],
+    legacy_create_init = 0,
 )
 
 # Run the applications to make sure they complete successfully.
@@ -97,6 +99,7 @@ py_test(
     name = "simple_adder_py_test",
     srcs = ["simple_adder_py_test.py"],
     deps = [":simple_adder_py"],
+    legacy_create_init = 0,
 )
 
 py_test(
@@ -105,4 +108,5 @@ py_test(
     deps = [
         "@drake//bindings/pydrake",
     ],
+    legacy_create_init = 0,
 )
