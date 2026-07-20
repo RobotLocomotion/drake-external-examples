@@ -51,7 +51,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
       - name: setup
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: '3.14.6'
       - name: file_sync test
@@ -65,7 +65,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v7
       - name: setup
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7.0.0
       - name: upgrade test
         run: |
           python ./private/upgrade_cmake_externals.py | tee output.log
