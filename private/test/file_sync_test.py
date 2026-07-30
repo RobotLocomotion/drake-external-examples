@@ -53,6 +53,7 @@ COPIES = (
     ),
     (
         "drake_cmake_external/drake_external_examples/cmake/drake_example_add_target.cmake",
+        "drake_cmake_installed/cmake/drake_example_add_target.cmake",
         "drake_cmake_installed_apt/cmake/drake_example_add_target.cmake",
     ),
     (
@@ -60,21 +61,77 @@ COPIES = (
         "drake_cmake_installed/cmake/drake_example_add_test.cmake",
         "drake_cmake_installed_apt/cmake/drake_example_add_test.cmake",
     ),
+    (
+        "drake_cmake_installed/src/CMakeLists.txt",
+        "drake_cmake_installed_apt/src/CMakeLists.txt",
+    ),
+    (
+        "drake_bazel_download/apps/find_resource/find_resource_example.py",
+        "drake_bazel_external/apps/find_resource/find_resource_example.py",
+        "drake_cmake_external/drake_external_examples/src/find_resource/find_resource_example.py",
+        "drake_cmake_installed/src/find_resource/find_resource_example.py",
+        "drake_cmake_installed_apt/src/find_resource/find_resource_example.py",
+        "drake_pip/src/find_resource_example.py",
+        "drake_poetry/src/find_resource_example.py",
+    ),
+    (
+        "drake_bazel_download/apps/find_resource/find_resource_example.cc",
+        "drake_bazel_external/apps/find_resource/find_resource_example.cc",
+        "drake_cmake_external/drake_external_examples/src/find_resource/find_resource_example.cc",
+        "drake_cmake_installed/src/find_resource/find_resource_example.cc",
+        "drake_cmake_installed_apt/src/find_resource/find_resource_example.cc",
+    ),
+    (
+        "drake_cmake_external/drake_external_examples/src/particle/CMakeLists.txt",
+        "drake_cmake_installed/src/particle/CMakeLists.txt",
+        "drake_cmake_installed_apt/src/particle/CMakeLists.txt",
+    ),
+    (
+        "drake_cmake_external/drake_external_examples/src/simple_bindings/CMakeLists.txt",
+        "drake_cmake_installed/src/simple_bindings/CMakeLists.txt",
+    ),
+    (
+        "drake_cmake_external/drake_external_examples/src/simple_continuous_time_system/CMakeLists.txt",
+        "drake_cmake_installed/src/simple_continuous_time_system/CMakeLists.txt",
+        "drake_cmake_installed_apt/src/simple_continuous_time_system/CMakeLists.txt",
+    ),
+    (
+        "drake_bazel_download/apps/simple_continuous_time_system/simple_continuous_time_system.cc",
+        "drake_bazel_external/apps/simple_continuous_time_system/simple_continuous_time_system.cc",
+        "drake_cmake_external/drake_external_examples/src/simple_continuous_time_system/simple_continuous_time_system.cc",
+        "drake_cmake_installed/src/simple_continuous_time_system/simple_continuous_time_system.cc",
+        "drake_cmake_installed_apt/src/simple_continuous_time_system/simple_continuous_time_system.cc",
+    ),
 ) + tuple([
     (
+        f"drake_bazel_download/apps/particle/{path}",
+        f"drake_bazel_external/apps/particle/{path}",
+        f"drake_cmake_external/drake_external_examples/src/particle/{path}",
         f"drake_cmake_installed/src/particle/{path}",
-        f"drake_cmake_installed_apt/src/{path}",
+        f"drake_cmake_installed_apt/src/particle/{path}",
     )
     for path in [
-        "CMakeLists.txt",
         "particle.cc",
         "particle.h",
         "particle_test.cc",
     ]
 ]) + tuple([
     (
+        f"drake_cmake_external/drake_external_examples/src/simple_bindings/{path}",
+        f"drake_cmake_installed/src/simple_bindings/{path}",
+        f"drake_cmake_installed_apt/src/simple_bindings/{path}",
+    )
+    for path in [
+        "simple_bindings.cc",
+        "simple_bindings_test.py",
+    ]
+]) + tuple([
+    (
+        f"drake_bazel_download/apps/particle/{path}",
+        f"drake_bazel_external/apps/particle/{path}",
+        f"drake_cmake_external/drake_external_examples/src/particle/{path}",
         f"drake_cmake_installed/src/particle/{path}",
-        f"drake_cmake_installed_apt/src/{path}",
+        f"drake_cmake_installed_apt/src/particle/{path}",
         f"drake_pip/src/{path}",
         f"drake_poetry/src/{path}",
     )

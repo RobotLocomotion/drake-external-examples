@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: MIT-0
+
+drake_example_add_executable(simple_continuous_time_system simple_continuous_time_system.cc)
+drake_example_add_cc_test(NAME simple_continuous_time_system
+  COMMAND simple_continuous_time_system
+)

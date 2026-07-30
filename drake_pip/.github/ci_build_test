@@ -17,6 +17,7 @@ export PYTHONWARNINGS=error
 
 cd src
 python3 particle_test.py
+python3 find_resource_example.py 
 
 cd ..
 deactivate

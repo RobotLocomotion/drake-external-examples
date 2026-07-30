@@ -1,1 +1,1 @@
-../../../drake_cmake_external/drake_external_examples/simple_continuous_time_system.cc
+../../../drake_cmake_external/drake_external_examples/src/simple_continuous_time_system/simple_continuous_time_system.cc

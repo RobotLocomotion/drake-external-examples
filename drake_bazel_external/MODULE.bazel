@@ -69,3 +69,14 @@ use_repo(
     drake_dep_repositories,
     "eigen",
 )
+
+# Get googletest.
+bazel_dep(name = "googletest", version = "1.17.0")
+single_version_override(
+    module_name = "googletest",
+    version = "1.17.0",
+    patches = [
+        "//thirdparty/googletest:patches/upstream/rules_cc.patch",
+    ],
+    patch_strip = 1,
+)

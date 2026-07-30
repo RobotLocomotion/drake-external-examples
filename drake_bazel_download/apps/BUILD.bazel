@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: MIT-0
 
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
-load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_test.bzl", "py_test")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 # Make a simple Python application.
@@ -20,25 +22,6 @@ cc_test(
     deps = [
         "@drake//:drake_shared_library",
     ],
-)
-
-# This ensures that downstream Bazel projects can use Drake's `find_resource`
-# functionality without needing to resort to environment variables.
-py_test(
-    name = "find_resource_py_test",
-    main = "find_resource_test.py",
-    srcs = ["find_resource_test.py"],
-    deps = [
-        "@drake//:pydrake",
-    ],
-)
-
-cc_test(
-    name = "find_resource_cc_test",
-    srcs = ["find_resource_test.cc"],
-    deps = [
-        "@drake//:drake_shared_library",
-    ]
 )
 
 sh_test(
