@@ -17,6 +17,7 @@ export PYTHONWARNINGS=error
 
 cd src
 poetry run python particle_test.py
+poetry run python find_resource_example.py
 
 cd ..
 rm -rf src/__pycache__

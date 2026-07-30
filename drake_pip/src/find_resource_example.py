@@ -1,9 +1,6 @@
 # SPDX-License-Identifier: MIT-0
 
-"""
-Provides an example (and test) of finding resources with Python from a Bazel
-project.
-"""
+"""Test the Drake find resource API."""
 
 import logging
 

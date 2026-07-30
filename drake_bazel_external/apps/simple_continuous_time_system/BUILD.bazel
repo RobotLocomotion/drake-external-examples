@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: MIT-0
+
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
+
+# Compile a sample application.
+cc_test(
+    name = "simple_continuous_time_system",
+    srcs = ["simple_continuous_time_system.cc"],
+    deps = [
+        "@drake//systems/analysis",
+        "@drake//systems/framework",
+    ],
+    size = "small",
+)
