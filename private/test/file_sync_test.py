@@ -14,6 +14,21 @@ import sys
 from pathlib import Path
 import ruamel.yaml
 
+BAZEL_EXAMPLE_ROOTS = [
+    "drake_bazel_download/apps",
+    "drake_bazel_external/apps",
+]
+
+CMAKE_EXAMPLE_ROOTS = [
+    "drake_cmake_external/drake_external_examples/src",
+    "drake_cmake_installed/src",
+    "drake_cmake_installed_apt/src",
+]
+
+CPP_EXAMPLE_ROOTS = BAZEL_EXAMPLE_ROOTS + CMAKE_EXAMPLE_ROOTS
+
+PY_EXAMPLE_ROOTS = ["drake_pip/src", "drake_poetry/src"]
+
 COPIES = (
     (
         "drake_bazel_download/.clang-format",
@@ -52,32 +67,70 @@ COPIES = (
         "drake_bazel_external/.bazelversion",
     ),
     (
-        "drake_cmake_external/drake_external_examples/cmake/drake_example_add_target.cmake",
-        "drake_cmake_installed_apt/cmake/drake_example_add_target.cmake",
+        "drake_cmake_installed/src/CMakeLists.txt",
+        "drake_cmake_installed_apt/src/CMakeLists.txt",
     ),
-    (
-        "drake_cmake_external/drake_external_examples/cmake/drake_example_add_test.cmake",
-        "drake_cmake_installed/cmake/drake_example_add_test.cmake",
-        "drake_cmake_installed_apt/cmake/drake_example_add_test.cmake",
-    ),
+    tuple([
+        f"{example_root}/find_resource/find_resource_example.py"
+        for example_root in CPP_EXAMPLE_ROOTS
+    ] + [
+        f"{example_root}/find_resource_example.py"
+        for example_root in PY_EXAMPLE_ROOTS
+    ]),
+    tuple([
+        f"{example_root}/find_resource/find_resource_example.cc"
+        for example_root in CPP_EXAMPLE_ROOTS
+    ]),
+    tuple([
+        f"{example_root}/particle/CMakeLists.txt"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ]),
+    tuple([
+        f"{example_root}/simple_bindings/CMakeLists.txt"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ]),
+    tuple([
+        f"{example_root}/simple_continuous_time_system/CMakeLists.txt"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ]),
+    tuple([
+        f"{example_root}/simple_continuous_time_system/simple_continuous_time_system.cc"
+        for example_root in CPP_EXAMPLE_ROOTS
+    ]),
 ) + tuple([
-    (
-        f"drake_cmake_installed/src/particle/{path}",
-        f"drake_cmake_installed_apt/src/{path}",
-    )
+    tuple([
+        f"{example_root}/../cmake/{path}"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ])
     for path in [
-        "CMakeLists.txt",
+        "drake_example_add_target.cmake",
+        "drake_example_add_test.cmake",
+    ]
+]) + tuple([
+    tuple([
+        f"{example_root}/particle/{path}"
+        for example_root in CPP_EXAMPLE_ROOTS
+    ])
+    for path in [
         "particle.cc",
         "particle.h",
         "particle_test.cc",
     ]
 ]) + tuple([
-    (
-        f"drake_cmake_installed/src/particle/{path}",
-        f"drake_cmake_installed_apt/src/{path}",
-        f"drake_pip/src/{path}",
-        f"drake_poetry/src/{path}",
-    )
+    tuple([
+        f"{example_root}/simple_bindings/{path}"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ])
+    for path in [
+        "simple_bindings.cc",
+        "simple_bindings_test.py",
+    ]
+]) + tuple([
+    tuple([
+        f"{example_root}/particle/{path}" for example_root in CPP_EXAMPLE_ROOTS
+    ] + [
+        f"{example_root}/{path}" for example_root in PY_EXAMPLE_ROOTS
+    ])
     for path in [
         "particle.py",
         "particle_test.py",

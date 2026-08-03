@@ -13,23 +13,18 @@ find_package(Python3
   COMPONENTS Interpreter Development
 )
 
-drake_example_add_executable(simple_continuous_time_system
-  simple_continuous_time_system.cc
-)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-drake_example_add_cc_test(NAME simple_continuous_time_system
-  COMMAND simple_continuous_time_system
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
+  URL_HASH SHA256=65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c
+  TLS_VERIFY ON
 )
-drake_example_add_py_test(NAME import_all_test COMMAND
-  "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/import_all_test.py"
-)
+FetchContent_MakeAvailable(googletest)
 
-drake_example_add_py_test(NAME solver_disabled_test
-  COMMAND Python3::Interpreter -B -m unittest solver_disabled_test
-)
-set_tests_properties(solver_disabled_test PROPERTIES
-  LABELS small
-  REQUIRED_FILES "${CMAKE_CURRENT_SOURCE_DIR}/solver_disabled_test.py"
-  TIMEOUT 60
-  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-)
+add_subdirectory(src)

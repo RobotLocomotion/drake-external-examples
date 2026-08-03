@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT-0
+
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_test.bzl", "py_test")
+
+cc_library(
+    name = "particle",
+    srcs = ["particle.cc"],
+    hdrs = ["particle.h"],
+    deps = [
+        "@drake//:drake_shared_library",
+    ],
+)
+
+cc_test(
+    name = "particle_test",
+    srcs = ["particle_test.cc"],
+    deps = [
+        ":particle",
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+    ],
+)
+
+# Mimic the C++ test in python.
+py_library(
+    name = "particle_py",
+    srcs = ["particle.py"],
+    deps = ["@drake//:pydrake"],
+    imports = ["."],
+)
+
+py_test(
+    name = "python_particle_test",
+    srcs = ["particle_test.py"],
+    main = "particle_test.py",
+    deps = [":particle_py"],
+    imports = ["."],
+)

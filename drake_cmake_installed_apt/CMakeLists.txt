@@ -7,7 +7,8 @@ include(CTest)
 include(cmake/drake_example_add_target.cmake)
 include(cmake/drake_example_add_test.cmake)
 
-find_package(drake CONFIG REQUIRED PATHS /opt/drake)
+list(APPEND CMAKE_PREFIX_PATH /opt/drake)
+find_package(drake CONFIG REQUIRED PATHS)
 find_package(Python3
   ${drake_PYTHON_VERSION} EXACT REQUIRED
   COMPONENTS Interpreter Development
