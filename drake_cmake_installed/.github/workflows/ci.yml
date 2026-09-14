@@ -17,7 +17,7 @@ on:
         description: 'Drake linux-noble-*-packaging .tar.gz artifact URL'
         required: false
       mac_package_tar:
-        description: 'Drake mac-arm-sequoia-*-packaging .tar.gz artifact URL'
+        description: 'Drake mac-arm-tahoe-*-packaging .tar.gz artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.

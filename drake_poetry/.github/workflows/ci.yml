@@ -17,7 +17,7 @@ on:
         description: 'Drake linux-noble-*-wheel-*-release Python 3.12 artifact URL'
         required: false
       mac_wheel:
-        description: 'Drake mac-arm-sequoia-*-wheel-*-release Python 3.14 artifact URL'
+        description: 'Drake mac-arm-tahoe-*-wheel-*-release Python 3.14 artifact URL'
         required: false
 concurrency:
   # Cancel previous CI runs when additional commits are added to a pull request.
