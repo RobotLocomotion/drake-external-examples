@@ -50,6 +50,13 @@ build --action_env=CCACHE_DISABLE=1
 # https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
 build --@drake//tools/flags:public_repo_default=pkgconfig
 
+# Build pydrake and our own bindings with nanobind instead of pybind11. A
+# downstream binding module must use the same binder as pydrake to interoperate,
+# so opting in here keeps our simple_adder bindings aligned with pydrake. Drake's
+# default is still pybind11 today but will switch to nanobind; see
+# https://github.com/RobotLocomotion/drake/issues/21572.
+build --@drake//tools/flags:python_binder=nanobind
+
 # On Linux we expected to be using -fuse-ld=lld to link (per @rules_cc), so we
 # must dial back its default per-process thread count of 16 down to something
 # less likely to overload the system.

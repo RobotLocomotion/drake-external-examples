@@ -58,6 +58,7 @@ pybind_py_library(
         ":simple_adder",
         "@drake//bindings/pydrake/common:cpp_template_pybind",
         "@drake//bindings/pydrake/common:default_scalars_pybind",
+        "@drake//bindings/pydrake:pydrake_pybind",
     ],
     py_deps = ["@drake//bindings/pydrake"],
     py_imports = ["."],
