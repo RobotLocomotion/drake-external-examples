@@ -10,7 +10,7 @@ include(cmake/drake_example_add_test.cmake)
 find_package(drake CONFIG REQUIRED)
 find_package(Python3
   ${drake_PYTHON_VERSION} EXACT REQUIRED
-  COMPONENTS Interpreter Development
+  COMPONENTS Interpreter Development.Module
 )
 
 set(CMAKE_CXX_EXTENSIONS OFF)
