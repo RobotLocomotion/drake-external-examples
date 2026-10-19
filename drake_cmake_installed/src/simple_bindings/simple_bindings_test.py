@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT-0
 
 """
-Provides an example of using pybind11-bound Drake C++ system with pydrake.
+Provides an example of using nanobind-bound Drake C++ system with pydrake.
 """
 
 from __future__ import print_function
