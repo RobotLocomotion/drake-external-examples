@@ -54,6 +54,7 @@ case "$OSTYPE" in
     ${maybe_sudo} apt-get update
     ${maybe_sudo} apt-get install --no-install-recommends $(cat <<EOF
       ca-certificates
+      git
       wget
 EOF
     )
