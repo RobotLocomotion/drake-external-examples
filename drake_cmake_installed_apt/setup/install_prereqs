@@ -45,6 +45,7 @@ ${maybe_sudo} apt-get -qq update || (sleep 30; apt-get -qq update)
   build-essential \
   ca-certificates \
   cmake \
+  git \
   python3-dev \
   wget
 
