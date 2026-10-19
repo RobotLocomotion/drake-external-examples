@@ -121,6 +121,11 @@ ExternalProject_Add(drake
     -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
     -DPYTHON_EXECUTABLE:FILEPATH=${Python3_EXECUTABLE}
+    # Build pydrake with nanobind so our own bindings (which must use the same
+    # binder as pydrake to interoperate) can link against it. Drake's default is
+    # still pybind11 today but will switch to nanobind; see
+    # https://github.com/RobotLocomotion/drake/issues/21572.
+    -DDRAKE_PYTHON_BINDER:STRING=nanobind
     -DWITH_USER_EIGEN:BOOL=ON
     -DWITH_USER_FMT:BOOL=ON
     -DWITH_USER_SPDLOG:BOOL=ON
