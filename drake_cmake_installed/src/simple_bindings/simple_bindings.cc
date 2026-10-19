@@ -3,14 +3,14 @@
 /**
  * @file
  * Provides an example of creating a simple Drake C++ system and binding it in
- * pybind11, to be used with pydrake.
+ * nanobind, to be used with pydrake.
  */
 
-#include <pybind11/pybind11.h>
+#include <nanobind/nanobind.h>
 
 #include <drake/systems/framework/leaf_system.h>
 
-namespace py = pybind11;
+namespace py = nanobind;
 
 using drake::systems::BasicVector;
 using drake::systems::Context;
@@ -41,10 +41,10 @@ class SimpleAdder : public LeafSystem<T> {
   const T add_{};
 };
 
-PYBIND11_MODULE(simple_bindings, m) {
+NB_MODULE(simple_bindings, m) {
   m.doc() = "Example module interfacing with pydrake and Drake C++";
 
-  py::module::import("pydrake.systems.framework");
+  py::module_::import_("pydrake.systems.framework");
 
   using T = double;
 
