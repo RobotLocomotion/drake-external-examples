@@ -20,8 +20,10 @@ function(drake_example_add_library target)
   target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
 endfunction()
 
-function(drake_example_pybind11_add_module target)
-  pybind11_add_module(${target} ${ARGN})
+# TODO(#21572): This should be shipped as part of drake
+function(drake_example_nanobind_add_module target)
+  # Match pydrake's nanobind so our module shares its type registry.
+  nanobind_add_module(${target} STABLE_ABI NB_DOMAIN pydrake ${ARGN})
   target_link_libraries(${target} PUBLIC drake::drake)
   target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
 endfunction()
