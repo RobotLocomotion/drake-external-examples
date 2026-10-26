@@ -31,7 +31,7 @@ you can specify the correct version as an optional argument
 to the script. For example, to use `python3.14`, call:
 
 ```bash
-setup/setup_env --python-version 3.14
+setup/install_prereqs --python-version 3.14
 ```
 
 Refer to the
