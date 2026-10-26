@@ -12,12 +12,15 @@ poetry --version
 #     list and shadows PYTHONWARNINGS=error for this category.
 #   PYTHONWARNINGS=error so any other Python warning is also promoted
 #     to a test failure.
-export DRAKE_DEPRECATION_RUNTIME_SEVERITY=error
-export PYTHONWARNINGS=error
-
+# We scope the environment variables to the inner python via `env` rather than
+# exporting them, because `poetry` itself calls a deprecated importlib.resources
+# API and would abort under PYTHONWARNINGS=error before it could launch the
+# test. See https://github.com/RobotLocomotion/drake/issues/25134.
 cd src
-poetry run python particle_test.py
-poetry run python find_resource_example.py
+poetry run env DRAKE_DEPRECATION_RUNTIME_SEVERITY=error \
+  PYTHONWARNINGS=error python particle_test.py
+poetry run env DRAKE_DEPRECATION_RUNTIME_SEVERITY=error \
+  PYTHONWARNINGS=error python find_resource_example.py
 
 cd ..
 rm -rf src/__pycache__
