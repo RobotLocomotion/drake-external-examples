@@ -108,6 +108,14 @@ COPIES = (
     ]
 ]) + tuple([
     tuple([
+        f"{example_root}/../patches/{path}"
+        for example_root in CMAKE_EXAMPLE_ROOTS
+    ])
+    for path in [
+        "nanobind-stable-abi-linux.patch",
+    ]
+]) + tuple([
+    tuple([
         f"{example_root}/particle/{path}"
         for example_root in CPP_EXAMPLE_ROOTS
     ])
