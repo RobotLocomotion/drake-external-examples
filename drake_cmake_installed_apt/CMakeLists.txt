@@ -11,7 +11,17 @@ list(APPEND CMAKE_PREFIX_PATH /opt/drake)
 find_package(drake CONFIG REQUIRED PATHS)
 find_package(Python3
   ${drake_PYTHON_VERSION} EXACT REQUIRED
-  COMPONENTS Interpreter Development
+  COMPONENTS Interpreter Development.Module
+)
+
+# nanobind resolves Python through the unversioned `Python::Module` target
+# (distinct from the versioned `Python3` above). Find it in this (parent) scope
+# so the target is visible where nanobind_add_module builds the extension in
+# src/simple_bindings. Development.SABIModule provides the `Python::SABIModule`
+# target that nanobind's STABLE_ABI (abi3) mode needs for pydrake interop.
+find_package(Python
+  ${drake_PYTHON_VERSION} EXACT REQUIRED
+  COMPONENTS Interpreter Development.Module Development.SABIModule
 )
 
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -27,5 +37,30 @@ FetchContent_Declare(
   TLS_VERIFY ON
 )
 FetchContent_MakeAvailable(googletest)
+
+# Drake uses upstream nanobind and does not ship it, so downstream projects must
+# provide their own copy that is ABI-compatible with pydrake. That requires a
+# matching nanobind ABI version (see nanobind's FAQ on inter-extension type
+# visibility, and its changelog for ABI-version info). Pinning the same version
+# Drake builds against is the simplest way to guarantee it.
+# Here we fetch and build it as part of the CMake build. A project with its own
+# dependency infrastructure (pip, conan, vcpkg, a system package, ...) can
+# instead delete this block and use
+# `find_package(nanobind ${drake_NANOBIND_VERSION} CONFIG REQUIRED)`.
+# Drake publishes the version it builds against as drake_NANOBIND_VERSION; we
+# cross-check our pinned version against it so a mismatch fails loudly.
+set(NANOBIND_VERSION 3.1.0)
+if(NOT NANOBIND_VERSION VERSION_EQUAL drake_NANOBIND_VERSION)
+  message(FATAL_ERROR
+    "drake was built against nanobind ${drake_NANOBIND_VERSION}, but this "
+    "example pins ${NANOBIND_VERSION}; update the version and URL hash below.")
+endif()
+FetchContent_Declare(
+  nanobind
+  URL https://files.pythonhosted.org/packages/c7/1f/e28fae715401e8f57400e72aeaff4fde12046d31828164f34f61f0816da8/nanobind-${NANOBIND_VERSION}.tar.gz
+  URL_HASH SHA256=6661e3dc1434d78781ccf7913442d90361dab395c3424efadb63bbb6ddea7ea3
+  TLS_VERIFY ON
+)
+FetchContent_MakeAvailable(nanobind)
 
 add_subdirectory(src)

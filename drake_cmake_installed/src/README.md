@@ -8,7 +8,7 @@
   [Simple Continuous Time System](simple_continuous_time_system/): The
   "hello world" examples for the `drake::systems` classes.
 * [Simple Bindings](simple_bindings/): Creates a simple Drake C++ system and
-  binds it in `pybind11`, to be used with `pydrake`.
+  binds it in `nanobind`, to be used with `pydrake`.
 
 ##  How do I run it?
 
