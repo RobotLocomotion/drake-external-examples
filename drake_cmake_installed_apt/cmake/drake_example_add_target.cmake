@@ -20,8 +20,9 @@ function(drake_example_add_library target)
   target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
 endfunction()
 
-function(drake_example_pybind11_add_module target)
-  pybind11_add_module(${target} ${ARGN})
+function(drake_example_nanobind_add_module target)
+  # Use the ABI options drake publishes so our module shares pydrake's registry.
+  nanobind_add_module(${target} ${drake_NB_OPTIONS} ${ARGN})
   target_link_libraries(${target} PUBLIC drake::drake)
   target_compile_options(${target} PRIVATE -Werror=deprecated-declarations)
 endfunction()
